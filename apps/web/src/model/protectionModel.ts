@@ -243,8 +243,8 @@ export function computeProtection(
     if (!cat || part.hidden) continue;
     const key = (id: string) => partPortKey(part.id, id);
     let spec: OcpdSpec | undefined;
-    let line: string[] = [];
-    let load: string[] = [];
+    let line: string[];
+    let load: string[];
     let extra: Issue[] = [];
     if (isCategory(cat, "din-device")) {
       const pr = cat.protection;
