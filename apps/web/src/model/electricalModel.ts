@@ -10,6 +10,8 @@ import {
   ampacity,
   checkCable,
   checkCableRun,
+  checkBatteryCurrents,
+  checkInverterCapacity,
   checkMppt,
   conductorAdequate,
   issue,
@@ -35,7 +37,9 @@ import { catalogById, getPart } from "../app/catalog";
 import { moduleFit } from "../app/pvModels";
 import type { CableInstance, ProjectFile, StringInstance } from "../project/projectFile";
 import type { ArrayComputed } from "./arrayModel";
-import { allPorts, parsePortKey, type PortInfo, type PortKey } from "./ports";
+import { allPorts, parsePortKey, partPortKey, type PortInfo, type PortKey } from "./ports";
+import { buildNets, type NetGraph } from "./nets";
+import type { DeviceLink } from "./deviceLinks";
 import { orthogonalRoute, polylineLength } from "./routing";
 import { connectorPairsInLoop, internalPorts, stringEnds } from "./strings";
 
@@ -101,12 +105,25 @@ export interface InverterComputed {
   mppts: MpptComputed[];
   dcPowerW: number;
   dcAcRatio: number | undefined;
-  battery: { partId: string; part: Battery; ok: boolean } | undefined;
+  /** Battery (bank) reached from BAT +/−: count in parallel, loop resistance of the cables, fused or not. */
+  battery:
+    | {
+        partId: string;
+        part: Battery;
+        ok: boolean;
+        count: number;
+        loopROhm: number;
+        fused: boolean;
+      }
+    | undefined;
+  /** Loads reached from the backed-up AC output. */
+  loads: { id: string; name: string; powerW: number; surgeMultiplier: number }[];
   issues: Issue[];
 }
 
 export interface ElectricalModel {
   ports: Map<PortKey, PortInfo>;
+  nets: NetGraph;
   cables: Map<string, CableComputed>;
   strings: Map<string, StringComputed>;
   inverters: Map<string, InverterComputed>;
@@ -154,6 +171,7 @@ export function computeElectrical(
   p: ProjectFile,
   arrays: ReadonlyMap<string, ArrayComputed>,
   profile: CodeProfile,
+  atsActive: ReadonlyMap<string, number | null> = new Map(),
 ): ElectricalModel {
   const ports = allPorts(p, arrays);
   const issues: Issue[] = [];
@@ -237,8 +255,9 @@ export function computeElectrical(
     cables.set(c.id, cc);
     for (const k of [c.from, c.to]) cablesAt.set(k, [...(cablesAt.get(k) ?? []), cc]);
   }
+  // MC4 ports take one mating connector; screw terminals and lugs may take several conductors
   for (const [k, n] of portUse) {
-    if (n > 1) {
+    if (n > 1 && ports.get(k)?.port.type === "mc4") {
       const pi = ports.get(k);
       const at = cablesAt.get(k) ?? [];
       issues.push(
@@ -252,10 +271,82 @@ export function computeElectrical(
       );
     }
   }
-  const otherEnd = (cc: CableComputed, k: PortKey) => (cc.cable.from === k ? cc.b : cc.a);
 
-  // ---------------------------------------------------------------- strings
-  const strings = new Map<string, StringComputed>();
+  // ---------------------------------------------------------------- nets (cables + closed devices)
+  const nets = buildNets(ports.keys(), p.cables, p.parts, atsActive);
+  const cablesInNet = (net: string) =>
+    (nets.cablesIn.get(net) ?? [])
+      .map((id) => cables.get(id))
+      .filter((c): c is CableComputed => !!c);
+  const netR = (net: string) => cablesInNet(net).reduce((a, c) => a + (c.rOhm ?? 0), 0);
+  const catalogOf = (partId: string) =>
+    catalogById.get(p.parts.find((x) => x.id === partId)?.catalogId ?? "");
+  const noAts = (l: DeviceLink) => l.role !== "ats";
+  /** First port matching `want` reachable from `from` through closed devices (not ATS), with the path. */
+  const findReachable = (from: PortKey, want: (pi: PortInfo) => boolean) => {
+    for (const [net, path] of nets.reach(nets.netOf(from), { through: noAts })) {
+      for (const k of nets.portsIn.get(net) ?? []) {
+        const pi = ports.get(k);
+        if (pi && k !== from && want(pi)) return { port: pi, path };
+      }
+    }
+    return undefined;
+  };
+  const isInverterPv = (pi: PortInfo) =>
+    pi.ownerKind === "part" &&
+    pi.port.type === "mc4" &&
+    !!pi.port.group?.startsWith("mppt") &&
+    !!getPart("inverter", catalogOf(pi.ownerId)?.id);
+  const sizeCable = (
+    cc: CableComputed,
+    kind: "pv-source" | "continuous",
+    currentA: number,
+    circuitMaxV: number,
+    vdPct: number | undefined,
+    circuit: "pv" | "battery",
+  ) => {
+    if (!cc.part) return;
+    cc.circuit = circuit;
+    cc.designCurrentA = currentA;
+    const cond = {
+      material: cc.part.wire.material,
+      insulationRatingC: cc.part.wire.insulationRatingC,
+      ambientC: temps.maxAmbientC,
+      currentCarryingConductors: WIRING.currentCarryingConductors,
+    };
+    const amp = ampacity({ ...cond, size: cc.part.wire.awg }, profile);
+    const req = requiredConductor({ ...cond, kind, currentA }, profile);
+    cc.ampacity = amp;
+    cc.vdPct = vdPct;
+    cc.issues.push(
+      ...checkCableRun({
+        cableId: cc.cable.id,
+        name: cc.cable.name,
+        allowableAmpacityA: amp?.allowableAmpacityA,
+        requiredOk: amp ? conductorAdequate(amp, req) : false,
+        cableMaxVoltageV: cc.part.wire.maxVoltageV,
+        circuitMaxVoltageV: circuitMaxV,
+        vdPct,
+        vdLimitPct: vdLimit,
+      }),
+    );
+  };
+
+  // ---------------------------------------------------------------- strings → MPPT (traced through combiners / DC breakers)
+  interface Draft {
+    s: StringInstance;
+    module: PvModule;
+    values: StringValues;
+    ends: { pos: PortKey; neg: PortKey };
+    posCable: CableComputed | undefined;
+    negCable: CableComputed | undefined;
+    mppt: StringComputed["mppt"];
+    polarityOk: boolean;
+    ownR: number;
+    sharedNets: string[];
+    hasDisconnect: boolean;
+  }
+  const drafts: Draft[] = [];
   for (const s of p.strings) {
     const arr = arrays.get(s.arrayId);
     const module = arr ? getPart("pv-module", arr.array.moduleId) : undefined;
@@ -269,88 +360,83 @@ export function computeElectrical(
       fit.ok ? fit.params : undefined,
     );
     const ends = stringEnds(s);
-    const posCable = cablesAt.get(ends.pos)?.[0];
-    const negCable = cablesAt.get(ends.neg)?.[0];
-    const P = posCable ? otherEnd(posCable, ends.pos) : undefined;
-    const N = negCable ? otherEnd(negCable, ends.neg) : undefined;
-    let mppt: StringComputed["mppt"];
-    if (
-      P &&
-      N &&
-      P.ownerKind === "part" &&
-      P.ownerId === N.ownerId &&
-      P.port.group &&
-      P.port.group === N.port.group
-    ) {
-      mppt = { partId: P.ownerId, group: P.port.group };
-    }
-    const polarityOk = !mppt || (P!.port.polarity === "+" && N!.port.polarity === "-");
-    const wireR = (posCable?.rOhm ?? 0) + (negCable?.rOhm ?? 0);
-    const loopROhm = wireR + connectorPairsInLoop(s.modules.length) * MC4_PAIR_RESISTANCE_OHM;
+    const P = findReachable(ends.pos, isInverterPv);
+    const N = findReachable(ends.neg, isInverterPv);
+    const mppt =
+      P && N && P.port.ownerId === N.port.ownerId && P.port.port.group === N.port.port.group
+        ? { partId: P.port.ownerId, group: P.port.port.group! }
+        : undefined;
+    const posNet = nets.netOf(ends.pos);
+    const negNet = nets.netOf(ends.neg);
+    drafts.push({
+      s,
+      module,
+      values,
+      ends,
+      posCable: cablesInNet(posNet)[0],
+      negCable: cablesInNet(negNet)[0],
+      mppt,
+      polarityOk: !mppt || (P!.port.port.polarity === "+" && N!.port.port.polarity === "-"),
+      ownR: netR(posNet) + netR(negNet),
+      sharedNets: [
+        ...new Set([...(P?.path.nets.slice(1) ?? []), ...(N?.path.nets.slice(1) ?? [])]),
+      ],
+      hasDisconnect: [...(P?.path.links ?? []), ...(N?.path.links ?? [])].some((l) => l.disconnect),
+    });
+  }
+  const strings = new Map<string, StringComputed>();
+  const sharedSized = new Set<string>();
+  for (const d of drafts) {
+    // strings on the same MPPT share every cable after their own home run
+    const peers = d.mppt
+      ? drafts.filter((x) => x.mppt?.partId === d.mppt!.partId && x.mppt.group === d.mppt!.group)
+      : [d];
+    const sharedR = d.sharedNets.reduce((a, n) => a + netR(n), 0);
+    const loopROhm =
+      d.ownR +
+      peers.length * sharedR +
+      connectorPairsInLoop(d.s.modules.length) * MC4_PAIR_RESISTANCE_OHM;
     const vdPct =
-      posCable && negCable ? ((values.impStcA * loopROhm) / values.vmpStcV) * 100 : undefined;
+      d.posCable && d.negCable
+        ? ((d.values.impStcA * loopROhm) / d.values.vmpStcV) * 100
+        : undefined;
     const sIssues: Issue[] = [];
-    if (!mppt) {
+    if (!d.mppt) {
       sIssues.push(
         issue(
           "warning",
           "STRING_INCOMPLETE",
-          `${s.name}: ${!posCable && !negCable ? "neither end is" : !posCable || !negCable ? "one end is not" : "the ends are not both"} cabled to the same MPPT input.`,
-          [s.id],
-          "Use “Connect to inverter” in the string inspector or draw both cables with the Cable tool.",
+          `${d.s.name}: ${!d.posCable && !d.negCable ? "neither end is" : !d.posCable || !d.negCable ? "one end is not" : "the ends do not both"} reach the same MPPT input.`,
+          [d.s.id],
+          "Use “Connect to inverter” in the string inspector, or cable both ends (through a combiner / DC breaker if used).",
         ),
       );
     }
-    // PV source circuit sizing on each home-run conductor
-    for (const cc of [posCable, negCable]) {
-      if (!cc || !cc.part) continue;
-      cc.circuit = "pv";
-      cc.designCurrentA = values.iscStcA;
-      const amp = ampacity(
-        {
-          material: cc.part.wire.material,
-          size: cc.part.wire.awg,
-          insulationRatingC: cc.part.wire.insulationRatingC,
-          ambientC: temps.maxAmbientC,
-          currentCarryingConductors: WIRING.currentCarryingConductors,
-        },
-        profile,
-      );
-      const req = requiredConductor(
-        {
-          kind: "pv-source",
-          currentA: values.iscStcA,
-          material: cc.part.wire.material,
-          insulationRatingC: cc.part.wire.insulationRatingC,
-          ambientC: temps.maxAmbientC,
-          currentCarryingConductors: WIRING.currentCarryingConductors,
-        },
-        profile,
-      );
-      cc.ampacity = amp;
-      cc.vdPct = vdPct;
-      cc.issues.push(
-        ...checkCableRun({
-          cableId: cc.cable.id,
-          name: cc.cable.name,
-          allowableAmpacityA: amp?.allowableAmpacityA,
-          requiredOk: amp ? conductorAdequate(amp, req) : false,
-          cableMaxVoltageV: cc.part.wire.maxVoltageV,
-          circuitMaxVoltageV: values.vocColdV,
+    for (const cc of [d.posCable, d.negCable])
+      if (cc) sizeCable(cc, "pv-source", d.values.iscStcA, d.values.vocColdV, vdPct, "pv");
+    for (const n of d.sharedNets) {
+      if (sharedSized.has(n)) continue;
+      sharedSized.add(n);
+      const iscSum = peers.reduce((a, x) => a + x.values.iscStcA, 0);
+      for (const cc of cablesInNet(n))
+        sizeCable(
+          cc,
+          "pv-source",
+          iscSum,
+          Math.max(...peers.map((x) => x.values.vocColdV)),
           vdPct,
-          vdLimitPct: vdLimit,
-        }),
-      );
+          "pv",
+        );
     }
-    strings.set(s.id, {
-      string: s,
-      module,
-      values,
-      ends,
-      posCable,
-      negCable,
-      mppt,
-      polarityOk,
+    strings.set(d.s.id, {
+      string: d.s,
+      module: d.module,
+      values: d.values,
+      ends: d.ends,
+      posCable: d.posCable,
+      negCable: d.negCable,
+      mppt: d.mppt,
+      polarityOk: d.polarityOk,
       loopROhm,
       vdPct,
       issues: sIssues,
@@ -379,7 +465,7 @@ export function computeElectrical(
     }
   }
 
-  // ---------------------------------------------------------------- inverters: MPPTs, operating point, battery
+  // ---------------------------------------------------------------- inverters: MPPTs, operating point, battery, loads
   const inverters = new Map<string, InverterComputed>();
   for (const part of p.parts) {
     const inv = getPart("inverter", part.catalogId);
@@ -392,20 +478,21 @@ export function computeElectrical(
       );
       const label = `${inv.brand} ${short} MPPT${i + 1}`;
       const limits = mpptLimits(inv, i);
-      const iss = checkMppt({
-        inverterId: part.id,
-        label,
-        limits,
-        strings: attached.map((s) => ({
-          id: s.string.id,
-          name: s.string.name,
-          moduleId: s.module.id,
-          moduleMaxSystemVoltageV: s.module.electrical.maxSystemVoltageV,
-          values: s.values,
-          polarityOk: s.polarityOk,
-        })),
-      });
-      issues.push(...iss);
+      issues.push(
+        ...checkMppt({
+          inverterId: part.id,
+          label,
+          limits,
+          strings: attached.map((s) => ({
+            id: s.string.id,
+            name: s.string.name,
+            moduleId: s.module.id,
+            moduleMaxSystemVoltageV: s.module.electrical.maxSystemVoltageV,
+            values: s.values,
+            polarityOk: s.polarityOk,
+          })),
+        }),
+      );
       let operating: PvInputResult | undefined;
       const good = attached.filter((s) => s.polarityOk);
       if (good.length) {
@@ -452,88 +539,137 @@ export function computeElectrical(
         ),
       );
     }
+    const myDrafts = drafts.filter((d) => d.mppt?.partId === part.id);
+    if (
+      myDrafts.length &&
+      !inv.electrical.integratedDcDisconnect &&
+      !myDrafts.every((d) => d.hasDisconnect)
+    ) {
+      invIssues.push(
+        issue(
+          "warning",
+          "MISSING_DC_DISCONNECT",
+          `${inv.brand} ${short} has no built-in PV switch and not every string passes a DC disconnect.`,
+          [part.id],
+          "Add a combiner with a disconnect or a DC isolator before the inverter.",
+        ),
+      );
+    }
 
-    // battery: find a battery whose + and − reach this inverter's battery terminals
+    // battery (bank): batteries whose + reaches this inverter's BAT +
     let battery: InverterComputed["battery"];
-    const batPorts = inv.ports
-      .filter((pt) => pt.type === "battery-terminal")
-      .map((pt) => `p|${part.id}|${pt.id}`);
-    for (const k of batPorts) {
-      for (const cc of cablesAt.get(k) ?? []) {
-        const other = otherEnd(cc, k);
-        if (!other || other.ownerKind !== "part") continue;
-        const bat = getPart(
-          "battery",
-          catalogById.get(p.parts.find((x) => x.id === other.ownerId)?.catalogId ?? "")?.id,
-        );
-        if (!bat) continue;
-        const range = inv.electrical.battery;
+    const range = inv.electrical.battery;
+    const batPlus = inv.ports.find((pt) => pt.type === "battery-terminal" && pt.polarity === "+");
+    const batMinus = inv.ports.find((pt) => pt.type === "battery-terminal" && pt.polarity === "-");
+    if (batPlus && batMinus) {
+      const plusKey = partPortKey(part.id, batPlus.id);
+      const minusKey = partPortKey(part.id, batMinus.id);
+      const isBat = (pi: PortInfo) =>
+        pi.ownerKind === "part" &&
+        pi.port.type === "battery-terminal" &&
+        !!getPart("battery", catalogOf(pi.ownerId)?.id);
+      const plusPaths = [...nets.reach(nets.netOf(plusKey), { through: noAts })].flatMap(
+        ([net, path]) =>
+          (nets.portsIn.get(net) ?? [])
+            .map((k) => ports.get(k))
+            .filter((pi): pi is PortInfo => !!pi && isBat(pi))
+            .map((pi) => ({ pi, path })),
+      );
+      const minus = findReachable(minusKey, isBat);
+      const bankIds = [...new Set(plusPaths.map((x) => x.pi.ownerId))];
+      const first = plusPaths[0] ?? (minus ? { pi: minus.port, path: minus.path } : undefined);
+      if (first) {
+        const bat = getPart("battery", catalogOf(first.pi.ownerId)?.id)!;
+        const count = Math.max(1, bankIds.length);
         const ok =
           !!range && bat.electrical.nominalV >= range.minV && bat.electrical.nominalV <= range.maxV;
-        if (!battery) {
-          battery = { partId: other.ownerId, part: bat, ok };
-          if (!ok) {
-            invIssues.push(
-              issue(
-                "error",
-                "BATTERY_VOLTAGE",
-                range
-                  ? `${bat.model} (${bat.electrical.nominalV} V) is outside the ${inv.brand} ${short} battery range ${range.minV}–${range.maxV} V.`
-                  : `${inv.brand} ${short} has no battery input.`,
-                [part.id, other.ownerId],
-                "Use a battery (bank) whose nominal voltage fits the inverter.",
-              ),
-            );
-          }
+        const pathNets = [...new Set([...(first.path.nets ?? []), ...(minus?.path.nets ?? [])])];
+        const loopROhm = pathNets.reduce((a, n) => a + netR(n), 0);
+        const fused =
+          plusPaths.length > 0 &&
+          plusPaths.every((x) => x.path.links.some((l) => l.role === "ocpd"));
+        battery = { partId: first.pi.ownerId, part: bat, ok, count, loopROhm, fused };
+        if (!ok) {
+          invIssues.push(
+            issue(
+              "error",
+              "BATTERY_VOLTAGE",
+              range
+                ? `${bat.model} (${bat.electrical.nominalV} V) is outside the ${inv.brand} ${short} battery range ${range.minV}–${range.maxV} V.`
+                : `${inv.brand} ${short} has no battery input.`,
+              [part.id, first.pi.ownerId],
+              "Use a battery (bank) whose nominal voltage fits the inverter.",
+            ),
+          );
         }
-        // battery cable sizing at the inverter's maximum discharge current
-        if (cc.part && range) {
-          cc.circuit = "battery";
-          cc.designCurrentA = range.maxDischargeCurrentA;
-          const amp = ampacity(
-            {
-              material: cc.part.wire.material,
-              size: cc.part.wire.awg,
-              insulationRatingC: cc.part.wire.insulationRatingC,
-              ambientC: temps.maxAmbientC,
-              currentCarryingConductors: WIRING.currentCarryingConductors,
-            },
-            profile,
+        if (!fused) {
+          invIssues.push(
+            issue(
+              "error",
+              "MISSING_BATTERY_OCPD",
+              `No fuse or breaker between ${bat.model} + and the ${inv.brand} ${short} BAT + terminal.`,
+              [part.id, first.pi.ownerId],
+              "Add a Class T fuse or a DC battery breaker close to the battery +.",
+            ),
           );
-          const req = requiredConductor(
-            {
-              kind: "continuous",
-              currentA: range.maxDischargeCurrentA,
-              material: cc.part.wire.material,
-              insulationRatingC: cc.part.wire.insulationRatingC,
-              ambientC: temps.maxAmbientC,
-              currentCarryingConductors: WIRING.currentCarryingConductors,
-            },
-            profile,
+        }
+        if (range) {
+          invIssues.push(
+            ...checkBatteryCurrents(
+              part.id,
+              `${inv.brand} ${short}`,
+              range.maxDischargeCurrentA,
+              range.maxChargeCurrentA,
+              {
+                id: first.pi.ownerId,
+                name: count > 1 ? `${count} × ${bat.model}` : bat.model,
+                maxDischargeA: bat.electrical.maxContinuousDischargeA * count,
+                maxChargeA: bat.electrical.maxContinuousChargeA * count,
+              },
+            ),
           );
-          cc.ampacity = amp;
-          const loopR = (cablesAt.get(k) ?? []).length
-            ? batPorts
-                .flatMap((bk) => cablesAt.get(bk) ?? [])
-                .reduce((s2, x) => s2 + (x.rOhm ?? 0), 0)
-            : 0;
-          cc.vdPct = ((range.maxDischargeCurrentA * loopR) / bat.electrical.nominalV) * 100;
-          cc.issues.push(
-            ...checkCableRun({
-              cableId: cc.cable.id,
-              name: cc.cable.name,
-              allowableAmpacityA: amp?.allowableAmpacityA,
-              requiredOk: amp ? conductorAdequate(amp, req) : false,
-              cableMaxVoltageV: cc.part.wire.maxVoltageV,
-              circuitMaxVoltageV:
+          const vd = ((range.maxDischargeCurrentA * loopROhm) / bat.electrical.nominalV) * 100;
+          for (const n of pathNets)
+            for (const cc of cablesInNet(n))
+              sizeCable(
+                cc,
+                "continuous",
+                range.maxDischargeCurrentA,
                 bat.electrical.bms?.overVoltageV ?? bat.electrical.nominalV * 1.15,
-              vdPct: cc.vdPct,
-              vdLimitPct: vdLimit,
-            }),
-          );
+                vd,
+                "battery",
+              );
         }
       }
     }
+
+    // loads on the backed-up output (through panel breakers and an active ATS)
+    const outPorts = inv.ports
+      .filter((pt) => pt.group === "ac-out")
+      .map((pt) => partPortKey(part.id, pt.id));
+    const loadIds = new Set<string>();
+    for (const k of outPorts) {
+      for (const [net] of nets.reach(nets.netOf(k))) {
+        for (const pk of nets.portsIn.get(net) ?? []) {
+          const pi = ports.get(pk);
+          if (pi?.ownerKind === "part" && getPart("load", catalogOf(pi.ownerId)?.id))
+            loadIds.add(pi.ownerId);
+        }
+      }
+    }
+    const loads = [...loadIds].map((id) => {
+      const l = getPart("load", catalogOf(id)?.id)!;
+      return { id, name: l.model, powerW: l.load.powerW, surgeMultiplier: l.load.surgeMultiplier };
+    });
+    invIssues.push(
+      ...checkInverterCapacity(
+        part.id,
+        `${inv.brand} ${short}`,
+        inv.electrical.ratedAcPowerW,
+        inv.electrical.surgePowerW,
+        loads,
+      ),
+    );
     issues.push(...invIssues);
     inverters.set(part.id, {
       partId: part.id,
@@ -542,13 +678,14 @@ export function computeElectrical(
       dcPowerW,
       dcAcRatio,
       battery,
+      loads,
       issues: invIssues,
     });
   }
 
   for (const s of strings.values()) issues.push(...s.issues);
   for (const c of cables.values()) issues.push(...c.issues);
-  return { ports, cables, strings, inverters, portUse, issues: dedupe(issues) };
+  return { ports, nets, cables, strings, inverters, portUse, issues: dedupe(issues) };
 }
 
 /** The same rule can be reported from a string and its MPPT (e.g. POLARITY); keep one. */

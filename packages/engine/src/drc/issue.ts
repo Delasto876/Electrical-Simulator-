@@ -272,6 +272,15 @@ export const ISSUE_CODES = {
     title: "Charge current above the battery limit",
     explain: "Charging above the battery's limit shortens its life; the BMS may disconnect.",
   },
+  BREAKER_POLARITY: {
+    title: "Polarity-sensitive breaker fed from the wrong side",
+    explain:
+      "Polarity-sensitive DC breakers only interrupt reliably when the source feeds the marked line terminals in the marked polarity.",
+  },
+  DIN_UNMOUNTED: {
+    title: "DIN device not mounted in an enclosure",
+    explain: "Breakers, isolators and SPDs must be mounted on a DIN rail inside an enclosure.",
+  },
 } as const;
 export type IssueCode = keyof typeof ISSUE_CODES;
 

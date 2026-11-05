@@ -118,7 +118,10 @@ describe("one string into an inverter (Phase 3 done-criterion)", () => {
     expect(mppt.limits.maxPvVoltageV).toBe(500);
     expect(mppt.operating!.pW).toBeGreaterThan(4500); // ~12 × 400 W minus wiring loss at STC
     expect(mppt.operating!.wiringLossW).toBeGreaterThan(0);
-    expect(s.issues.filter((i) => i.severity === "error")).toEqual([]);
+    // the only error is the Phase 4 grounding rule: this design has no ground rod yet
+    expect(s.issues.filter((i) => i.severity === "error").map((i) => i.code)).toEqual([
+      "MISSING_GROUND_ROD",
+    ]);
     expect(s.electrical.cables.size).toBe(2);
     expect([...s.electrical.cables.values()].every((c) => c.vdPct! > 0 && c.vdPct! < 2)).toBe(true);
     // BOM includes PV wire metres and four MC4 halves

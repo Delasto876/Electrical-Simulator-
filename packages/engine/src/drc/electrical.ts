@@ -229,19 +229,26 @@ function isDcPolarity(p: string): boolean {
   return p === "+" || p === "-";
 }
 
-/** Port types a cable may join (MC4 to MC4, lugs to battery/DC terminals, AC to AC, ground to ground). */
+/**
+ * Port-type pairs a cable may join (symmetric). A PV wire can carry a lug on
+ * one end and an MC4 on the other, so DC screw terminals mate with MC4 ports;
+ * MC4 never lands directly on a battery terminal.
+ */
+const CABLE_PAIRS: readonly [string, string][] = [
+  ["mc4", "mc4"],
+  ["mc4", "dc-terminal"],
+  ["dc-terminal", "dc-terminal"],
+  ["dc-terminal", "battery-terminal"],
+  ["dc-terminal", "dc-lug"],
+  ["battery-terminal", "battery-terminal"],
+  ["battery-terminal", "dc-lug"],
+  ["dc-lug", "dc-lug"],
+  ["ac-terminal", "ac-terminal"],
+  ["ground-point", "ground-point"],
+];
+
 export function compatibleThroughCable(a: string, b: string): boolean {
-  const family = (t: string) =>
-    t === "mc4"
-      ? "pv"
-      : t === "battery-terminal" || t === "dc-terminal" || t === "dc-lug"
-        ? "dc"
-        : t === "ac-terminal"
-          ? "ac"
-          : t === "ground-point"
-            ? "pe"
-            : t;
-  return family(a) === family(b);
+  return CABLE_PAIRS.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
 }
 
 export interface CableRunCheck {

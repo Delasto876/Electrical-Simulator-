@@ -1,6 +1,7 @@
 import { getCodeProfile, roofSurfaces, type RoofSpec, type WizardOption } from "@solar-sim/engine";
-import { DEFAULT_CABLE_FOR_PORT, SNAP } from "../config/defaults";
-import { getPart } from "../app/catalog";
+import { DEFAULT_BATTERY_CABLE, DEFAULT_CABLE_FOR_PORT, SNAP } from "../config/defaults";
+import { catalogById, getPart } from "../app/catalog";
+import { nextFreeSlot } from "../model/placement";
 import { defaultAttachmentFor, defaultMountingFor } from "../model/hardware";
 import { draftArray } from "../model/newArray";
 import { snap } from "../model/transforms";
@@ -13,7 +14,7 @@ import type {
   StringInstance,
 } from "../project/projectFile";
 import type { Draft } from "immer";
-import { modulePortKey, parsePortKey, partPortKey } from "../model/ports";
+import { modulePortKey, parsePortKey, partPortKey, portOwner } from "../model/ports";
 import { chunkStrings, internalPorts, stringEnds } from "../model/strings";
 import { useProject } from "./projectStore";
 import { useUi } from "./uiStore";
@@ -175,19 +176,21 @@ export function deleteSelection(): void {
   const item = list.find((x) => x.id === sel.id);
   if (!item || item.locked) return;
   commit(sel.kind === "array" ? "Delete array" : "Delete part", (d) => {
+    // an enclosure takes its mounted DIN devices with it
+    const gone = new Set([
+      sel.id,
+      ...d.parts.filter((p) => p.mount?.enclosureId === sel.id).map((p) => p.id),
+    ]);
     if (sel.kind === "array") {
       d.arrays = d.arrays.filter((a) => a.id !== sel.id);
       d.strings = d.strings.filter((s) => s.arrayId !== sel.id);
-    } else d.parts = d.parts.filter((p) => p.id !== sel.id);
-    d.cables = d.cables.filter((c) => ![c.from, c.to].some((k) => ownerOf(k) === sel.id));
+    } else d.parts = d.parts.filter((p) => !gone.has(p.id));
+    d.cables = d.cables.filter((c) => ![c.from, c.to].some((k) => gone.has(ownerOf(k) ?? "")));
   });
   useUi.getState().select(null);
 }
 
-function ownerOf(key: string): string | undefined {
-  const p = parsePortKey(key);
-  return p?.kind === "module" ? p.arrayId : p?.partId;
-}
+const ownerOf = portOwner;
 
 export function setFlag(
   kind: "array" | "part",
@@ -384,13 +387,14 @@ export function applyWizard(arrayId: string, partId: string, option: WizardOptio
 /** Draw a cable between two ports (cable tool). The conductor defaults by port type (config). */
 export function addCable(from: string, to: string, portType: string): string {
   const id = newId("cable");
+  const cableId = defaultCableId(from, to, portType);
   commit("Add cable", (d) => {
     d.cables.push({
       id,
       name: nextName("Cable", d.cables),
       from,
       to,
-      cableId: DEFAULT_CABLE_FOR_PORT[portType] ?? DEFAULT_CABLE_FOR_PORT.mc4!,
+      cableId,
       connectorFrom: null,
       connectorTo: null,
       lengthOverrideM: null,
@@ -419,3 +423,59 @@ export function deleteCable(id: string): void {
 }
 
 export { modulePortKey };
+
+/** Conductor for a new cable: battery cable when a battery, battery fuse or BAT terminal is involved, else by port type (config). */
+export function defaultCableId(from: string, to: string, portType: string): string {
+  const touchesBattery = [from, to].some((k) => {
+    const pk = parsePortKey(k);
+    if (pk?.kind !== "part") return false;
+    const cat = catalogById.get(project().parts.find((x) => x.id === pk.partId)?.catalogId ?? "");
+    return (
+      cat?.category === "battery" ||
+      cat?.category === "battery-protection" ||
+      pk.portId.startsWith("bat")
+    );
+  });
+  if (touchesBattery && portType !== "ground-point") return DEFAULT_BATTERY_CABLE;
+  return DEFAULT_CABLE_FOR_PORT[portType] ?? DEFAULT_CABLE_FOR_PORT.mc4!;
+}
+
+// ---------------------------------------------------------------- DIN rail
+
+/** Snap a DIN device into the first free slots of an enclosure. Returns the new part id, or undefined if it does not fit. */
+export function mountDevice(enclosureId: string, catalogId: string): string | undefined {
+  const p = project();
+  const enc = p.parts.find((x) => x.id === enclosureId);
+  const dev = getPart("din-device", catalogId);
+  if (!enc || !dev) return undefined;
+  const slot = nextFreeSlot(p, enc, dev.protection.modules);
+  if (!slot) return undefined;
+  const id = newId("part");
+  commit("Mount DIN device", (d) => {
+    d.parts.push({
+      id,
+      catalogId,
+      position: [...enc.position],
+      rotationYDeg: 0,
+      mount: { enclosureId, ...slot },
+      locked: false,
+      hidden: false,
+    });
+  });
+  useUi.getState().select({ kind: "part", id });
+  return id;
+}
+
+/** Replace a placed part's catalog item (e.g. a breaker for one with a higher kA rating), keeping its wiring. */
+export function swapPart(partId: string, catalogId: string): void {
+  commit("Swap part", (d) => {
+    const part = d.parts.find((x) => x.id === partId);
+    if (part) part.catalogId = catalogId;
+  });
+}
+
+/** Load a complete example design as a new project (the current one stays saved in the browser). */
+export function loadProject(p: ProjectFile): void {
+  useProject.getState().replace(p);
+  useUi.getState().select(null);
+}

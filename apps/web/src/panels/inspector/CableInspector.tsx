@@ -1,7 +1,7 @@
 import { ISSUE_CODES } from "@solar-sim/engine";
 import { partsOf } from "../../app/catalog";
 import { fmtM } from "../../lib/format";
-import { parsePortKey } from "../../model/ports";
+import { parsePortKey, portOwner } from "../../model/ports";
 import { deleteCable, updateCable } from "../../state/actions";
 import { useProject } from "../../state/projectStore";
 import { useSceneModel } from "../../scene/useSceneModel";
@@ -17,7 +17,7 @@ export function CableInspector({ id }: { id: string }) {
   /** Other ports on the same part/array as `key`, so an end can be moved to a neighbouring terminal. */
   const siblings = (key: string) => {
     const p = parsePortKey(key);
-    const owner = p?.kind === "module" ? p.arrayId : p?.partId;
+    const owner = portOwner(key);
     return [...scene.electrical.ports.values()].filter(
       (x) =>
         x.ownerId === owner &&

@@ -166,3 +166,13 @@ describe("checkCableRun", () => {
     expect(codes(checkCableRun({ ...base, vdPct: 2.5 }))).toEqual(["VOLTAGE_DROP"]);
   });
 });
+
+describe("compatibleThroughCable", () => {
+  it("allows lug-to-MC4 PV runs but not MC4 on a battery terminal", async () => {
+    const { compatibleThroughCable } = await import("./electrical");
+    expect(compatibleThroughCable("dc-terminal", "mc4")).toBe(true);
+    expect(compatibleThroughCable("battery-terminal", "dc-terminal")).toBe(true);
+    expect(compatibleThroughCable("mc4", "battery-terminal")).toBe(false);
+    expect(compatibleThroughCable("ac-terminal", "dc-terminal")).toBe(false);
+  });
+});

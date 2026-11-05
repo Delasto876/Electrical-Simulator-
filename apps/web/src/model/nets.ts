@@ -25,11 +25,12 @@ export interface NetGraph {
 }
 
 export function buildNets(
-  portKeys: Iterable<PortKey>,
+  portKeyIter: Iterable<PortKey>,
   cables: readonly CableInstance[],
   parts: readonly FreePart[],
   atsActive: ReadonlyMap<string, number | null>,
 ): NetGraph {
+  const portKeys = [...portKeyIter]; // iterated twice below (a Map key iterator is single-use)
   const uf = new UnionFind();
   for (const k of portKeys) uf.add(k);
   for (const c of cables) uf.union(c.from, c.to);

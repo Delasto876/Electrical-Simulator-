@@ -587,5 +587,67 @@
       "fineStrand": false,
       "sunlightResistant": true
     }
+  },
+  {
+    "id": "generic-battery-cable-250kcmil",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 250 kcmil, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 22.0,
+      "heightMm": 22.0
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 19.0,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "250 kcmil"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "250",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 22.0,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-350kcmil",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 350 kcmil, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 25.5,
+      "heightMm": 25.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 26.0,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "350 kcmil"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "350",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 25.5,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
   }
 ]

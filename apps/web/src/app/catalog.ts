@@ -1,7 +1,16 @@
 import {
   getBundledCatalog,
   isCategory,
+  type Ats,
   type Battery,
+  type BatteryProtection,
+  type CombinerBox,
+  type DinDevice,
+  type Enclosure,
+  type Generator,
+  type Grounding,
+  type Load,
+  type Utility,
   type Cable,
   type Connector,
   type Inverter,
@@ -34,6 +43,15 @@ export const CATEGORY_LABELS: Partial<Record<Part["category"], string>> = {
   "fastener-set": "Fasteners",
   cable: "Cables",
   connector: "Connectors (MC4)",
+  "combiner-box": "Combiner boxes",
+  enclosure: "DIN enclosures / panels",
+  "din-device": "DIN-rail breakers & devices (snap into a panel)",
+  "battery-protection": "Battery fuses & breakers",
+  ats: "Transfer switches (ATS)",
+  grounding: "Grounding & bonding",
+  utility: "Utility service",
+  generator: "Generators",
+  load: "Loads",
 };
 
 type ByCategory = {
@@ -47,6 +65,15 @@ type ByCategory = {
   "tilt-leg": TiltLeg;
   cable: Cable;
   connector: Connector;
+  "combiner-box": CombinerBox;
+  "din-device": DinDevice;
+  enclosure: Enclosure;
+  "battery-protection": BatteryProtection;
+  ats: Ats;
+  grounding: Grounding;
+  utility: Utility;
+  generator: Generator;
+  load: Load;
 };
 
 /** Typed lookup: `getPart("rail", id)` returns a Rail or undefined. */

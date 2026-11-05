@@ -42,6 +42,11 @@ interface UiState {
   exploded: boolean;
   drag: DragPreview;
   showShortcuts: boolean;
+  /** ATS scenario: sources the user has switched off (utility outage, generator stopped…). */
+  outages: string[];
+  /** View toggles: enclosures see-through; bonding colours (green bonded / red floating). */
+  xray: boolean;
+  bondingView: boolean;
   setTheme: (t: Theme) => void;
   setBottomTab: (t: BottomTab) => void;
   selectCatalogPart: (id: string | null) => void;
@@ -51,6 +56,9 @@ interface UiState {
   toggleExploded: () => void;
   setDrag: (d: DragPreview) => void;
   setShowShortcuts: (v: boolean) => void;
+  toggleOutage: (sourceId: string) => void;
+  toggleXray: () => void;
+  toggleBondingView: () => void;
 }
 
 function initialTheme(): Theme {
@@ -76,6 +84,9 @@ export const useUi = create<UiState>((set) => ({
   exploded: false,
   drag: null,
   showShortcuts: false,
+  outages: [],
+  xray: false,
+  bondingView: false,
   setTheme: (theme) => {
     try {
       localStorage.setItem("solar-sim:theme", theme);
@@ -92,4 +103,10 @@ export const useUi = create<UiState>((set) => ({
   toggleExploded: () => set((s) => ({ exploded: !s.exploded })),
   setDrag: (drag) => set({ drag }),
   setShowShortcuts: (showShortcuts) => set({ showShortcuts }),
+  toggleOutage: (id) =>
+    set((s) => ({
+      outages: s.outages.includes(id) ? s.outages.filter((x) => x !== id) : [...s.outages, id],
+    })),
+  toggleXray: () => set((s) => ({ xray: !s.xray })),
+  toggleBondingView: () => set((s) => ({ bondingView: !s.bondingView })),
 }));
