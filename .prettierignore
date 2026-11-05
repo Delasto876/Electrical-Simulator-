@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+**/dist
+**/coverage
+apps/web/public/models
+docs/screenshots
+**/playwright-report
+**/test-results

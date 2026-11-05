@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+playwright-report/
+test-results/
+apps/web/e2e/.cache/
+tools/blender/.venv/
+__pycache__/
+*.blend1
+.DS_Store

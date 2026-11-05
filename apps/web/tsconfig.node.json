@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "types": ["node"],
+    "noEmit": true,
+    "lib": ["ES2023", "DOM"]
+  },
+  "include": ["vite.config.ts", "playwright.config.ts", "e2e"]
+}

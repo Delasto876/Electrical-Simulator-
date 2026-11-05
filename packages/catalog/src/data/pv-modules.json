@@ -1,0 +1,67 @@
+[
+  {
+    "id": "generic-pv-400w-108hc",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-400 108-cell half-cut mono PERC",
+    "dimensions": { "lengthMm": 1722, "widthMm": 1134, "heightMm": 30 },
+    "weightKg": 21.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the module you install.",
+    "price": { "amount": 120, "currency": "USD", "unit": "each" },
+    "tags": ["400W", "108-cell", "half-cut", "mono-perc"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.861, 0.0, 0.4],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 400,
+      "vocV": 37.1,
+      "vmpV": 31.0,
+      "iscA": 13.79,
+      "impA": 12.9,
+      "tempCoeffPmaxPctPerC": -0.35,
+      "tempCoeffVocPctPerC": -0.27,
+      "tempCoeffIscPctPerC": 0.048,
+      "noctC": 45,
+      "cellCount": 108,
+      "cellsInSeries": 54,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 25,
+      "bypassDiodes": 3,
+      "cellType": "mono-perc",
+      "halfCut": true,
+      "bifacial": false,
+      "bifaciality": 0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [{ "edge": "long", "fromMm": 200, "toMm": 450 }]
+    }
+  }
+]
