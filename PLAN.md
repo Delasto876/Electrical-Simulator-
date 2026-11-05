@@ -46,8 +46,9 @@ manufacturer datasheets.
   lugs, ground rod clamp, ATS, meter, generator.
 - Every part renders through one `<PartModel>` wrapper: if the catalog entry has
   `modelUrl`, load the glb; otherwise use the procedural builder. Glb files are
-  modelled in metres, +Y up, origin at the mounting face, and carry named empties
-  `port:<id>` that the loader turns into typed ports.
+  modelled in metres, +Y up, origin at the mounting face, and carry Empties with a
+  `port_id` custom property (glTF extras) that the loader turns into typed ports.
+  Blender scripts read part sizes from the catalog JSON (single source of truth).
 - Generated glb files are committed under `apps/web/public/models/`. Scripts live
   in `tools/blender/parts/*.py`; `pnpm models` regenerates them (needs `bpy`).
 
@@ -70,13 +71,17 @@ active `CodeProfile`.
 .
 ├─ apps/web/                 Vite + React + R3F app
 │  ├─ public/models/         committed .glb exports from Blender
-│  ├─ src/{app,scene,panels,state,storage,styles}/
+│  ├─ src/config/            app defaults (one file)
+│  ├─ src/model/             pure glue: catalog + engine → derived scene
+│  ├─ src/state/             project store (undo) + actions.ts (every edit)
+│  ├─ src/{app,scene,parts,roofs,panels,storage,lib,styles}/
 │  └─ e2e/                   Playwright tests
 ├─ packages/engine/src/      pure TS physics, rules, profiles
 ├─ packages/catalog/src/     zod schemas, loaders; data/*.json
 ├─ tools/blender/            bpy scripts, requirements.txt, build_all.py
 ├─ docs/screenshots/         Playwright screenshots per phase
 ├─ .github/workflows/ci.yml  lint, typecheck, test, build, e2e
+├─ docs/CHANGE_GUIDE.md      where to change what (start here)
 ├─ PLAN.md  CLAUDE.md  DECISIONS.md  VERIFY.md  TODO.md  README.md
 ```
 

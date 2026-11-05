@@ -473,3 +473,251 @@ input[type="number"] {
     height: 280px;
   }
 }
+
+/* ---------- Phase 2: inspector, palette placement, issues, BOM, overlay ---------- */
+:root {
+  --error-bg: #fdecea;
+}
+:root[data-theme="dark"] {
+  --error: #ff6b5b;
+  --error-bg: #3a1714;
+}
+.project-name {
+  font: inherit;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 6px;
+  padding: 2px 6px;
+  min-width: 10ch;
+}
+.project-name:hover,
+.project-name:focus {
+  border-color: var(--border);
+}
+.toolbar-sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
+  margin: 0 4px;
+}
+.seg {
+  display: inline-flex;
+}
+.seg button {
+  border-radius: 0;
+  margin-left: -1px;
+}
+.seg button:first-child {
+  border-radius: 6px 0 0 6px;
+}
+.seg button:last-child {
+  border-radius: 0 6px 6px 0;
+}
+.toolbar button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.palette-row {
+  display: flex;
+  gap: 4px;
+  align-items: stretch;
+}
+.palette-row .palette-item {
+  flex: 1;
+  min-width: 0;
+}
+.place-btn {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: var(--panel);
+  border-radius: 6px;
+  padding: 0 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.place-btn.active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+.hint.small {
+  font-size: 11px;
+  margin: 0 0 4px;
+}
+.viewport-inner.placing canvas {
+  cursor: crosshair;
+}
+.insp-section {
+  margin-bottom: 14px;
+}
+.insp-field {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.insp-field select,
+.insp-field input[type="number"] {
+  width: 100%;
+}
+.insp-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.insp-row2 .insp-field {
+  grid-template-columns: 1fr 1fr;
+}
+.insp-inline {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--text);
+}
+.insp-inline input[type="number"] {
+  width: 7ch;
+}
+.insp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.insp-actions button,
+.overlay-card button {
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.insp-actions button.danger {
+  color: var(--error);
+  border-color: currentColor;
+}
+.insp-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.badge-error {
+  background: var(--error-bg);
+  color: var(--error);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+.issue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.issue {
+  border-left: 4px solid var(--border);
+  background: var(--panel-2);
+  border-radius: 4px;
+  font-size: 12px;
+}
+.issue-list.compact .issue {
+  padding: 6px 8px;
+}
+.issue.sev-error {
+  border-left-color: var(--error);
+}
+.issue.sev-warning {
+  border-left-color: var(--warn);
+}
+.issue.sev-info {
+  border-left-color: var(--accent);
+}
+.issue .sev {
+  font-weight: 700;
+}
+.issue.sev-error .sev {
+  color: var(--error);
+}
+.issue.sev-warning .sev {
+  color: var(--warn);
+}
+.issue-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 6px 8px;
+  cursor: pointer;
+  color: inherit;
+}
+.muted {
+  color: var(--muted);
+}
+.bom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.bom-table th,
+.bom-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.bom-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.bom-table .badge-unverified {
+  margin-left: 6px;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.overlay-card {
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 16px 20px;
+  width: min(520px, calc(100vw - 32px));
+  max-height: 80vh;
+  overflow: auto;
+}
+.overlay-card h2 {
+  margin-top: 0;
+  font-size: 16px;
+}
+kbd {
+  font-family: var(--mono);
+  font-size: 11px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 4px;
+  background: var(--panel-2);
+}
+.object-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}

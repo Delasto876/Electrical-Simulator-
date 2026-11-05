@@ -1,0 +1,54 @@
+[
+  {
+    "id": "generic-splice-internal",
+    "category": "rail-splice",
+    "brand": "Generic",
+    "model": "Internal rail splice (bonding)",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 0.25,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 4.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["internal", "splice"],
+    "ports": [],
+    "mounting": {
+      "kind": "internal",
+      "bonding": true,
+      "railProfiles": ["light", "standard", "heavy"]
+    }
+  },
+  {
+    "id": "generic-splice-external",
+    "category": "rail-splice",
+    "brand": "Generic",
+    "model": "External rail splice",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 0.25,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 3.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["external", "splice"],
+    "ports": [],
+    "mounting": {
+      "kind": "external",
+      "bonding": false,
+      "railProfiles": ["light", "standard", "heavy"]
+    }
+  }
+]

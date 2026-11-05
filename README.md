@@ -9,9 +9,16 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 1 (engine core).** See `PLAN.md` for the roadmap.
+**Status: Phase 2 (roof, panels and mounting hardware in 3D).** See `PLAN.md` for the roadmap.
+**Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![I–V curve demo](docs/screenshots/phase-1-iv-hot-laptop.png)
+![Tilted array on a flat roof](docs/screenshots/phase-2-flat-tilt-laptop.png)
+
+Phase 2 lets you edit the roof (mono-pitch, gable, flat slab, ground; corrugated,
+standing-seam, tile, shingle, concrete), place PV arrays with the array tool
+(click "Place" or drag a module onto the roof), and get every rail, splice,
+clamp, L-foot or tilt leg laid out automatically with a cut list, mechanical
+checks, a BOM with placeholder prices, undo/redo and browser autosave.
 
 The engine (`packages/engine`) currently provides: sun position (NOAA), the
 De Soto single-diode PV model with I–V/P–V curves, cell temperature (NOCT and
@@ -40,6 +47,8 @@ Then open http://localhost:5173. Other commands are in `CLAUDE.md`.
 | `tools/blender`    | Headless Blender scripts that generate part models (`.glb`) |
 
 ## How to add a part to the catalog
+
+(Short version below; the full set of recipes is in `docs/CHANGE_GUIDE.md`.)
 
 1. Pick the file in `packages/catalog/src/data/` for the category (or add one
    and include it in `data/index.ts`).

@@ -1,16 +1,50 @@
 import { create } from "zustand";
+import type { CameraPreset } from "../config/defaults";
 
+/**
+ * View-only state (not saved in the project, not undoable): selection, tool
+ * mode, camera, theme, transient drag previews.
+ */
 export type Theme = "light" | "dark";
 export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "timeline";
+
+export type Selection =
+  | { kind: "roof" }
+  | { kind: "array"; id: string }
+  | { kind: "derived"; arrayId: string; key: string; catalogId: string }
+  | { kind: "part"; id: string }
+  | null;
+
+export type Tool = { kind: "select" } | { kind: "place"; catalogId: string };
+
+/** Live position while dragging an array/part (committed on release). */
+export type DragPreview =
+  | { kind: "array"; id: string; uM: number; vM: number }
+  | { kind: "part"; id: string; x: number; z: number }
+  | null;
 
 interface UiState {
   theme: Theme;
   bottomTab: BottomTab;
-  /** Catalog part currently shown in the inspector (palette selection in Phase 0). */
+  /** Catalog part shown in the inspector when nothing in the scene is selected. */
   selectedCatalogId: string | null;
+  selection: Selection;
+  tool: Tool;
+  camera: CameraPreset;
+  /** Bumped to re-apply the camera preset even when it is unchanged. */
+  cameraNonce: number;
+  exploded: boolean;
+  drag: DragPreview;
+  showShortcuts: boolean;
   setTheme: (t: Theme) => void;
   setBottomTab: (t: BottomTab) => void;
   selectCatalogPart: (id: string | null) => void;
+  select: (s: Selection) => void;
+  setTool: (t: Tool) => void;
+  setCamera: (c: CameraPreset) => void;
+  toggleExploded: () => void;
+  setDrag: (d: DragPreview) => void;
+  setShowShortcuts: (v: boolean) => void;
 }
 
 function initialTheme(): Theme {
@@ -29,6 +63,13 @@ export const useUi = create<UiState>((set) => ({
   theme: initialTheme(),
   bottomTab: "issues",
   selectedCatalogId: null,
+  selection: null,
+  tool: { kind: "select" },
+  camera: "orbit",
+  cameraNonce: 0,
+  exploded: false,
+  drag: null,
+  showShortcuts: false,
   setTheme: (theme) => {
     try {
       localStorage.setItem("solar-sim:theme", theme);
@@ -38,5 +79,11 @@ export const useUi = create<UiState>((set) => ({
     set({ theme });
   },
   setBottomTab: (bottomTab) => set({ bottomTab }),
-  selectCatalogPart: (selectedCatalogId) => set({ selectedCatalogId }),
+  selectCatalogPart: (selectedCatalogId) => set({ selectedCatalogId, selection: null }),
+  select: (selection) => set({ selection }),
+  setTool: (tool) => set({ tool }),
+  setCamera: (camera) => set((s) => ({ camera, cameraNonce: s.cameraNonce + 1 })),
+  toggleExploded: () => set((s) => ({ exploded: !s.exploded })),
+  setDrag: (drag) => set({ drag }),
+  setShowShortcuts: (showShortcuts) => set({ showShortcuts }),
 }));

@@ -1,5 +1,6 @@
 export * from "./schema/common";
 export * from "./schema/electrical";
+export * from "./schema/mounting";
 export * from "./schema/part";
 export * from "./loader";
 export { bundledCatalogRaw } from "./data/index";

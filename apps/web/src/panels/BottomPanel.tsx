@@ -1,9 +1,11 @@
 import { useUi, type BottomTab } from "../state/uiStore";
 import { IvCurvePanel } from "./charts/IvCurvePanel";
 import { ConductorCalculator } from "./calcs/ConductorCalculator";
+import { BomTable } from "./results/BomTable";
+import { IssuesList } from "./results/IssuesList";
 
 const TABS: { id: BottomTab; label: string; phase: number }[] = [
-  { id: "issues", label: "Issues", phase: 3 },
+  { id: "issues", label: "Issues", phase: 2 },
   { id: "calculations", label: "Calculations", phase: 1 },
   { id: "charts", label: "Charts", phase: 1 },
   { id: "bom", label: "BOM", phase: 2 },
@@ -38,7 +40,11 @@ export function BottomPanel() {
         aria-labelledby={`tab-${active.id}`}
         className="tabpanel"
       >
-        {active.id === "charts" ? (
+        {active.id === "issues" ? (
+          <IssuesList />
+        ) : active.id === "bom" ? (
+          <BomTable />
+        ) : active.id === "charts" ? (
           <IvCurvePanel />
         ) : active.id === "calculations" ? (
           <ConductorCalculator />

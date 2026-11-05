@@ -42,7 +42,12 @@ export function IvCurvePanel() {
       <div className="iv-controls">
         <label>
           Module
-          <select value={moduleId} onChange={(e) => setModuleId(e.target.value)}>
+          <select
+            value={moduleId}
+            aria-label="PV module for the I–V curve"
+            data-testid="iv-module"
+            onChange={(e) => setModuleId(e.target.value)}
+          >
             {pvModules.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.brand} {m.model}

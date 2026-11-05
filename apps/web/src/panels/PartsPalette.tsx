@@ -1,11 +1,19 @@
 import { useMemo, useState } from "react";
+import { PLACEABLE_CATEGORIES } from "../config/defaults";
 import { catalog, CATEGORY_LABELS } from "../app/catalog";
+import { DRAG_MIME } from "../scene/Viewport";
 import { useUi } from "../state/uiStore";
 
+const placeable = (category: string) =>
+  (PLACEABLE_CATEGORIES as readonly string[]).includes(category);
+
+/** Left panel: searchable catalog. "Place" (or drag onto the scene) adds a part; clicking shows its data label. */
 export function PartsPalette() {
   const [query, setQuery] = useState("");
   const selected = useUi((s) => s.selectedCatalogId);
+  const tool = useUi((s) => s.tool);
   const select = useUi((s) => s.selectCatalogPart);
+  const setTool = useUi((s) => s.setTool);
 
   const groups = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -33,34 +41,62 @@ export function PartsPalette() {
       {groups.map(([cat, parts]) => (
         <section key={cat} className="palette-group">
           <h3>{CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ?? cat}</h3>
+          {!placeable(cat) && <p className="hint small">Added automatically by the array tool.</p>}
           <ul>
-            {parts.map((p) => (
-              <li key={p.id}>
-                <button
-                  type="button"
-                  className={`palette-item${selected === p.id ? " selected" : ""}`}
-                  aria-pressed={selected === p.id}
-                  onClick={() => select(selected === p.id ? null : p.id)}
-                >
-                  <span className="palette-model">{p.model}</span>
-                  <span className="palette-brand">
-                    {p.brand}
-                    {!p.verified && (
-                      <span
-                        className="badge-unverified"
-                        title="Placeholder data: check the datasheet"
-                      >
-                        unverified
-                      </span>
-                    )}
-                  </span>
-                </button>
-              </li>
-            ))}
+            {parts.map((p) => {
+              const placingThis = tool.kind === "place" && tool.catalogId === p.id;
+              return (
+                <li key={p.id} className="palette-row">
+                  <button
+                    type="button"
+                    className={`palette-item${selected === p.id ? " selected" : ""}`}
+                    aria-pressed={selected === p.id}
+                    draggable={placeable(p.category)}
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData(DRAG_MIME, p.id);
+                      e.dataTransfer.effectAllowed = "copy";
+                    }}
+                    onClick={() => select(selected === p.id ? null : p.id)}
+                  >
+                    <span className="palette-model">{p.model}</span>
+                    <span className="palette-brand">
+                      {p.brand}
+                      {!p.verified && (
+                        <span
+                          className="badge-unverified"
+                          title="Placeholder data: check the datasheet"
+                        >
+                          unverified
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                  {placeable(p.category) && (
+                    <button
+                      type="button"
+                      className={`place-btn${placingThis ? " active" : ""}`}
+                      aria-pressed={placingThis}
+                      aria-label={`Place ${p.model}`}
+                      title={
+                        p.category === "pv-module"
+                          ? "Place an array of this module on the roof"
+                          : "Place on the ground"
+                      }
+                      onClick={() =>
+                        setTool(
+                          placingThis ? { kind: "select" } : { kind: "place", catalogId: p.id },
+                        )
+                      }
+                    >
+                      {placingThis ? "Cancel" : "Place"}
+                    </button>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ))}
-      <p className="hint">Drag-and-drop into the scene arrives in Phase 2.</p>
     </div>
   );
 }

@@ -1,0 +1,219 @@
+[
+  {
+    "id": "generic-l-foot-80",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "L-foot 80 mm with EPDM pad",
+    "dimensions": {
+      "lengthMm": 80,
+      "widthMm": 40,
+      "heightMm": 80
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 3.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["l-foot"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "roof fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.08, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "modelUrl": "generic-l-foot-80.glb",
+    "mounting": {
+      "kind": "l-foot",
+      "heightMm": 80,
+      "compatibleSurfaces": ["corrugated-metal", "shingle"],
+      "ratedUpliftN": 2200,
+      "fastenerSetsPerAttachment": 1
+    }
+  },
+  {
+    "id": "generic-slotted-l-foot-100",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Slotted L-foot 100 mm (height adjustable)",
+    "dimensions": {
+      "lengthMm": 90,
+      "widthMm": 40,
+      "heightMm": 100
+    },
+    "weightKg": 0.15,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 3.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["slotted-l-foot"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "roof fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.1, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "modelUrl": "generic-slotted-l-foot-100.glb",
+    "mounting": {
+      "kind": "slotted-l-foot",
+      "heightMm": 100,
+      "compatibleSurfaces": ["corrugated-metal", "shingle", "concrete"],
+      "ratedUpliftN": 2600,
+      "fastenerSetsPerAttachment": 1
+    }
+  },
+  {
+    "id": "generic-corrugated-standoff-120",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Corrugated-roof standoff 120 mm (crest fixing)",
+    "dimensions": {
+      "lengthMm": 100,
+      "widthMm": 60,
+      "heightMm": 120
+    },
+    "weightKg": 0.3,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 5.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["corrugated-standoff"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "roof fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.12, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "corrugated-standoff",
+      "heightMm": 120,
+      "compatibleSurfaces": ["corrugated-metal"],
+      "ratedUpliftN": 2400,
+      "fastenerSetsPerAttachment": 1
+    }
+  },
+  {
+    "id": "generic-tile-hook",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Tile hook, adjustable",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 40,
+      "heightMm": 90
+    },
+    "weightKg": 0.45,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 6.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["tile-hook"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "roof fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.09, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "tile-hook",
+      "heightMm": 90,
+      "compatibleSurfaces": ["tile"],
+      "ratedUpliftN": 1800,
+      "fastenerSetsPerAttachment": 1
+    }
+  },
+  {
+    "id": "generic-seam-clamp",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Standing-seam clamp (non-penetrating)",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 30,
+      "heightMm": 50
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 7.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["seam-clamp"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "roof fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.05, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "seam-clamp",
+      "heightMm": 50,
+      "compatibleSurfaces": ["standing-seam"],
+      "ratedUpliftN": 2000,
+      "fastenerSetsPerAttachment": 0
+    }
+  }
+]

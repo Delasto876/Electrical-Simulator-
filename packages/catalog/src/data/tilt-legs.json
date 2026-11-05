@@ -1,0 +1,125 @@
+[
+  {
+    "id": "generic-tilt-leg-front",
+    "category": "tilt-leg",
+    "brand": "Generic",
+    "model": "Front tilt leg, adjustable 150\u2013600 mm",
+    "dimensions": {
+      "lengthMm": 600,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 0.66,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["front", "tilt"],
+    "ports": [
+      {
+        "id": "foot",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "foot"
+      },
+      {
+        "id": "head",
+        "type": "rail-slot",
+        "position": [0, 0.15, 0],
+        "direction": [0, 1, 0],
+        "label": "rail head"
+      }
+    ],
+    "mounting": {
+      "role": "front",
+      "minLengthMm": 150,
+      "maxLengthMm": 600
+    }
+  },
+  {
+    "id": "generic-tilt-leg-back",
+    "category": "tilt-leg",
+    "brand": "Generic",
+    "model": "Back tilt leg, adjustable 400\u20131200 mm",
+    "dimensions": {
+      "lengthMm": 1200,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 1.32,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 14,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["back", "tilt"],
+    "ports": [
+      {
+        "id": "foot",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "foot"
+      },
+      {
+        "id": "head",
+        "type": "rail-slot",
+        "position": [0, 0.4, 0],
+        "direction": [0, 1, 0],
+        "label": "rail head"
+      }
+    ],
+    "mounting": {
+      "role": "back",
+      "minLengthMm": 400,
+      "maxLengthMm": 1200
+    }
+  },
+  {
+    "id": "generic-tilt-leg-back-long",
+    "category": "tilt-leg",
+    "brand": "Generic",
+    "model": "Back tilt leg (long), adjustable 1000\u20132000 mm",
+    "dimensions": {
+      "lengthMm": 2000,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 2.2,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 19,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["back", "tilt"],
+    "ports": [
+      {
+        "id": "foot",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "foot"
+      },
+      {
+        "id": "head",
+        "type": "rail-slot",
+        "position": [0, 1.0, 0],
+        "direction": [0, 1, 0],
+        "label": "rail head"
+      }
+    ],
+    "mounting": {
+      "role": "back",
+      "minLengthMm": 1000,
+      "maxLengthMm": 2000
+    }
+  }
+]

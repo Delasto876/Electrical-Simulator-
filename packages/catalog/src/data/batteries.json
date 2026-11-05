@@ -4,18 +4,26 @@
     "category": "battery",
     "brand": "Generic",
     "model": "LFP 51.2 V 100 Ah rack module",
-    "dimensions": { "lengthMm": 482, "widthMm": 440, "heightMm": 133 },
+    "dimensions": {
+      "lengthMm": 482,
+      "widthMm": 440,
+      "heightMm": 133
+    },
     "weightKg": 45,
     "verified": false,
     "notes": "Generic representative placeholder, not manufacturer data.",
-    "price": { "amount": 1300, "currency": "USD", "unit": "each" },
+    "price": {
+      "amount": 1300,
+      "currency": "USD",
+      "unit": "each"
+    },
     "tags": ["LFP", "48V", "100Ah", "rack"],
     "ports": [
       {
         "id": "pos",
         "type": "battery-terminal",
         "polarity": "+",
-        "position": [0.2, 0.09, 0.0],
+        "position": [0.2, 0.09, -0.221],
         "direction": [0, 0, -1],
         "label": "+"
       },
@@ -23,7 +31,7 @@
         "id": "neg",
         "type": "battery-terminal",
         "polarity": "-",
-        "position": [0.16, 0.09, 0.0],
+        "position": [0.16, 0.09, -0.221],
         "direction": [0, 0, -1],
         "label": "-"
       },
@@ -31,7 +39,7 @@
         "id": "case-gnd",
         "type": "ground-point",
         "polarity": "PE",
-        "position": [-0.2, 0.02, 0.0],
+        "position": [-0.2, 0.02, -0.221],
         "direction": [0, 0, -1],
         "label": "case ground"
       }
@@ -48,7 +56,11 @@
       "peakDurationS": 3,
       "internalResistanceMohm": 20,
       "cellConfiguration": "16S1P",
-      "bms": { "overVoltageV": 58.4, "underVoltageV": 43.2, "lowTempChargeCutoffC": 0 },
+      "bms": {
+        "overVoltageV": 58.4,
+        "underVoltageV": 43.2,
+        "lowTempChargeCutoffC": 0
+      },
       "recommendedFuseA": 125,
       "terminal": "m8"
     }

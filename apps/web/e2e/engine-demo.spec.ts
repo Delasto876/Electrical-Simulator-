@@ -21,6 +21,7 @@ test("toolbar shows the active code profile", async ({ page }) => {
 test("I–V curve changes with irradiance and temperature", async ({ page }, info) => {
   await page.goto("/");
   await page.getByRole("tab", { name: "Charts" }).click();
+  await page.getByTestId("iv-module").selectOption("generic-pv-400w-108hc");
   await expect(page.getByRole("img", { name: /I–V and P–V curve/ })).toBeVisible();
 
   // STC: matches the catalog datasheet (generic 400 W: Voc 37.1 V, Isc 13.79 A, Pmax ≈ 399.9 W)

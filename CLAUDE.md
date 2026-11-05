@@ -2,6 +2,7 @@
 
 3D solar PV and electrical design simulator. Read `PLAN.md` (architecture),
 `DECISIONS.md` (why), `VERIFY.md` (numbers a human must check), `TODO.md`.
+**`docs/CHANGE_GUIDE.md` maps every kind of change to the one file that owns it. Keep it current when you add a layer or move a responsibility.**
 
 ## Commands (run from the repo root)
 
@@ -39,4 +40,11 @@ Before declaring a phase done: `pnpm lint && pnpm format:check && pnpm typecheck
 - Toolchain pins: TypeScript 6.0.x (typescript-eslint supports < 6.1),
   @playwright/test 1.63.0 (matches the preinstalled Chromium in the cloud container).
 - Screenshots: bump `PHASE` in `apps/web/e2e/shots.ts` when a new phase starts so earlier phases' screenshots are kept.
+- Layering (web): `config/` defaults → `model/` (pure glue: catalog + engine, tested) →
+  `state/actions.ts` (every edit, undoable via `commit`) → `panels/`, `scene/`, `parts/`
+  (display only). No catalog lookups or maths in components.
+- The 3D canvas renders on demand (`frameloop="demand"`): code that changes three.js
+  objects outside React props must call `invalidate()`.
+- e2e tests that click 3D objects by screen position run on the laptop project only;
+  prefer selecting via the inspector's object list.
 - Commit after every phase; stop for user review after each phase.

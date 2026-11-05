@@ -1,28 +1,53 @@
-import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment, Grid, Lightformer, OrbitControls } from "@react-three/drei";
-import { TestCube } from "./TestCube";
-import type { GlbPort } from "./glbPorts";
+import { Environment, Lightformer, OrbitControls } from "@react-three/drei";
+import { CAMERA_PRESETS, SCENE_COLORS } from "../config/defaults";
+import { catalogById } from "../app/catalog";
+import { useUi } from "../state/uiStore";
+import { dropBridge, SceneContent } from "./SceneContent";
+
+export const DRAG_MIME = "application/x-solar-part";
 
 export function Viewport() {
-  const [ports, setPorts] = useState<GlbPort[] | null>(null);
+  const tool = useUi((s) => s.tool);
+  const placing = tool.kind === "place" ? catalogById.get(tool.catalogId) : undefined;
   return (
-    <div className="viewport-inner">
+    <div
+      className={`viewport-inner${placing ? " placing" : ""}`}
+      onDragOver={(e) => {
+        if (e.dataTransfer.types.includes(DRAG_MIME)) e.preventDefault();
+      }}
+      onDrop={(e) => {
+        const id = e.dataTransfer.getData(DRAG_MIME);
+        if (!id) return;
+        e.preventDefault();
+        dropBridge.current?.(e.clientX, e.clientY, id);
+      }}
+    >
       <Canvas
         shadows
-        camera={{ position: [1.6, 1.2, 1.6], fov: 45, near: 0.01, far: 500 }}
+        // Render only when something changes (R3F invalidates on prop changes; controls and
+        // instancing call invalidate()). Saves battery and keeps software WebGL usable.
+        frameloop="demand"
+        camera={{ position: CAMERA_PRESETS.orbit, fov: 40, near: 0.05, far: 600 }}
         dpr={[1, 2]}
         data-testid="viewport-canvas"
+        onPointerMissed={() => {
+          if (useUi.getState().tool.kind === "select") useUi.getState().select(null);
+        }}
       >
-        <color attach="background" args={["#87a8c4"]} />
-        <hemisphereLight args={["#ffffff", "#5b6b5a", 0.8]} />
+        <color attach="background" args={[SCENE_COLORS.sky]} />
+        <hemisphereLight args={["#ffffff", "#5b6b5a", 0.7]} />
         <directionalLight
-          position={[3, 5, 2]}
+          position={[12, 20, 8]}
           intensity={2.2}
           castShadow
-          shadow-mapSize={[1024, 1024]}
+          shadow-mapSize={[2048, 2048]}
+          shadow-camera-left={-20}
+          shadow-camera-right={20}
+          shadow-camera-top={20}
+          shadow-camera-bottom={-20}
         />
-        {/* Procedural studio environment: lets metallic PBR materials reflect something
+        {/* Procedural studio environment so metallic PBR materials reflect something
             without downloading an HDR (keeps the app offline-capable). */}
         <Environment resolution={128} frames={1}>
           <Lightformer
@@ -55,30 +80,15 @@ export function Viewport() {
             scale={[10, 3, 1]}
           />
         </Environment>
-        <Suspense fallback={null}>
-          <TestCube onPorts={setPorts} />
-        </Suspense>
-        <Grid
-          args={[20, 20]}
-          cellSize={0.1}
-          sectionSize={1}
-          cellColor="#6f7f8f"
-          sectionColor="#3b4a59"
-          fadeDistance={15}
-          infiniteGrid
-        />
-        <mesh rotation-x={-Math.PI / 2} position-y={-0.001} receiveShadow>
-          <planeGeometry args={[40, 40]} />
-          <shadowMaterial opacity={0.25} />
-        </mesh>
-        <OrbitControls makeDefault enableDamping />
+        <SceneContent />
+        <OrbitControls makeDefault enableDamping maxPolarAngle={Math.PI / 2 - 0.02} />
       </Canvas>
-      <div className="viewport-overlay" data-testid="viewport-status">
-        {ports === null
-          ? "Loading test model…"
-          : `Test cube: glb from headless Blender · ${ports.length} port${ports.length === 1 ? "" : "s"} (${ports
-              .map((p) => `${p.id}: ${p.type ?? "?"}`)
-              .join(", ")})`}
+      <div className="viewport-overlay" data-testid="viewport-status" role="status">
+        {placing
+          ? placing.category === "pv-module"
+            ? `Click a roof surface to place an array of ${placing.model} · Esc to cancel`
+            : `Click the ground to place ${placing.model} · Esc to cancel`
+          : "Drag to orbit · click to select · drag a selected array to move it · ? for shortcuts"}
       </div>
     </div>
   );

@@ -1,14 +1,274 @@
 [
   {
+    "id": "generic-pv-100w-36c",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-100 36-cell mono",
+    "dimensions": {
+      "lengthMm": 1015,
+      "widthMm": 670,
+      "heightMm": 30
+    },
+    "weightKg": 7.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 30,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["100W", "36-cell"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.335, 0.0, 0.254],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 100,
+      "vocV": 22.5,
+      "vmpV": 18.5,
+      "iscA": 5.75,
+      "impA": 5.41,
+      "tempCoeffPmaxPctPerC": -0.4,
+      "tempCoeffVocPctPerC": -0.3,
+      "tempCoeffIscPctPerC": 0.04,
+      "noctC": 45,
+      "cellCount": 36,
+      "cellsInSeries": 36,
+      "maxSystemVoltageV": 1000,
+      "maxSeriesFuseA": 10,
+      "bypassDiodes": 2,
+      "cellType": "mono-perc",
+      "halfCut": false,
+      "bifacial": false,
+      "bifaciality": 0.0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 100,
+          "toMm": 350
+        },
+        {
+          "edge": "short",
+          "fromMm": 80,
+          "toMm": 200
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-200w-36c",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-200 36-cell mono (166 mm cells)",
+    "dimensions": {
+      "lengthMm": 1580,
+      "widthMm": 808,
+      "heightMm": 35
+    },
+    "weightKg": 11.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 60,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["200W", "36-cell"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.404, 0.0, 0.395],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 200,
+      "vocV": 24.3,
+      "vmpV": 20.4,
+      "iscA": 10.5,
+      "impA": 9.81,
+      "tempCoeffPmaxPctPerC": -0.38,
+      "tempCoeffVocPctPerC": -0.29,
+      "tempCoeffIscPctPerC": 0.045,
+      "noctC": 45,
+      "cellCount": 36,
+      "cellsInSeries": 36,
+      "maxSystemVoltageV": 1000,
+      "maxSeriesFuseA": 15,
+      "bypassDiodes": 2,
+      "cellType": "mono-perc",
+      "halfCut": false,
+      "bifacial": false,
+      "bifaciality": 0.0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 190,
+          "toMm": 475
+        },
+        {
+          "edge": "short",
+          "fromMm": 100,
+          "toMm": 250
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-300w-60c",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-300 60-cell mono PERC",
+    "dimensions": {
+      "lengthMm": 1650,
+      "widthMm": 992,
+      "heightMm": 35
+    },
+    "weightKg": 18.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 90,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["300W", "60-cell"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.496, 0.0, 0.412],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 300,
+      "vocV": 39.7,
+      "vmpV": 32.5,
+      "iscA": 9.75,
+      "impA": 9.23,
+      "tempCoeffPmaxPctPerC": -0.39,
+      "tempCoeffVocPctPerC": -0.3,
+      "tempCoeffIscPctPerC": 0.05,
+      "noctC": 45,
+      "cellCount": 60,
+      "cellsInSeries": 60,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 20,
+      "bypassDiodes": 3,
+      "cellType": "mono-perc",
+      "halfCut": false,
+      "bifacial": false,
+      "bifaciality": 0.0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 200,
+          "toMm": 495
+        },
+        {
+          "edge": "short",
+          "fromMm": 100,
+          "toMm": 250
+        }
+      ]
+    }
+  },
+  {
     "id": "generic-pv-400w-108hc",
     "category": "pv-module",
     "brand": "Generic",
     "model": "PV-400 108-cell half-cut mono PERC",
-    "dimensions": { "lengthMm": 1722, "widthMm": 1134, "heightMm": 30 },
+    "dimensions": {
+      "lengthMm": 1722,
+      "widthMm": 1134,
+      "heightMm": 30
+    },
     "weightKg": 21.5,
     "verified": false,
     "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the module you install.",
-    "price": { "amount": 120, "currency": "USD", "unit": "each" },
+    "price": {
+      "amount": 120,
+      "currency": "USD",
+      "unit": "each"
+    },
     "tags": ["400W", "108-cell", "half-cut", "mono-perc"],
     "ports": [
       {
@@ -61,7 +321,250 @@
     },
     "mechanical": {
       "frameThicknessMm": 30,
-      "clampingZones": [{ "edge": "long", "fromMm": 200, "toMm": 450 }]
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 200,
+          "toMm": 450
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-450w-144hc",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-450 144-cell half-cut mono PERC",
+    "dimensions": {
+      "lengthMm": 2094,
+      "widthMm": 1038,
+      "heightMm": 35
+    },
+    "weightKg": 23.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 135,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["450W", "144-cell", "half-cut"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.519, 0.0, 0.523],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 450,
+      "vocV": 49.5,
+      "vmpV": 41.4,
+      "iscA": 11.6,
+      "impA": 10.87,
+      "tempCoeffPmaxPctPerC": -0.36,
+      "tempCoeffVocPctPerC": -0.28,
+      "tempCoeffIscPctPerC": 0.048,
+      "noctC": 45,
+      "cellCount": 144,
+      "cellsInSeries": 72,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 25,
+      "bypassDiodes": 3,
+      "cellType": "mono-perc",
+      "halfCut": true,
+      "bifacial": false,
+      "bifaciality": 0.0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 251,
+          "toMm": 628
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-550w-144hc",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-550 144-cell half-cut mono PERC (182 mm)",
+    "dimensions": {
+      "lengthMm": 2279,
+      "widthMm": 1134,
+      "heightMm": 35
+    },
+    "weightKg": 28.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 165,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["550W", "144-cell", "half-cut"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0.0, 0.57],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 550,
+      "vocV": 49.6,
+      "vmpV": 41.7,
+      "iscA": 14.0,
+      "impA": 13.19,
+      "tempCoeffPmaxPctPerC": -0.35,
+      "tempCoeffVocPctPerC": -0.27,
+      "tempCoeffIscPctPerC": 0.048,
+      "noctC": 45,
+      "cellCount": 144,
+      "cellsInSeries": 72,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 25,
+      "bypassDiodes": 3,
+      "cellType": "mono-perc",
+      "halfCut": true,
+      "bifacial": false,
+      "bifaciality": 0.0,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.55
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 273,
+          "toMm": 684
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-610w-132hc-bifacial",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-610 132-cell half-cut TOPCon bifacial (210 mm)",
+    "dimensions": {
+      "lengthMm": 2382,
+      "widthMm": 1134,
+      "heightMm": 30
+    },
+    "weightKg": 33.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the datasheet of the product you install.",
+    "price": {
+      "amount": 183,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["610W", "132-cell", "half-cut", "TOPCon", "bifacial"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "position": [0.15, -0.01, 0.0],
+        "direction": [1, 0, 0],
+        "label": "+ lead"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "position": [-0.15, -0.01, 0.0],
+        "direction": [-1, 0, 0],
+        "label": "- lead"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0.0, 0.596],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 610,
+      "vocV": 45.6,
+      "vmpV": 38.2,
+      "iscA": 16.92,
+      "impA": 15.97,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.25,
+      "tempCoeffIscPctPerC": 0.045,
+      "noctC": 43,
+      "cellCount": 132,
+      "cellsInSeries": 66,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 30,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 286,
+          "toMm": 715
+        }
+      ]
     }
   }
 ]

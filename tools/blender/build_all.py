@@ -29,6 +29,22 @@ def blender_python() -> str:
              "tools/blender/.venv/bin/pip install -r tools/blender/requirements.txt)")
 
 
+def check_model_urls() -> bool:
+    """Every catalog modelUrl must have a glb file. Returns True on failure."""
+    import json
+
+    data = HERE.parents[1] / "packages" / "catalog" / "src" / "data"
+    missing = []
+    for f in sorted(data.glob("*.json")):
+        for entry in json.loads(f.read_text()):
+            url = entry.get("modelUrl")
+            if url and not (MODELS / url).exists():
+                missing.append(f"{f.name}: {entry['id']} -> {url}")
+    for m in missing:
+        print(f"   MISSING MODEL {m}")
+    return bool(missing)
+
+
 def main() -> int:
     wanted = set(sys.argv[1:])
     scripts = sorted(p for p in (HERE / "parts").glob("*.py") if not wanted or p.stem in wanted)
@@ -42,6 +58,7 @@ def main() -> int:
         if result.returncode != 0:
             print(result.stdout[-2000:], result.stderr[-2000:], sep="\n")
             failed = True
+    failed |= check_model_urls()
     for glb in sorted(MODELS.glob("*.glb")):
         size = glb.stat().st_size
         flag = "  OVER BUDGET" if size > SIZE_BUDGET_BYTES else ""

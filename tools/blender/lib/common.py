@@ -119,3 +119,28 @@ def export_glb(filename: str) -> Path:
 
 def deg(d: float) -> float:
     return math.radians(d)
+
+
+CATALOG_DATA = REPO_ROOT / "packages" / "catalog" / "src" / "data"
+
+
+def catalog_entries(filename: str) -> list[dict]:
+    """Read a catalog JSON file (single source of truth for part dimensions)."""
+    import json
+
+    return json.loads((CATALOG_DATA / filename).read_text())
+
+
+def mm(v: float) -> float:
+    """Millimetres → metres (catalog data is in mm, Blender scenes in m)."""
+    return v / 1000.0
+
+
+def cylinder(name: str, radius: float, depth: float, mat: str, location: tuple[float, float, float],
+             vertices: int = 16) -> bpy.types.Object:
+    """Z-axis cylinder centred at `location` (metres)."""
+    bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth, vertices=vertices, location=location)
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.data.materials.append(material(mat))
+    return obj
