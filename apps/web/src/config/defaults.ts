@@ -44,6 +44,8 @@ export const NEW_ARRAY = {
   attachmentSpacingMm: 1200,
   rowGapMm: 20,
   clearanceMm: 300,
+  /** WEEB washers instead of relying on bonding mid clamps. */
+  weebs: false,
 };
 
 /** Roof attachment picked automatically for each roof covering (first compatible one if missing). */
@@ -56,7 +58,20 @@ export const PREFERRED_ATTACHMENT: Record<string, string> = {
 };
 
 /** Catalog categories that can be placed in the scene from the palette. */
-export const PLACEABLE_CATEGORIES = ["pv-module", "inverter", "battery"] as const;
+export const PLACEABLE_CATEGORIES = [
+  "pv-module",
+  "inverter",
+  "battery",
+  "combiner-box",
+  "enclosure",
+  "din-device",
+  "battery-protection",
+  "ats",
+  "grounding",
+  "utility",
+  "generator",
+  "load",
+] as const;
 
 // ---------------------------------------------------------------- interaction
 export const SNAP = {
@@ -106,10 +121,12 @@ export const NEW_PROJECT_CODE_PROFILE = "NEC-generic";
 export const DEFAULT_CABLE_FOR_PORT: Record<string, string> = {
   mc4: "generic-pv-wire-10awg",
   "battery-terminal": "generic-battery-cable-2-0awg",
-  "dc-terminal": "generic-battery-cable-6awg",
+  "dc-terminal": "generic-pv-wire-10awg",
   "ac-terminal": "generic-thhn-10awg",
-  "ground-point": "generic-thhn-10awg",
+  "ground-point": "generic-bare-cu-6awg",
 };
+/** Cable for runs that touch a battery or battery fuse/breaker, whatever the port type. */
+export const DEFAULT_BATTERY_CABLE = "generic-battery-cable-2-0awg";
 export const WIRING = {
   /** Extra length added at each cable end for terminations and service loops [m]. */
   slackPerEndM: 0.3,

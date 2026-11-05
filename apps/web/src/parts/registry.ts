@@ -48,8 +48,13 @@ export function modelUrl(file: string): string {
 export function freePartBox(p: Part): [number, number, number] {
   const { lengthMm: l, widthMm: w, heightMm: h } = p.dimensions;
   switch (p.category) {
+    // wall-mounted boxes: catalog length = height, width = width, height = depth
     case "inverter":
-      return [w / 1000, l / 1000, h / 1000]; // length = height on the wall
+    case "enclosure":
+    case "combiner-box":
+    case "ats":
+    case "utility":
+      return [w / 1000, l / 1000, h / 1000];
     default:
       return [l / 1000, h / 1000, w / 1000];
   }

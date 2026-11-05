@@ -3,6 +3,17 @@ import { PartBase, PartCategory } from "./common";
 import { Battery, Inverter, PvModule } from "./electrical";
 import { ModuleClamp, Rail, RailSplice, RoofAttachment, TiltLeg } from "./mounting";
 import { Cable, Connector } from "./wiring";
+import {
+  Ats,
+  BatteryProtection,
+  CombinerBox,
+  DinDevice,
+  Enclosure,
+  Generator,
+  Grounding,
+  Load,
+  Utility,
+} from "./protection";
 
 /** Categories that have their own typed schema. Add new typed categories here AND to `Part` below. */
 export const TYPED_CATEGORIES = [
@@ -16,6 +27,15 @@ export const TYPED_CATEGORIES = [
   "tilt-leg",
   "cable",
   "connector",
+  "combiner-box",
+  "din-device",
+  "enclosure",
+  "battery-protection",
+  "ats",
+  "grounding",
+  "utility",
+  "generator",
+  "load",
 ] as const;
 
 /**
@@ -40,6 +60,15 @@ export const Part = z.discriminatedUnion("category", [
   TiltLeg,
   Cable,
   Connector,
+  CombinerBox,
+  DinDevice,
+  Enclosure,
+  BatteryProtection,
+  Ats,
+  Grounding,
+  Utility,
+  Generator,
+  Load,
   GenericPart,
 ]);
 export type Part = z.infer<typeof Part>;

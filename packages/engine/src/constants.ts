@@ -74,3 +74,35 @@ export const MC4_PAIR_RESISTANCE_OHM = 0.0005;
 
 /** Cell temperature rise model for the hot-weather Vmp check: full sun [W/m²]. */
 export const DESIGN_HOT_IRRADIANCE_W_M2 = 1000;
+
+// ---------------------------------------------------------------- grounding
+/**
+ * Typical soil resistivity [Ω·m] by soil type, mid-range values.
+ * Source: IEEE Std 142 ("Green Book") §4, typical-resistivity table. // VERIFY
+ * Measure the site (Wenner four-pin) for a real design.
+ */
+export const SOIL_RESISTIVITY_OHM_M = {
+  "wet-organic": 10,
+  "moist-clay": 50,
+  "average-soil": 100,
+  "sandy-dry": 500,
+  "gravel-rocky": 2000,
+} as const;
+export type SoilType = keyof typeof SOIL_RESISTIVITY_OHM_M;
+
+/**
+ * Multiplying factor for n parallel ground rods spaced about one rod length
+ * apart: R_n ≈ (R_1 / n) · F_n. Source: IEEE Std 142 Table 4-5 (spacing = rod
+ * length). // VERIFY
+ */
+export const MULTI_ROD_FACTOR: Record<number, number> = {
+  1: 1,
+  2: 1.16,
+  3: 1.29,
+  4: 1.36,
+  8: 1.68,
+  12: 1.8,
+  16: 1.92,
+  20: 2.0,
+  24: 2.16,
+};

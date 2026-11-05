@@ -1,0 +1,284 @@
+[
+  {
+    "id": "generic-class-t-200a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "Class T fuse 200 A in holder, 125 V DC, 20 kA",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 60,
+      "heightMm": 70
+    },
+    "weightKg": 0.6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 75,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["class-t", "200A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.085, 0.07, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.085, 0.07, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-class-t-200a.glb",
+    "protection": {
+      "kind": "class-t",
+      "ratedCurrentA": 200,
+      "voltageRatingDcV": 125,
+      "interruptRatingKa": 20
+    }
+  },
+  {
+    "id": "generic-class-t-300a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "Class T fuse 300 A in holder, 125 V DC, 20 kA",
+    "dimensions": {
+      "lengthMm": 220,
+      "widthMm": 70,
+      "heightMm": 80
+    },
+    "weightKg": 0.7,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["class-t", "300A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.095, 0.08, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.095, 0.08, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-class-t-300a.glb",
+    "protection": {
+      "kind": "class-t",
+      "ratedCurrentA": 300,
+      "voltageRatingDcV": 125,
+      "interruptRatingKa": 20
+    }
+  },
+  {
+    "id": "generic-mrbf-150a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "MRBF terminal fuse 150 A, 58 V DC, 10 kA",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 40,
+      "heightMm": 30
+    },
+    "weightKg": 0.1,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 25,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mrbf", "150A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.015, 0.03, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.015, 0.03, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-mrbf-150a.glb",
+    "protection": {
+      "kind": "mrbf",
+      "ratedCurrentA": 150,
+      "voltageRatingDcV": 58,
+      "interruptRatingKa": 10
+    }
+  },
+  {
+    "id": "generic-anl-250a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "ANL fuse 250 A in holder, 32 V DC, 6 kA",
+    "dimensions": {
+      "lengthMm": 100,
+      "widthMm": 40,
+      "heightMm": 40
+    },
+    "weightKg": 0.15,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 20,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["anl", "250A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.035, 0.04, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.035, 0.04, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-anl-250a.glb",
+    "protection": {
+      "kind": "anl",
+      "ratedCurrentA": 250,
+      "voltageRatingDcV": 32,
+      "interruptRatingKa": 6
+    }
+  },
+  {
+    "id": "generic-dc-breaker-125a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "DC battery breaker 1P 125 A, 80 V DC, 10 kA",
+    "dimensions": {
+      "lengthMm": 130,
+      "widthMm": 55,
+      "heightMm": 85
+    },
+    "weightKg": 0.4,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 60,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["dc-breaker", "125A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.05, 0.085, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.05, 0.085, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-dc-breaker-125a.glb",
+    "protection": {
+      "kind": "dc-breaker",
+      "ratedCurrentA": 125,
+      "voltageRatingDcV": 80,
+      "interruptRatingKa": 10
+    }
+  },
+  {
+    "id": "generic-dc-breaker-250a",
+    "category": "battery-protection",
+    "brand": "Generic",
+    "model": "DC battery breaker 1P 250 A, 80 V DC, 15 kA",
+    "dimensions": {
+      "lengthMm": 150,
+      "widthMm": 70,
+      "heightMm": 95
+    },
+    "weightKg": 0.6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["dc-breaker", "250A"],
+    "ports": [
+      {
+        "id": "in",
+        "type": "dc-terminal",
+        "position": [-0.06, 0.095, 0],
+        "direction": [0, 1, 0],
+        "label": "battery side",
+        "polarity": "+",
+        "group": "dc"
+      },
+      {
+        "id": "out",
+        "type": "dc-terminal",
+        "position": [0.06, 0.095, 0],
+        "direction": [0, 1, 0],
+        "label": "inverter side",
+        "polarity": "+",
+        "group": "dc"
+      }
+    ],
+    "modelUrl": "generic-dc-breaker-250a.glb",
+    "protection": {
+      "kind": "dc-breaker",
+      "ratedCurrentA": 250,
+      "voltageRatingDcV": 80,
+      "interruptRatingKa": 15
+    }
+  }
+]

@@ -11,7 +11,7 @@ import { ROOF_TYPES } from "@solar-sim/engine";
  *     literal values, not app defaults, so they stay reproducible).
  *   - Only the current-version schema is validated, after migration.
  */
-export const CURRENT_SCHEMA_VERSION = 3;
+export const CURRENT_SCHEMA_VERSION = 4;
 
 const v3 = z.tuple([z.number(), z.number(), z.number()]);
 
@@ -53,6 +53,8 @@ export const ArrayInstanceSchema = z.object({
   clearanceMm: z.number().min(0),
   /** null = no-shading pitch from the mounting rules. */
   rowPitchMm: z.number().positive().nullable(),
+  /** WEEB bonding washers between every module and rail (else bonding relies on the clamps). */
+  weebs: z.boolean(),
   locked: z.boolean(),
   hidden: z.boolean(),
 });
@@ -64,6 +66,14 @@ export const FreePartSchema = z.object({
   catalogId: z.string(),
   position: v3,
   rotationYDeg: z.number(),
+  /** DIN devices: mounted on an enclosure's rail (position then follows the enclosure). */
+  mount: z
+    .object({
+      enclosureId: z.string(),
+      row: z.number().int().min(0),
+      slot: z.number().int().min(0),
+    })
+    .nullable(),
   locked: z.boolean(),
   hidden: z.boolean(),
 });
@@ -110,14 +120,23 @@ export const ClimateSchema = z.object({
 });
 export type Climate = z.infer<typeof ClimateSchema>;
 
+export const SOIL_TYPES = [
+  "wet-organic",
+  "moist-clay",
+  "average-soil",
+  "sandy-dry",
+  "gravel-rocky",
+] as const;
+export const EarthingSchema = z.object({ soil: z.enum(SOIL_TYPES) });
+
 export const SettingsSchema = z.object({
   lengthUnits: z.enum(["metric", "imperial"]),
   wireUnits: z.enum(["awg", "mm2"]),
   gridSnap: z.boolean(),
 });
 
-export const ProjectFileV3 = z.object({
-  schemaVersion: z.literal(3),
+export const ProjectFileV4 = z.object({
+  schemaVersion: z.literal(4),
   meta: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -134,6 +153,7 @@ export const ProjectFileV3 = z.object({
     .nullable(),
   codeProfileId: z.string(),
   climate: ClimateSchema,
+  earthing: EarthingSchema,
   roof: RoofSpecSchema,
   arrays: z.array(ArrayInstanceSchema),
   parts: z.array(FreePartSchema),
@@ -143,7 +163,7 @@ export const ProjectFileV3 = z.object({
   raceways: z.array(z.unknown()),
   settings: SettingsSchema,
 });
-export type ProjectFile = z.infer<typeof ProjectFileV3>;
+export type ProjectFile = z.infer<typeof ProjectFileV4>;
 
 type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
 
@@ -195,6 +215,14 @@ export const MIGRATIONS: Record<number, Migration> = {
     strings: [],
     cables: [],
   }),
+  // 3 → 4 (Phase 4): DIN mounting for parts, WEEB option for arrays, soil type.
+  3: (doc) => ({
+    ...doc,
+    schemaVersion: 4,
+    parts: ((doc.parts ?? []) as Record<string, unknown>[]).map((p) => ({ ...p, mount: null })),
+    arrays: ((doc.arrays ?? []) as Record<string, unknown>[]).map((a) => ({ ...a, weebs: false })),
+    earthing: { soil: "average-soil" },
+  }),
 };
 
 export class ProjectFileError extends Error {}
@@ -217,7 +245,7 @@ export function parseProjectFile(input: unknown): ProjectFile {
     doc = migrate(doc);
     version += 1;
   }
-  const result = ProjectFileV3.safeParse(doc);
+  const result = ProjectFileV4.safeParse(doc);
   if (!result.success) throw new ProjectFileError(z.prettifyError(result.error));
   return result.data;
 }
@@ -243,6 +271,7 @@ export function newProject(
     site: null,
     codeProfileId: opts.codeProfileId,
     climate: { ...opts.climate },
+    earthing: { soil: "average-soil" },
     roof: { ...opts.roof },
     arrays: [],
     parts: [],

@@ -463,5 +463,129 @@
       "fineStrand": false,
       "sunlightResistant": false
     }
+  },
+  {
+    "id": "generic-bare-cu-10awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Bare copper ground wire 10 AWG, stranded",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 2.6,
+      "heightMm": 2.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Used for EGC/GEC and bonding jumpers.",
+    "price": {
+      "amount": 0.5,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["bare-ground", "10 AWG", "EGC", "GEC"],
+    "ports": [],
+    "wire": {
+      "kind": "bare-ground",
+      "awg": "10",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 2.6,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-bare-cu-8awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Bare copper ground wire 8 AWG, stranded",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 3.3,
+      "heightMm": 3.3
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Used for EGC/GEC and bonding jumpers.",
+    "price": {
+      "amount": 0.8,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["bare-ground", "8 AWG", "EGC", "GEC"],
+    "ports": [],
+    "wire": {
+      "kind": "bare-ground",
+      "awg": "8",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 3.3,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-bare-cu-6awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Bare copper ground wire 6 AWG, stranded",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 4.1,
+      "heightMm": 4.1
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Used for EGC/GEC and bonding jumpers.",
+    "price": {
+      "amount": 1.2,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["bare-ground", "6 AWG", "EGC", "GEC"],
+    "ports": [],
+    "wire": {
+      "kind": "bare-ground",
+      "awg": "6",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 4.1,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-bare-cu-4awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Bare copper ground wire 4 AWG, stranded",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 5.2,
+      "heightMm": 5.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Used for EGC/GEC and bonding jumpers.",
+    "price": {
+      "amount": 1.9,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["bare-ground", "4 AWG", "EGC", "GEC"],
+    "ports": [],
+    "wire": {
+      "kind": "bare-ground",
+      "awg": "4",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 5.2,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
   }
 ]

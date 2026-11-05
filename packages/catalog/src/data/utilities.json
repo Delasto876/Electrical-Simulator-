@@ -1,0 +1,190 @@
+[
+  {
+    "id": "generic-utility-120-240-60hz",
+    "category": "utility",
+    "brand": "Generic",
+    "model": "Utility service 120/240 V 60 Hz split-phase (meter base)",
+    "dimensions": {
+      "lengthMm": 350,
+      "widthMm": 230,
+      "heightMm": 120
+    },
+    "weightKg": 3,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["utility", "split-phase", "60Hz"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "L2",
+        "polarity": "L2",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-utility-120-240-60hz.glb",
+    "source": {
+      "voltageV": 240,
+      "system": "split-phase",
+      "frequencyHz": 60,
+      "availableFaultCurrentKa": 10,
+      "lineToNeutralV": 120
+    }
+  },
+  {
+    "id": "generic-utility-110-220-50hz",
+    "category": "utility",
+    "brand": "Generic",
+    "model": "Utility service 110/220 V 50 Hz split-phase (meter base)",
+    "dimensions": {
+      "lengthMm": 350,
+      "widthMm": 230,
+      "heightMm": 120
+    },
+    "weightKg": 3,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["utility", "split-phase", "50Hz"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "L2",
+        "polarity": "L2",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-utility-110-220-50hz.glb",
+    "source": {
+      "voltageV": 220,
+      "system": "split-phase",
+      "frequencyHz": 50,
+      "availableFaultCurrentKa": 10,
+      "lineToNeutralV": 110
+    }
+  },
+  {
+    "id": "generic-utility-230-50hz",
+    "category": "utility",
+    "brand": "Generic",
+    "model": "Utility service 230 V 50 Hz single-phase (meter base)",
+    "dimensions": {
+      "lengthMm": 350,
+      "widthMm": 230,
+      "heightMm": 120
+    },
+    "weightKg": 3,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["utility", "single-phase", "50Hz"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-utility-230-50hz.glb",
+    "source": {
+      "voltageV": 230,
+      "system": "single-phase",
+      "frequencyHz": 50,
+      "availableFaultCurrentKa": 6
+    }
+  }
+]

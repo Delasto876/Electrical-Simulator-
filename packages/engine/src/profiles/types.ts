@@ -46,4 +46,18 @@ export interface CodeProfile {
   rapidShutdownRequired: boolean;
   /** Utility frequency and typical service voltages, for presets and AC checks. */
   grid: { frequencyHz: 50 | 60; voltages: string[] };
+  protection: {
+    /** Standard OCPD ratings [A] (next-size-up rule uses these). */
+    standardOcpdA: number[];
+    /** Largest OCPD rating at which the next standard size above the conductor ampacity may be used [A]. */
+    nextSizeUpMaxA: number;
+    /** Minimum copper equipment grounding conductor by upstream OCPD rating. */
+    egcTable: { maxOcpdA: number; awg: string }[];
+    /** Minimum copper grounding electrode conductor to a rod. */
+    gecMinAwg: string;
+    /** Single-rod resistance above which a supplemental electrode is needed [Ω]. */
+    groundRodMaxOhm: number;
+    /** String fuse ≥ Isc × this (Isc × 1.25 × 1.25). */
+    stringFuseMultiplier: number;
+  };
 }

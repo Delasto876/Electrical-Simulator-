@@ -51,4 +51,41 @@ export const NEC_GENERIC: CodeProfile = {
     frequencyHz: 60,
     voltages: ["120/240 V split-phase", "120/208 V three-phase", "277/480 V three-phase"],
   },
+  protection: {
+    // NEC 240.6(A) standard ampere ratings. // VERIFY
+    standardOcpdA: [
+      10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250,
+      300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000, 4000, 5000, 6000,
+    ],
+    // NEC 240.4(B): next higher standard rating allowed up to 800 A. // VERIFY
+    nextSizeUpMaxA: 800,
+    // NEC Table 250.122, copper. // VERIFY
+    egcTable: [
+      { maxOcpdA: 15, awg: "14" },
+      { maxOcpdA: 20, awg: "12" },
+      { maxOcpdA: 60, awg: "10" },
+      { maxOcpdA: 100, awg: "8" },
+      { maxOcpdA: 200, awg: "6" },
+      { maxOcpdA: 300, awg: "4" },
+      { maxOcpdA: 400, awg: "3" },
+      { maxOcpdA: 500, awg: "2" },
+      { maxOcpdA: 600, awg: "1" },
+      { maxOcpdA: 800, awg: "1/0" },
+      { maxOcpdA: 1000, awg: "2/0" },
+      { maxOcpdA: 1200, awg: "3/0" },
+      { maxOcpdA: 1600, awg: "4/0" },
+      { maxOcpdA: 2000, awg: "250" },
+      { maxOcpdA: 2500, awg: "350" },
+      { maxOcpdA: 3000, awg: "400" },
+      { maxOcpdA: 4000, awg: "500" },
+      { maxOcpdA: 5000, awg: "750" },
+      { maxOcpdA: 6000, awg: "1000" },
+    ],
+    // NEC 250.66(A): GEC to a rod need not exceed 6 AWG Cu; table minimum 8 AWG Cu. // VERIFY
+    gecMinAwg: "8",
+    // NEC 250.53(A)(2) exception: a single rod of 25 Ω or less needs no supplemental electrode. // VERIFY
+    groundRodMaxOhm: 25,
+    // NEC 690.9(B): series fuse ≥ 125 % of max circuit current (Isc × 1.25) → Isc × 1.5625. // VERIFY
+    stringFuseMultiplier: 1.5625,
+  },
 };

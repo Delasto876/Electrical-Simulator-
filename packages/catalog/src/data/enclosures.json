@@ -1,0 +1,197 @@
+[
+  {
+    "id": "generic-enclosure-8m",
+    "category": "enclosure",
+    "brand": "Generic",
+    "model": "Plastic DIN enclosure, 8 modules, IP65, transparent door",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 220,
+      "heightMm": 110
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 25,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "8 modules", "plastic"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.07, 0.04, -0.025],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-enclosure-8m.glb",
+    "enclosure": {
+      "modulesPerRow": 8,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    }
+  },
+  {
+    "id": "generic-enclosure-12m",
+    "category": "enclosure",
+    "brand": "Generic",
+    "model": "Plastic DIN enclosure, 12 modules, IP65, transparent door",
+    "dimensions": {
+      "lengthMm": 250,
+      "widthMm": 300,
+      "heightMm": 120
+    },
+    "weightKg": 1.1,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "12 modules", "plastic"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.11, 0.04, -0.03],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-enclosure-12m.glb",
+    "enclosure": {
+      "modulesPerRow": 12,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    }
+  },
+  {
+    "id": "generic-enclosure-18m",
+    "category": "enclosure",
+    "brand": "Generic",
+    "model": "Plastic DIN enclosure, 18 modules, IP65",
+    "dimensions": {
+      "lengthMm": 280,
+      "widthMm": 400,
+      "heightMm": 130
+    },
+    "weightKg": 1.6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 45,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "18 modules", "plastic"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.16, 0.04, -0.035],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-enclosure-18m.glb",
+    "enclosure": {
+      "modulesPerRow": 18,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": false
+    }
+  },
+  {
+    "id": "generic-enclosure-24m-metal",
+    "category": "enclosure",
+    "brand": "Generic",
+    "model": "Metal DIN enclosure, 2 \u00d7 12 modules, IP54",
+    "dimensions": {
+      "lengthMm": 450,
+      "widthMm": 300,
+      "heightMm": 150
+    },
+    "weightKg": 5.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 85,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "24 modules", "metal"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.11, 0.04, -0.045],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-enclosure-24m-metal.glb",
+    "enclosure": {
+      "modulesPerRow": 12,
+      "rows": 2,
+      "material": "metal",
+      "ipRating": "IP54",
+      "transparentDoor": false
+    }
+  },
+  {
+    "id": "generic-enclosure-36m-metal",
+    "category": "enclosure",
+    "brand": "Generic",
+    "model": "Metal DIN enclosure, 2 \u00d7 18 modules, IP54",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 420,
+      "heightMm": 160
+    },
+    "weightKg": 7,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 120,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "36 modules", "metal"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.17, 0.04, -0.05],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-enclosure-36m-metal.glb",
+    "enclosure": {
+      "modulesPerRow": 18,
+      "rows": 2,
+      "material": "metal",
+      "ipRating": "IP54",
+      "transparentDoor": false
+    }
+  }
+]

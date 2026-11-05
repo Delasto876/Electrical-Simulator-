@@ -1,0 +1,159 @@
+[
+  {
+    "id": "generic-ground-rod-2400x16",
+    "category": "grounding",
+    "brand": "Generic",
+    "model": "Copper-bonded ground rod 2.4 m \u00d7 16 mm (8 ft \u00d7 5/8 in)",
+    "dimensions": {
+      "lengthMm": 16,
+      "widthMm": 16,
+      "heightMm": 2400
+    },
+    "weightKg": 3.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 18,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ground rod", "GEC"],
+    "ports": [
+      {
+        "id": "rod",
+        "type": "ground-point",
+        "position": [0, 0.15, 0],
+        "direction": [0, 1, 0],
+        "label": "rod clamp",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ground-rod-2400x16.glb",
+    "grounding": {
+      "kind": "ground-rod",
+      "rodLengthM": 2.4,
+      "rodDiameterMm": 16
+    }
+  },
+  {
+    "id": "generic-ground-rod-3000x16",
+    "category": "grounding",
+    "brand": "Generic",
+    "model": "Copper-bonded ground rod 3.0 m \u00d7 16 mm (10 ft \u00d7 5/8 in)",
+    "dimensions": {
+      "lengthMm": 16,
+      "widthMm": 16,
+      "heightMm": 3000
+    },
+    "weightKg": 4.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 24,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ground rod", "GEC"],
+    "ports": [
+      {
+        "id": "rod",
+        "type": "ground-point",
+        "position": [0, 0.15, 0],
+        "direction": [0, 1, 0],
+        "label": "rod clamp",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ground-rod-3000x16.glb",
+    "grounding": {
+      "kind": "ground-rod",
+      "rodLengthM": 3.0,
+      "rodDiameterMm": 16
+    }
+  },
+  {
+    "id": "generic-ground-bar",
+    "category": "grounding",
+    "brand": "Generic",
+    "model": "Ground bar, 10 terminals",
+    "dimensions": {
+      "lengthMm": 150,
+      "widthMm": 30,
+      "heightMm": 30
+    },
+    "weightKg": 0.3,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ground bar"],
+    "ports": [
+      {
+        "id": "bar",
+        "type": "ground-point",
+        "position": [0, 0.03, 0],
+        "direction": [0, 1, 0],
+        "label": "ground bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ground-bar.glb",
+    "grounding": {
+      "kind": "ground-bar"
+    }
+  },
+  {
+    "id": "generic-lay-in-lug",
+    "category": "grounding",
+    "brand": "Generic",
+    "model": "Lay-in grounding lug for rails (bonding listed)",
+    "dimensions": {
+      "lengthMm": 30,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["lay-in-lug"],
+    "ports": [],
+    "grounding": {
+      "kind": "lay-in-lug"
+    }
+  },
+  {
+    "id": "generic-weeb",
+    "category": "grounding",
+    "brand": "Generic",
+    "model": "WEEB bonding washer (module to rail)",
+    "dimensions": {
+      "lengthMm": 30,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0.6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["weeb"],
+    "ports": [],
+    "grounding": {
+      "kind": "weeb"
+    }
+  }
+]

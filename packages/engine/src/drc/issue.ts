@@ -158,6 +158,120 @@ export const ISSUE_CODES = {
     explain:
       "Array STC power divided by inverter AC rating. 1.1-1.3 is typical; higher means more clipping.",
   },
+  BREAKER_NOT_DC: {
+    title: "Breaker not rated for DC",
+    explain:
+      "AC breakers rely on the current passing through zero to quench the arc; DC never does. DC circuits need DC-rated devices.",
+  },
+  BREAKER_NOT_AC: {
+    title: "Device not rated for AC",
+    explain: "This device is listed for DC only.",
+  },
+  BREAKER_VOLTAGE: {
+    title: "Device voltage rating too low",
+    explain: "Every switch, breaker and fuse must be rated for the highest voltage of its circuit.",
+  },
+  BREAKER_KA: {
+    title: "Interrupting rating below the available fault current",
+    explain:
+      "A breaker or fuse that cannot interrupt the prospective fault current can explode. Lithium batteries deliver very high fault currents.",
+  },
+  OCPD_EXCEEDS_CONDUCTOR: {
+    title: "Breaker or fuse larger than the wire allows",
+    explain:
+      "The overcurrent device must open before the conductor overheats: its rating may not exceed the conductor's ampacity (next standard size up allowed, small-conductor limits apply).",
+  },
+  OCPD_UNDERSIZED: {
+    title: "Overcurrent device smaller than the circuit current",
+    explain:
+      "Devices should be at least 125 % of the continuous current, or they trip in normal operation.",
+  },
+  COMBINER_FUSE_REQUIRED: {
+    title: "String fuses required",
+    explain:
+      "With three or more strings in parallel, a faulted string can receive current from all the others.",
+  },
+  COMBINER_FUSE_TOO_LARGE: {
+    title: "String fuse larger than the module allows",
+    explain: "The module's maximum series fuse rating limits the fuse size.",
+  },
+  MISSING_BATTERY_OCPD: {
+    title: "No fuse or breaker at the battery",
+    explain:
+      "A battery conductor must be protected close to the battery; a short without protection can start a fire.",
+  },
+  MISSING_DC_DISCONNECT: {
+    title: "No PV DC disconnect",
+    explain:
+      "A means to disconnect the PV source from the inverter is required (built-in DC switch, combiner disconnect or DC isolator).",
+  },
+  MISSING_SPD: {
+    title: "No surge protection",
+    explain:
+      "Surge protective devices protect equipment from lightning-induced surges; often required or strongly recommended.",
+  },
+  MISSING_RAPID_SHUTDOWN: {
+    title: "No rapid-shutdown system",
+    explain:
+      "The selected code profile requires PV on buildings to reduce conductor voltage quickly for fire-fighter safety.",
+  },
+  MISSING_GROUND_ROD: {
+    title: "No grounding electrode",
+    explain:
+      "The grounding system needs an electrode (ground rod) bonded to the equipment grounding conductors.",
+  },
+  FLOATING_METAL: {
+    title: "Exposed metal not bonded",
+    explain:
+      "Every metal frame, rail, enclosure and chassis must have a continuous bonding path to the grounding electrode.",
+  },
+  GROUND_ROD_RESISTANCE: {
+    title: "Ground rod resistance too high",
+    explain:
+      "A single rod above 25 \u03a9 needs a supplemental electrode (Dwight's formula estimate).",
+  },
+  EGC_UNDERSIZED: {
+    title: "Equipment grounding conductor too small",
+    explain: "The EGC is sized from the upstream overcurrent device (NEC Table 250.122).",
+  },
+  GEC_UNDERSIZED: {
+    title: "Grounding electrode conductor too small",
+    explain: "The conductor to the ground rod must meet the minimum size.",
+  },
+  ATS_MISMATCH: {
+    title: "Transfer switch source mismatch",
+    explain:
+      "All sources on a transfer switch must share voltage and frequency, and match the switch's rating.",
+  },
+  ATS_NEUTRAL: {
+    title: "Neutral\u2013ground bonding conflict (review)",
+    explain:
+      "A neutral bonded at the generator and at the service creates parallel neutral current on ground conductors unless the neutral is switched.",
+  },
+  ATS_SOURCES: {
+    title: "Transfer switch source missing",
+    explain: "A transfer switch needs at least two sources.",
+  },
+  ATS_WIRING: {
+    title: "Transfer switch wired to the wrong terminals",
+    explain: "Each source must land on one source terminal group with matching conductors.",
+  },
+  CAPACITY_CONTINUOUS: {
+    title: "Loads exceed the inverter rating",
+    explain: "The sum of running loads must stay within the inverter's continuous AC rating.",
+  },
+  CAPACITY_SURGE: {
+    title: "Start-up surge exceeds the inverter surge rating",
+    explain: "Motors draw several times their running power when starting.",
+  },
+  BATTERY_DISCHARGE: {
+    title: "Inverter can draw more than the battery allows",
+    explain: "The battery's BMS will cut off above its continuous discharge limit.",
+  },
+  BATTERY_CHARGE: {
+    title: "Charge current above the battery limit",
+    explain: "Charging above the battery's limit shortens its life; the BMS may disconnect.",
+  },
 } as const;
 export type IssueCode = keyof typeof ISSUE_CODES;
 

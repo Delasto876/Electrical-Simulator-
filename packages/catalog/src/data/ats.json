@@ -1,0 +1,341 @@
+[
+  {
+    "id": "generic-ats-2s-63a-1pn",
+    "category": "ats",
+    "brand": "Generic",
+    "model": "ATS 2-source 63 A 1P+N (switched neutral), 230 V",
+    "dimensions": {
+      "lengthMm": 400,
+      "widthMm": 300,
+      "heightMm": 180
+    },
+    "weightKg": 6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 140,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ATS", "2-source", "single-phase"],
+    "ports": [
+      {
+        "id": "s1-l1",
+        "type": "ac-terminal",
+        "position": [-0.12, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 L1",
+        "polarity": "L1",
+        "group": "s1"
+      },
+      {
+        "id": "s1-n",
+        "type": "ac-terminal",
+        "position": [-0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 N",
+        "polarity": "N",
+        "group": "s1"
+      },
+      {
+        "id": "s2-l1",
+        "type": "ac-terminal",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 L1",
+        "polarity": "L1",
+        "group": "s2"
+      },
+      {
+        "id": "s2-n",
+        "type": "ac-terminal",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 N",
+        "polarity": "N",
+        "group": "s2"
+      },
+      {
+        "id": "load-l1",
+        "type": "ac-terminal",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "load-n",
+        "type": "ac-terminal",
+        "position": [-0.025, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD N",
+        "polarity": "N",
+        "group": "load"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.13, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ats-2s-63a-1pn.glb",
+    "ats": {
+      "sources": 2,
+      "ratedCurrentA": 63,
+      "voltageV": 230,
+      "system": "single-phase",
+      "switchedNeutral": true,
+      "automatic": true,
+      "transferDelayS": 5,
+      "retransferDelayS": 60,
+      "spd": true,
+      "voltageRegulation": false
+    }
+  },
+  {
+    "id": "generic-ats-2s-100a-split",
+    "category": "ats",
+    "brand": "Generic",
+    "model": "ATS 2-source 100 A, 120/240 V split-phase, neutral not switched",
+    "dimensions": {
+      "lengthMm": 400,
+      "widthMm": 300,
+      "heightMm": 180
+    },
+    "weightKg": 6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 260,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ATS", "2-source", "split-phase"],
+    "ports": [
+      {
+        "id": "s1-l1",
+        "type": "ac-terminal",
+        "position": [-0.12, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 L1",
+        "polarity": "L1",
+        "group": "s1"
+      },
+      {
+        "id": "s1-l2",
+        "type": "ac-terminal",
+        "position": [-0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 L2",
+        "polarity": "L2",
+        "group": "s1"
+      },
+      {
+        "id": "s1-n",
+        "type": "ac-terminal",
+        "position": [-0.09, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 N",
+        "polarity": "N",
+        "group": "s1"
+      },
+      {
+        "id": "s2-l1",
+        "type": "ac-terminal",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 L1",
+        "polarity": "L1",
+        "group": "s2"
+      },
+      {
+        "id": "s2-l2",
+        "type": "ac-terminal",
+        "position": [-0.05, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 L2",
+        "polarity": "L2",
+        "group": "s2"
+      },
+      {
+        "id": "s2-n",
+        "type": "ac-terminal",
+        "position": [-0.035, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 N",
+        "polarity": "N",
+        "group": "s2"
+      },
+      {
+        "id": "load-l1",
+        "type": "ac-terminal",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "load-l2",
+        "type": "ac-terminal",
+        "position": [0.005, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD L2",
+        "polarity": "L2",
+        "group": "load"
+      },
+      {
+        "id": "load-n",
+        "type": "ac-terminal",
+        "position": [0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD N",
+        "polarity": "N",
+        "group": "load"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.13, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ats-2s-100a-split.glb",
+    "ats": {
+      "sources": 2,
+      "ratedCurrentA": 100,
+      "voltageV": 240,
+      "system": "split-phase",
+      "switchedNeutral": false,
+      "automatic": true,
+      "transferDelayS": 5,
+      "retransferDelayS": 60,
+      "spd": true,
+      "voltageRegulation": false
+    }
+  },
+  {
+    "id": "generic-ats-3s-63a-1pn",
+    "category": "ats",
+    "brand": "Generic",
+    "model": "ATS 3-source 63 A 1P+N (utility / generator / inverter), 230 V",
+    "dimensions": {
+      "lengthMm": 400,
+      "widthMm": 300,
+      "heightMm": 180
+    },
+    "weightKg": 6,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 220,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ATS", "3-source", "single-phase"],
+    "ports": [
+      {
+        "id": "s1-l1",
+        "type": "ac-terminal",
+        "position": [-0.12, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 L1",
+        "polarity": "L1",
+        "group": "s1"
+      },
+      {
+        "id": "s1-n",
+        "type": "ac-terminal",
+        "position": [-0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S1 N",
+        "polarity": "N",
+        "group": "s1"
+      },
+      {
+        "id": "s2-l1",
+        "type": "ac-terminal",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 L1",
+        "polarity": "L1",
+        "group": "s2"
+      },
+      {
+        "id": "s2-n",
+        "type": "ac-terminal",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S2 N",
+        "polarity": "N",
+        "group": "s2"
+      },
+      {
+        "id": "s3-l1",
+        "type": "ac-terminal",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S3 L1",
+        "polarity": "L1",
+        "group": "s3"
+      },
+      {
+        "id": "s3-n",
+        "type": "ac-terminal",
+        "position": [-0.025, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "S3 N",
+        "polarity": "N",
+        "group": "s3"
+      },
+      {
+        "id": "load-l1",
+        "type": "ac-terminal",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "load-n",
+        "type": "ac-terminal",
+        "position": [0.015, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "LOAD N",
+        "polarity": "N",
+        "group": "load"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.13, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-ats-3s-63a-1pn.glb",
+    "ats": {
+      "sources": 3,
+      "ratedCurrentA": 63,
+      "voltageV": 230,
+      "system": "single-phase",
+      "switchedNeutral": true,
+      "automatic": true,
+      "transferDelayS": 5,
+      "retransferDelayS": 60,
+      "spd": true,
+      "voltageRegulation": false
+    }
+  }
+]

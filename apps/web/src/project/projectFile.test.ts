@@ -30,7 +30,7 @@ describe("project file", () => {
   it("migrates a version-0 draft (no schemaVersion) to the current version", () => {
     const draft = { meta: newProject(opts("Old"), NOW, "p0").meta };
     const migrated = parseProjectFile(draft);
-    expect(migrated.schemaVersion).toBe(3);
+    expect(migrated.schemaVersion).toBe(CURRENT_SCHEMA_VERSION);
     expect(migrated.codeProfileId).toBe("NEC-generic");
     expect(migrated.parts).toEqual([]);
     expect(migrated.roof.type).toBe("mono-pitch");
@@ -46,7 +46,8 @@ describe("project file", () => {
     delete v1.roof;
     delete v1.arrays;
     const p = parseProjectFile(v1);
-    expect(p.schemaVersion).toBe(3);
+    expect(p.schemaVersion).toBe(CURRENT_SCHEMA_VERSION);
+    expect(p.earthing).toEqual({ soil: "average-soil" });
     expect(p.climate).toEqual({ minAmbientC: -10, maxAmbientC: 40 });
     expect(p.strings).toEqual([]);
     expect(p.arrays).toEqual([]);

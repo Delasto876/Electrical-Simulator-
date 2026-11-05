@@ -161,7 +161,7 @@ describe("one string into an inverter (Phase 3 done-criterion)", () => {
     const sid = useProject.getState().project.strings[0]!.id;
     A.connectStringToMppt(sid, invId, "mppt1");
     const c = useProject.getState().project.cables[0]!;
-    A.updateCable(c.id, { connectorFrom: "staubli-mc4-pv-kst4" });
+    A.updateCable(c.id, { connectorFrom: "staubli-mc4-pv-kbt4" }); // female Stäubli on the male module lead
     expect(codes()).toContain("CONNECTOR_MIXED_BRAND");
   });
 

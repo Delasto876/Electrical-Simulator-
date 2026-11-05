@@ -1,0 +1,674 @@
+[
+  {
+    "id": "generic-combiner-2s",
+    "category": "combiner-box",
+    "brand": "Generic",
+    "model": "PV combiner box, 2 strings, no fuses, 32 A DC disconnect, SPD",
+    "dimensions": {
+      "lengthMm": 300,
+      "widthMm": 250,
+      "heightMm": 130
+    },
+    "weightKg": 3.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 120,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["combiner", "2-string"],
+    "ports": [
+      {
+        "id": "in1+",
+        "type": "mc4",
+        "position": [-0.095, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in1"
+      },
+      {
+        "id": "in1-",
+        "type": "mc4",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in1"
+      },
+      {
+        "id": "in2+",
+        "type": "mc4",
+        "position": [-0.035, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in2"
+      },
+      {
+        "id": "in2-",
+        "type": "mc4",
+        "position": [-0.005, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in2"
+      },
+      {
+        "id": "out+",
+        "type": "dc-terminal",
+        "position": [0.035, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT +",
+        "polarity": "+",
+        "group": "out"
+      },
+      {
+        "id": "out-",
+        "type": "dc-terminal",
+        "position": [0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT -",
+        "polarity": "-",
+        "group": "out"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.095, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-combiner-2s.glb",
+    "protection": {
+      "inputs": 2,
+      "fuseRatingA": null,
+      "voltageRatingDcV": 1000,
+      "disconnectRatingA": 32,
+      "hasSpd": true,
+      "interruptRatingKa": 10
+    }
+  },
+  {
+    "id": "generic-combiner-4s",
+    "category": "combiner-box",
+    "brand": "Generic",
+    "model": "PV combiner box, 4 strings, 15 A fuses, 63 A DC disconnect, SPD",
+    "dimensions": {
+      "lengthMm": 400,
+      "widthMm": 300,
+      "heightMm": 150
+    },
+    "weightKg": 5.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 220,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["combiner", "4-string"],
+    "ports": [
+      {
+        "id": "in1+",
+        "type": "mc4",
+        "position": [-0.12, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in1"
+      },
+      {
+        "id": "in1-",
+        "type": "mc4",
+        "position": [-0.0975, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in1"
+      },
+      {
+        "id": "in2+",
+        "type": "mc4",
+        "position": [-0.075, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in2"
+      },
+      {
+        "id": "in2-",
+        "type": "mc4",
+        "position": [-0.0525, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in2"
+      },
+      {
+        "id": "in3+",
+        "type": "mc4",
+        "position": [-0.03, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in3"
+      },
+      {
+        "id": "in3-",
+        "type": "mc4",
+        "position": [-0.0075, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in3"
+      },
+      {
+        "id": "in4+",
+        "type": "mc4",
+        "position": [0.015, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in4"
+      },
+      {
+        "id": "in4-",
+        "type": "mc4",
+        "position": [0.0375, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in4"
+      },
+      {
+        "id": "out+",
+        "type": "dc-terminal",
+        "position": [0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT +",
+        "polarity": "+",
+        "group": "out"
+      },
+      {
+        "id": "out-",
+        "type": "dc-terminal",
+        "position": [0.09, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT -",
+        "polarity": "-",
+        "group": "out"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.12, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-combiner-4s.glb",
+    "protection": {
+      "inputs": 4,
+      "fuseRatingA": 15,
+      "voltageRatingDcV": 1000,
+      "disconnectRatingA": 63,
+      "hasSpd": true,
+      "interruptRatingKa": 10
+    }
+  },
+  {
+    "id": "generic-combiner-6s",
+    "category": "combiner-box",
+    "brand": "Generic",
+    "model": "PV combiner box, 6 strings, 15 A fuses, 80 A DC disconnect, SPD",
+    "dimensions": {
+      "lengthMm": 450,
+      "widthMm": 350,
+      "heightMm": 160
+    },
+    "weightKg": 7,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 300,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["combiner", "6-string"],
+    "ports": [
+      {
+        "id": "in1+",
+        "type": "mc4",
+        "position": [-0.145, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in1"
+      },
+      {
+        "id": "in1-",
+        "type": "mc4",
+        "position": [-0.1275, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in1"
+      },
+      {
+        "id": "in2+",
+        "type": "mc4",
+        "position": [-0.11, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in2"
+      },
+      {
+        "id": "in2-",
+        "type": "mc4",
+        "position": [-0.0925, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in2"
+      },
+      {
+        "id": "in3+",
+        "type": "mc4",
+        "position": [-0.075, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in3"
+      },
+      {
+        "id": "in3-",
+        "type": "mc4",
+        "position": [-0.0575, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in3"
+      },
+      {
+        "id": "in4+",
+        "type": "mc4",
+        "position": [-0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in4"
+      },
+      {
+        "id": "in4-",
+        "type": "mc4",
+        "position": [-0.0225, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in4"
+      },
+      {
+        "id": "in5+",
+        "type": "mc4",
+        "position": [-0.005, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN5 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in5"
+      },
+      {
+        "id": "in5-",
+        "type": "mc4",
+        "position": [0.0125, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN5 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in5"
+      },
+      {
+        "id": "in6+",
+        "type": "mc4",
+        "position": [0.03, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN6 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in6"
+      },
+      {
+        "id": "in6-",
+        "type": "mc4",
+        "position": [0.0475, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN6 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in6"
+      },
+      {
+        "id": "out+",
+        "type": "dc-terminal",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT +",
+        "polarity": "+",
+        "group": "out"
+      },
+      {
+        "id": "out-",
+        "type": "dc-terminal",
+        "position": [0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT -",
+        "polarity": "-",
+        "group": "out"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.145, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-combiner-6s.glb",
+    "protection": {
+      "inputs": 6,
+      "fuseRatingA": 15,
+      "voltageRatingDcV": 1000,
+      "disconnectRatingA": 80,
+      "hasSpd": true,
+      "interruptRatingKa": 10
+    }
+  },
+  {
+    "id": "generic-combiner-8s",
+    "category": "combiner-box",
+    "brand": "Generic",
+    "model": "PV combiner box, 8 strings, 15 A fuses, 100 A DC disconnect, SPD",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 400,
+      "heightMm": 170
+    },
+    "weightKg": 8.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 380,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["combiner", "8-string"],
+    "ports": [
+      {
+        "id": "in1+",
+        "type": "mc4",
+        "position": [-0.17, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in1"
+      },
+      {
+        "id": "in1-",
+        "type": "mc4",
+        "position": [-0.155, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN1 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in1"
+      },
+      {
+        "id": "in2+",
+        "type": "mc4",
+        "position": [-0.14, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in2"
+      },
+      {
+        "id": "in2-",
+        "type": "mc4",
+        "position": [-0.125, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN2 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in2"
+      },
+      {
+        "id": "in3+",
+        "type": "mc4",
+        "position": [-0.11, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in3"
+      },
+      {
+        "id": "in3-",
+        "type": "mc4",
+        "position": [-0.095, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN3 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in3"
+      },
+      {
+        "id": "in4+",
+        "type": "mc4",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in4"
+      },
+      {
+        "id": "in4-",
+        "type": "mc4",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN4 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in4"
+      },
+      {
+        "id": "in5+",
+        "type": "mc4",
+        "position": [-0.05, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN5 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in5"
+      },
+      {
+        "id": "in5-",
+        "type": "mc4",
+        "position": [-0.035, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN5 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in5"
+      },
+      {
+        "id": "in6+",
+        "type": "mc4",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN6 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in6"
+      },
+      {
+        "id": "in6-",
+        "type": "mc4",
+        "position": [-0.005, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN6 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in6"
+      },
+      {
+        "id": "in7+",
+        "type": "mc4",
+        "position": [0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN7 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in7"
+      },
+      {
+        "id": "in7-",
+        "type": "mc4",
+        "position": [0.025, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN7 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in7"
+      },
+      {
+        "id": "in8+",
+        "type": "mc4",
+        "position": [0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN8 +",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "in8"
+      },
+      {
+        "id": "in8-",
+        "type": "mc4",
+        "position": [0.055, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "IN8 -",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "in8"
+      },
+      {
+        "id": "out+",
+        "type": "dc-terminal",
+        "position": [0.11, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT +",
+        "polarity": "+",
+        "group": "out"
+      },
+      {
+        "id": "out-",
+        "type": "dc-terminal",
+        "position": [0.14, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "OUT -",
+        "polarity": "-",
+        "group": "out"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.17, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-combiner-8s.glb",
+    "protection": {
+      "inputs": 8,
+      "fuseRatingA": 15,
+      "voltageRatingDcV": 1000,
+      "disconnectRatingA": 100,
+      "hasSpd": true,
+      "interruptRatingKa": 10
+    }
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "id": "generic-load-lighting-300w",
+    "category": "load",
+    "brand": "Generic",
+    "model": "Lighting circuit 300 W",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 400,
+      "heightMm": 600
+    },
+    "weightKg": 10,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["load"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.05, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.03, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "load": {
+      "powerW": 300,
+      "powerFactor": 0.95,
+      "surgeMultiplier": 1,
+      "voltageV": 230,
+      "continuous": true
+    }
+  },
+  {
+    "id": "generic-load-fridge-150w",
+    "category": "load",
+    "brand": "Generic",
+    "model": "Refrigerator 150 W (compressor start \u00d75)",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 400,
+      "heightMm": 600
+    },
+    "weightKg": 10,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["load"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.05, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.03, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "load": {
+      "powerW": 150,
+      "powerFactor": 0.8,
+      "surgeMultiplier": 5,
+      "voltageV": 230,
+      "continuous": true
+    }
+  },
+  {
+    "id": "generic-load-ac-1200w",
+    "category": "load",
+    "brand": "Generic",
+    "model": "Split air-conditioner 1.2 kW (start \u00d73)",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 400,
+      "heightMm": 600
+    },
+    "weightKg": 10,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["load"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.05, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.03, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "load": {
+      "powerW": 1200,
+      "powerFactor": 0.9,
+      "surgeMultiplier": 3,
+      "voltageV": 230,
+      "continuous": true
+    }
+  },
+  {
+    "id": "generic-load-pump-750w",
+    "category": "load",
+    "brand": "Generic",
+    "model": "Water pump 750 W (start \u00d74)",
+    "dimensions": {
+      "lengthMm": 500,
+      "widthMm": 400,
+      "heightMm": 600
+    },
+    "weightKg": 10,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["load"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.05, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [-0.03, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.3, -0.2],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "load": {
+      "powerW": 750,
+      "powerFactor": 0.8,
+      "surgeMultiplier": 4,
+      "voltageV": 230,
+      "continuous": false
+    }
+  }
+]

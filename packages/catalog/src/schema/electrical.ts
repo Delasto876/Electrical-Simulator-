@@ -104,6 +104,8 @@ export const Inverter = PartBase.extend({
       })
       .optional(),
     transferSwitch: z.boolean(),
+    /** Built-in PV DC disconnect switch (no external DC disconnect needed). */
+    integratedDcDisconnect: z.boolean().default(false),
     /** Seconds the unit tolerates a given overload (load fraction > 1). */
     overloadCurve: z
       .array(z.object({ loadFraction: z.number().min(1), seconds: positive }))

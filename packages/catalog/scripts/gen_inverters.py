@@ -58,7 +58,7 @@ INVERTERS = [
 ]
 
 
-def ports(mppts, battery, ac, width_m, depth_m):
+def ports(mppts, battery, ac, width_m, depth_m, has_ac_in):
     out = []
     n_pv = sum(s for s, _, _ in mppts)
     x = -width_m / 2 + 0.05
@@ -67,7 +67,8 @@ def ports(mppts, battery, ac, width_m, depth_m):
     for i, (strings, _, _) in enumerate(mppts, start=1):
         for k in range(strings):
             suffix = "" if strings == 1 else "abcd"[k]
-            for pol, gender in (("+", "male"), ("-", "female")):
+            # Module + leads are male (user convention, D-013), so the inverter PV+ input is female.
+            for pol, gender in (("+", "female"), ("-", "male")):
                 out.append({"id": f"pv{i}{suffix}{pol}", "type": "mc4", "polarity": pol, "gender": gender,
                             "connector": f"generic-mc4-{gender}", "group": f"mppt{i}",
                             "position": [round(x, 3), y, z], "direction": [0, -1, 0],
@@ -82,10 +83,14 @@ def ports(mppts, battery, ac, width_m, depth_m):
     if ac:
         _, ln, _, system = ac
         lines = {"single-phase": ["L1", "N"], "split-phase": ["L1", "L2", "N"], "three-phase": ["L1", "L2", "L3", "N"]}[system]
-        for pol in lines:
-            out.append({"id": f"ac-{pol.lower()}", "type": "ac-terminal", "polarity": pol, "group": "ac",
-                        "position": [round(min(x, width_m / 2 - 0.06), 3), y, z], "direction": [0, -1, 0], "label": f"AC {pol}"})
-            x += 0.02
+        # Hybrid / off-grid units have a grid (or generator) input and a backed-up load output;
+        # grid-tie units have one AC connection.
+        groups = [("ac-in", "AC IN"), ("ac-out", "AC OUT")] if has_ac_in else [("ac", "AC")]
+        for group, glabel in groups:
+            for pol in lines:
+                out.append({"id": f"{group}-{pol.lower()}", "type": "ac-terminal", "polarity": pol, "group": group,
+                            "position": [round(min(x, width_m / 2 - 0.06), 3), y, z], "direction": [0, -1, 0], "label": f"{glabel} {pol}"})
+                x += 0.018
     out.append({"id": "pe", "type": "ground-point", "polarity": "PE", "group": "pe",
                 "position": [round(width_m / 2 - 0.03, 3), y, z], "direction": [0, -1, 0], "label": "PE"})
     return out
@@ -101,7 +106,7 @@ for (id_, brand, model, kind, acw, surge, pvw, vmax, (vmin, vmppmax), vstart, mp
         "price": {"amount": price, "currency": "USD", "unit": "each"},
         "modelUrl": f"{id_}.glb",
         "tags": [brand, kind, (ac[3] if ac else "dc-only"), f"{acw / 1000:g}kW" if acw else "controller"],
-        "ports": ports(mppts, battery, ac, w / 1000, d / 1000),
+        "ports": ports(mppts, battery, ac, w / 1000, d / 1000, kind in ("hybrid", "off-grid")),
         "electrical": {
             "kind": kind, "ratedAcPowerW": acw, "surgePowerW": surge, "surgeDurationS": 5 if surge else 0,
             "maxPvInputPowerW": pvw, "maxPvVoltageV": vmax, "mpptMinV": vmin, "mpptMaxV": vmppmax, "startupVoltageV": vstart,
@@ -115,6 +120,9 @@ for (id_, brand, model, kind, acw, surge, pvw, vmax, (vmin, vmppmax), vstart, mp
             ],
             "standbyW": standby,
             "transferSwitch": kind in ("hybrid", "off-grid"),
+            # Most string, hybrid and grid-tie inverters have a PV DC switch; off-grid
+            # chargers and stand-alone controllers usually do not. // VERIFY per model
+            "integratedDcDisconnect": kind in ("hybrid", "grid-tie"),
             "overloadCurve": [{"loadFraction": 1.1, "seconds": 60}, {"loadFraction": 1.5, "seconds": 10}] if surge else [],
         },
     }

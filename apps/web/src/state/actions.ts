@@ -136,6 +136,7 @@ export function addPartAt(catalogId: string, x: number, z: number): string {
     catalogId,
     position: [snap(x, SNAP.gridM, on), 0, snap(z, SNAP.gridM, on)],
     rotationYDeg: 0,
+    mount: null,
     locked: false,
     hidden: false,
   };

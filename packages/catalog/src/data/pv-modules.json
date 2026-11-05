@@ -23,21 +23,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.355, -0.03, 0.257],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.355, -0.03, 0.257],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -109,21 +109,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.424, -0.03, 0.54],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.424, -0.03, 0.54],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -195,21 +195,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.516, -0.03, 0.575],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.516, -0.03, 0.575],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -281,21 +281,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.587, -0.03, 0.611],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.587, -0.03, 0.611],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -362,21 +362,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.539, -0.03, 0.797],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.539, -0.03, 0.797],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -443,21 +443,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.587, -0.03, 0.889],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.587, -0.03, 0.889],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",
@@ -524,21 +524,21 @@
         "id": "pos",
         "type": "mc4",
         "polarity": "+",
-        "gender": "female",
+        "gender": "male",
         "position": [0.587, -0.03, 0.941],
         "direction": [1, 0, 0],
         "label": "+ lead",
-        "connector": "generic-mc4-female"
+        "connector": "generic-mc4-male"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
-        "gender": "male",
+        "gender": "female",
         "position": [-0.587, -0.03, 0.941],
         "direction": [-1, 0, 0],
         "label": "- lead",
-        "connector": "generic-mc4-male"
+        "connector": "generic-mc4-female"
       },
       {
         "id": "frame-gnd",

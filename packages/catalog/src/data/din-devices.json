@@ -1,0 +1,1244 @@
+[
+  {
+    "id": "generic-mcb-ac-1p-16a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 1P 16 A C-curve 6 kA",
+    "dimensions": {
+      "lengthMm": 18,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "16A", "1P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [0, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-1p-16a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 1,
+      "modules": 1,
+      "ratedCurrentA": 16,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-1p-20a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 1P 20 A C-curve 6 kA",
+    "dimensions": {
+      "lengthMm": 18,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "20A", "1P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [0, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-1p-20a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 1,
+      "modules": 1,
+      "ratedCurrentA": 20,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-1p-32a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 1P 32 A C-curve 6 kA",
+    "dimensions": {
+      "lengthMm": 18,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 7,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "32A", "1P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [0, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-1p-32a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 1,
+      "modules": 1,
+      "ratedCurrentA": 32,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-2p-40a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 2P 40 A C-curve 10 kA",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 16,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "40A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-2p-40a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 40,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 10,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-2p-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 2P 63 A C-curve 10 kA",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 22,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "63A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-2p-63a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 10,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-3p-32a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 3P 32 A C-curve 10 kA",
+    "dimensions": {
+      "lengthMm": 54,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.36,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 28,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "32A", "3P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.018, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      },
+      {
+        "id": "l3",
+        "type": "ac-terminal",
+        "position": [0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L3",
+        "polarity": "L3",
+        "group": "line"
+      },
+      {
+        "id": "t3",
+        "type": "ac-terminal",
+        "position": [0.018, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L3",
+        "polarity": "L3",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-3p-32a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 3,
+      "modules": 3,
+      "ratedCurrentA": 32,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 10,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-4p-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 4P 63 A C-curve 10 kA",
+    "dimensions": {
+      "lengthMm": 72,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.48,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 45,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "63A", "4P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.027, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.027, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      },
+      {
+        "id": "l3",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L3",
+        "polarity": "L3",
+        "group": "line"
+      },
+      {
+        "id": "t3",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L3",
+        "polarity": "L3",
+        "group": "load"
+      },
+      {
+        "id": "l4",
+        "type": "ac-terminal",
+        "position": [0.027, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "t4",
+        "type": "ac-terminal",
+        "position": [0.027, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-4p-63a.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 4,
+      "modules": 4,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 10,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-2p-63a-3ka",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 2P 63 A C-curve 3 kA (low breaking capacity)",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "63A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-ac-2p-63a-3ka.glb",
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 3,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-rcbo-1pn-20a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "RCBO 1P+N 20 A C-curve 30 mA type A 6 kA",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["rcbo", "20A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-rcbo-1pn-20a.glb",
+    "protection": {
+      "kind": "rcbo",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 20,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": 30
+    }
+  },
+  {
+    "id": "generic-rcd-2p-40a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "RCD 2P 40 A 30 mA type A",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 30,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["rcd", "40A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-rcd-2p-40a.glb",
+    "protection": {
+      "kind": "rcd",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 40,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": 30
+    }
+  },
+  {
+    "id": "generic-mcb-dc-2p-16a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC MCB 2P 16 A 500 V DC 6 kA (polarity-sensitive)",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 18,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-dc", "16A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-dc-2p-16a.glb",
+    "protection": {
+      "kind": "mcb-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 16,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 500,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": true,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-dc-2p-32a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC MCB 2P 32 A 500 V DC 6 kA (polarity-sensitive)",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 20,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-dc", "32A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-dc-2p-32a.glb",
+    "protection": {
+      "kind": "mcb-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 32,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 500,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": true,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-dc-2p-63a-1000v",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC MCB 2P 63 A 1000 V DC 6 kA (polarity-sensitive)",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 34,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-dc", "63A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-mcb-dc-2p-63a-1000v.glb",
+    "protection": {
+      "kind": "mcb-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": true,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-isolator-dc-2p-32a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC isolator 2P 32 A 1000 V DC",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 22,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["isolator-dc", "32A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-isolator-dc-2p-32a.glb",
+    "protection": {
+      "kind": "isolator-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 32,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 1,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-isolator-ac-2p-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC isolator 2P 63 A",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 14,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["isolator-ac", "63A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L2",
+        "polarity": "L2",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L2",
+        "polarity": "L2",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-isolator-ac-2p-63a.glb",
+    "protection": {
+      "kind": "isolator-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 1,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-fuse-holder-dc-15a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC fuse holder 10\u00d738 with 15 A gPV fuse, 1000 V DC",
+    "dimensions": {
+      "lengthMm": 18,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.12,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["fuse-holder-dc", "15A", "1P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [0, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      }
+    ],
+    "modelUrl": "generic-fuse-holder-dc-15a.glb",
+    "protection": {
+      "kind": "fuse-holder-dc",
+      "poles": 1,
+      "modules": 1,
+      "ratedCurrentA": 15,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 30,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-spd-dc-2p-1000v",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC SPD type 2, 1000 V DC",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 35,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["spd-dc", "20A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-spd-dc-2p-1000v.glb",
+    "protection": {
+      "kind": "spd-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 20,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 20,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-spd-ac-1pn",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC SPD type 2, 1P+N 275 V",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.24,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 30,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["spd-ac", "20A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-spd-ac-1pn.glb",
+    "protection": {
+      "kind": "spd-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 20,
+      "voltageRatingAcV": 275,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 20,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  }
+]

@@ -1,3 +1,12 @@
+import combinerBoxes from "./combiner-boxes.json";
+import dinDevices from "./din-devices.json";
+import enclosures from "./enclosures.json";
+import batteryProtection from "./battery-protection.json";
+import ats from "./ats.json";
+import grounding from "./grounding.json";
+import utilities from "./utilities.json";
+import generators from "./generators.json";
+import loads from "./loads.json";
 import batteries from "./batteries.json";
 import cables from "./cables.json";
 import connectors from "./connectors.json";
@@ -28,4 +37,13 @@ export const bundledCatalogRaw: unknown[] = [
   ...fasteners,
   ...cables,
   ...connectors,
+  ...combinerBoxes,
+  ...dinDevices,
+  ...enclosures,
+  ...batteryProtection,
+  ...ats,
+  ...grounding,
+  ...utilities,
+  ...generators,
+  ...loads,
 ];

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "generic-generator-7k5-split-60hz",
+    "category": "generator",
+    "brand": "Generic",
+    "model": "Generator 7.5 kVA 120/240 V 60 Hz (bonded neutral)",
+    "dimensions": {
+      "lengthMm": 900,
+      "widthMm": 600,
+      "heightMm": 650
+    },
+    "weightKg": 120,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 1800,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["generator", "split-phase", "60Hz"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [0.3, 0.325, -0.3],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.32, 0.325, -0.3],
+        "direction": [0, 0, -1],
+        "label": "L2",
+        "polarity": "L2",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [0.34, 0.325, -0.3],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.37, 0.325, -0.3],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-generator-7k5-split-60hz.glb",
+    "source": {
+      "voltageV": 240,
+      "system": "split-phase",
+      "frequencyHz": 60,
+      "availableFaultCurrentKa": 0.21,
+      "ratedKva": 7.5,
+      "neutralBonded": true,
+      "lineToNeutralV": 120
+    }
+  },
+  {
+    "id": "generic-generator-10k-230v-50hz",
+    "category": "generator",
+    "brand": "Generic",
+    "model": "Generator 10 kVA 230 V 50 Hz (floating neutral)",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 650,
+      "heightMm": 700
+    },
+    "weightKg": 120,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 2600,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["generator", "single-phase", "50Hz"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [0.35, 0.35, -0.325],
+        "direction": [0, 0, -1],
+        "label": "L1",
+        "polarity": "L1",
+        "group": "ac"
+      },
+      {
+        "id": "n",
+        "type": "ac-terminal",
+        "position": [0.37, 0.35, -0.325],
+        "direction": [0, 0, -1],
+        "label": "N",
+        "polarity": "N",
+        "group": "ac"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [0.4, 0.35, -0.325],
+        "direction": [0, 0, -1],
+        "label": "PE",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "modelUrl": "generic-generator-10k-230v-50hz.glb",
+    "source": {
+      "voltageV": 230,
+      "system": "single-phase",
+      "frequencyHz": 50,
+      "availableFaultCurrentKa": 0.29,
+      "ratedKva": 10,
+      "neutralBonded": false
+    }
+  }
+]
