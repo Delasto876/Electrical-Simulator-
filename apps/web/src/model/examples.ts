@@ -1,5 +1,5 @@
 import { DEFAULT_CODE_PROFILE, getCodeProfile, roofSurfaces } from "@solar-sim/engine";
-import { NEW_PROJECT_ROOF } from "../config/defaults";
+import { NEW_PROJECT_ROOF, DEFAULT_SIMULATION, DEFAULT_SITE } from "../config/defaults";
 import {
   newProject,
   type CableInstance,
@@ -47,6 +47,8 @@ function hybridExample(now: Date): ProjectFile {
       roof: { ...NEW_PROJECT_ROOF },
       lengthUnits: "metric",
       wireUnits: "awg",
+      site: DEFAULT_SITE,
+      simulation: DEFAULT_SIMULATION,
     },
     now,
     `example-hybrid-${now.getTime()}`,

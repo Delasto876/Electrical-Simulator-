@@ -2,7 +2,7 @@
  * @solar-sim/engine — pure TypeScript physics and design rules.
  * No DOM, no React, no three.js (enforced by eslint).
  */
-export const ENGINE_VERSION = "0.5.0";
+export const ENGINE_VERSION = "0.6.0";
 
 export * from "./constants";
 export * from "./units";
@@ -43,3 +43,10 @@ export * from "./raceway/thermal";
 export * from "./raceway/packing";
 export * from "./raceway/location";
 export * from "./raceway/cutting";
+export * from "./irradiance/poa";
+export * from "./pv/bypass";
+export * from "./sim/shading";
+export * from "./sim/battery";
+export * from "./sim/dispatch";
+export * from "./sim/loads";
+export * from "./sim/simulate";

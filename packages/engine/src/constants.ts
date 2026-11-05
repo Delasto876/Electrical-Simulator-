@@ -106,3 +106,15 @@ export const MULTI_ROD_FACTOR: Record<number, number> = {
   20: 2.0,
   24: 2.16,
 };
+
+// ---------------------------------------------------------------- Phase 6: irradiance and simulation
+
+/** Total solar irradiance at 1 AU [W/m²]. Kopp & Lean (2011), 1360.8 ± 0.5. */
+export const SOLAR_CONSTANT_WM2 = 1361;
+/** ASHRAE incidence-angle modifier coefficient for glass-fronted modules (b0). // VERIFY */
+export const IAM_ASHRAE_B0 = 0.05;
+/** Forward voltage of a conducting bypass diode (Schottky) [V]. // VERIFY */
+export const BYPASS_DIODE_DROP_V = 0.5;
+/** Haurwitz clear-sky GHI model coefficients: GHI = A·cos z·exp(−B / cos z). Haurwitz (1945). */
+export const HAURWITZ_A_WM2 = 1098;
+export const HAURWITZ_B = 0.059;

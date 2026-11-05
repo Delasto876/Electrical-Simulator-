@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { roofSurfaces } from "@solar-sim/engine";
-import { NEW_ARRAY, NEW_PROJECT_ROOF } from "../config/defaults";
+import { NEW_ARRAY, NEW_PROJECT_ROOF, DEFAULT_SIMULATION, DEFAULT_SITE } from "../config/defaults";
 import { getPart, partsOf } from "../app/catalog";
 import type { ArrayInstance } from "../project/projectFile";
 import { newProject } from "../project/projectFile";
@@ -100,6 +100,8 @@ describe("computeScene", () => {
         roof: NEW_PROJECT_ROOF,
         lengthUnits: "metric",
         wireUnits: "awg",
+        site: DEFAULT_SITE,
+        simulation: DEFAULT_SIMULATION,
       },
       new Date(0),
       "p",

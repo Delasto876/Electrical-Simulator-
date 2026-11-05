@@ -1,0 +1,54 @@
+{
+  "description": "Hybrid example (Examples → Hybrid) on 1 June 2025 in Kingston, Jamaica: 12 × 300 W in two strings of 6 on one MPPT, roof 15° facing south, Deye 8 kW hybrid, 2 × 14.3 kWh LFP, fridge + air-conditioner, grid up all day, battery starting at its 20 % reserve (after a cloudy day). Linear PV model (the spreadsheet cannot do single-diode).",
+  "site": {
+    "latitudeDeg": 17.997,
+    "longitudeDeg": -76.7936,
+    "utcOffsetH": -5,
+    "date": "2025-06-01"
+  },
+  "array": { "tiltDeg": 15, "azimuthDeg": 180, "albedo": 0.2 },
+  "module": { "pmaxW": 300, "vmpV": 32.5, "gammaPctPerC": -0.39, "betaVocPctPerC": -0.3 },
+  "strings": [
+    { "modules": 6, "wireROhm": 0.11333256656555085, "connectorROhm": 0.0045 },
+    { "modules": 6, "wireROhm": 0.1294861208941447, "connectorROhm": 0.0045 }
+  ],
+  "losses": {
+    "soilingPct": 2,
+    "ageFactor": 0.985,
+    "availabilityPct": 99.5,
+    "iamB0": 0.05,
+    "faimanU0": 25,
+    "faimanU1": 6.84,
+    "solarConstantWm2": 1361
+  },
+  "inverter": {
+    "ratedAcW": 8000,
+    "maxPvInputW": 10400,
+    "standbyW": 60,
+    "efficiencyCurve": [
+      [0.05, 0.896],
+      [0.1, 0.946],
+      [0.3, 0.971],
+      [0.5, 0.976],
+      [1.0, 0.966]
+    ],
+    "maxBatteryChargeW": 9728,
+    "maxBatteryDischargeW": 9728,
+    "acWiringROhm": 0.05575156167979002,
+    "acVoltageV": 240
+  },
+  "battery": {
+    "capacityWh": 28672,
+    "minSoc": 0.2,
+    "roundTripEfficiency": 0.95,
+    "maxChargeW": 14336,
+    "maxDischargeW": 20480,
+    "lowTempChargeCutoffC": 0,
+    "initialSoc": 0.2
+  },
+  "loads": [
+    { "ratedW": 150, "kind": "always", "startH": 0, "endH": 24, "dutyPct": 40 },
+    { "ratedW": 1200, "kind": "window", "startH": 13, "endH": 23, "dutyPct": 70 }
+  ],
+  "grid": { "up": true, "exportAllowed": true }
+}

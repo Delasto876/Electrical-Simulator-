@@ -7,7 +7,7 @@ import {
   serializeProject,
 } from "./projectFile";
 import { MemoryProjectStorage } from "../storage/storage";
-import { NEW_PROJECT_ROOF } from "../config/defaults";
+import { NEW_PROJECT_ROOF, DEFAULT_SIMULATION, DEFAULT_SITE } from "../config/defaults";
 
 const opts = (name: string) => ({
   name,
@@ -16,6 +16,8 @@ const opts = (name: string) => ({
   roof: NEW_PROJECT_ROOF,
   lengthUnits: "metric" as const,
   wireUnits: "awg" as const,
+  site: DEFAULT_SITE,
+  simulation: DEFAULT_SIMULATION,
 });
 
 const NOW = new Date("2026-01-01T00:00:00.000Z");

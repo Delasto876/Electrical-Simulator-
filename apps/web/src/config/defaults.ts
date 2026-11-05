@@ -6,7 +6,8 @@
  *   - part data and prices:    packages/catalog/src/data/*.json
  * See docs/CHANGE_GUIDE.md for the full "where do I change X" map.
  */
-import type { RoofSpec } from "@solar-sim/engine";
+import type { LoadProfile, RoofSpec } from "@solar-sim/engine";
+import type { Obstruction, ProjectFile, SimulationSettings } from "../project/projectFile";
 
 // ---------------------------------------------------------------- units
 export type LengthUnits = "metric" | "imperial";
@@ -95,6 +96,86 @@ export const RACEWAY = {
     "steel-wireway": "#8d949b",
   } as Record<string, string>,
 };
+
+/** Where a new project is: Kingston, Jamaica (GeoNames). Any place can be picked in Site & code. */
+export const DEFAULT_SITE: ProjectFile["site"] = {
+  name: "Kingston, Jamaica",
+  latitudeDeg: 17.997,
+  longitudeDeg: -76.7936,
+  timeZone: "America/Jamaica",
+};
+
+/** Energy simulation defaults (each one editable in the Simulation tab). */
+export const DEFAULT_SIMULATION: SimulationSettings = {
+  source: "open-meteo",
+  period: "day",
+  date: "2025-06-01",
+  stepMin: 60,
+  albedo: 0.2,
+  skyModel: "hay-davies",
+  pvModel: "single-diode",
+  soilingPct: 2,
+  lidPct: 1.5,
+  ageYears: 0,
+  availabilityPct: 99.5,
+  initialSocPct: 50,
+  reserveSocPct: 20,
+  exportAllowed: true,
+  exportLimitW: null,
+  outages: [],
+  generatorStartSocPct: 30,
+  generatorStopSocPct: 80,
+  loadProfiles: {},
+};
+
+/** How each catalog load is used through a typical day unless the user sets it (local hours). */
+export const DEFAULT_LOAD_PROFILES: Record<string, LoadProfile> = {
+  "generic-load-fridge-150w": { kind: "always", dutyPct: 40 }, // compressor cycling
+  "generic-load-ac-1200w": { kind: "window", startH: 13, endH: 23, dutyPct: 70 },
+  "generic-load-lighting-300w": { kind: "window", startH: 18, endH: 23, dutyPct: 100 },
+  "generic-load-pump-750w": { kind: "window", startH: 7, endH: 8, dutyPct: 100 },
+};
+export const FALLBACK_LOAD_PROFILE: LoadProfile = { kind: "always", dutyPct: 50 };
+
+/** A new obstruction of each kind (metres). */
+export const OBSTRUCTION_DEFAULTS: Record<
+  Obstruction["kind"],
+  Pick<
+    Obstruction,
+    "name" | "widthM" | "depthM" | "heightM" | "trunkHeightM" | "standHeightM" | "transmittancePct"
+  >
+> = {
+  tree: {
+    name: "Tree",
+    widthM: 5,
+    depthM: 5,
+    heightM: 8,
+    trunkHeightM: 3,
+    standHeightM: 0,
+    transmittancePct: 20,
+  },
+  tank: {
+    name: "Water tank",
+    widthM: 1.6,
+    depthM: 1.6,
+    heightM: 4.5,
+    trunkHeightM: 0,
+    standHeightM: 2.5,
+    transmittancePct: 0,
+  },
+  building: {
+    name: "Neighbouring building",
+    widthM: 10,
+    depthM: 8,
+    heightM: 7,
+    trunkHeightM: 0,
+    standHeightM: 0,
+    transmittancePct: 0,
+  },
+};
+
+/** Generator: real power from kVA (power factor) and start + ATS transfer time. // VERIFY */
+export const GENERATOR_SIM = { powerFactor: 0.8, startDelayS: 10 };
 
 export const SNAP = {
   /** Grid step for moving arrays and parts [m]. Toggle with G. */

@@ -11,7 +11,7 @@ import { ROOF_TYPES } from "@solar-sim/engine";
  *     literal values, not app defaults, so they stay reproducible).
  *   - Only the current-version schema is validated, after migration.
  */
-export const CURRENT_SCHEMA_VERSION = 5;
+export const CURRENT_SCHEMA_VERSION = 6;
 
 const v3 = z.tuple([z.number(), z.number(), z.number()]);
 
@@ -148,6 +148,71 @@ export const RacewayRunSchema = z.object({
 });
 export type RacewayRun = z.infer<typeof RacewayRunSchema>;
 
+/** Site obstructions that cast shadows (Phase 6). Sizes in metres; position = centre of the base on the ground. */
+export const OBSTRUCTION_KINDS = ["tree", "tank", "building"] as const;
+export const ObstructionSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  kind: z.enum(OBSTRUCTION_KINDS),
+  position: z.tuple([z.number(), z.number(), z.number()]),
+  rotationYDeg: z.number(),
+  /** Tree: crown diameter · tank: diameter · building: width. */
+  widthM: z.number().positive(),
+  /** Building depth (trees and tanks are round). */
+  depthM: z.number().positive(),
+  /** Overall height above the ground. */
+  heightM: z.number().positive(),
+  /** Tree: height of the bare trunk below the crown. */
+  trunkHeightM: z.number().nonnegative(),
+  /** Tank: height of the stand it sits on. */
+  standHeightM: z.number().nonnegative(),
+  /** Tree crown: share of direct sunlight passing through the leaves [%]. */
+  transmittancePct: z.number().min(0).max(100),
+  locked: z.boolean(),
+  hidden: z.boolean(),
+});
+export type Obstruction = z.infer<typeof ObstructionSchema>;
+
+export const LoadProfileSchema = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("always"), dutyPct: z.number().min(0).max(100) }),
+  z.object({
+    kind: z.literal("window"),
+    startH: z.number().min(0).max(24),
+    endH: z.number().min(0).max(24),
+    dutyPct: z.number().min(0).max(100),
+  }),
+]);
+
+/** Energy simulation settings (results are recomputed, never saved). */
+export const SimulationSchema = z.object({
+  /** Weather: real hourly data (Open-Meteo, ERA5 reanalysis) or an offline clear-sky estimate. */
+  source: z.enum(["open-meteo", "clear-sky"]),
+  period: z.enum(["day", "month", "year"]),
+  /** Local start date (YYYY-MM-DD); a month/year period starts on its first day. */
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  stepMin: z.union([z.literal(5), z.literal(15), z.literal(60)]),
+  albedo: z.number().min(0).max(1),
+  skyModel: z.enum(["isotropic", "hay-davies"]),
+  pvModel: z.enum(["single-diode", "linear"]),
+  soilingPct: z.number().min(0).max(50),
+  lidPct: z.number().min(0).max(10),
+  ageYears: z.number().min(0).max(40),
+  availabilityPct: z.number().min(50).max(100),
+  initialSocPct: z.number().min(0).max(100),
+  reserveSocPct: z.number().min(0).max(100),
+  exportAllowed: z.boolean(),
+  exportLimitW: z.number().nonnegative().nullable(),
+  /** Daily grid outage windows (local hours). */
+  outages: z.array(
+    z.object({ startH: z.number().min(0).max(24), endH: z.number().min(0).max(24) }),
+  ),
+  generatorStartSocPct: z.number().min(0).max(100),
+  generatorStopSocPct: z.number().min(0).max(100),
+  /** Load part id → how it is used through the day. */
+  loadProfiles: z.record(z.string(), LoadProfileSchema),
+});
+export type SimulationSettings = z.infer<typeof SimulationSchema>;
+
 export const ClimateSchema = z.object({
   /** Design low ambient (maximum Voc) [°C]. */
   minAmbientC: z.number().min(-60).max(40),
@@ -173,7 +238,7 @@ export const SettingsSchema = z.object({
 
 /** The current project schema (older versions are migrated to it). */
 export const ProjectFileSchema = z.object({
-  schemaVersion: z.literal(5),
+  schemaVersion: z.literal(6),
   meta: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -181,13 +246,13 @@ export const ProjectFileSchema = z.object({
     updatedAt: z.iso.datetime(),
     appVersion: z.string(),
   }),
-  site: z
-    .object({
-      latitudeDeg: z.number().min(-90).max(90),
-      longitudeDeg: z.number().min(-180).max(180),
-      timeZone: z.string(),
-    })
-    .nullable(),
+  site: z.object({
+    name: z.string(),
+    latitudeDeg: z.number().min(-90).max(90),
+    longitudeDeg: z.number().min(-180).max(180),
+    /** IANA time zone, e.g. "America/Jamaica". */
+    timeZone: z.string(),
+  }),
   codeProfileId: z.string(),
   climate: ClimateSchema,
   earthing: EarthingSchema,
@@ -198,6 +263,8 @@ export const ProjectFileSchema = z.object({
   connections: z.array(z.unknown()),
   cables: z.array(CableInstanceSchema),
   raceways: z.array(RacewayRunSchema),
+  obstructions: z.array(ObstructionSchema),
+  simulation: SimulationSchema,
   settings: SettingsSchema,
 });
 export type ProjectFile = z.infer<typeof ProjectFileSchema>;
@@ -270,6 +337,44 @@ export const MIGRATIONS: Record<number, Migration> = {
       racewayIds: [],
     })),
   }),
+  // 5 → 6 (Phase 6): a named site (Kingston, Jamaica when none was set), obstructions and simulation settings.
+  5: (doc) => {
+    const site = doc.site as Record<string, unknown> | null | undefined;
+    return {
+      ...doc,
+      schemaVersion: 6,
+      site: site
+        ? { name: "Site", ...site }
+        : {
+            name: "Kingston, Jamaica",
+            latitudeDeg: 17.997,
+            longitudeDeg: -76.7936,
+            timeZone: "America/Jamaica",
+          },
+      obstructions: [],
+      simulation: {
+        source: "open-meteo",
+        period: "day",
+        date: "2025-06-01",
+        stepMin: 60,
+        albedo: 0.2,
+        skyModel: "hay-davies",
+        pvModel: "single-diode",
+        soilingPct: 2,
+        lidPct: 1.5,
+        ageYears: 0,
+        availabilityPct: 99.5,
+        initialSocPct: 50,
+        reserveSocPct: 20,
+        exportAllowed: true,
+        exportLimitW: null,
+        outages: [],
+        generatorStartSocPct: 30,
+        generatorStopSocPct: 80,
+        loadProfiles: {},
+      },
+    };
+  },
 };
 
 export class ProjectFileError extends Error {}
@@ -304,6 +409,8 @@ export interface NewProjectOptions {
   roof: ProjectFile["roof"];
   lengthUnits: ProjectFile["settings"]["lengthUnits"];
   wireUnits: ProjectFile["settings"]["wireUnits"];
+  site: ProjectFile["site"];
+  simulation: SimulationSettings;
 }
 
 export function newProject(
@@ -314,8 +421,8 @@ export function newProject(
   const stamp = now.toISOString();
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
-    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.5.0" },
-    site: null,
+    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.6.0" },
+    site: { ...opts.site },
     codeProfileId: opts.codeProfileId,
     climate: { ...opts.climate },
     earthing: { soil: "average-soil" },
@@ -326,6 +433,8 @@ export function newProject(
     connections: [],
     cables: [],
     raceways: [],
+    obstructions: [],
+    simulation: structuredClone(opts.simulation),
     settings: { lengthUnits: opts.lengthUnits, wireUnits: opts.wireUnits, gridSnap: true },
   };
 }

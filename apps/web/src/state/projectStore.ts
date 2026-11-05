@@ -6,6 +6,8 @@ import {
   NEW_PROJECT_CODE_PROFILE,
   NEW_PROJECT_NAME,
   NEW_PROJECT_ROOF,
+  DEFAULT_SIMULATION,
+  DEFAULT_SITE,
 } from "../config/defaults";
 import { newProject, type ProjectFile } from "../project/projectFile";
 
@@ -53,6 +55,8 @@ export function freshProject(): ProjectFile {
     roof: NEW_PROJECT_ROOF,
     lengthUnits: DEFAULT_UNITS.length,
     wireUnits: DEFAULT_UNITS.wire,
+    site: DEFAULT_SITE,
+    simulation: DEFAULT_SIMULATION,
   });
 }
 
