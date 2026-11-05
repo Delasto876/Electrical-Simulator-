@@ -1,6 +1,7 @@
 import { DEFAULT_CODE_PROFILE, getCodeProfile } from "@solar-sim/engine";
 import type { CameraPreset } from "../config/defaults";
-import { redo, renameProject, setSetting, undo } from "../state/actions";
+import { buildExample, EXAMPLES } from "../model/examples";
+import { loadProject, redo, renameProject, setSetting, undo } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { useUi } from "../state/uiStore";
 
@@ -16,6 +17,8 @@ export function Toolbar() {
   const setTheme = useUi((s) => s.setTheme);
   const camera = useUi((s) => s.camera);
   const exploded = useUi((s) => s.exploded);
+  const xray = useUi((s) => s.xray);
+  const bondingView = useUi((s) => s.bondingView);
   const tool = useUi((s) => s.tool);
   const past = useProject((s) => s.past);
   const future = useProject((s) => s.future);
@@ -100,6 +103,22 @@ export function Toolbar() {
         </button>
         <button
           type="button"
+          aria-pressed={xray}
+          title="See through enclosures, combiners and transfer switches (X)"
+          onClick={() => useUi.getState().toggleXray()}
+        >
+          X-ray
+        </button>
+        <button
+          type="button"
+          aria-pressed={bondingView}
+          title="Colour metal parts green when bonded to the ground rod, red when floating (B)"
+          onClick={() => useUi.getState().toggleBondingView()}
+        >
+          Bonding
+        </button>
+        <button
+          type="button"
           aria-pressed={settings.gridSnap}
           title="Grid snap (G)"
           onClick={() => setSetting("gridSnap", !settings.gridSnap)}
@@ -116,6 +135,28 @@ export function Toolbar() {
         >
           {settings.lengthUnits === "metric" ? "mm / m" : "in / ft"}
         </button>
+        <select
+          aria-label="Load an example design"
+          data-testid="examples"
+          value=""
+          onChange={(e) => {
+            const ex = EXAMPLES.find((x) => x.id === e.target.value);
+            if (!ex) return;
+            if (
+              window.confirm(
+                `Open the example “${ex.name}” as a new project? Your current design stays in this browser's storage, but there is no project list to reopen it yet: export it first if you need it.`,
+              )
+            )
+              loadProject(buildExample(ex.id));
+          }}
+        >
+          <option value="">Examples…</option>
+          {EXAMPLES.map((x) => (
+            <option key={x.id} value={x.id}>
+              {x.name}
+            </option>
+          ))}
+        </select>
         <button type="button" disabled title="Available from Phase 6">
           Simulate
         </button>

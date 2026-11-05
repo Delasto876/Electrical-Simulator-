@@ -8,6 +8,7 @@ import { useSceneModel } from "../../scene/useSceneModel";
 import { Field, NumberField, Readout, Section, SelectField } from "./fields";
 import { Nameplate } from "./Nameplate";
 import { ArrayWiring } from "./ArrayWiring";
+import { BondingStatus } from "./ProtectionDetails";
 
 /** Inspector for a PV array: what it is made of (editable) and what that produces (computed). */
 export function ArrayInspector({ id }: { id: string }) {
@@ -196,6 +197,25 @@ export function ArrayInspector({ id }: { id: string }) {
             </span>
           </Field>
         )}
+      </Section>
+
+      <Section title="Grounding & bonding">
+        <Field label="WEEB washers under the clamps">
+          <span className="insp-inline">
+            <input
+              type="checkbox"
+              checked={a.weebs}
+              data-testid="array-weebs"
+              onChange={(e) => set({ weebs: e.target.checked })}
+            />{" "}
+            bond every module frame to the rail (2 per module)
+          </span>
+        </Field>
+        <p className="hint">
+          Without WEEBs, module frames are bonded only by bonding mid clamps. Cable the array PE lug
+          (the ground marker at the start of the first rail) to the combiner or panel PE bar.
+        </p>
+        <BondingStatus id={a.id} />
       </Section>
 
       {c.error ? (

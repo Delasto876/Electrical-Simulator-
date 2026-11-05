@@ -79,7 +79,7 @@ function hybridExample(now: Date): ProjectFile {
     catalogId: string,
     x: number,
     z: number,
-    rot = 0,
+    rot = 180, // fronts face −z by default (towards the building); turn them to face the yard
     mount: FreePart["mount"] = null,
   ): FreePart => ({
     id,

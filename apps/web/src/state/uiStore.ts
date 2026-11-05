@@ -39,6 +39,8 @@ interface UiState {
   camera: CameraPreset;
   /** Bumped to re-apply the camera preset even when it is unchanged. */
   cameraNonce: number;
+  /** Camera framed on an object (F): look-at point and object radius [m]; null = whole roof. */
+  focus: { target: [number, number, number]; radiusM: number } | null;
   exploded: boolean;
   drag: DragPreview;
   showShortcuts: boolean;
@@ -53,6 +55,7 @@ interface UiState {
   select: (s: Selection) => void;
   setTool: (t: Tool) => void;
   setCamera: (c: CameraPreset) => void;
+  setFocus: (focus: UiState["focus"]) => void;
   toggleExploded: () => void;
   setDrag: (d: DragPreview) => void;
   setShowShortcuts: (v: boolean) => void;
@@ -81,6 +84,7 @@ export const useUi = create<UiState>((set) => ({
   tool: { kind: "select" },
   camera: "orbit",
   cameraNonce: 0,
+  focus: null,
   exploded: false,
   drag: null,
   showShortcuts: false,
@@ -99,7 +103,8 @@ export const useUi = create<UiState>((set) => ({
   selectCatalogPart: (selectedCatalogId) => set({ selectedCatalogId, selection: null }),
   select: (selection) => set({ selection }),
   setTool: (tool) => set({ tool }),
-  setCamera: (camera) => set((s) => ({ camera, cameraNonce: s.cameraNonce + 1 })),
+  setCamera: (camera) => set((s) => ({ camera, focus: null, cameraNonce: s.cameraNonce + 1 })),
+  setFocus: (focus) => set((s) => ({ focus, cameraNonce: s.cameraNonce + 1 })),
   toggleExploded: () => set((s) => ({ exploded: !s.exploded })),
   setDrag: (drag) => set({ drag }),
   setShowShortcuts: (showShortcuts) => set({ showShortcuts }),

@@ -36,14 +36,20 @@ export function FreePartObject({ part }: { part: FreePart }) {
   const selected = selection?.kind === "part" && selection.id === part.id;
   const live = drag?.kind === "part" && drag.id === part.id ? drag : undefined;
   const t = partTransform(part, parts);
-  const pos: [number, number, number] = live ? [live.x, part.position[1], live.z] : [t.position[0], t.position[1], t.position[2]];
+  const pos: [number, number, number] = live
+    ? [live.x, part.position[1], live.z]
+    : [t.position[0], t.position[1], t.position[2]];
   const bond = bondingView ? scene.grounding.bonded.get(part.id) : undefined;
   const tint = bond === undefined ? undefined : bond ? SCENE_COLORS.ghostOk : SCENE_COLORS.ghostBad;
   const seeThrough = xray && XRAY_CATEGORIES.has(cat.category);
 
   const onDown = (e: ThreeEvent<PointerEvent>) => {
     if (e.button !== 0) return;
-    if (tool.kind === "place" && cat.category === "enclosure" && catalogById.get(tool.catalogId)?.category === "din-device") {
+    if (
+      tool.kind === "place" &&
+      cat.category === "enclosure" &&
+      catalogById.get(tool.catalogId)?.category === "din-device"
+    ) {
       e.stopPropagation();
       if (mountDevice(part.id, tool.catalogId)) useUi.getState().setTool({ kind: "select" });
       else window.alert("This enclosure has no free DIN slots for that device.");
@@ -71,8 +77,9 @@ export function FreePartObject({ part }: { part: FreePart }) {
     <group
       position={pos}
       rotation-y={live ? (part.rotationYDeg * Math.PI) / 180 : t.rotationY}
+      userData={{ partId: part.id, category: cat.category }}
       onPointerDown={onDown}
-      onClick={(e) => tool.kind === "select" && e.stopPropagation()}
+      onClick={(e) => (tool.kind === "select" || tool.kind === "place") && e.stopPropagation()}
     >
       {cat.modelUrl ? (
         <Suspense fallback={<BoxLook catalogId={part.catalogId} selected={selected} tint={tint} />}>
@@ -85,10 +92,23 @@ export function FreePartObject({ part }: { part: FreePart }) {
   );
 }
 
-type TintableMaterial = Material & { emissive?: { set: (c: string) => void }; emissiveIntensity?: number };
+type TintableMaterial = Material & {
+  emissive?: { set: (c: string) => void };
+  emissiveIntensity?: number;
+};
 
 /** Blender model of the part (ports come from the catalog, so port marker Empties are ignored here). */
-function GlbLook({ file, selected, tint, seeThrough }: { file: string; selected: boolean; tint: string | undefined; seeThrough: boolean }) {
+function GlbLook({
+  file,
+  selected,
+  tint,
+  seeThrough,
+}: {
+  file: string;
+  selected: boolean;
+  tint: string | undefined;
+  seeThrough: boolean;
+}) {
   const { scene } = useGLTF(modelUrl(file));
   const model = useMemo(() => {
     const clone = scene.clone(true);
@@ -115,13 +135,27 @@ function GlbLook({ file, selected, tint, seeThrough }: { file: string; selected:
   return <primitive object={model} />;
 }
 
-function BoxLook({ catalogId, selected, tint }: { catalogId: string; selected: boolean; tint?: string | undefined }) {
+function BoxLook({
+  catalogId,
+  selected,
+  tint,
+}: {
+  catalogId: string;
+  selected: boolean;
+  tint?: string | undefined;
+}) {
   const cat = catalogById.get(catalogId)!;
   const [x, y, z] = freePartBox(cat);
   const look = lookFor(cat.category);
   const color = look.renderer === "box" ? look.color : "#999";
   return (
-    <RoundedBox args={[x, y, z]} radius={Math.min(0.02, x / 4, z / 4)} position={[0, y / 2, 0]} castShadow receiveShadow>
+    <RoundedBox
+      args={[x, y, z]}
+      radius={Math.min(0.02, x / 4, z / 4)}
+      position={[0, y / 2, 0]}
+      castShadow
+      receiveShadow
+    >
       <meshStandardMaterial
         color={color}
         roughness={0.5}

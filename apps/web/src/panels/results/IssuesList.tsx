@@ -1,6 +1,7 @@
 import { ISSUE_CODES, type Issue } from "@solar-sim/engine";
 import { useSceneModel } from "../../scene/useSceneModel";
 import { useProject } from "../../state/projectStore";
+import { catalogById, partLabel } from "../../app/catalog";
 import { useUi } from "../../state/uiStore";
 
 const SEV_LABEL: Record<Issue["severity"], string> = {
@@ -27,12 +28,18 @@ export function IssuesList() {
     arrays.find((a) => a.id === id)?.name ??
     project.strings.find((x) => x.id === id)?.name ??
     project.cables.find((x) => x.id === id)?.name ??
+    partName(id) ??
     (id ? "equipment" : "");
+  const partName = (id: string | undefined) => {
+    const part = project.parts.find((x) => x.id === id);
+    const cat = part && catalogById.get(part.catalogId);
+    return cat ? partLabel(cat) : undefined;
+  };
   if (issues.length === 0) {
     return (
       <p className="empty" data-testid="issues-empty">
-        ✓ No issues found by the mounting, placement, string, connector and cable rules. Protection
-        and grounding rules arrive in Phase 4.
+        ✓ No issues found by the mounting, placement, string, connector, cable, protection and
+        grounding rules.
       </p>
     );
   }
@@ -54,7 +61,8 @@ export function IssuesList() {
                 <span className="sev">{SEV_LABEL[i.severity]}</span>{" "}
                 <strong title={ISSUE_CODES[i.code].explain}>{ISSUE_CODES[i.code].title}</strong>{" "}
                 <span className="muted">
-                  · {name} · {i.code}
+                  · {name ? `${name} · ` : "whole system · "}
+                  {i.code}
                 </span>
                 <div>{i.message}</div>
                 <div className="hint">Fix: {i.fixHint}</div>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useThree, type ThreeEvent } from "@react-three/fiber";
-import { Raycaster, Vector2, type Intersection } from "three";
+import { Raycaster, Vector2, type Intersection, type Object3D } from "three";
 import { roofTopHeightM, surfaceCoords, type MountSurface } from "@solar-sim/engine";
 import { CAMERA_PRESETS, SCENE_COLORS } from "../config/defaults";
 import { catalogById } from "../app/catalog";
 import { RoofMesh } from "../roofs/RoofMesh";
-import { addArrayAt, addPartAt } from "../state/actions";
+import { addArrayAt, addPartAt, mountDevice } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { useUi } from "../state/uiStore";
 import { ArrayObject } from "./ArrayObject";
@@ -28,6 +28,7 @@ export function SceneContent() {
   const [ghost, setGhost] = useState<Ghost>(null);
   const placing = tool.kind === "place" ? catalogById.get(tool.catalogId) : undefined;
   const placingModule = placing?.category === "pv-module";
+  const placingDin = placing?.category === "din-device"; // DIN devices only go onto an enclosure rail
 
   /** Place `catalogId` at a hit on a roof surface or the ground. Returns true if placed. */
   const placeAt = (catalogId: string, hit: Intersection | undefined): boolean => {
@@ -39,6 +40,10 @@ export function SceneContent() {
       if (!s) return false;
       const c = surfaceCoords(s, [hit.point.x, hit.point.y, hit.point.z]);
       return addArrayAt(part.id, s.id, c.uM, c.vM) !== undefined;
+    }
+    if (part.category === "din-device") {
+      const enclosureId = enclosureUnder(hit.object);
+      return !!enclosureId && mountDevice(enclosureId, part.id) !== undefined;
     }
     addPartAt(part.id, hit.point.x, hit.point.z);
     return true;
@@ -56,13 +61,15 @@ export function SceneContent() {
         ),
         camera,
       );
-      const isModule = catalogById.get(catalogId)?.category === "pv-module";
+      const category = catalogById.get(catalogId)?.category;
       const hit = ray
         .intersectObjects(threeScene.children, true)
         .find((h) =>
-          isModule
+          category === "pv-module"
             ? h.object.userData.surfaceId
-            : h.object.userData.ground || h.object.userData.surfaceId === "main",
+            : category === "din-device"
+              ? enclosureUnder(h.object)
+              : h.object.userData.ground || h.object.userData.surfaceId === "main",
         );
       return placeAt(catalogId, hit);
     };
@@ -97,10 +104,11 @@ export function SceneContent() {
     useUi.getState().select({ kind: "roof" });
   };
   const onGroundMove = (e: ThreeEvent<PointerEvent>) => {
-    if (placing && !placingModule)
+    if (placing && !placingModule && !placingDin)
       setGhost({ kind: "part", catalogId: placing.id, x: e.point.x, z: e.point.z });
   };
   const onGroundClick = (e: ThreeEvent<MouseEvent>) => {
+    if (placingDin) return; // handled by the enclosure under the pointer
     if (placing && !placingModule) {
       if (
         placeAt(
@@ -159,18 +167,36 @@ function CameraRig({ target }: { target: [number, number, number] }) {
   const { camera, controls, invalidate } = useThree();
   const preset = useUi((s) => s.camera);
   const nonce = useUi((s) => s.cameraNonce);
+  const focus = useUi((s) => s.focus);
   useEffect(() => {
-    const [x, y, z] = CAMERA_PRESETS[preset];
-    camera.position.set(target[0] + x, target[1] + y, target[2] + z);
-    camera.lookAt(...target);
+    let [x, y, z] = CAMERA_PRESETS[preset];
+    let at = target;
+    if (focus) {
+      // same viewing direction as the preset, pulled in to a few object sizes away
+      const len = Math.hypot(x, y, z);
+      const d = Math.max(1.2, focus.radiusM * 4);
+      [x, y, z] = [(x / len) * d, (y / len) * d, (z / len) * d];
+      at = focus.target;
+    }
+    camera.position.set(at[0] + x, at[1] + y, at[2] + z);
+    camera.lookAt(...at);
     const orbit = controls as unknown as {
       target: { set: (a: number, b: number, c: number) => void };
       update: () => void;
     } | null;
-    orbit?.target.set(...target);
+    orbit?.target.set(...at);
     orbit?.update();
     invalidate();
     // re-run when the preset is chosen again (nonce) or controls appear
   }, [preset, nonce, controls, camera, invalidate, target[0], target[1], target[2]]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
+}
+
+/** Part id of the enclosure an intersected mesh belongs to (FreePartObject tags its group). */
+function enclosureUnder(o: Object3D | null): string | undefined {
+  for (let cur = o; cur; cur = cur.parent) {
+    const id = cur.userData.partId as string | undefined;
+    if (id && cur.userData.category === "enclosure") return id;
+  }
+  return undefined;
 }

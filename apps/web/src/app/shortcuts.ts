@@ -8,6 +8,7 @@ import {
   undo,
 } from "../state/actions";
 import { useProject } from "../state/projectStore";
+import { frameSelection } from "./focus";
 import { useUi } from "../state/uiStore";
 
 /**
@@ -73,6 +74,21 @@ export const SHORTCUTS: { keys: string; action: string; run: (e: KeyboardEvent) 
     keys: "E",
     action: "Toggle exploded hardware view",
     run: (e) => plain(e, "e") && (useUi.getState().toggleExploded(), true),
+  },
+  {
+    keys: "F",
+    action: "Frame the selected part (DIN devices: their enclosure)",
+    run: (e) => plain(e, "f") && (frameSelection(), true),
+  },
+  {
+    keys: "X",
+    action: "Toggle x-ray (see inside enclosures)",
+    run: (e) => plain(e, "x") && (useUi.getState().toggleXray(), true),
+  },
+  {
+    keys: "B",
+    action: "Toggle bonding view (green bonded / red floating)",
+    run: (e) => plain(e, "b") && (useUi.getState().toggleBondingView(), true),
   },
   {
     keys: "1 / 2 / 3 / 4",

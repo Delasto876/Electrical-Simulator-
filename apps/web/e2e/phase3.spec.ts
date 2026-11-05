@@ -31,7 +31,9 @@ test("one string into an inverter: cold-weather Voc against the limit; reversed 
   await expect(page.getByTestId("string-voc-cold")).toHaveText("487.3 V ✓ limit 500 V");
   await expect(page.getByTestId("string-mppt")).toHaveText(/Deye SUN-8K-SG01LP1-US MPPT1/);
   await page.getByRole("tab", { name: "Issues" }).click();
-  await expect(page.getByRole("tabpanel")).not.toContainText("Error");
+  // the only error left is grounding (Phase 4 rule): no electrical error on the string
+  await expect(page.getByRole("tabpanel")).toContainText("1 error");
+  await expect(page.getByRole("tabpanel")).toContainText("No grounding electrode");
   await page.screenshot({ path: shot("string", info.project.name) });
 
   // Move the + home run to the PV1 − terminal → reversed polarity.

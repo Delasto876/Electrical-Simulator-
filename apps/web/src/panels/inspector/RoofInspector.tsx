@@ -4,8 +4,9 @@ import { useProject } from "../../state/projectStore";
 import { COVERING_INFO, ROOF_TYPE_INFO } from "../../roofs/registry";
 import { catalogById } from "../../app/catalog";
 import { useUi } from "../../state/uiStore";
-import { CODE_PROFILES, getCodeProfile } from "@solar-sim/engine";
-import { setClimate, setCodeProfile } from "../../state/actions";
+import { CODE_PROFILES, getCodeProfile, SOIL_RESISTIVITY_OHM_M } from "@solar-sim/engine";
+import { setClimate, setCodeProfile, setSoil } from "../../state/actions";
+import { SOIL_TYPES } from "../../project/projectFile";
 import { NumberField, Section, SelectField } from "./fields";
 
 export function RoofInspector() {
@@ -24,6 +25,7 @@ export function RoofInspector() {
 function SiteAndCode() {
   const profileId = useProject((s) => s.project.codeProfileId);
   const climate = useProject((s) => s.project.climate);
+  const soil = useProject((s) => s.project.earthing.soil);
   const profile = getCodeProfile(profileId);
   return (
     <Section title="Site & code">
@@ -51,6 +53,16 @@ function SiteAndCode() {
         min={0}
         max={60}
         onChange={(maxAmbientC) => setClimate({ maxAmbientC })}
+      />
+      <SelectField
+        label="Soil at the ground rods"
+        value={soil}
+        testId="soil-select"
+        options={SOIL_TYPES.map((t) => ({
+          value: t,
+          label: `${t.replace(/-/g, " ")} (${SOIL_RESISTIVITY_OHM_M[t]} Ω·m)`,
+        }))}
+        onChange={setSoil}
       />
     </Section>
   );
@@ -85,6 +97,7 @@ function SceneObjects() {
             <button
               type="button"
               className="link"
+              data-testid={`obj-${p.id}`}
               onClick={() => useUi.getState().select({ kind: "part", id: p.id })}
             >
               {catalogById.get(p.catalogId)?.model ?? p.catalogId}

@@ -17,6 +17,7 @@ export function ModuleInstances({
   orientation,
   lift,
   highlight,
+  tint,
   onPointerDown,
 }: {
   items: readonly PlacedModule[];
@@ -24,6 +25,8 @@ export function ModuleInstances({
   orientation: "portrait" | "landscape";
   lift: number;
   highlight: boolean;
+  /** Frame colour overlay (bonding view: green bonded / red floating). */
+  tint?: string | undefined;
   onPointerDown?: (e: ThreeEvent<PointerEvent>, item: PlacedModule) => void;
 }) {
   const sizeKey = (items[0]?.sizeM ?? [1, 0.03, 1]).join(",");
@@ -66,8 +69,8 @@ export function ModuleInstances({
           color={SCENE_COLORS.moduleFrame}
           metalness={0.6}
           roughness={0.4}
-          emissive={highlight ? SCENE_COLORS.selection : "#000"}
-          emissiveIntensity={highlight ? 0.6 : 0}
+          emissive={highlight ? SCENE_COLORS.selection : (tint ?? "#000")}
+          emissiveIntensity={highlight ? 0.6 : tint ? 0.8 : 0}
         />
       </instancedMesh>
       <instancedMesh

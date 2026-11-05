@@ -11,6 +11,7 @@ import { GlbInstances } from "../parts/GlbInstances";
 import { ModuleInstances } from "../parts/ModuleInstances";
 import { moveArray } from "../state/actions";
 import { useUi } from "../state/uiStore";
+import { useSceneModel } from "./useSceneModel";
 import { useSurfaceDrag } from "./useSurfaceDrag";
 
 /** One PV array: modules + all derived hardware, placed by the array's surface frame. */
@@ -20,6 +21,8 @@ export function ArrayObject({ computed }: { computed: ArrayComputed }) {
   const tool = useUi((s) => s.tool);
   const exploded = useUi((s) => s.exploded);
   const drag = useUi((s) => s.drag);
+  const bondingView = useUi((s) => s.bondingView);
+  const { grounding } = useSceneModel();
   const startDrag = useSurfaceDrag();
 
   const preview = drag?.kind === "array" && drag.id === array.id ? drag : undefined;
@@ -103,6 +106,13 @@ export function ArrayObject({ computed }: { computed: ArrayComputed }) {
         orientation={array.orientation}
         lift={3 * step}
         highlight={selectedArray}
+        tint={
+          bondingView
+            ? grounding.bonded.get(array.id)
+              ? SCENE_COLORS.ghostOk
+              : SCENE_COLORS.ghostBad
+            : undefined
+        }
         onPointerDown={onModuleDown}
       />
       <BoxInstances

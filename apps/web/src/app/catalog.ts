@@ -30,6 +30,10 @@ import {
 export const catalog: readonly Part[] = getBundledCatalog();
 export const catalogById = new Map(catalog.map((p) => [p.id, p]));
 
+/** Display name of a catalog part ("Brand Model"; "Generic" brand left out). */
+export const partLabel = (p: Pick<Part, "brand" | "model">): string =>
+  p.brand.toLowerCase() === "generic" ? p.model : `${p.brand} ${p.model}`;
+
 /** Palette group headings. Categories not listed fall back to their id. */
 export const CATEGORY_LABELS: Partial<Record<Part["category"], string>> = {
   "pv-module": "PV modules",

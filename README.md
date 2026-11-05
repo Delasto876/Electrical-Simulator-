@@ -9,10 +9,23 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 3 (wiring, strings, inverters and electrical checks).** See `PLAN.md` for the roadmap.
+**Status: Phase 4 (protection, enclosures, ATS, grounding and bonding).** See `PLAN.md` for the roadmap.
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![A string into a Deye inverter](docs/screenshots/phase-3-string-laptop.png)
+![The hybrid example: DIN breakers in the AC panel, x-ray view](docs/screenshots/phase-4-din-added-laptop.png)
+
+Phase 4 adds combiner boxes, DIN-rail breakers, fuses, isolators and SPDs that
+snap into enclosures, Class T / MRBF battery fuses, transfer switches (2–3
+sources, nested, outage scenarios), utility and generator sources, loads, ground
+rods, ground bars, lay-in lugs and WEEBs. Rules check each protective device
+(AC/DC rating, voltage, interrupting rating against the available fault current,
+conductor protection), combiner fusing, battery fault current and the battery
+fuse, inverter capacity against connected loads, EGC/GEC size, ground-rod
+resistance (soil type) and that every metal part is bonded. Toolbar: **Examples →
+Hybrid** loads a complete PV + battery + generator + ATS system; **X-ray**
+shows inside panels; **Bonding** colours bonded metal green and floating metal
+red; **Frame (F)** zooms to the selected part. Module + leads are male MC4, −
+leads female.
 
 Phase 3 adds inverters (Deye, Growatt, Luxpower, SRNE, Sol-Ark; single-, split- and
 three-phase; unverified specs), batteries, PV wire and MC4 connectors, strings

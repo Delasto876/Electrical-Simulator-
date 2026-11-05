@@ -246,6 +246,13 @@ export function setClimate(changes: Partial<Climate>): void {
   );
 }
 
+/** Soil type at the grounding electrodes (drives ground-rod resistance). */
+export function setSoil(soil: ProjectFile["earthing"]["soil"]): void {
+  commit("Change soil type", (d) => {
+    d.earthing.soil = soil;
+  });
+}
+
 // ---------------------------------------------------------------- strings & cables
 
 /** Ports already taken by string mates or cable ends. */

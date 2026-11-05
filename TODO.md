@@ -4,7 +4,9 @@ Values the UI shows as "not available", and deferred work.
 
 ## Shown as "not available" in the UI
 
-- Electrical DRC rules (Phase 3), Timeline (Phase 6). The Issues tab shows mounting/placement rules now.
+- Timeline (Phase 6).
+- Design current of AC breakers fed from a source with no known load (e.g. the inverter AC input breaker): shown as "not available"; the inverter AC input current rating is not in the catalog yet.
+- Fault current where no source with a known fault level is reached (unwired devices).
 - I–V curve when the single-diode fit fails: the UI shows quick-mode numbers and "I–V curve not available".
 
 ## Deferred
@@ -27,10 +29,17 @@ Values the UI shows as "not available", and deferred work.
 - Simplified wind uplift per fastener (rule + catalog ratings exist; calculation not yet).
 - Tablet/touch interaction e2e tests (3D-click tests run on the laptop project only).
 - Blender models for tile hooks, seam clamps and standoffs (boxes for now).
-- MC4 gender convention on module leads (D-013): open question to the user.
 - MC4 crimp-and-assemble animation; Y-branch and extension-cable usage in strings (catalog entries exist).
 - Cable bend-point editing and auto-route along rails/raceways (Phase 5); routes are simple orthogonal polylines now.
-- Battery bank builder (series/parallel, busbars), C-rate/BMS checks, battery fuse (Phase 4).
-- AC side wiring checks (AC terminals connect, but AC circuits are not analysed yet: Phase 4).
+- Battery bank builder (series/parallel, busbars); C-rate/BMS checks beyond the continuous-current check.
+- AC load-flow (voltage drop per branch under load, neutral current on split-phase); Phase 4 checks ratings, kA, capacity and topology only.
 - MPPT operating point under real irradiance/temperature (Phase 6 time series); STC only now.
 - Converting the String Wizard's "Apply" for controllers with one MPPT and several parallel strings via Y-branches.
+- Typed schema for "cable"/"connector" exists; still generic: conduit, raceway (Phase 5).
+- Snap animation when a DIN device clicks onto the rail; drag devices between slots (they take the first free slot now).
+- Busbars, neutral bars and N–G bond as explicit parts (the PE bar is a port of the enclosure).
+- Project list to reopen a previous design after loading an example (it stays in IndexedDB).
+- Rapid-shutdown devices (module-level) in the catalog; the rule exists.
+- Arc-fault (AFCI) and GFCI/RCD requirement rules; SPD coordination.
+- Separately derived generator (switched-neutral) analysis beyond the ATS_NEUTRAL warning.
+- Grounding: supplementary electrodes other than rods (Ufer, ring, plate); measured resistance entry.

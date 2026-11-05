@@ -42,6 +42,11 @@ export function PartsPalette() {
         <section key={cat} className="palette-group">
           <h3>{CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ?? cat}</h3>
           {!placeable(cat) && <p className="hint small">Added automatically by the array tool.</p>}
+          {cat === "din-device" && (
+            <p className="hint small">
+              Place, then click an enclosure: it snaps to the next free DIN slot.
+            </p>
+          )}
           <ul>
             {parts.map((p) => {
               const placingThis = tool.kind === "place" && tool.catalogId === p.id;
@@ -80,7 +85,9 @@ export function PartsPalette() {
                       title={
                         p.category === "pv-module"
                           ? "Place an array of this module on the roof"
-                          : "Place on the ground"
+                          : p.category === "din-device"
+                            ? "Then click an enclosure to snap it onto the DIN rail"
+                            : "Place on the ground"
                       }
                       onClick={() =>
                         setTool(
