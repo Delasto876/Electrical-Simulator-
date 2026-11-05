@@ -81,37 +81,59 @@ function selectCable(e: ThreeEvent<PointerEvent>, id: string) {
   useUi.getState().select({ kind: "cable", id });
 }
 
+/**
+ * A cable as tubes: the pieces outside raceways are solid; the pieces inside a
+ * conduit or trunking are hidden, and shown see-through when the cable is selected.
+ */
 function CableTube({ c, selected }: { c: CableComputed; selected: boolean }) {
   const radius = c.part ? c.part.wire.outerDiameterMm / 2000 : WIRING.fallbackRadiusM;
-  const geometry = useMemo(() => {
-    const path = new CurvePath<Vector3>();
-    for (let i = 1; i < c.points.length; i++)
-      path.add(new LineCurve3(new Vector3(...c.points[i - 1]!), new Vector3(...c.points[i]!)));
-    // sample the polyline through a centripetal spline with tight tension so corners stay crisp but smooth
-    const pts = path.getSpacedPoints(Math.max(8, c.points.length * 12));
-    return new TubeGeometry(
-      new CatmullRomCurve3(pts, false, "catmullrom", 0.05),
-      pts.length * 2,
-      radius,
-      8,
-      false,
-    );
-  }, [c.points, radius]);
+  const pieces = useMemo(
+    () =>
+      c.segments
+        .filter((s) => s.points.length >= 2)
+        .map((s) => {
+          const path = new CurvePath<Vector3>();
+          for (let i = 1; i < s.points.length; i++)
+            path.add(
+              new LineCurve3(new Vector3(...s.points[i - 1]!), new Vector3(...s.points[i]!)),
+            );
+          // sample the polyline through a centripetal spline with tight tension so corners stay crisp but smooth
+          const pts = path.getSpacedPoints(Math.max(8, s.points.length * 12));
+          return {
+            inside: s.inside,
+            geometry: new TubeGeometry(
+              new CatmullRomCurve3(pts, false, "catmullrom", 0.05),
+              pts.length * 2,
+              radius,
+              8,
+              false,
+            ),
+          };
+        }),
+    [c.segments, radius],
+  );
   const bad = c.issues.some((i) => i.severity === "error");
   const color = CABLE_COLORS[c.polarity ?? "default"] ?? CABLE_COLORS.default!;
   return (
-    <mesh
-      geometry={geometry}
-      castShadow
+    <group
       onPointerDown={(e) => selectCable(e, c.cable.id)}
       onClick={(e) => useUi.getState().tool.kind === "select" && e.stopPropagation()}
     >
-      <meshStandardMaterial
-        color={color}
-        roughness={0.6}
-        emissive={selected ? SCENE_COLORS.selection : bad ? SCENE_COLORS.ghostBad : "#000"}
-        emissiveIntensity={selected ? 0.6 : bad ? 0.5 : 0}
-      />
-    </mesh>
+      {pieces.map((p, k) =>
+        p.inside && !selected ? null : (
+          <mesh key={k} geometry={p.geometry} castShadow={!p.inside}>
+            <meshStandardMaterial
+              color={color}
+              roughness={0.6}
+              transparent={p.inside}
+              opacity={p.inside ? 0.45 : 1}
+              depthTest={!p.inside}
+              emissive={selected ? SCENE_COLORS.selection : bad ? SCENE_COLORS.ghostBad : "#000"}
+              emissiveIntensity={selected ? 0.6 : bad ? 0.5 : 0}
+            />
+          </mesh>
+        ),
+      )}
+    </group>
   );
 }

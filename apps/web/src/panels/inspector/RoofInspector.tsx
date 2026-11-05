@@ -72,7 +72,8 @@ function SiteAndCode() {
 function SceneObjects() {
   const arrays = useProject((s) => s.project.arrays);
   const parts = useProject((s) => s.project.parts);
-  if (arrays.length === 0 && parts.length === 0) return null;
+  const raceways = useProject((s) => s.project.raceways);
+  if (arrays.length === 0 && parts.length === 0 && raceways.length === 0) return null;
   return (
     <Section title="Objects in the scene">
       <ul className="object-list">
@@ -102,6 +103,19 @@ function SceneObjects() {
             >
               {catalogById.get(p.catalogId)?.model ?? p.catalogId}
             </button>
+          </li>
+        ))}
+        {raceways.map((r) => (
+          <li key={r.id}>
+            <button
+              type="button"
+              className="link"
+              data-testid={`obj-${r.id}`}
+              onClick={() => useUi.getState().select({ kind: "raceway", id: r.id })}
+            >
+              {r.name}
+            </button>{" "}
+            <span className="muted">{catalogById.get(r.catalogId)?.model ?? r.catalogId}</span>
           </li>
         ))}
       </ul>

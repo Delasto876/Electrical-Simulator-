@@ -131,7 +131,7 @@ describe("fill, routing and conditions of use", () => {
     const was = [...before.electrical.cables.values()].find((c) => c.cable.name === "AC OUT L1")!;
     expect(cable.lengthM).not.toBeCloseTo(was.lengthM, 3);
     // bigger conduit clears the fill error
-    p.raceways[0]!.catalogId = r.smallestFitId!;
+    p.raceways.find((x) => x.id === "c1")!.catalogId = r.smallestFitId!;
     expect(codes(computeScene(p), "c1")).not.toContain("error:RACEWAY_FILL");
   });
   it("trunking up to 30 conductors needs no ampacity adjustment; 20 % default limit", () => {
@@ -190,8 +190,19 @@ describe("location, expansion and bonding", () => {
     expect(e.changeM).toBeCloseTo(30 * 67 * 6.084e-5, 6);
     expect(e.needed).toBe(1);
     expect(codes(s, "long")).toContain("warning:RACEWAY_EXPANSION");
-    p.raceways[0]!.expansionFittings = 1;
+    p.raceways.find((x) => x.id === "long")!.expansionFittings = 1;
     expect(codes(computeScene(p), "long")).toEqual([]);
+  });
+  it("the hybrid example's raceways are clean: generator feed in PVC, AC wiring in a bonded wireway", () => {
+    const s = computeScene(buildExample("hybrid", NOW));
+    const gen = s.raceways.byId.get("ex-gen-conduit")!;
+    const ww = s.raceways.byId.get("ex-ac-wireway")!;
+    expect(gen.cableIds).toHaveLength(4);
+    expect(gen.sections[0]!.totalDeg).toBeCloseTo(180, 6);
+    expect(ww.cableIds).toHaveLength(7);
+    expect(ww.mitre!.corners[0]!.mitreDeg).toBeCloseTo(45, 6);
+    expect(s.grounding.bonded.get("ex-ac-wireway")).toBe(true);
+    expect(s.issues.filter((i) => i.code.startsWith("RACEWAY"))).toEqual([]);
   });
   it("metal conduit with no end on a bonded part is unbonded", () => {
     const p = buildExample("hybrid", NOW);

@@ -6,7 +6,7 @@ import type { CameraPreset } from "../config/defaults";
  * mode, camera, theme, transient drag previews.
  */
 export type Theme = "light" | "dark";
-export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "timeline";
+export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "cuts" | "timeline";
 
 export type Selection =
   | { kind: "roof" }
@@ -61,6 +61,8 @@ interface UiState {
   /** View toggles: enclosures see-through; bonding colours (green bonded / red floating). */
   xray: boolean;
   bondingView: boolean;
+  /** Where the next raceway point would go (live preview while drawing). */
+  racewayHover: [number, number, number] | null;
   setTheme: (t: Theme) => void;
   setBottomTab: (t: BottomTab) => void;
   selectCatalogPart: (id: string | null) => void;
@@ -73,6 +75,7 @@ interface UiState {
   setShowShortcuts: (v: boolean) => void;
   toggleOutage: (sourceId: string) => void;
   toggleXray: () => void;
+  setRacewayHover: (p: [number, number, number] | null) => void;
   toggleBondingView: () => void;
 }
 
@@ -103,6 +106,7 @@ export const useUi = create<UiState>((set) => ({
   outages: [],
   xray: false,
   bondingView: false,
+  racewayHover: null,
   setTheme: (theme) => {
     try {
       localStorage.setItem("solar-sim:theme", theme);
@@ -125,5 +129,6 @@ export const useUi = create<UiState>((set) => ({
       outages: s.outages.includes(id) ? s.outages.filter((x) => x !== id) : [...s.outages, id],
     })),
   toggleXray: () => set((s) => ({ xray: !s.xray })),
+  setRacewayHover: (racewayHover) => set({ racewayHover }),
   toggleBondingView: () => set((s) => ({ bondingView: !s.bondingView })),
 }));

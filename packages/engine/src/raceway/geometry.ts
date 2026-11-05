@@ -16,8 +16,9 @@ const norm = (a: V3): V3 => {
 };
 const DEG = 180 / Math.PI;
 
-/** Turn angle at b on the path a → b → c [rad]. */
+/** Turn angle at b on the path a → b → c [rad]; 0 when a segment has no length (repeated point). */
 export function deflectionRad(a: V3, b: V3, c: V3): number {
+  if (len(sub(b, a)) < 1e-9 || len(sub(c, b)) < 1e-9) return 0;
   const u = norm(sub(b, a));
   const v = norm(sub(c, b));
   return Math.acos(Math.max(-1, Math.min(1, dot(u, v))));

@@ -48,6 +48,8 @@ describe("bends between pull points", () => {
       [3, 0, 1],
     ];
     expect(deflectionsDeg(p).map((d) => Math.round(d))).toEqual([0, 0, 45, 0]);
+    // a repeated point (e.g. the pointer resting on the last click) is not a bend
+    expect(deflectionsDeg([p[0]!, p[1]!, p[1]!, p[2]!])).toEqual([0, 0, 0, 0]);
   });
 });
 

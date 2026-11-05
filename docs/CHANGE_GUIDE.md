@@ -47,6 +47,14 @@ else.
 | **What a part can be swapped for**                                                                                | `apps/web/src/model/swap.ts`                                                                                        |
 | **Example projects** (Examples menu)                                                                              | `apps/web/src/model/examples.ts` (tested in `examples.test.ts`)                                                     |
 | **Camera framing (F)**                                                                                            | `apps/web/src/app/focus.ts`                                                                                         |
+| **Conduit / trunking types and sizes** (internal diameter, OD, listings, prices, fittings)                        | `packages/catalog/scripts/gen_raceway.py` (regenerates `conduits.json`, `conduit-fittings.json`, `trunking.json`)   |
+| **Raceway code limits** (fill %, 360° rule, bend radii, support spacing, PVC expansion)                           | `raceway` in `packages/engine/src/profiles/necGeneric.ts`                                                           |
+| **Raceway maths** (bends, fillets, mitres, fill, packing, expansion, stock cutting)                               | `packages/engine/src/raceway/`                                                                                      |
+| **Raceway rules, cable routing through raceways, raceway BOM**                                                    | `apps/web/src/model/racewayModel.ts`                                                                                |
+| **What a new run starts as** (default conduit/trunking, location, colours)                                        | `RACEWAY` in `apps/web/src/config/defaults.ts`                                                                      |
+| **How drawing works** (point placement, risers, finish/undo)                                                      | `apps/web/src/app/racewayTool.ts`                                                                                   |
+| **Raceway 3D look** (tube, fittings, mitred pieces, cut labels)                                                   | `apps/web/src/scene/RacewayObjects.tsx`                                                                             |
+| **Raceway inspector / Cut list tab**                                                                              | `apps/web/src/panels/inspector/RacewayInspector.tsx`, `apps/web/src/panels/results/CutList.tsx`                     |
 
 Every number recalled from memory rather than a cited source is marked
 `// VERIFY` and listed in `VERIFY.md`.
@@ -60,7 +68,8 @@ catalog JSON ──► model/ (glue) ──► engine (pure maths) ──► mod
                                        legs, issues           issues, BOM
 
 sceneModel.ts runs, in order (one cached result per project + outage scenario):
-  arrays → ports → ATS (atsModel) → nets + electrical (electricalModel)
+  arrays → ports → raceways (racewayModel: fill, bends, cable routes)
+         → ATS (atsModel) → nets + electrical (electricalModel, routed lengths)
          → protection (protectionModel) → grounding (groundingModel) → issues, BOM
 user action ──► state/actions.ts ──► project document (undoable, autosaved)
 ```
@@ -136,3 +145,13 @@ user action ──► state/actions.ts ──► project document (undoable, aut
 1. Add an entry to `EXAMPLES` and a builder in `apps/web/src/model/examples.ts`
    (fixed ids; cables by port key).
 2. Add a test in `model/examples.test.ts` that it shows only the expected issues.
+
+### Add a conduit type or trunking size
+
+1. Add its internal diameters to `ID` and a row to `KINDS` (or a row to `TRUNKING`)
+   in `packages/catalog/scripts/gen_raceway.py`, with its listings (wet, sun,
+   burial, damage) and fitting family.
+2. `python3 packages/catalog/scripts/gen_raceway.py`; `pnpm test` checks the areas.
+3. Give it a colour in `RACEWAY.colors` (`config/defaults.ts`) and a label in
+   `TYPE_LABELS` (`panels/inspector/RacewayInspector.tsx`) and the tool bar
+   (`panels/RacewayToolBar.tsx`).

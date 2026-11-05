@@ -9,10 +9,25 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 4 (protection, enclosures, ATS, grounding and bonding).** See `PLAN.md` for the roadmap.
+**Status: Phase 5 (raceways: PVC and flexible conduit, trunking, fill, bends, mitres, cut list).** See `PLAN.md` for the roadmap.
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![The hybrid example: DIN breakers in the AC panel, x-ray view](docs/screenshots/phase-4-din-added-laptop.png)
+![A conduit with four 90° bends and its fill](docs/screenshots/phase-5-conduit-bends-laptop.png)
+
+Phase 5 adds the **Conduit** (U) and **Trunking** (T) tools: click points on the
+ground, walls, roof or equipment (height changes add a riser), Enter to finish.
+Conduit: PVC Schedule 40/80 (½–6 in), FMC and LFMC (⅜–4 in), LFNC-B (⅜–2 in)
+with real internal areas; trunking: PVC trunking and steel wireway in inch
+sizes. The inspector shows the live fill gauge with a cross-section of the
+packed conductors (53/31/40 %, 20 % for trunking), bends between pull points
+(360° max; tick a corner as an LB / pull box), bend radius against the
+trade-size minimum, location suitability (wet, sun, burial, damage), PVC
+expansion, sticks, elbows and straps. Trunking corners are mitred at half the
+turn with the cut drawn in 3D. Cables are pulled through raceways from either
+inspector; their routed length feeds voltage drop and the conductors sharing a
+raceway feed the ampacity adjustment. A **Cut list** tab lists rail cuts,
+conduit bends and trunking mitres; the BOM counts conduit, fittings and
+trunking.
 
 Phase 4 adds combiner boxes, DIN-rail breakers, fuses, isolators and SPDs that
 snap into enclosures, Class T / MRBF battery fuses, transfer switches (2–3

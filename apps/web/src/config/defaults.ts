@@ -78,7 +78,8 @@ export const PLACEABLE_CATEGORIES = [
 export const RACEWAY = {
   defaultConduitId: "pvc-sch40-3-4in",
   defaultTrunkingId: "pvc-trunking-2x2in",
-  defaultLocation: "outdoor" as const,
+  /** New conduit is drawn outdoors (PV and service runs); trunking indoors (PVC trunking is not wet-rated). */
+  defaultLocation: { conduit: "outdoor", trunking: "indoor" } as const,
   /** Raceway bottom above the roof [mm]: ≥ 23 mm (7/8 in) means no rooftop adder under NEC 2020+. */
   defaultRoofClearanceMm: 100,
   /** A new point this much higher/lower than the last adds a vertical riser at the lower end [m]. */
@@ -155,7 +156,7 @@ export const WIRING = {
   standoffM: 0.15,
   /** Conductor temperature assumed for voltage-drop resistance [°C] (NEC Ch. 9 Table 8 basis). */
   conductorTempC: 75,
-  /** Current-carrying conductors assumed per raceway for ampacity until raceways exist (Phase 5). */
+  /** Current-carrying conductors assumed for a cable that is not in a raceway (free air, NEC 310.15(C)(1) 1–3 band). */
   currentCarryingConductors: 2,
   /** Tube radius used when a cable has no catalog diameter [m]. */
   fallbackRadiusM: 0.003,

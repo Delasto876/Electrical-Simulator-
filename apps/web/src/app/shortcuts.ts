@@ -9,6 +9,7 @@ import {
 } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { frameSelection } from "./focus";
+import { finishRaceway, startRacewayTool, undoRacewayPoint } from "./racewayTool";
 import { useUi } from "../state/uiStore";
 
 /**
@@ -27,8 +28,18 @@ export const SHORTCUTS: { keys: string; action: string; run: (e: KeyboardEvent) 
     run: (e) => mod(e) && ((e.shiftKey && key(e, "z")) || key(e, "y")) && (redo(), true),
   },
   {
+    keys: "Enter",
+    action: "Finish the conduit / trunking run being drawn",
+    run: (e) => e.key === "Enter" && finishRaceway(),
+  },
+  {
+    keys: "Backspace (drawing)",
+    action: "Remove the last point of the run being drawn",
+    run: (e) => e.key === "Backspace" && undoRacewayPoint(),
+  },
+  {
     keys: "Delete / Backspace",
-    action: "Delete selected array or part",
+    action: "Delete the selected object",
     run: (e) => (e.key === "Delete" || e.key === "Backspace") && (deleteSelection(), true),
   },
   {
@@ -61,6 +72,16 @@ export const SHORTCUTS: { keys: string; action: string; run: (e: KeyboardEvent) 
       ui.setTool(ui.tool.kind === "cable" ? { kind: "select" } : { kind: "cable", from: null });
       return true;
     },
+  },
+  {
+    keys: "U",
+    action: "Conduit tool",
+    run: (e) => plain(e, "u") && (toggleRaceway("conduit"), true),
+  },
+  {
+    keys: "T",
+    action: "Trunking tool",
+    run: (e) => plain(e, "t") && (toggleRaceway("trunking"), true),
   },
   { keys: "R", action: "Rotate selected part 90°", run: (e) => plain(e, "r") && rotateSelected() },
   {
@@ -106,6 +127,12 @@ export const SHORTCUTS: { keys: string; action: string; run: (e: KeyboardEvent) 
       e.key === "?" && (useUi.getState().setShowShortcuts(!useUi.getState().showShortcuts), true),
   },
 ];
+
+function toggleRaceway(kind: "conduit" | "trunking") {
+  const t = useUi.getState().tool;
+  if (t.kind === "raceway" && t.raceway === kind) useUi.getState().setTool({ kind: "select" });
+  else startRacewayTool(kind);
+}
 
 const mod = (e: KeyboardEvent) => e.ctrlKey || e.metaKey;
 const key = (e: KeyboardEvent, k: string) => e.key.toLowerCase() === k;

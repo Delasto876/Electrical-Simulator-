@@ -1,6 +1,7 @@
 import { DEFAULT_CODE_PROFILE, getCodeProfile } from "@solar-sim/engine";
 import type { CameraPreset } from "../config/defaults";
 import { buildExample, EXAMPLES } from "../model/examples";
+import { startRacewayTool } from "./racewayTool";
 import { loadProject, redo, renameProject, setSetting, undo } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { useUi } from "../state/uiStore";
@@ -78,6 +79,30 @@ export function Toolbar() {
             }
           >
             Cable
+          </button>
+          <button
+            type="button"
+            aria-pressed={tool.kind === "raceway" && tool.raceway === "conduit"}
+            title="Draw conduit: click points on the ground, walls, roof or equipment; click the last point again or Enter to finish (U)"
+            onClick={() =>
+              tool.kind === "raceway" && tool.raceway === "conduit"
+                ? useUi.getState().setTool({ kind: "select" })
+                : startRacewayTool("conduit")
+            }
+          >
+            Conduit
+          </button>
+          <button
+            type="button"
+            aria-pressed={tool.kind === "raceway" && tool.raceway === "trunking"}
+            title="Draw trunking / wireway; corners are mitred (T)"
+            onClick={() =>
+              tool.kind === "raceway" && tool.raceway === "trunking"
+                ? useUi.getState().setTool({ kind: "select" })
+                : startRacewayTool("trunking")
+            }
+          >
+            Trunking
           </button>
         </div>
         <div role="group" aria-label="Camera view" className="seg">

@@ -3,9 +3,14 @@ import { PLACEABLE_CATEGORIES } from "../config/defaults";
 import { catalog, CATEGORY_LABELS } from "../app/catalog";
 import { DRAG_MIME } from "../scene/Viewport";
 import { useUi } from "../state/uiStore";
+import { startRacewayTool } from "../app/racewayTool";
 
 const placeable = (category: string) =>
   (PLACEABLE_CATEGORIES as readonly string[]).includes(category);
+/** Drawn with a tool rather than placed. */
+const drawable = (category: string) => category === "conduit" || category === "trunking";
+/** Long groups start collapsed (they open while searching). */
+const COLLAPSED = new Set(["conduit", "trunking", "conduit-fitting"]);
 
 /** Left panel: searchable catalog. "Place" (or drag onto the scene) adds a part; clicking shows its data label. */
 export function PartsPalette() {
@@ -39,9 +44,24 @@ export function PartsPalette() {
       />
       {groups.length === 0 && <p className="empty">No parts match “{query}”.</p>}
       {groups.map(([cat, parts]) => (
-        <section key={cat} className="palette-group">
-          <h3>{CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ?? cat}</h3>
-          {!placeable(cat) && <p className="hint small">Added automatically by the array tool.</p>}
+        <details
+          key={`${cat}-${query ? "q" : ""}`}
+          className="palette-group"
+          open={!COLLAPSED.has(cat) || query.trim() !== ""}
+        >
+          <summary>
+            <h3>
+              {CATEGORY_LABELS[cat as keyof typeof CATEGORY_LABELS] ?? cat}{" "}
+              <span className="muted">({parts.length})</span>
+            </h3>
+          </summary>
+          {!placeable(cat) && !drawable(cat) && (
+            <p className="hint small">
+              {cat === "conduit-fitting"
+                ? "Counted automatically from the runs you draw."
+                : "Added automatically by the array tool."}
+            </p>
+          )}
           {cat === "din-device" && (
             <p className="hint small">
               Place, then click an enclosure: it snaps to the next free DIN slot.
@@ -98,11 +118,24 @@ export function PartsPalette() {
                       {placingThis ? "Cancel" : "Place"}
                     </button>
                   )}
+                  {drawable(p.category) && (
+                    <button
+                      type="button"
+                      className="place-btn"
+                      aria-label={`Draw ${p.model}`}
+                      title="Draw a run of this conduit / trunking"
+                      onClick={() =>
+                        startRacewayTool(p.category === "conduit" ? "conduit" : "trunking", p.id)
+                      }
+                    >
+                      Draw
+                    </button>
+                  )}
                 </li>
               );
             })}
           </ul>
-        </section>
+        </details>
       ))}
     </div>
   );

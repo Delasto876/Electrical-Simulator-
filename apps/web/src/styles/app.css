@@ -785,3 +785,69 @@ td button:not(.link) {
   font-weight: 700;
   color: var(--ok);
 }
+
+/* ---- Phase 5: raceway tool bar, mitre labels, fill gauge */
+.raceway-toolbar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 8px;
+  background: var(--panel, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+.raceway-toolbar .bad,
+.fill-bar .bad {
+  color: var(--error);
+}
+.fill-bar {
+  position: relative;
+  height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+.fill-bar > .fill {
+  height: 100%;
+  background: var(--ok);
+}
+.fill-bar > .fill.over {
+  background: var(--error);
+}
+.fill-bar > .limit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--text, #000);
+}
+.cross-section {
+  display: block;
+  margin: 6px auto;
+  max-width: 180px;
+}
+.palette-group > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.palette-group > summary::-webkit-details-marker {
+  display: none;
+}
+.palette-group > summary h3 {
+  display: inline;
+}
+.palette-group > summary::before {
+  content: "▸ ";
+  color: var(--muted);
+}
+.palette-group[open] > summary::before {
+  content: "▾ ";
+}

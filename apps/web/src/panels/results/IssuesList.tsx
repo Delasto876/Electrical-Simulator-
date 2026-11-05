@@ -23,11 +23,13 @@ export function IssuesList() {
     else if (project.cables.some((x) => x.id === id)) ui.select({ kind: "cable", id });
     else if (project.parts.some((x) => x.id === id)) ui.select({ kind: "part", id });
     else if (arrays.some((x) => x.id === id)) ui.select({ kind: "array", id });
+    else if (project.raceways.some((x) => x.id === id)) ui.select({ kind: "raceway", id });
   };
   const nameOf = (id: string | undefined) =>
     arrays.find((a) => a.id === id)?.name ??
     project.strings.find((x) => x.id === id)?.name ??
     project.cables.find((x) => x.id === id)?.name ??
+    project.raceways.find((x) => x.id === id)?.name ??
     partName(id) ??
     (id ? "equipment" : "");
   const partName = (id: string | undefined) => {

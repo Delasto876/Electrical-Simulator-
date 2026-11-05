@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useThree, type ThreeEvent } from "@react-three/fiber";
-import { Raycaster, Vector2, type Intersection, type Object3D } from "three";
+import { Raycaster, Vector2, Vector3, type Intersection, type Object3D } from "three";
 import { roofTopHeightM, surfaceCoords, type MountSurface } from "@solar-sim/engine";
 import { CAMERA_PRESETS, SCENE_COLORS } from "../config/defaults";
 import { catalogById } from "../app/catalog";
@@ -12,6 +12,8 @@ import { ArrayObject } from "./ArrayObject";
 import { FreePartObject } from "./FreePartObject";
 import { PlacementGhost, type Ghost } from "./PlacementGhost";
 import { PortMarkers } from "./PortMarkers";
+import { RacewayObjects } from "./RacewayObjects";
+import { racewayPointAt, racewayToolClick } from "../app/racewayTool";
 import { WiringObjects } from "./WiringObjects";
 import { useSceneModel } from "./useSceneModel";
 
@@ -88,6 +90,7 @@ export function SceneContent() {
     }
   };
   const onSurfaceClick = (e: ThreeEvent<MouseEvent>, _s: MountSurface) => {
+    if (tool.kind === "raceway") return; // handled by the scene group below
     e.stopPropagation();
     if (tool.kind === "cable") return;
     if (placing) {
@@ -120,8 +123,37 @@ export function SceneContent() {
     } else if (!placing && tool.kind === "select") useUi.getState().select(null);
   };
 
+  // Raceway tool: every surface under the pointer (ground, roof, walls, equipment) takes points.
+  const racewayHit = (e: ThreeEvent<PointerEvent | MouseEvent>) => {
+    if (tool.kind !== "raceway") return undefined;
+    const nrm = e.face
+      ? e.face.normal.clone().transformDirection(e.object.matrixWorld)
+      : new Vector3(0, 1, 0);
+    // the ground plane is rotated: its face normal comes out as +y after the transform
+    return {
+      point: racewayPointAt(
+        [e.point.x, e.point.y, e.point.z],
+        [nrm.x, nrm.y, nrm.z],
+        tool.catalogId,
+      ),
+      partId: partUnder(e.object),
+    };
+  };
+  const onToolMove = (e: ThreeEvent<PointerEvent>) => {
+    const h = racewayHit(e);
+    if (!h) return;
+    e.stopPropagation();
+    useUi.getState().setRacewayHover(h.point);
+  };
+  const onToolClick = (e: ThreeEvent<MouseEvent>) => {
+    const h = racewayHit(e);
+    if (!h) return;
+    e.stopPropagation();
+    racewayToolClick(h.point, h.partId);
+  };
+
   return (
-    <group>
+    <group onPointerMove={onToolMove} onClick={onToolClick}>
       <RoofMesh
         roof={project.roof}
         surfaces={scene.surfaces}
@@ -146,6 +178,7 @@ export function SceneContent() {
         <FreePartObject key={p.id} part={p} />
       ))}
       <WiringObjects />
+      <RacewayObjects />
       <PortMarkers />
       {/* show the ghost only while still placing the same part */}
       <PlacementGhost
@@ -199,4 +232,13 @@ function enclosureUnder(o: Object3D | null): string | undefined {
     if (id && cur.userData.category === "enclosure") return id;
   }
   return undefined;
+}
+
+/** Placed part an intersected mesh belongs to (raceway ends land on it). */
+function partUnder(o: Object3D | null): string | null {
+  for (let cur = o; cur; cur = cur.parent) {
+    const id = cur.userData.partId as string | undefined;
+    if (id) return id;
+  }
+  return null;
 }

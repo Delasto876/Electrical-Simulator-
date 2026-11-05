@@ -2,6 +2,7 @@ import { useUi, type BottomTab } from "../state/uiStore";
 import { IvCurvePanel } from "./charts/IvCurvePanel";
 import { ConductorCalculator } from "./calcs/ConductorCalculator";
 import { BomTable } from "./results/BomTable";
+import { CutList } from "./results/CutList";
 import { IssuesList } from "./results/IssuesList";
 
 const TABS: { id: BottomTab; label: string; phase: number }[] = [
@@ -9,6 +10,7 @@ const TABS: { id: BottomTab; label: string; phase: number }[] = [
   { id: "calculations", label: "Calculations", phase: 1 },
   { id: "charts", label: "Charts", phase: 1 },
   { id: "bom", label: "BOM", phase: 2 },
+  { id: "cuts", label: "Cut list", phase: 5 },
   { id: "timeline", label: "Timeline", phase: 6 },
 ];
 
@@ -44,6 +46,8 @@ export function BottomPanel() {
           <IssuesList />
         ) : active.id === "bom" ? (
           <BomTable />
+        ) : active.id === "cuts" ? (
+          <CutList />
         ) : active.id === "charts" ? (
           <IvCurvePanel />
         ) : active.id === "calculations" ? (

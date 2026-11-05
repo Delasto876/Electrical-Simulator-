@@ -4,6 +4,7 @@ import { CAMERA_PRESETS, SCENE_COLORS } from "../config/defaults";
 import { catalogById } from "../app/catalog";
 import { useUi } from "../state/uiStore";
 import { dropBridge, SceneContent } from "./SceneContent";
+import { RacewayToolBar } from "../panels/RacewayToolBar";
 
 export const DRAG_MIME = "application/x-solar-part";
 
@@ -12,7 +13,7 @@ export function Viewport() {
   const placing = tool.kind === "place" ? catalogById.get(tool.catalogId) : undefined;
   return (
     <div
-      className={`viewport-inner${placing || tool.kind === "cable" ? " placing" : ""}`}
+      className={`viewport-inner${placing || tool.kind === "cable" || tool.kind === "raceway" ? " placing" : ""}`}
       onDragOver={(e) => {
         if (e.dataTransfer.types.includes(DRAG_MIME)) e.preventDefault();
       }}
@@ -83,16 +84,19 @@ export function Viewport() {
         <SceneContent />
         <OrbitControls makeDefault enableDamping maxPolarAngle={Math.PI / 2 - 0.02} />
       </Canvas>
+      <RacewayToolBar />
       <div className="viewport-overlay" data-testid="viewport-status" role="status">
-        {tool.kind === "cable"
-          ? tool.from
-            ? "Cable: click the port to connect to (green = compatible) · Esc to restart"
-            : "Cable: click a port to start (string ends and equipment terminals are shown) · Esc to leave"
-          : placing
-            ? placing.category === "pv-module"
-              ? `Click a roof surface to place an array of ${placing.model} · Esc to cancel`
-              : `Click the ground to place ${placing.model} · Esc to cancel`
-            : "Drag to orbit · click to select · drag a selected array to move it · ? for shortcuts"}
+        {tool.kind === "raceway"
+          ? `${tool.raceway === "conduit" ? "Conduit" : "Trunking"}: click points on the ground, walls, roof or equipment (height changes add a riser) · click the last point again or Enter to finish · Backspace removes a point · Esc cancels`
+          : tool.kind === "cable"
+            ? tool.from
+              ? "Cable: click the port to connect to (green = compatible) · Esc to restart"
+              : "Cable: click a port to start (string ends and equipment terminals are shown) · Esc to leave"
+            : placing
+              ? placing.category === "pv-module"
+                ? `Click a roof surface to place an array of ${placing.model} · Esc to cancel`
+                : `Click the ground to place ${placing.model} · Esc to cancel`
+              : "Drag to orbit · click to select · drag a selected array to move it · ? for shortcuts"}
       </div>
     </div>
   );

@@ -9,6 +9,8 @@ import {
   issue,
   locationProblems,
   mitreCutList,
+  packInCircle,
+  packInRect,
   racewayFill,
   samplePath,
   smallestRacewayIndex,
@@ -552,4 +554,33 @@ export function bondRaceways(rw: RacewayModel, bonded: Map<string, boolean>): Is
       );
   }
   return out;
+}
+
+/** Cross-section drawing data [in]: the raceway's inside and its conductors packed under gravity. */
+export function racewayCrossSection(r: RacewayComputed): {
+  shape: "circle" | "rect";
+  widthIn: number;
+  heightIn: number;
+  conductors: { cableId: string; x: number; y: number; r: number; placed: boolean }[];
+} {
+  const radii = r.conductorDiametersIn.map((d) => d / 2);
+  if (isCategory(r.spec.part, "conduit")) {
+    const d = r.spec.part.conduit.internalDiameterIn;
+    return {
+      shape: "circle",
+      widthIn: d,
+      heightIn: d,
+      conductors: packInCircle(radii, d / 2).map((c) => ({ ...c, cableId: r.cableIds[c.index]! })),
+    };
+  }
+  const t = (r.spec.part as Trunking).trunking;
+  return {
+    shape: "rect",
+    widthIn: t.internalWidthIn,
+    heightIn: t.internalHeightIn,
+    conductors: packInRect(radii, t.internalWidthIn, t.internalHeightIn).map((c) => ({
+      ...c,
+      cableId: r.cableIds[c.index]!,
+    })),
+  };
 }

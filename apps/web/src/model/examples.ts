@@ -5,6 +5,7 @@ import {
   type CableInstance,
   type FreePart,
   type ProjectFile,
+  type RacewayRun,
 } from "../project/projectFile";
 import { computeArray } from "./arrayModel";
 import { draftArray } from "./newArray";
@@ -195,5 +196,75 @@ function hybridExample(now: Date): ProjectFile {
   c("GEC", P("ex-ac-panel", "pe"), P("ex-rod-1", "rod"), BARE6);
   c("Rod bond", P("ex-rod-1", "rod"), P("ex-rod-2", "rod"), BARE6);
   p.cables.push(...cables);
+
+  // ---- raceways: generator feed in 1 in PVC (two 90° bends), AC wiring in a 4 × 4 in steel wireway
+  const run = (
+    id: string,
+    name: string,
+    kind: RacewayRun["kind"],
+    catalogId: string,
+    points: [number, number, number][],
+    endParts: [string | null, string | null],
+    extra: Partial<RacewayRun> = {},
+  ): RacewayRun => ({
+    id,
+    name,
+    kind,
+    catalogId,
+    points,
+    pullPoints: [],
+    endParts,
+    location: "outdoor",
+    roofClearanceMm: 100,
+    bendRadiusIn: null,
+    expansionFittings: 0,
+    fillLimitPct: null,
+    locked: false,
+    hidden: false,
+    ...extra,
+  });
+  const yc = 0.0254 * 0.66; // 1 in PVC: half its OD above the ground
+  const yw = 0.0254 * 2; // 4 in wireway: half its height
+  p.raceways.push(
+    run(
+      "ex-gen-conduit",
+      "Generator feed",
+      "conduit",
+      "pvc-sch40-1in",
+      [
+        [-4.5, yc, 7.3],
+        [-4.5, yc, 6.4],
+        [-2.5, yc, 6.4],
+        [-2.5, yc, 5.6],
+      ],
+      ["ex-generator", "ex-ats"],
+      { expansionFittings: 1 }, // 3.7 m outdoors: ≈ 0.6 in of movement
+    ),
+    run(
+      "ex-ac-wireway",
+      "AC wireway",
+      "trunking",
+      "steel-wireway-4x4in",
+      [
+        [-2.8, yw, 5.6],
+        [1.6, yw, 5.6],
+        [1.6, yw, 6.1],
+      ],
+      ["ex-ats", "ex-inverter"],
+    ),
+  );
+  const through = (racewayId: string, names: string[]) => {
+    for (const c of p.cables) if (names.includes(c.name)) c.racewayIds.push(racewayId);
+  };
+  through("ex-gen-conduit", ["Generator L1", "Generator L2", "Generator N", "Generator EGC"]);
+  through("ex-ac-wireway", [
+    "ATS L1",
+    "ATS L2",
+    "AC IN L1",
+    "AC IN L2",
+    "AC IN N",
+    "AC OUT L1",
+    "AC OUT L2",
+  ]);
   return p;
 }

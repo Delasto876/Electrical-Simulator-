@@ -2,7 +2,7 @@ import { ISSUE_CODES } from "@solar-sim/engine";
 import { partsOf } from "../../app/catalog";
 import { fmtM } from "../../lib/format";
 import { parsePortKey, portOwner } from "../../model/ports";
-import { deleteCable, updateCable } from "../../state/actions";
+import { deleteCable, setCableInRaceway, updateCable } from "../../state/actions";
 import { useProject } from "../../state/projectStore";
 import { useSceneModel } from "../../scene/useSceneModel";
 import { Field, NumberField, Readout, Section, SelectField } from "./fields";
@@ -11,6 +11,7 @@ import { Field, NumberField, Readout, Section, SelectField } from "./fields";
 export function CableInspector({ id }: { id: string }) {
   const scene = useSceneModel();
   const units = useProject((s) => s.project.settings.lengthUnits);
+  const raceways = useProject((s) => s.project.raceways);
   const c = scene.electrical.cables.get(id);
   if (!c) return <p className="empty">Cable not found.</p>;
   const cable = c.cable;
@@ -96,10 +97,38 @@ export function CableInspector({ id }: { id: string }) {
           />
         )}
       </Section>
+      <Section title="Raceways">
+        {raceways.length === 0 ? (
+          <p className="hint">
+            No conduit or trunking drawn yet (Conduit / Trunking tools, U / T).
+          </p>
+        ) : (
+          <ul className="object-list" data-testid="cable-raceways">
+            {raceways.map((r) => (
+              <li key={r.id}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={cable.racewayIds.includes(r.id)}
+                    onChange={(e) => setCableInRaceway(id, r.id, e.target.checked)}
+                  />{" "}
+                  {r.name}
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="hint">
+          The cable is routed through the ticked raceways, nearest first; its length becomes the
+          routed path plus slack, and the conductors sharing its fullest raceway set the ampacity
+          adjustment ({c.ccc} current-carrying).
+        </p>
+      </Section>
       <Section title="Computed">
         <Readout
           rows={[
             { label: "Polarity", value: c.polarity ?? "—" },
+            { label: "Routed length", value: fmtM(c.lengthM, units, 2), testId: "cable-length" },
             {
               label: "Resistance (one conductor, 75 °C)",
               value: c.rOhm !== undefined ? `${(c.rOhm * 1000).toFixed(1)} mΩ` : "not available",

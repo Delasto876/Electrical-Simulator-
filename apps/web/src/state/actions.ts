@@ -200,13 +200,16 @@ export function deleteSelection(): void {
 const ownerOf = portOwner;
 
 export function setFlag(
-  kind: "array" | "part",
+  kind: "array" | "part" | "raceway",
   id: string,
   flag: "locked" | "hidden",
   value: boolean,
 ): void {
   commit(`${value ? "" : "Un"}${flag === "locked" ? "lock" : "hide"} ${kind}`, (d) => {
-    const item = (kind === "array" ? d.arrays : d.parts).find((x) => x.id === id);
+    const list = kind === "array" ? d.arrays : kind === "part" ? d.parts : d.raceways;
+    const item = (list as { id: string; locked: boolean; hidden: boolean }[]).find(
+      (x) => x.id === id,
+    );
     if (item) item[flag] = value;
   });
 }
@@ -520,7 +523,7 @@ export function addRaceway(
       points: points.map((p) => [p[0], p[1], p[2]] as V),
       pullPoints: [],
       endParts,
-      location: RACEWAY.defaultLocation,
+      location: RACEWAY.defaultLocation[kind],
       roofClearanceMm: RACEWAY.defaultRoofClearanceMm,
       bendRadiusIn: null,
       expansionFittings: 0,

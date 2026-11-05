@@ -30,12 +30,11 @@ Values the UI shows as "not available", and deferred work.
 - Tablet/touch interaction e2e tests (3D-click tests run on the laptop project only).
 - Blender models for tile hooks, seam clamps and standoffs (boxes for now).
 - MC4 crimp-and-assemble animation; Y-branch and extension-cable usage in strings (catalog entries exist).
-- Cable bend-point editing and auto-route along rails/raceways (Phase 5); routes are simple orthogonal polylines now.
+- Cable bend-point editing and auto-route along rails/raceways (the user routes cables through raceways they draw; outside raceways routes are simple orthogonal polylines).
 - Battery bank builder (series/parallel, busbars); C-rate/BMS checks beyond the continuous-current check.
 - AC load-flow (voltage drop per branch under load, neutral current on split-phase); Phase 4 checks ratings, kA, capacity and topology only.
 - MPPT operating point under real irradiance/temperature (Phase 6 time series); STC only now.
 - Converting the String Wizard's "Apply" for controllers with one MPPT and several parallel strings via Y-branches.
-- Typed schema for "cable"/"connector" exists; still generic: conduit, raceway (Phase 5).
 - Snap animation when a DIN device clicks onto the rail; drag devices between slots (they take the first free slot now).
 - Busbars, neutral bars and N–G bond as explicit parts (the PE bar is a port of the enclosure).
 - Project list to reopen a previous design after loading an example (it stays in IndexedDB).
@@ -43,3 +42,11 @@ Values the UI shows as "not available", and deferred work.
 - Arc-fault (AFCI) and GFCI/RCD requirement rules; SPD coordination.
 - Separately derived generator (switched-neutral) analysis beyond the ATS_NEUTRAL warning.
 - Grounding: supplementary electrodes other than rods (Ufer, ring, plate); measured resistance entry.
+- Raceways: EMT, rigid (RMC/IMC) and Schedule 80 elbow radii; editing points by dragging in 3D (points are edited in the inspector now); inserting a point mid-run.
+- Trunking tees, inside/outside corner fittings and covers as separate items (corners are mitred).
+- Cables leaving a raceway part-way (a cable goes end to end through each raceway it is in).
+- PVC expansion per straight run between fixed points (checked per whole run now); expansion fitting placement.
+- Pull tension / sidewall pressure; jam ratio for three conductors.
+- Neutral counted as current-carrying always (NEC 310.15(E) exceptions not modelled).
+- Bonding jumpers for metal raceways; FMC/LFMC as EGC length limits.
+- Straps and couplings drawn in 3D (counted in the BOM only).
