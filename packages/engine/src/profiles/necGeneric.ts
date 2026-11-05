@@ -88,4 +88,47 @@ export const NEC_GENERIC: CodeProfile = {
     // NEC 690.9(B): series fuse ≥ 125 % of max circuit current (Isc × 1.25) → Isc × 1.5625. // VERIFY
     stringFuseMultiplier: 1.5625,
   },
+  raceway: {
+    // NEC Chapter 9 Table 1 and Note 4 (nipples ≤ 24 in: 60 %). // VERIFY
+    fillLimitsPct: { one: 53, two: 31, more: 40, nipple: 60 },
+    nippleMaxM: 0.6096,
+    // NEC 376.22(A) / 378.22: 20 % of the wireway cross-section; 376.22(B) derating above 30 CCC. // VERIFY
+    wirewayFillPct: 20,
+    wirewayNoDeratingUpTo: 30,
+    // NEC 352.26, 348.26, 350.26, 356.26: no more than four quarter bends (360°) between pull points. // VERIFY
+    maxBendDegBetweenPullPoints: 360,
+    // NEC Chapter 9 Table 2, "other bends" column; 3/8 in is not listed (3 in assumed). // VERIFY
+    minBendRadiusIn: [
+      { tradeSizeIn: 0.375, radiusIn: 3 },
+      { tradeSizeIn: 0.5, radiusIn: 4 },
+      { tradeSizeIn: 0.75, radiusIn: 5 },
+      { tradeSizeIn: 1, radiusIn: 6 },
+      { tradeSizeIn: 1.25, radiusIn: 8 },
+      { tradeSizeIn: 1.5, radiusIn: 10 },
+      { tradeSizeIn: 2, radiusIn: 12 },
+      { tradeSizeIn: 2.5, radiusIn: 15 },
+      { tradeSizeIn: 3, radiusIn: 18 },
+      { tradeSizeIn: 3.5, radiusIn: 21 },
+      { tradeSizeIn: 4, radiusIn: 24 },
+      { tradeSizeIn: 5, radiusIn: 30 },
+      { tradeSizeIn: 6, radiusIn: 36 },
+    ],
+    // PVC: Table 352.30 (within 3 ft of boxes); FMC 348.30 and LFMC 350.30: 4½ ft, within 12 in;
+    // LFNC 356.30: 3 ft, within 12 in. // VERIFY
+    supportSpacing: [
+      { family: "pvc", maxTradeSizeIn: 1, spacingFt: 3, endFt: 3 },
+      { family: "pvc", maxTradeSizeIn: 2, spacingFt: 5, endFt: 3 },
+      { family: "pvc", maxTradeSizeIn: 3, spacingFt: 6, endFt: 3 },
+      { family: "pvc", maxTradeSizeIn: 5, spacingFt: 7, endFt: 3 },
+      { family: "pvc", maxTradeSizeIn: 6, spacingFt: 8, endFt: 3 },
+      { family: "fmc", maxTradeSizeIn: 6, spacingFt: 4.5, endFt: 1 },
+      { family: "lfmc", maxTradeSizeIn: 6, spacingFt: 4.5, endFt: 1 },
+      { family: "lfnc", maxTradeSizeIn: 6, spacingFt: 3, endFt: 1 },
+      { family: "pvc-trunking", maxTradeSizeIn: 99, spacingFt: 3, endFt: 1 },
+      { family: "steel-wireway", maxTradeSizeIn: 99, spacingFt: 5, endFt: 1 },
+    ],
+    // NEC 352.44: 3.38e-5 in/in/°F = 6.084e-5 /°C; fitting needed when the change is ≥ 1/4 in.
+    // Sun adder: manufacturers' guidance (≈ 30 °F above ambient in direct sun). // VERIFY
+    pvcExpansion: { coefPerC: 6.084e-5, thresholdIn: 0.25, sunAdderC: 17 },
+  },
 };

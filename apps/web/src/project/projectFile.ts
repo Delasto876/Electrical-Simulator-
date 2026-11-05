@@ -11,7 +11,7 @@ import { ROOF_TYPES } from "@solar-sim/engine";
  *     literal values, not app defaults, so they stay reproducible).
  *   - Only the current-version schema is validated, after migration.
  */
-export const CURRENT_SCHEMA_VERSION = 4;
+export const CURRENT_SCHEMA_VERSION = 5;
 
 const v3 = z.tuple([z.number(), z.number(), z.number()]);
 
@@ -109,8 +109,44 @@ export const CableInstanceSchema = z.object({
   connectorTo: z.string().nullable(),
   /** null = routed length + slack. */
   lengthOverrideM: z.number().positive().nullable(),
+  /** Raceway runs the cable is pulled through (the route visits them nearest-first). */
+  racewayIds: z.array(z.string()),
 });
 export type CableInstance = z.infer<typeof CableInstanceSchema>;
+
+export const RACEWAY_LOCATIONS = [
+  "indoor",
+  "outdoor",
+  "rooftop",
+  "underground",
+  "physical-damage",
+] as const;
+
+/** A conduit or trunking run drawn by the user: a centreline polyline in world metres. */
+export const RacewayRunSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  kind: z.enum(["conduit", "trunking"]),
+  /** Catalog conduit (type + trade size) or trunking. */
+  catalogId: z.string(),
+  points: z.array(z.tuple([z.number(), z.number(), z.number()])).min(2),
+  /** Interior vertices with a pull point (LB / pull box): bends restart counting there. */
+  pullPoints: z.array(z.number().int().nonnegative()),
+  /** Part each end lands on (null = free end). A metal raceway bonds through these. */
+  endParts: z.tuple([z.string().nullable(), z.string().nullable()]),
+  location: z.enum(RACEWAY_LOCATIONS),
+  /** Height of the raceway bottom above the roof surface (rooftop temperature adder) [mm]. */
+  roofClearanceMm: z.number().nonnegative(),
+  /** Centreline bend radius [in]; null = the code minimum for the trade size. */
+  bendRadiusIn: z.number().positive().nullable(),
+  /** PVC expansion fittings installed in the run. */
+  expansionFittings: z.number().int().nonnegative(),
+  /** Trunking fill limit [%]; null = code profile default. */
+  fillLimitPct: z.number().positive().max(100).nullable(),
+  locked: z.boolean(),
+  hidden: z.boolean(),
+});
+export type RacewayRun = z.infer<typeof RacewayRunSchema>;
 
 export const ClimateSchema = z.object({
   /** Design low ambient (maximum Voc) [°C]. */
@@ -135,8 +171,9 @@ export const SettingsSchema = z.object({
   gridSnap: z.boolean(),
 });
 
-export const ProjectFileV4 = z.object({
-  schemaVersion: z.literal(4),
+/** The current project schema (older versions are migrated to it). */
+export const ProjectFileSchema = z.object({
+  schemaVersion: z.literal(5),
   meta: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -160,10 +197,10 @@ export const ProjectFileV4 = z.object({
   strings: z.array(StringInstanceSchema),
   connections: z.array(z.unknown()),
   cables: z.array(CableInstanceSchema),
-  raceways: z.array(z.unknown()),
+  raceways: z.array(RacewayRunSchema),
   settings: SettingsSchema,
 });
-export type ProjectFile = z.infer<typeof ProjectFileV4>;
+export type ProjectFile = z.infer<typeof ProjectFileSchema>;
 
 type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
 
@@ -223,6 +260,16 @@ export const MIGRATIONS: Record<number, Migration> = {
     arrays: ((doc.arrays ?? []) as Record<string, unknown>[]).map((a) => ({ ...a, weebs: false })),
     earthing: { soil: "average-soil" },
   }),
+  // 4 → 5 (Phase 5): raceway runs (v4 never stored any) and the raceways each cable is pulled through.
+  4: (doc) => ({
+    ...doc,
+    schemaVersion: 5,
+    raceways: [],
+    cables: ((doc.cables ?? []) as Record<string, unknown>[]).map((c) => ({
+      ...c,
+      racewayIds: [],
+    })),
+  }),
 };
 
 export class ProjectFileError extends Error {}
@@ -245,7 +292,7 @@ export function parseProjectFile(input: unknown): ProjectFile {
     doc = migrate(doc);
     version += 1;
   }
-  const result = ProjectFileV4.safeParse(doc);
+  const result = ProjectFileSchema.safeParse(doc);
   if (!result.success) throw new ProjectFileError(z.prettifyError(result.error));
   return result.data;
 }
@@ -267,7 +314,7 @@ export function newProject(
   const stamp = now.toISOString();
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
-    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.3.0" },
+    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.5.0" },
     site: null,
     codeProfileId: opts.codeProfileId,
     climate: { ...opts.climate },

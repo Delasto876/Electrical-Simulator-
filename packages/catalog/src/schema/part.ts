@@ -14,6 +14,7 @@ import {
   Load,
   Utility,
 } from "./protection";
+import { Conduit, ConduitFitting, Trunking } from "./raceway";
 
 /** Categories that have their own typed schema. Add new typed categories here AND to `Part` below. */
 export const TYPED_CATEGORIES = [
@@ -36,6 +37,9 @@ export const TYPED_CATEGORIES = [
   "utility",
   "generator",
   "load",
+  "conduit",
+  "conduit-fitting",
+  "trunking",
 ] as const;
 
 /**
@@ -69,6 +73,9 @@ export const Part = z.discriminatedUnion("category", [
   Utility,
   Generator,
   Load,
+  Conduit,
+  ConduitFitting,
+  Trunking,
   GenericPart,
 ]);
 export type Part = z.infer<typeof Part>;

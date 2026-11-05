@@ -145,6 +145,7 @@ function hybridExample(now: Date): ProjectFile {
       connectorFrom: null,
       connectorTo: null,
       lengthOverrideM: null,
+      racewayIds: [],
     });
   const P = partPortKey;
   const s1 = stringEnds(p.strings[0]!);

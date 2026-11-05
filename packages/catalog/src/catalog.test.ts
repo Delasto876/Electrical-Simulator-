@@ -105,17 +105,17 @@ describe("loadCatalog", () => {
   });
 
   it("accepts a generic part with attributes", () => {
-    const conduit = {
-      id: "generic-emt-3-4",
-      category: "conduit",
+    const tie = {
+      id: "generic-cable-tie-uv",
+      category: "cable-management",
       brand: "Generic",
-      model: "EMT 3/4 in",
-      dimensions: { lengthMm: 3050, widthMm: 23, heightMm: 23 },
-      weightKg: 1.2,
-      attributes: { tradeSize: "3/4" },
+      model: "UV cable tie 200 mm",
+      dimensions: { lengthMm: 200, widthMm: 4.8, heightMm: 1.2 },
+      weightKg: 0.001,
+      attributes: { uvRated: true },
     };
-    const parsed = Part.parse(conduit);
-    expect(parsed.category).toBe("conduit");
+    const parsed = Part.parse(tie);
+    expect(parsed.category).toBe("cable-management");
   });
 });
 
@@ -124,5 +124,35 @@ describe("typed mounting schemas", () => {
     const rail = getBundledCatalog().find((p) => p.category === "rail")!;
     const { mounting: _m, ...rest } = rail as typeof rail & { mounting: unknown };
     expect(Part.safeParse(rest).success).toBe(false);
+  });
+});
+
+describe("raceway catalog", () => {
+  const cat = loadCatalog(bundledCatalogRaw);
+  it("has PVC 40/80 in 1/2–6 in, FMC/LFMC in 3/8–4 in, LFNC-B in 3/8–2 in", () => {
+    const sizes = (kind: string) =>
+      cat.parts.flatMap((p) =>
+        isCategory(p, "conduit") && p.conduit.kind === kind ? [p.conduit.tradeSize] : [],
+      );
+    expect(sizes("pvc-sch40")).toHaveLength(12);
+    expect(sizes("pvc-sch80")).toEqual(sizes("pvc-sch40"));
+    expect(sizes("fmc")[0]).toBe("3/8");
+    expect(sizes("fmc").at(-1)).toBe("4");
+    expect(sizes("lfmc")).toHaveLength(11);
+    expect(sizes("lfnc-b").at(-1)).toBe("2");
+  });
+  it("internal area = π/4 · ID² and Schedule 80 is smaller inside than 40", () => {
+    for (const p of cat.parts) {
+      if (!isCategory(p, "conduit")) continue;
+      const c = p.conduit;
+      expect(c.internalAreaIn2).toBeCloseTo((Math.PI / 4) * c.internalDiameterIn ** 2, 2);
+      expect(c.outsideDiameterIn).toBeGreaterThan(c.internalDiameterIn);
+    }
+    const area = (id: string) => {
+      const p = cat.parts.find((x) => x.id === id);
+      return p && isCategory(p, "conduit") ? p.conduit.internalAreaIn2 : NaN;
+    };
+    expect(area("pvc-sch40-1in")).toBeCloseTo(0.832, 3);
+    expect(area("pvc-sch80-1in")).toBeLessThan(area("pvc-sch40-1in"));
   });
 });

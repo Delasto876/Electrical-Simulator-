@@ -1,0 +1,1963 @@
+[
+  {
+    "id": "pvc-sch40-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1/2 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 21.3,
+      "heightMm": 21.3
+    },
+    "weightKg": 1.135,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.53,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "1/2",
+      "tradeSizeIn": 0.5,
+      "internalDiameterIn": 0.602,
+      "outsideDiameterIn": 0.84,
+      "internalAreaIn2": 0.285,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-3-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/4 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 26.7,
+      "heightMm": 26.7
+    },
+    "weightKg": 1.622,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "3/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "3/4",
+      "tradeSizeIn": 0.75,
+      "internalDiameterIn": 0.804,
+      "outsideDiameterIn": 1.05,
+      "internalAreaIn2": 0.508,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-1in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 33.4,
+      "heightMm": 33.4
+    },
+    "weightKg": 2.325,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "1"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "1",
+      "tradeSizeIn": 1,
+      "internalDiameterIn": 1.029,
+      "outsideDiameterIn": 1.315,
+      "internalAreaIn2": 0.832,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-1-1-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 42.2,
+      "heightMm": 42.2
+    },
+    "weightKg": 3.375,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 12.16,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "1-1/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "1-1/4",
+      "tradeSizeIn": 1.25,
+      "internalDiameterIn": 1.36,
+      "outsideDiameterIn": 1.66,
+      "internalAreaIn2": 1.453,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-1-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 48.3,
+      "heightMm": 48.3
+    },
+    "weightKg": 4.189,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 15.56,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "1-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "1-1/2",
+      "tradeSizeIn": 1.5,
+      "internalDiameterIn": 1.59,
+      "outsideDiameterIn": 1.9,
+      "internalAreaIn2": 1.986,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 60.3,
+      "heightMm": 60.3
+    },
+    "weightKg": 5.986,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.94,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "2",
+      "tradeSizeIn": 2,
+      "internalDiameterIn": 2.047,
+      "outsideDiameterIn": 2.375,
+      "internalAreaIn2": 3.291,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-2-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 73.0,
+      "heightMm": 73.0
+    },
+    "weightKg": 8.127,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 31.01,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "2-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "2-1/2",
+      "tradeSizeIn": 2.5,
+      "internalDiameterIn": 2.445,
+      "outsideDiameterIn": 2.875,
+      "internalAreaIn2": 4.695,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-3in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 88.9,
+      "heightMm": 88.9
+    },
+    "weightKg": 11.133,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 39.66,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "3"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "3",
+      "tradeSizeIn": 3,
+      "internalDiameterIn": 3.042,
+      "outsideDiameterIn": 3.5,
+      "internalAreaIn2": 7.268,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-3-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 13.784,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 48.84,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "3-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "3-1/2",
+      "tradeSizeIn": 3.5,
+      "internalDiameterIn": 3.521,
+      "outsideDiameterIn": 4.0,
+      "internalAreaIn2": 9.737,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "4 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 114.3,
+      "heightMm": 114.3
+    },
+    "weightKg": 16.643,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 58.48,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "4",
+      "tradeSizeIn": 4,
+      "internalDiameterIn": 3.998,
+      "outsideDiameterIn": 4.5,
+      "internalAreaIn2": 12.554,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-5in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "5 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 141.3,
+      "heightMm": 141.3
+    },
+    "weightKg": 23.366,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 79.04,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "5"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "5",
+      "tradeSizeIn": 5,
+      "internalDiameterIn": 5.016,
+      "outsideDiameterIn": 5.563,
+      "internalAreaIn2": 19.761,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch40-6in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "6 in PVC Schedule 40 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 168.3,
+      "heightMm": 168.3
+    },
+    "weightKg": 30.902,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 101.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch40", "pvc", "6"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch40",
+      "family": "pvc",
+      "tradeSize": "6",
+      "tradeSizeIn": 6,
+      "internalDiameterIn": 6.031,
+      "outsideDiameterIn": 6.625,
+      "internalAreaIn2": 28.567,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-sch80-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1/2 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 21.3,
+      "heightMm": 21.3
+    },
+    "weightKg": 1.135,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "1/2",
+      "tradeSizeIn": 0.5,
+      "internalDiameterIn": 0.526,
+      "outsideDiameterIn": 0.84,
+      "internalAreaIn2": 0.217,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-3-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/4 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 26.7,
+      "heightMm": 26.7
+    },
+    "weightKg": 1.622,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "3/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "3/4",
+      "tradeSizeIn": 0.75,
+      "internalDiameterIn": 0.722,
+      "outsideDiameterIn": 1.05,
+      "internalAreaIn2": 0.409,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-1in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 33.4,
+      "heightMm": 33.4
+    },
+    "weightKg": 2.325,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 14.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "1"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "1",
+      "tradeSizeIn": 1,
+      "internalDiameterIn": 0.936,
+      "outsideDiameterIn": 1.315,
+      "internalAreaIn2": 0.688,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-1-1-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 42.2,
+      "heightMm": 42.2
+    },
+    "weightKg": 3.375,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 18.92,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "1-1/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "1-1/4",
+      "tradeSizeIn": 1.25,
+      "internalDiameterIn": 1.255,
+      "outsideDiameterIn": 1.66,
+      "internalAreaIn2": 1.237,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-1-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 48.3,
+      "heightMm": 48.3
+    },
+    "weightKg": 4.189,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 24.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "1-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "1-1/2",
+      "tradeSizeIn": 1.5,
+      "internalDiameterIn": 1.476,
+      "outsideDiameterIn": 1.9,
+      "internalAreaIn2": 1.711,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 60.3,
+      "heightMm": 60.3
+    },
+    "weightKg": 5.986,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 35.69,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "2",
+      "tradeSizeIn": 2,
+      "internalDiameterIn": 1.913,
+      "outsideDiameterIn": 2.375,
+      "internalAreaIn2": 2.874,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-2-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 73.0,
+      "heightMm": 73.0
+    },
+    "weightKg": 8.127,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 48.23,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "2-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "2-1/2",
+      "tradeSizeIn": 2.5,
+      "internalDiameterIn": 2.29,
+      "outsideDiameterIn": 2.875,
+      "internalAreaIn2": 4.119,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-3in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 88.9,
+      "heightMm": 88.9
+    },
+    "weightKg": 11.133,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 61.69,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "3"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "3",
+      "tradeSizeIn": 3,
+      "internalDiameterIn": 2.864,
+      "outsideDiameterIn": 3.5,
+      "internalAreaIn2": 6.442,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-3-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 13.784,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 75.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "3-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "3-1/2",
+      "tradeSizeIn": 3.5,
+      "internalDiameterIn": 3.326,
+      "outsideDiameterIn": 4.0,
+      "internalAreaIn2": 8.688,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "4 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 114.3,
+      "heightMm": 114.3
+    },
+    "weightKg": 16.643,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 90.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "4"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "4",
+      "tradeSizeIn": 4,
+      "internalDiameterIn": 3.786,
+      "outsideDiameterIn": 4.5,
+      "internalAreaIn2": 11.258,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-5in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "5 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 141.3,
+      "heightMm": 141.3
+    },
+    "weightKg": 23.366,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 122.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "5"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "5",
+      "tradeSizeIn": 5,
+      "internalDiameterIn": 4.768,
+      "outsideDiameterIn": 5.563,
+      "internalAreaIn2": 17.855,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "pvc-sch80-6in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "6 in PVC Schedule 80 conduit",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 168.3,
+      "heightMm": 168.3
+    },
+    "weightKg": 30.902,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 157.27,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit", "pvc-sch80", "pvc", "6"],
+    "ports": [],
+    "conduit": {
+      "kind": "pvc-sch80",
+      "family": "pvc",
+      "tradeSize": "6",
+      "tradeSizeIn": 6,
+      "internalDiameterIn": 5.709,
+      "outsideDiameterIn": 6.625,
+      "internalAreaIn2": 25.598,
+      "stickLengthFt": 10,
+      "flexible": false,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": true,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "fmc-3-8in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/8 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 17.8,
+      "heightMm": 17.8
+    },
+    "weightKg": 0.068,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.32,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "3/8"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "3/8",
+      "tradeSizeIn": 0.375,
+      "internalDiameterIn": 0.384,
+      "outsideDiameterIn": 0.7,
+      "internalAreaIn2": 0.116,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1/2 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 21.3,
+      "heightMm": 21.3
+    },
+    "weightKg": 0.091,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.43,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "1/2",
+      "tradeSizeIn": 0.5,
+      "internalDiameterIn": 0.635,
+      "outsideDiameterIn": 0.84,
+      "internalAreaIn2": 0.317,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-3-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/4 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 26.7,
+      "heightMm": 26.7
+    },
+    "weightKg": 0.13,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.75,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "3/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "3/4",
+      "tradeSizeIn": 0.75,
+      "internalDiameterIn": 0.824,
+      "outsideDiameterIn": 1.05,
+      "internalAreaIn2": 0.533,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-1in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 33.4,
+      "heightMm": 33.4
+    },
+    "weightKg": 0.186,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.1,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "1"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "1",
+      "tradeSizeIn": 1,
+      "internalDiameterIn": 1.02,
+      "outsideDiameterIn": 1.315,
+      "internalAreaIn2": 0.817,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-1-1-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/4 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 42.2,
+      "heightMm": 42.2
+    },
+    "weightKg": 0.27,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.49,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "1-1/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "1-1/4",
+      "tradeSizeIn": 1.25,
+      "internalDiameterIn": 1.275,
+      "outsideDiameterIn": 1.66,
+      "internalAreaIn2": 1.277,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-1-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/2 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 48.3,
+      "heightMm": 48.3
+    },
+    "weightKg": 0.335,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.9,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "1-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "1-1/2",
+      "tradeSizeIn": 1.5,
+      "internalDiameterIn": 1.538,
+      "outsideDiameterIn": 1.9,
+      "internalAreaIn2": 1.858,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 60.3,
+      "heightMm": 60.3
+    },
+    "weightKg": 0.479,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.8,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "2"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "2",
+      "tradeSizeIn": 2,
+      "internalDiameterIn": 2.04,
+      "outsideDiameterIn": 2.375,
+      "internalAreaIn2": 3.269,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-2-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2-1/2 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 73.0,
+      "heightMm": 73.0
+    },
+    "weightKg": 0.65,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.79,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "2-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "2-1/2",
+      "tradeSizeIn": 2.5,
+      "internalDiameterIn": 2.5,
+      "outsideDiameterIn": 2.875,
+      "internalAreaIn2": 4.909,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-3in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 88.9,
+      "heightMm": 88.9
+    },
+    "weightKg": 0.891,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.85,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "3"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "3",
+      "tradeSizeIn": 3,
+      "internalDiameterIn": 3.0,
+      "outsideDiameterIn": 3.5,
+      "internalAreaIn2": 7.069,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-3-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3-1/2 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 1.103,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.97,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "3-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "3-1/2",
+      "tradeSizeIn": 3.5,
+      "internalDiameterIn": 3.5,
+      "outsideDiameterIn": 4.0,
+      "internalAreaIn2": 9.621,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "fmc-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "4 in Flexible metal conduit (FMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 114.3,
+      "heightMm": 114.3
+    },
+    "weightKg": 1.331,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 7.15,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "fmc", "fmc", "4"],
+    "ports": [],
+    "conduit": {
+      "kind": "fmc",
+      "family": "fmc",
+      "tradeSize": "4",
+      "tradeSizeIn": 4,
+      "internalDiameterIn": 4.0,
+      "outsideDiameterIn": 4.5,
+      "internalAreaIn2": 12.566,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": false,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-3-8in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/8 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 17.8,
+      "heightMm": 17.8
+    },
+    "weightKg": 0.068,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.58,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "3/8"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "3/8",
+      "tradeSizeIn": 0.375,
+      "internalDiameterIn": 0.494,
+      "outsideDiameterIn": 0.7,
+      "internalAreaIn2": 0.192,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1/2 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 21.3,
+      "heightMm": 21.3
+    },
+    "weightKg": 0.091,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.78,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "1/2",
+      "tradeSizeIn": 0.5,
+      "internalDiameterIn": 0.632,
+      "outsideDiameterIn": 0.84,
+      "internalAreaIn2": 0.314,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-3-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/4 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 26.7,
+      "heightMm": 26.7
+    },
+    "weightKg": 0.13,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.36,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "3/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "3/4",
+      "tradeSizeIn": 0.75,
+      "internalDiameterIn": 0.83,
+      "outsideDiameterIn": 1.05,
+      "internalAreaIn2": 0.541,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-1in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 33.4,
+      "heightMm": 33.4
+    },
+    "weightKg": 0.186,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.0,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "1"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "1",
+      "tradeSizeIn": 1,
+      "internalDiameterIn": 1.054,
+      "outsideDiameterIn": 1.315,
+      "internalAreaIn2": 0.873,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-1-1-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/4 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 42.2,
+      "heightMm": 42.2
+    },
+    "weightKg": 0.27,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.7,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "1-1/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "1-1/4",
+      "tradeSizeIn": 1.25,
+      "internalDiameterIn": 1.395,
+      "outsideDiameterIn": 1.66,
+      "internalAreaIn2": 1.528,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-1-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/2 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 48.3,
+      "heightMm": 48.3
+    },
+    "weightKg": 0.335,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.46,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "1-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "1-1/2",
+      "tradeSizeIn": 1.5,
+      "internalDiameterIn": 1.588,
+      "outsideDiameterIn": 1.9,
+      "internalAreaIn2": 1.981,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 60.3,
+      "heightMm": 60.3
+    },
+    "weightKg": 0.479,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.1,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "2",
+      "tradeSizeIn": 2,
+      "internalDiameterIn": 2.033,
+      "outsideDiameterIn": 2.375,
+      "internalAreaIn2": 3.246,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-2-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2-1/2 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 73.0,
+      "heightMm": 73.0
+    },
+    "weightKg": 0.65,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.89,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "2-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "2-1/2",
+      "tradeSizeIn": 2.5,
+      "internalDiameterIn": 2.493,
+      "outsideDiameterIn": 2.875,
+      "internalAreaIn2": 4.881,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-3in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 88.9,
+      "heightMm": 88.9
+    },
+    "weightKg": 0.891,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.81,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "3"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "3",
+      "tradeSizeIn": 3,
+      "internalDiameterIn": 3.085,
+      "outsideDiameterIn": 3.5,
+      "internalAreaIn2": 7.475,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-3-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3-1/2 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 1.103,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.85,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "3-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "3-1/2",
+      "tradeSizeIn": 3.5,
+      "internalDiameterIn": 3.52,
+      "outsideDiameterIn": 4.0,
+      "internalAreaIn2": 9.731,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfmc-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "4 in Liquid-tight flexible metal conduit (LFMC)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 114.3,
+      "heightMm": 114.3
+    },
+    "weightKg": 1.331,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 13.0,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfmc", "lfmc", "4"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfmc",
+      "family": "lfmc",
+      "tradeSize": "4",
+      "tradeSizeIn": 4,
+      "internalDiameterIn": 4.02,
+      "outsideDiameterIn": 4.5,
+      "internalAreaIn2": 12.692,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-3-8in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/8 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 17.8,
+      "heightMm": 17.8
+    },
+    "weightKg": 0.068,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.46,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "3/8"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "3/8",
+      "tradeSizeIn": 0.375,
+      "internalDiameterIn": 0.494,
+      "outsideDiameterIn": 0.7,
+      "internalAreaIn2": 0.192,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1/2 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 21.3,
+      "heightMm": 21.3
+    },
+    "weightKg": 0.091,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.63,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "1/2",
+      "tradeSizeIn": 0.5,
+      "internalDiameterIn": 0.632,
+      "outsideDiameterIn": 0.84,
+      "internalAreaIn2": 0.314,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-3-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "3/4 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 26.7,
+      "heightMm": 26.7
+    },
+    "weightKg": 0.13,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.09,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "3/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "3/4",
+      "tradeSizeIn": 0.75,
+      "internalDiameterIn": 0.83,
+      "outsideDiameterIn": 1.05,
+      "internalAreaIn2": 0.541,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-1in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 33.4,
+      "heightMm": 33.4
+    },
+    "weightKg": 0.186,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.6,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "1"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "1",
+      "tradeSizeIn": 1,
+      "internalDiameterIn": 1.054,
+      "outsideDiameterIn": 1.315,
+      "internalAreaIn2": 0.873,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-1-1-4in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/4 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 42.2,
+      "heightMm": 42.2
+    },
+    "weightKg": 0.27,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.16,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "1-1/4"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "1-1/4",
+      "tradeSizeIn": 1.25,
+      "internalDiameterIn": 1.395,
+      "outsideDiameterIn": 1.66,
+      "internalAreaIn2": 1.528,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-1-1-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "1-1/2 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 48.3,
+      "heightMm": 48.3
+    },
+    "weightKg": 0.335,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.77,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "1-1/2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "1-1/2",
+      "tradeSizeIn": 1.5,
+      "internalDiameterIn": 1.588,
+      "outsideDiameterIn": 1.9,
+      "internalAreaIn2": 1.981,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "lfnc-b-2in",
+    "category": "conduit",
+    "brand": "Generic",
+    "model": "2 in Liquid-tight flexible nonmetallic conduit (LFNC-B)",
+    "dimensions": {
+      "lengthMm": 304.8,
+      "widthMm": 60.3,
+      "heightMm": 60.3
+    },
+    "weightKg": 0.479,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.08,
+      "currency": "USD",
+      "unit": "ft"
+    },
+    "tags": ["conduit", "lfnc-b", "lfnc", "2"],
+    "ports": [],
+    "conduit": {
+      "kind": "lfnc-b",
+      "family": "lfnc",
+      "tradeSize": "2",
+      "tradeSizeIn": 2,
+      "internalDiameterIn": 2.033,
+      "outsideDiameterIn": 2.375,
+      "internalAreaIn2": 3.246,
+      "stickLengthFt": null,
+      "flexible": true,
+      "metallic": false,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  }
+]

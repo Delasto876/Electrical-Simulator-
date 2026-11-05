@@ -3,6 +3,7 @@ export * from "./schema/electrical";
 export * from "./schema/mounting";
 export * from "./schema/wiring";
 export * from "./schema/protection";
+export * from "./schema/raceway";
 export * from "./schema/part";
 export * from "./loader";
 export { bundledCatalogRaw } from "./data/index";

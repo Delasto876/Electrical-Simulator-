@@ -60,4 +60,22 @@ export interface CodeProfile {
     /** String fuse ≥ Isc × this (Isc × 1.25 × 1.25). */
     stringFuseMultiplier: number;
   };
+  raceway: {
+    /** Conduit fill limits [% of internal area] by number of conductors; nipples (short runs) separately. */
+    fillLimitsPct: { one: number; two: number; more: number; nipple: number };
+    /** Runs up to this length count as nipples [m]. */
+    nippleMaxM: number;
+    /** Default fill limit for wireways / trunking [%] (editable per run). */
+    wirewayFillPct: number;
+    /** Wireways: conductor-count derating applies only above this many current-carrying conductors. */
+    wirewayNoDeratingUpTo: number;
+    /** Maximum total bend between pull points [degrees]. */
+    maxBendDegBetweenPullPoints: number;
+    /** Minimum conduit bend radius (centreline) by trade size [in]. */
+    minBendRadiusIn: { tradeSizeIn: number; radiusIn: number }[];
+    /** Support (strap) spacing by conduit family and trade size, and the maximum distance from each end [ft]. */
+    supportSpacing: { family: string; maxTradeSizeIn: number; spacingFt: number; endFt: number }[];
+    /** PVC expansion: linear coefficient [1/°C], length change that needs an expansion fitting [in], extra conduit temperature in sun [°C]. */
+    pvcExpansion: { coefPerC: number; thresholdIn: number; sunAdderC: number };
+  };
 }

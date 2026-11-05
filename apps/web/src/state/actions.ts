@@ -1,5 +1,5 @@
 import { getCodeProfile, roofSurfaces, type RoofSpec, type WizardOption } from "@solar-sim/engine";
-import { DEFAULT_BATTERY_CABLE, DEFAULT_CABLE_FOR_PORT, SNAP } from "../config/defaults";
+import { DEFAULT_BATTERY_CABLE, DEFAULT_CABLE_FOR_PORT, RACEWAY, SNAP } from "../config/defaults";
 import { catalogById, getPart } from "../app/catalog";
 import { nextFreeSlot } from "../model/placement";
 import { defaultAttachmentFor, defaultMountingFor } from "../model/hardware";
@@ -11,6 +11,7 @@ import type {
   Climate,
   FreePart,
   ProjectFile,
+  RacewayRun,
   StringInstance,
 } from "../project/projectFile";
 import type { Draft } from "immer";
@@ -171,6 +172,7 @@ export function deleteSelection(): void {
   if (!sel) return;
   if (sel.kind === "string") return removeString(sel.id);
   if (sel.kind === "cable") return deleteCable(sel.id);
+  if (sel.kind === "raceway") return deleteRaceway(sel.id);
   if (sel.kind !== "array" && sel.kind !== "part") return;
   const list = sel.kind === "array" ? project().arrays : project().parts;
   const item = list.find((x) => x.id === sel.id);
@@ -186,6 +188,11 @@ export function deleteSelection(): void {
       d.strings = d.strings.filter((s) => s.arrayId !== sel.id);
     } else d.parts = d.parts.filter((p) => !gone.has(p.id));
     d.cables = d.cables.filter((c) => ![c.from, c.to].some((k) => gone.has(ownerOf(k) ?? "")));
+    for (const r of d.raceways)
+      r.endParts = [
+        r.endParts[0] && gone.has(r.endParts[0]) ? null : r.endParts[0],
+        r.endParts[1] && gone.has(r.endParts[1]) ? null : r.endParts[1],
+      ];
   });
   useUi.getState().select(null);
 }
@@ -338,6 +345,7 @@ function homeRuns(
       connectorFrom: null,
       connectorTo: null,
       lengthOverrideM: null,
+      racewayIds: [],
     },
     {
       id: newId("cable"),
@@ -348,6 +356,7 @@ function homeRuns(
       connectorFrom: null,
       connectorTo: null,
       lengthOverrideM: null,
+      racewayIds: [],
     },
   );
   return true;
@@ -405,6 +414,7 @@ export function addCable(from: string, to: string, portType: string): string {
       connectorFrom: null,
       connectorTo: null,
       lengthOverrideM: null,
+      racewayIds: [],
     });
   });
   useUi.getState().select({ kind: "cable", id });
@@ -484,5 +494,103 @@ export function swapPart(partId: string, catalogId: string): void {
 /** Load a complete example design as a new project (the current one stays saved in the browser). */
 export function loadProject(p: ProjectFile): void {
   useProject.getState().replace(p);
+  useUi.getState().select(null);
+}
+
+// ---------------------------------------------------------------- raceways (Phase 5)
+
+type V = [number, number, number];
+
+/** Create a conduit or trunking run from drawn points. Returns its id. */
+export function addRaceway(
+  kind: RacewayRun["kind"],
+  catalogId: string,
+  points: readonly V[],
+  endParts: [string | null, string | null],
+): string | undefined {
+  if (points.length < 2) return undefined;
+  const id = newId("raceway");
+  const n = project().raceways.filter((r) => r.kind === kind).length + 1;
+  commit(kind === "conduit" ? "Draw conduit" : "Draw trunking", (d) => {
+    d.raceways.push({
+      id,
+      name: `${kind === "conduit" ? "Conduit" : "Trunking"} ${n}`,
+      kind,
+      catalogId,
+      points: points.map((p) => [p[0], p[1], p[2]] as V),
+      pullPoints: [],
+      endParts,
+      location: RACEWAY.defaultLocation,
+      roofClearanceMm: RACEWAY.defaultRoofClearanceMm,
+      bendRadiusIn: null,
+      expansionFittings: 0,
+      fillLimitPct: null,
+      locked: false,
+      hidden: false,
+    });
+  });
+  useUi.getState().select({ kind: "raceway", id });
+  return id;
+}
+
+export function updateRaceway(
+  id: string,
+  changes: Partial<Omit<RacewayRun, "id" | "kind">>,
+  label = "Edit raceway",
+): void {
+  commit(
+    label,
+    (d) => {
+      const r = d.raceways.find((x) => x.id === id);
+      if (r) Object.assign(r, changes);
+    },
+    `raceway:${id}:${Object.keys(changes).sort().join(",")}`,
+  );
+}
+
+/** Make an interior corner a pull point (LB / pull box) or a bend again. */
+export function togglePullPoint(id: string, vertex: number): void {
+  commit("Toggle pull point", (d) => {
+    const r = d.raceways.find((x) => x.id === id);
+    if (!r || vertex <= 0 || vertex >= r.points.length - 1) return;
+    r.pullPoints = r.pullPoints.includes(vertex)
+      ? r.pullPoints.filter((v) => v !== vertex)
+      : [...r.pullPoints, vertex].sort((a, b) => a - b);
+  });
+}
+
+/** Remove one point of a run (a run keeps at least two). Pull points after it shift down. */
+export function removeRacewayPoint(id: string, vertex: number): void {
+  commit("Remove raceway point", (d) => {
+    const r = d.raceways.find((x) => x.id === id);
+    if (!r || r.points.length <= 2) return;
+    r.points.splice(vertex, 1);
+    r.pullPoints = r.pullPoints
+      .filter((v) => v !== vertex)
+      .map((v) => (v > vertex ? v - 1 : v))
+      .filter((v) => v > 0 && v < r.points.length - 1);
+    if (vertex === 0) r.endParts = [null, r.endParts[1]];
+    if (vertex === r.points.length) r.endParts = [r.endParts[0], null];
+  });
+}
+
+/** Pull a cable through a raceway, or take it out. */
+export function setCableInRaceway(cableId: string, racewayId: string, inside: boolean): void {
+  commit(inside ? "Route cable into raceway" : "Take cable out of raceway", (d) => {
+    const c = d.cables.find((x) => x.id === cableId);
+    if (!c) return;
+    c.racewayIds = inside
+      ? [...new Set([...c.racewayIds, racewayId])]
+      : c.racewayIds.filter((x) => x !== racewayId);
+  });
+}
+
+export function deleteRaceway(id: string): void {
+  const r = project().raceways.find((x) => x.id === id);
+  if (!r || r.locked) return;
+  commit(`Delete ${r.name}`, (d) => {
+    d.raceways = d.raceways.filter((x) => x.id !== id);
+    for (const c of d.cables) c.racewayIds = c.racewayIds.filter((x) => x !== id);
+  });
   useUi.getState().select(null);
 }

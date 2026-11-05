@@ -248,6 +248,41 @@ export const ISSUE_CODES = {
     explain:
       "A neutral bonded at the generator and at the service creates parallel neutral current on ground conductors unless the neutral is switched.",
   },
+  RACEWAY_FILL: {
+    title: "Raceway overfilled",
+    explain:
+      "Conductors (with insulation) may fill only part of a conduit: 53 % for one, 31 % for two, 40 % for three or more (60 % in a short nipple), and 20 % of a wireway or trunking. Overfilled raceways damage insulation when pulling and run hot.",
+  },
+  RACEWAY_BENDS: {
+    title: "Too many bends between pull points",
+    explain:
+      "Between pull points (boxes, LBs, ends) a conduit may have at most the equivalent of four quarter bends (360°). More makes the pull too hard and damages the wire: add a pull box or an LB.",
+  },
+  RACEWAY_BEND_RADIUS: {
+    title: "Bend radius tighter than allowed",
+    explain:
+      "Each trade size has a minimum bend radius (NEC Chapter 9 Table 2). Tighter bends kink the conduit and the conductors.",
+  },
+  RACEWAY_SHORT_SEGMENT: {
+    title: "Bends too close together",
+    explain:
+      "The straight length between two bends is shorter than the bends need at this radius. The run cannot be built as drawn: space the corners further apart.",
+  },
+  RACEWAY_LOCATION: {
+    title: "Raceway type not suitable for this location",
+    explain:
+      "Outdoors and on roofs a raceway must be listed for wet locations and sunlight; underground it must be listed for direct burial; where it can be hit, use a type listed for physical damage (e.g. PVC Schedule 80).",
+  },
+  RACEWAY_EXPANSION: {
+    title: "PVC run needs expansion fittings",
+    explain:
+      "PVC grows and shrinks with temperature (about 6 mm per 10 m per 10 °C). When the change is ¼ in or more, expansion fittings must take it up, or the run buckles and pulls out of its fittings.",
+  },
+  RACEWAY_UNBONDED: {
+    title: "Metal raceway not bonded",
+    explain:
+      "A metal conduit or wireway must be bonded: at least one end must land on a bonded enclosure (or carry a bonding jumper).",
+  },
   ATS_SOURCES: {
     title: "Transfer switch source missing",
     explain: "A transfer switch needs at least two sources.",

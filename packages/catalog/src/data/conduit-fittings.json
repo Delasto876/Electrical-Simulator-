@@ -1,0 +1,5786 @@
+[
+  {
+    "id": "pvc-elbow-90-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.57,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.37,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-coupling-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.31,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.35,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-lb-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.53,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-junction-box-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-strap-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC strap",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "pvc-expansion-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "1/2",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.71,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.37,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-coupling-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.54,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.61,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-lb-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-junction-box-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-strap-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC strap",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "pvc-expansion-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 14.92,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "3/4",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-coupling-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-lb-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-junction-box-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 14.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-strap-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC strap",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "pvc-expansion-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "1",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.73,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-coupling-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.08,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.22,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-lb-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 12.16,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-junction-box-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 18.92,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-strap-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC strap",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "pvc-expansion-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 29.73,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "1-1/4",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.91,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.05,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-coupling-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.38,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.56,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-lb-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 15.56,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-junction-box-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 24.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-strap-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC strap",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.52,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "pvc-expansion-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 38.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "1-1/2",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.92,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-coupling-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.04,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.29,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-lb-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.94,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-junction-box-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 35.69,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-strap-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC strap",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-expansion-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 56.08,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "2",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 13.78,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 12.06,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-coupling-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-lb-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 31.01,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-junction-box-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 48.23,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-strap-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC strap",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "pvc-expansion-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 75.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "2-1/2",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 17.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 15.42,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-coupling-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.53,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-lb-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 39.66,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-junction-box-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 61.69,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-strap-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC strap",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "pvc-expansion-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 96.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "3",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 21.7,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 18.99,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-coupling-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.34,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.88,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-lb-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 48.84,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-junction-box-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 75.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-strap-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC strap",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "pvc-expansion-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 119.38,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "3-1/2",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 25.99,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.74,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-coupling-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.85,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-lb-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 58.48,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-junction-box-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 90.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-strap-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC strap",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "pvc-expansion-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 142.96,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "4",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 35.13,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 30.74,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-coupling-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 7.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 7.9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-lb-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 79.04,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-junction-box-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 122.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-strap-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC strap",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "5"
+    }
+  },
+  {
+    "id": "pvc-expansion-5in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "5 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 282.6,
+      "widthMm": 183.7,
+      "heightMm": 183.7
+    },
+    "weightKg": 1.547,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 193.21,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "5"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "5",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "pvc-elbow-90-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC 90\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 44.93,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-90", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-90",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-elbow-45-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC 45\u00b0 elbow",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 39.32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "elbow-45", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "elbow-45",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-coupling-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC coupling",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.99,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "coupling", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-terminal-adapter-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC terminal adapter",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.11,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "terminal-adapter", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "terminal-adapter",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-lb-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC LB conduit body",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 101.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "lb", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "lb",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-junction-box-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC pull / junction box",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 157.27,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "junction-box", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-strap-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC strap",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.37,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "strap", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc",
+      "tradeSize": "6"
+    }
+  },
+  {
+    "id": "pvc-expansion-6in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 in PVC expansion coupling (6 in travel)",
+    "dimensions": {
+      "lengthMm": 336.5,
+      "widthMm": 218.8,
+      "heightMm": 218.8
+    },
+    "weightKg": 2.195,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 247.13,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc", "expansion", "6"],
+    "ports": [],
+    "fitting": {
+      "kind": "expansion",
+      "family": "pvc",
+      "tradeSize": "6",
+      "strokeIn": 6
+    }
+  },
+  {
+    "id": "fmc-connector-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in FMC connector",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.44,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "fmc-junction-box-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.61,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "fmc-strap-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in FMC strap",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.09,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "fmc-connector-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in FMC connector",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.59,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "fmc-junction-box-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.53,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "fmc-strap-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in FMC strap",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "fmc-connector-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in FMC connector",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.02,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "fmc-junction-box-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.1,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "fmc-strap-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in FMC strap",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "fmc-connector-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in FMC connector",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "fmc-junction-box-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "fmc-strap-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in FMC strap",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "fmc-connector-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in FMC connector",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "fmc-junction-box-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 12.16,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "fmc-strap-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in FMC strap",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "fmc-connector-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in FMC connector",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.59,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "fmc-junction-box-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 15.56,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "fmc-strap-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in FMC strap",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.52,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "fmc-connector-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in FMC connector",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.82,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "fmc-junction-box-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.94,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "fmc-strap-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in FMC strap",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "fmc-connector-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in FMC connector",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.17,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "fmc-junction-box-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 31.01,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "fmc-strap-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in FMC strap",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "fmc-connector-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in FMC connector",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.61,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "fmc-junction-box-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 39.66,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "fmc-strap-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in FMC strap",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "fmc-connector-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in FMC connector",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.14,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "fmc-junction-box-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 48.84,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "fmc-strap-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in FMC strap",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "fmc-connector-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in FMC connector",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.75,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "connector", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "fmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "fmc-junction-box-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in FMC pull / junction box",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 58.48,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "junction-box", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "fmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "fmc-strap-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in FMC strap",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "fmc", "strap", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "fmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "lfmc-connector-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.16,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.64,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfmc-strap-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.09,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfmc-connector-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.57,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.28,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfmc-strap-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfmc-connector-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.71,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.85,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfmc-strap-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfmc-connector-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 16.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfmc-strap-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfmc-connector-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 21.62,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfmc-strap-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfmc-connector-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.91,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 27.66,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfmc-strap-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.52,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfmc-connector-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 40.79,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "lfmc-strap-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "lfmc-connector-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 13.78,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 55.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "lfmc-strap-2-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 146.0,
+      "widthMm": 94.9,
+      "heightMm": 94.9
+    },
+    "weightKg": 0.413,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "2-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "2-1/2"
+    }
+  },
+  {
+    "id": "lfmc-connector-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 17.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 70.51,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "lfmc-strap-3in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 177.8,
+      "widthMm": 115.6,
+      "heightMm": 115.6
+    },
+    "weightKg": 0.613,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "3"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "3"
+    }
+  },
+  {
+    "id": "lfmc-connector-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 21.7,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 86.82,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "lfmc-strap-3-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3-1/2 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 132.1,
+      "heightMm": 132.1
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.63,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "3-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "3-1/2"
+    }
+  },
+  {
+    "id": "lfmc-connector-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in LFMC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 25.99,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "connector", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "lfmc-junction-box-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in LFMC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 103.97,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "junction-box", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "lfmc-strap-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 in LFMC strap",
+    "dimensions": {
+      "lengthMm": 228.6,
+      "widthMm": 148.6,
+      "heightMm": 148.6
+    },
+    "weightKg": 1.012,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.95,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfmc", "strap", "4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfmc",
+      "tradeSize": "4"
+    }
+  },
+  {
+    "id": "lfnc-connector-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.87,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.06,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfnc-strap-3-8in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/8 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 35.6,
+      "widthMm": 23.1,
+      "heightMm": 23.1
+    },
+    "weightKg": 0.024,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.09,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "3/8"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "3/8"
+    }
+  },
+  {
+    "id": "lfnc-connector-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.18,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfnc-strap-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1/2 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 42.7,
+      "widthMm": 27.7,
+      "heightMm": 27.7
+    },
+    "weightKg": 0.035,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "1/2"
+    }
+  },
+  {
+    "id": "lfnc-connector-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.03,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 9.49,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfnc-strap-3-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 53.3,
+      "widthMm": 34.7,
+      "heightMm": 34.7
+    },
+    "weightKg": 0.055,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "3/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "3/4"
+    }
+  },
+  {
+    "id": "lfnc-connector-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 14.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfnc-strap-1in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 66.8,
+      "widthMm": 43.4,
+      "heightMm": 43.4
+    },
+    "weightKg": 0.086,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "1"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "1"
+    }
+  },
+  {
+    "id": "lfnc-connector-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.05,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 18.92,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfnc-strap-1-1-4in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/4 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 84.3,
+      "widthMm": 54.8,
+      "heightMm": 54.8
+    },
+    "weightKg": 0.138,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.41,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "1-1/4"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "1-1/4"
+    }
+  },
+  {
+    "id": "lfnc-connector-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.19,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 24.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfnc-strap-1-1-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 96.5,
+      "widthMm": 62.7,
+      "heightMm": 62.7
+    },
+    "weightKg": 0.18,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.52,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "1-1/2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "1-1/2"
+    }
+  },
+  {
+    "id": "lfnc-connector-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFNC liquid-tight connector",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 7.65,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "connector", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "connector",
+      "family": "lfnc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "lfnc-junction-box-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFNC pull / junction box (wet)",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 35.69,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "junction-box", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "junction-box",
+      "family": "lfnc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "lfnc-strap-2in",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 in LFNC strap",
+    "dimensions": {
+      "lengthMm": 120.6,
+      "widthMm": 78.4,
+      "heightMm": 78.4
+    },
+    "weightKg": 0.282,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "lfnc", "strap", "2"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "lfnc",
+      "tradeSize": "2"
+    }
+  },
+  {
+    "id": "pvc-trunking-0-75x0-5in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 \u00d7 1/2 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 19.0,
+      "widthMm": 19.0,
+      "heightMm": 12.7
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.32,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "3/4 \u00d7 1/2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-0-75x0-5in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 \u00d7 1/2 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 19.0,
+      "widthMm": 19.0,
+      "heightMm": 12.7
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.4,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "3/4 \u00d7 1/2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-0-75x0-5in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3/4 \u00d7 1/2 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 19.0,
+      "widthMm": 19.0,
+      "heightMm": 12.7
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "3/4 \u00d7 1/2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1x1in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 \u00d7 1 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 25.4,
+      "widthMm": 25.4,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.48,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "1 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1x1in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 \u00d7 1 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 25.4,
+      "widthMm": 25.4,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "1 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1x1in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1 \u00d7 1 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 25.4,
+      "widthMm": 25.4,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.18,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "1 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1-5x1in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 \u00d7 1 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 38.1,
+      "widthMm": 38.1,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.64,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "1-1/2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1-5x1in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 \u00d7 1 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 38.1,
+      "widthMm": 38.1,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "1-1/2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-1-5x1in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "1-1/2 \u00d7 1 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 38.1,
+      "widthMm": 38.1,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.24,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "1-1/2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x1in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 1 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x1in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 1 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x1in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 1 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.3,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 1 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x2in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 2 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x2in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 2 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.4,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-2x2in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2 \u00d7 2 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 50.8,
+      "widthMm": 50.8,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.42,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "2 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-3x2in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 \u00d7 2 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 76.2,
+      "widthMm": 76.2,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.44,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "3 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-3x2in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 \u00d7 2 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 76.2,
+      "widthMm": 76.2,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "3 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-3x2in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "3 \u00d7 2 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 76.2,
+      "widthMm": 76.2,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.54,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "3 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x2in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 2 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.76,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x2in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 2 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x2in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 2 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 50.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.66,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 2 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x3in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 3 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 76.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.08,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 3 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x3in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 3 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 76.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 3 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x3in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 3 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 76.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.78,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 3 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x4in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in pvc trunking end cap",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.4,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x4in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in pvc trunking joiner",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "pvc-trunking-4x4in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in pvc trunking fixing clip",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 0.9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "pvc-trunking", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "pvc-trunking",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "steel-wireway-2-5x2-5in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 \u00d7 2-1/2 in steel wireway end cap",
+    "dimensions": {
+      "lengthMm": 63.5,
+      "widthMm": 63.5,
+      "heightMm": 63.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "steel-wireway",
+      "tradeSize": "2-1/2 \u00d7 2-1/2 in"
+    }
+  },
+  {
+    "id": "steel-wireway-2-5x2-5in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 \u00d7 2-1/2 in steel wireway joiner",
+    "dimensions": {
+      "lengthMm": 63.5,
+      "widthMm": 63.5,
+      "heightMm": 63.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "steel-wireway",
+      "tradeSize": "2-1/2 \u00d7 2-1/2 in"
+    }
+  },
+  {
+    "id": "steel-wireway-2-5x2-5in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "2-1/2 \u00d7 2-1/2 in steel wireway fixing clip",
+    "dimensions": {
+      "lengthMm": 63.5,
+      "widthMm": 63.5,
+      "heightMm": 63.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 1.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "steel-wireway",
+      "tradeSize": "2-1/2 \u00d7 2-1/2 in"
+    }
+  },
+  {
+    "id": "steel-wireway-4x4in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in steel wireway end cap",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "steel-wireway",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "steel-wireway-4x4in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in steel wireway joiner",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "steel-wireway",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "steel-wireway-4x4in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in steel wireway fixing clip",
+    "dimensions": {
+      "lengthMm": 101.6,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 2.55,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "steel-wireway",
+      "tradeSize": "4 \u00d7 4 in"
+    }
+  },
+  {
+    "id": "steel-wireway-6x6in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 \u00d7 6 in steel wireway end cap",
+    "dimensions": {
+      "lengthMm": 152.4,
+      "widthMm": 152.4,
+      "heightMm": 152.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.4,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "steel-wireway",
+      "tradeSize": "6 \u00d7 6 in"
+    }
+  },
+  {
+    "id": "steel-wireway-6x6in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 \u00d7 6 in steel wireway joiner",
+    "dimensions": {
+      "lengthMm": 152.4,
+      "widthMm": 152.4,
+      "heightMm": 152.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 13.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "steel-wireway",
+      "tradeSize": "6 \u00d7 6 in"
+    }
+  },
+  {
+    "id": "steel-wireway-6x6in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "6 \u00d7 6 in steel wireway fixing clip",
+    "dimensions": {
+      "lengthMm": 152.4,
+      "widthMm": 152.4,
+      "heightMm": 152.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 3.9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "steel-wireway",
+      "tradeSize": "6 \u00d7 6 in"
+    }
+  },
+  {
+    "id": "steel-wireway-8x8in-end-cap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "8 \u00d7 8 in steel wireway end cap",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 203.2,
+      "heightMm": 203.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 15.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "end-cap"],
+    "ports": [],
+    "fitting": {
+      "kind": "end-cap",
+      "family": "steel-wireway",
+      "tradeSize": "8 \u00d7 8 in"
+    }
+  },
+  {
+    "id": "steel-wireway-8x8in-coupling",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "8 \u00d7 8 in steel wireway joiner",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 203.2,
+      "heightMm": 203.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 19.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "coupling"],
+    "ports": [],
+    "fitting": {
+      "kind": "coupling",
+      "family": "steel-wireway",
+      "tradeSize": "8 \u00d7 8 in"
+    }
+  },
+  {
+    "id": "steel-wireway-8x8in-strap",
+    "category": "conduit-fitting",
+    "brand": "Generic",
+    "model": "8 \u00d7 8 in steel wireway fixing clip",
+    "dimensions": {
+      "lengthMm": 203.2,
+      "widthMm": 203.2,
+      "heightMm": 203.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 5.7,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["conduit-fitting", "steel-wireway", "strap"],
+    "ports": [],
+    "fitting": {
+      "kind": "strap",
+      "family": "steel-wireway",
+      "tradeSize": "8 \u00d7 8 in"
+    }
+  }
+]

@@ -62,6 +62,7 @@ describe("hybrid example (Phase 4 done-criterion)", () => {
         connectorFrom: null,
         connectorTo: null,
         lengthOverrideM: null,
+        racewayIds: [],
       });
     bad.cables = bad.cables.filter((c) => c.name !== "Rod bond" && c.name !== "Array EGC");
     const r = computeScene(bad).issues.map((i) => i.code);

@@ -41,6 +41,7 @@ import { allPorts, parsePortKey, partPortKey, type PortInfo, type PortKey } from
 import { buildNets, type NetGraph } from "./nets";
 import type { DeviceLink } from "./deviceLinks";
 import { orthogonalRoute, polylineLength } from "./routing";
+import type { RacewayModel } from "./racewayModel";
 import { connectorPairsInLoop, internalPorts, stringEnds } from "./strings";
 
 /**
@@ -55,7 +56,14 @@ export interface CableComputed {
   a: PortInfo | undefined;
   b: PortInfo | undefined;
   points: V3[];
+  /** Drawn pieces: outside raceways (visible) and inside (ghosted). */
+  segments: { points: V3[]; inside: boolean }[];
   lengthM: number;
+  /** Raceways the cable is routed through. */
+  racewayIds: string[];
+  /** Conditions of use for ampacity: current-carrying conductors together, rooftop height [mm]. */
+  ccc: number;
+  rooftopHeightMm: number | undefined;
   /** Resistance of this one conductor at WIRING.conductorTempC [Ω]. */
   rOhm: number | undefined;
   connectorA: Connector | undefined;
@@ -172,6 +180,7 @@ export function computeElectrical(
   arrays: ReadonlyMap<string, ArrayComputed>,
   profile: CodeProfile,
   atsActive: ReadonlyMap<string, number | null> = new Map(),
+  raceways?: Pick<RacewayModel, "routes" | "conditions">,
 ): ElectricalModel {
   const ports = allPorts(p, arrays);
   const issues: Issue[] = [];
@@ -195,9 +204,13 @@ export function computeElectrical(
     const a = ports.get(c.from);
     const b = ports.get(c.to);
     const part = getPart("cable", c.cableId);
-    const points = a && b ? orthogonalRoute(a.world, a.dir, b.world, b.dir, WIRING.standoffM) : [];
-    const lengthM =
-      c.lengthOverrideM ?? (points.length ? polylineLength(points) + 2 * WIRING.slackPerEndM : 0);
+    const route = raceways?.routes.get(c.id);
+    const cond = raceways?.conditions.get(c.id);
+    const direct = a && b ? orthogonalRoute(a.world, a.dir, b.world, b.dir, WIRING.standoffM) : [];
+    const segments = route?.segments ?? (direct.length ? [{ points: direct, inside: false }] : []);
+    const points = segments.flatMap((s) => s.points);
+    const pathM = route?.pathM ?? polylineLength(direct);
+    const lengthM = c.lengthOverrideM ?? (segments.length ? pathM + 2 * WIRING.slackPerEndM : 0);
     const r = part
       ? resistanceOhmPerM(
           { system: "awg", size: part.wire.awg },
@@ -211,7 +224,11 @@ export function computeElectrical(
       a,
       b,
       points,
+      segments,
       lengthM,
+      racewayIds: route?.racewayIds ?? [],
+      ccc: cond?.ccc ?? WIRING.currentCarryingConductors,
+      rooftopHeightMm: cond?.rooftopHeightMm,
       rOhm: r !== undefined ? r * lengthM : undefined,
       connectorA: c.connectorFrom ? connectorPart(c.connectorFrom) : autoConnector(a),
       connectorB: c.connectorTo ? connectorPart(c.connectorTo) : autoConnector(b),
@@ -312,7 +329,8 @@ export function computeElectrical(
       material: cc.part.wire.material,
       insulationRatingC: cc.part.wire.insulationRatingC,
       ambientC: temps.maxAmbientC,
-      currentCarryingConductors: WIRING.currentCarryingConductors,
+      currentCarryingConductors: cc.ccc,
+      ...(cc.rooftopHeightMm !== undefined ? { rooftopHeightMm: cc.rooftopHeightMm } : {}),
     };
     const amp = ampacity({ ...cond, size: cc.part.wire.awg }, profile);
     const req = requiredConductor({ ...cond, kind, currentA }, profile);

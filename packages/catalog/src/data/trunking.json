@@ -1,0 +1,470 @@
+[
+  {
+    "id": "pvc-trunking-0-75x0-5in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "3/4 \u00d7 1/2 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 19.0,
+      "heightMm": 12.7
+    },
+    "weightKg": 0.141,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 4.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "3/4 \u00d7 1/2 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "3/4 \u00d7 1/2 in",
+      "widthIn": 0.75,
+      "heightIn": 0.5,
+      "internalWidthIn": 0.63,
+      "internalHeightIn": 0.38,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-1x1in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "1 \u00d7 1 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 25.4,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.375,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 6.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "1 \u00d7 1 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "1 \u00d7 1 in",
+      "widthIn": 1,
+      "heightIn": 1,
+      "internalWidthIn": 0.86,
+      "internalHeightIn": 0.86,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-1-5x1in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "1-1/2 \u00d7 1 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 38.1,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.562,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 8.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "1-1/2 \u00d7 1 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "1-1/2 \u00d7 1 in",
+      "widthIn": 1.5,
+      "heightIn": 1,
+      "internalWidthIn": 1.36,
+      "internalHeightIn": 0.86,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-2x1in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "2 \u00d7 1 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 50.8,
+      "heightMm": 25.4
+    },
+    "weightKg": 0.75,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 10.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "2 \u00d7 1 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "2 \u00d7 1 in",
+      "widthIn": 2,
+      "heightIn": 1,
+      "internalWidthIn": 1.84,
+      "internalHeightIn": 0.84,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-2x2in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "2 \u00d7 2 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 50.8,
+      "heightMm": 50.8
+    },
+    "weightKg": 1.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 14.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "2 \u00d7 2 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "2 \u00d7 2 in",
+      "widthIn": 2,
+      "heightIn": 2,
+      "internalWidthIn": 1.84,
+      "internalHeightIn": 1.84,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-3x2in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "3 \u00d7 2 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 76.2,
+      "heightMm": 50.8
+    },
+    "weightKg": 2.25,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 18.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "3 \u00d7 2 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "3 \u00d7 2 in",
+      "widthIn": 3,
+      "heightIn": 2,
+      "internalWidthIn": 2.82,
+      "internalHeightIn": 1.82,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-4x2in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "4 \u00d7 2 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 101.6,
+      "heightMm": 50.8
+    },
+    "weightKg": 3.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 22.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "4 \u00d7 2 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "4 \u00d7 2 in",
+      "widthIn": 4,
+      "heightIn": 2,
+      "internalWidthIn": 3.8,
+      "internalHeightIn": 1.8,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-4x3in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "4 \u00d7 3 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 101.6,
+      "heightMm": 76.2
+    },
+    "weightKg": 4.5,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 26.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "4 \u00d7 3 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "4 \u00d7 3 in",
+      "widthIn": 4,
+      "heightIn": 3,
+      "internalWidthIn": 3.8,
+      "internalHeightIn": 2.8,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "pvc-trunking-4x4in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in PVC trunking (with cover)",
+    "dimensions": {
+      "lengthMm": 1828.8,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 6.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 30.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "pvc-trunking", "4 \u00d7 4 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "pvc-trunking",
+      "family": "pvc-trunking",
+      "size": "4 \u00d7 4 in",
+      "widthIn": 4,
+      "heightIn": 4,
+      "internalWidthIn": 3.8,
+      "internalHeightIn": 3.8,
+      "stockLengthFt": 6,
+      "metallic": false,
+      "wetLocation": false,
+      "sunlightResistant": false,
+      "directBurial": false,
+      "physicalDamage": false
+    }
+  },
+  {
+    "id": "steel-wireway-2-5x2-5in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "2-1/2 \u00d7 2-1/2 in Steel wireway, NEMA 3R (hinged cover)",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 63.5,
+      "heightMm": 63.5
+    },
+    "weightKg": 25.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 60.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "steel-wireway", "2-1/2 \u00d7 2-1/2 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "steel-wireway",
+      "family": "steel-wireway",
+      "size": "2-1/2 \u00d7 2-1/2 in",
+      "widthIn": 2.5,
+      "heightIn": 2.5,
+      "internalWidthIn": 2.38,
+      "internalHeightIn": 2.38,
+      "stockLengthFt": 10,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "steel-wireway-4x4in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "4 \u00d7 4 in Steel wireway, NEMA 3R (hinged cover)",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 101.6,
+      "heightMm": 101.6
+    },
+    "weightKg": 64.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 85.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "steel-wireway", "4 \u00d7 4 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "steel-wireway",
+      "family": "steel-wireway",
+      "size": "4 \u00d7 4 in",
+      "widthIn": 4,
+      "heightIn": 4,
+      "internalWidthIn": 3.88,
+      "internalHeightIn": 3.88,
+      "stockLengthFt": 10,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "steel-wireway-6x6in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "6 \u00d7 6 in Steel wireway, NEMA 3R (hinged cover)",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 152.4,
+      "heightMm": 152.4
+    },
+    "weightKg": 144.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 130.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "steel-wireway", "6 \u00d7 6 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "steel-wireway",
+      "family": "steel-wireway",
+      "size": "6 \u00d7 6 in",
+      "widthIn": 6,
+      "heightIn": 6,
+      "internalWidthIn": 5.86,
+      "internalHeightIn": 5.86,
+      "stockLengthFt": 10,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": true
+    }
+  },
+  {
+    "id": "steel-wireway-8x8in",
+    "category": "trunking",
+    "brand": "Generic",
+    "model": "8 \u00d7 8 in Steel wireway, NEMA 3R (hinged cover)",
+    "dimensions": {
+      "lengthMm": 3048.0,
+      "widthMm": 203.2,
+      "heightMm": 203.2
+    },
+    "weightKg": 256.0,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's listing and datasheet.",
+    "price": {
+      "amount": 190.0,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["trunking", "steel-wireway", "8 \u00d7 8 in"],
+    "ports": [],
+    "trunking": {
+      "kind": "steel-wireway",
+      "family": "steel-wireway",
+      "size": "8 \u00d7 8 in",
+      "widthIn": 8,
+      "heightIn": 8,
+      "internalWidthIn": 7.84,
+      "internalHeightIn": 7.84,
+      "stockLengthFt": 10,
+      "metallic": true,
+      "wetLocation": true,
+      "sunlightResistant": true,
+      "directBurial": false,
+      "physicalDamage": true
+    }
+  }
+]

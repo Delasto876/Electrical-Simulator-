@@ -7,6 +7,9 @@ import grounding from "./grounding.json";
 import utilities from "./utilities.json";
 import generators from "./generators.json";
 import loads from "./loads.json";
+import conduits from "./conduits.json";
+import conduitFittings from "./conduit-fittings.json";
+import trunking from "./trunking.json";
 import batteries from "./batteries.json";
 import cables from "./cables.json";
 import connectors from "./connectors.json";
@@ -46,4 +49,7 @@ export const bundledCatalogRaw: unknown[] = [
   ...utilities,
   ...generators,
   ...loads,
+  ...conduits,
+  ...conduitFittings,
+  ...trunking,
 ];

@@ -12,7 +12,6 @@ import {
   type OcpdSpec,
   type ProtectedConductor,
 } from "@solar-sim/engine";
-import { WIRING } from "../config/defaults";
 import { catalogById } from "../app/catalog";
 import type { ProjectFile } from "../project/projectFile";
 import type { ElectricalModel } from "./electricalModel";
@@ -116,7 +115,8 @@ export function computeProtection(
               size: c.part.wire.awg,
               insulationRatingC: c.part.wire.insulationRatingC,
               ambientC: p.climate.maxAmbientC,
-              currentCarryingConductors: WIRING.currentCarryingConductors,
+              currentCarryingConductors: c.ccc,
+              ...(c.rooftopHeightMm !== undefined ? { rooftopHeightMm: c.rooftopHeightMm } : {}),
             },
             profile,
           );

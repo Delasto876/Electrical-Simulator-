@@ -15,13 +15,25 @@ export type Selection =
   | { kind: "part"; id: string }
   | { kind: "string"; id: string }
   | { kind: "cable"; id: string }
+  | { kind: "raceway"; id: string }
   | null;
 
-/** select · place a catalog part · draw a cable (from = first port clicked) */
+/**
+ * select · place a catalog part · draw a cable (from = first port clicked) ·
+ * draw a raceway run (points clicked so far; parts the first and last points landed on)
+ */
 export type Tool =
   | { kind: "select" }
   | { kind: "place"; catalogId: string }
-  | { kind: "cable"; from: string | null };
+  | { kind: "cable"; from: string | null }
+  | {
+      kind: "raceway";
+      raceway: "conduit" | "trunking";
+      catalogId: string;
+      points: [number, number, number][];
+      startPart: string | null;
+      lastPart: string | null;
+    };
 
 /** Live position while dragging an array/part (committed on release). */
 export type DragPreview =

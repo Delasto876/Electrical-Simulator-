@@ -19,12 +19,14 @@ import { computeGrounding, type GroundingModel } from "./groundingModel";
 import { buildNets } from "./nets";
 import { allPorts, arrayPeKey } from "./ports";
 import { computeProtection, type ProtectionModel } from "./protectionModel";
+import { bondRaceways, computeRaceways, type RacewayModel } from "./racewayModel";
 
 /**
  * The whole derived scene, one pure function of the project (plus the ATS
  * outage scenario the user toggles). Order matters:
- *   arrays → ports → ATS (on the net graph without ATS links) → electrical
- *   (with the active ATS links) → protection → grounding → issues + BOM.
+ *   arrays → ports → raceways (fill, bends, cable routes) → ATS (on the net
+ *   graph without ATS links) → electrical (routed lengths, active ATS links)
+ *   → protection → grounding (+ metal raceways) → issues + BOM.
  */
 export interface SceneModel {
   profile: CodeProfile;
@@ -34,6 +36,7 @@ export interface SceneModel {
   ats: AtsModel;
   protection: ProtectionModel;
   grounding: GroundingModel;
+  raceways: RacewayModel;
   issues: Issue[];
   bom: BomLine[];
 }
@@ -45,10 +48,12 @@ export function computeScene(p: ProjectFile, outages: ReadonlySet<string> = new 
   for (const a of p.arrays) arrays.set(a.id, computeArray(a, p.roof, surfaces));
   const computed = [...arrays.values()];
   const ports = allPorts(p, arrays);
+  const raceways = computeRaceways(p, ports, profile);
   const ats = computeAts(p, ports, buildNets(ports.keys(), p.cables, p.parts, new Map()), outages);
-  const electrical = computeElectrical(p, arrays, profile, ats.active);
+  const electrical = computeElectrical(p, arrays, profile, ats.active, raceways);
   const protection = computeProtection(p, electrical, profile);
   const grounding = computeGrounding(p, arrays, electrical, protection, profile);
+  const racewayBonding = bondRaceways(raceways, grounding.bonded);
   const issues = sortIssues(
     dedupe([
       ...computed.flatMap((c) => c.issues),
@@ -56,14 +61,28 @@ export function computeScene(p: ProjectFile, outages: ReadonlySet<string> = new 
       ...ats.issues,
       ...protection.issues,
       ...grounding.issues,
+      ...raceways.issues,
+      ...racewayBonding,
     ]),
   );
   const bom = [
     ...bomFromLayouts(computed.flatMap((c) => (c.layout && !c.array.hidden ? [c.layout] : []))),
     ...wiringBom(electrical),
     ...partsBom(p, computed),
+    ...mergeBom(raceways.bom),
   ];
-  return { profile, surfaces, arrays, electrical, ats, protection, grounding, issues, bom };
+  return {
+    profile,
+    surfaces,
+    arrays,
+    electrical,
+    ats,
+    protection,
+    grounding,
+    raceways,
+    issues,
+    bom,
+  };
 }
 
 function dedupe(list: Issue[]): Issue[] {
@@ -110,4 +129,15 @@ function partsBom(p: ProjectFile, arrays: ArrayComputed[]): BomLine[] {
     if (a.array.weebs) add("generic-weeb", a.layout.modules.length * 2); // one per module per rail
   }
   return [...count].map(([catalogId, qty]) => ({ catalogId, qty, unit: "each" as const }));
+}
+
+/** Add up identical raceway lines (same item, unit and note) across runs. */
+function mergeBom(lines: readonly BomLine[]): BomLine[] {
+  const m = new Map<string, BomLine>();
+  for (const l of lines) {
+    const k = `${l.catalogId}|${l.unit}|${l.detail ?? ""}`;
+    const prev = m.get(k);
+    m.set(k, prev ? { ...prev, qty: prev.qty + l.qty } : { ...l });
+  }
+  return [...m.values()];
 }

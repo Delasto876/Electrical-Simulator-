@@ -10,6 +10,9 @@ import {
   type Generator,
   type Grounding,
   type Load,
+  type Conduit,
+  type ConduitFitting,
+  type Trunking,
   type Utility,
   type Cable,
   type Connector,
@@ -56,6 +59,9 @@ export const CATEGORY_LABELS: Partial<Record<Part["category"], string>> = {
   utility: "Utility service",
   generator: "Generators",
   load: "Loads",
+  conduit: "Conduit (draw with the Conduit tool)",
+  trunking: "Trunking / wireway (draw with the Trunking tool)",
+  "conduit-fitting": "Conduit & trunking fittings (added automatically)",
 };
 
 type ByCategory = {
@@ -75,6 +81,9 @@ type ByCategory = {
   "battery-protection": BatteryProtection;
   ats: Ats;
   grounding: Grounding;
+  conduit: Conduit;
+  "conduit-fitting": ConduitFitting;
+  trunking: Trunking;
   utility: Utility;
   generator: Generator;
   load: Load;

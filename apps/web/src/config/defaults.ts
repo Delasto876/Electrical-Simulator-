@@ -74,6 +74,27 @@ export const PLACEABLE_CATEGORIES = [
 ] as const;
 
 // ---------------------------------------------------------------- interaction
+/** Raceway tools: what a new run starts as (editable in the inspector). */
+export const RACEWAY = {
+  defaultConduitId: "pvc-sch40-3-4in",
+  defaultTrunkingId: "pvc-trunking-2x2in",
+  defaultLocation: "outdoor" as const,
+  /** Raceway bottom above the roof [mm]: ≥ 23 mm (7/8 in) means no rooftop adder under NEC 2020+. */
+  defaultRoofClearanceMm: 100,
+  /** A new point this much higher/lower than the last adds a vertical riser at the lower end [m]. */
+  riseThresholdM: 0.05,
+  /** Colours by type. */
+  colors: {
+    "pvc-sch40": "#9aa0a6",
+    "pvc-sch80": "#6f757c",
+    fmc: "#c4c9cf",
+    lfmc: "#3f4348",
+    "lfnc-b": "#55606b",
+    "pvc-trunking": "#ecebe6",
+    "steel-wireway": "#8d949b",
+  } as Record<string, string>,
+};
+
 export const SNAP = {
   /** Grid step for moving arrays and parts [m]. Toggle with G. */
   gridM: 0.05,
