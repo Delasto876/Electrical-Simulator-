@@ -4,8 +4,8 @@ Values the UI shows as "not available", and deferred work.
 
 ## Shown as "not available" in the UI
 
-- Code profile (Phase 1): toolbar chip.
-- Issues / DRC (Phase 3), Calculations and Charts (Phase 1), BOM (Phase 2), Timeline (Phase 6).
+- Issues / DRC (Phase 3), BOM (Phase 2), Timeline (Phase 6).
+- I–V curve when the single-diode fit fails: the UI shows quick-mode numbers and "I–V curve not available".
 
 ## Deferred
 
@@ -15,3 +15,8 @@ Values the UI shows as "not available", and deferred work.
 - Branded placeholder entries (see D-012, waiting for user answer).
 - Bundle size: the R3F/drei chunk is ~1 MB (270 kB gzip). Tree-shake / lazy-load in Phase 8.
 - Static hosting config (Vercel/Netlify) and PWA manifest/service worker (Phase 8).
+- IEC-generic and Jamaica code profiles (Phase 3, with string sizing). IEC needs IEC 60364-5-52 ampacity tables.
+- Metric (mm²) ampacity: only resistance tables exist so far; the calculator is AWG-only.
+- Series/parallel string I–V, bypass diodes under partial shading, mismatch (Phase 3/6). The MNA solver has no diode element yet.
+- AC steady-state (RMS with power factor) solver; voltage drop for AC is available as a formula only.
+- Plane-of-array irradiance, weather providers (Phase 6).

@@ -38,4 +38,5 @@ Before declaring a phase done: `pnpm lint && pnpm format:check && pnpm typecheck
   edit a released migration.
 - Toolchain pins: TypeScript 6.0.x (typescript-eslint supports < 6.1),
   @playwright/test 1.63.0 (matches the preinstalled Chromium in the cloud container).
+- Screenshots: bump `PHASE` in `apps/web/e2e/shots.ts` when a new phase starts so earlier phases' screenshots are kept.
 - Commit after every phase; stop for user review after each phase.

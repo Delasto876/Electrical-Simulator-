@@ -9,9 +9,17 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 0 (foundation).** See `PLAN.md` for the roadmap.
+**Status: Phase 1 (engine core).** See `PLAN.md` for the roadmap.
 
-![App shell](docs/screenshots/phase-0-inspector-laptop.png)
+![I–V curve demo](docs/screenshots/phase-1-iv-hot-laptop.png)
+
+The engine (`packages/engine`) currently provides: sun position (NOAA), the
+De Soto single-diode PV model with I–V/P–V curves, cell temperature (NOCT and
+Faiman), a linear quick model, conductor resistance (NEC Table 8 / IEC 60228)
+with temperature correction, voltage drop (DC, 1-phase, split-phase,
+3-phase), NEC ampacity with ambient, bundling, rooftop and terminal limits,
+conductor sizing with the working shown, and a DC circuit solver (MNA with
+Newton–Raphson for PV sources).
 
 ## Quick start
 

@@ -1,4 +1,6 @@
 import { useUi, type BottomTab } from "../state/uiStore";
+import { IvCurvePanel } from "./charts/IvCurvePanel";
+import { ConductorCalculator } from "./calcs/ConductorCalculator";
 
 const TABS: { id: BottomTab; label: string; phase: number }[] = [
   { id: "issues", label: "Issues", phase: 3 },
@@ -36,9 +38,15 @@ export function BottomPanel() {
         aria-labelledby={`tab-${active.id}`}
         className="tabpanel"
       >
-        <p className="empty">
-          {active.label}: not available yet (arrives in Phase {active.phase}).
-        </p>
+        {active.id === "charts" ? (
+          <IvCurvePanel />
+        ) : active.id === "calculations" ? (
+          <ConductorCalculator />
+        ) : (
+          <p className="empty">
+            {active.label}: not available yet (arrives in Phase {active.phase}).
+          </p>
+        )}
       </div>
     </div>
   );

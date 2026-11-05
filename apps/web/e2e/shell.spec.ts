@@ -1,7 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { fileURLToPath } from "node:url";
-
-const SHOTS = fileURLToPath(new URL("../../../docs/screenshots/", import.meta.url));
+import { shot } from "./shots";
 
 test("app shell loads with layout, Blender test cube and disclaimer", async ({ page }, info) => {
   const errors: string[] = [];
@@ -17,7 +15,7 @@ test("app shell loads with layout, Blender test cube and disclaimer", async ({ p
   await expect(page.getByTestId("viewport-status")).toHaveText(/1 port \(top: ground-point\)/);
   expect(errors).toEqual([]);
 
-  await page.screenshot({ path: `${SHOTS}phase-0-shell-${info.project.name}.png` });
+  await page.screenshot({ path: shot("shell", info.project.name) });
 });
 
 test("selecting a palette part shows its data label with the unverified badge", async ({
@@ -30,7 +28,7 @@ test("selecting a palette part shows its data label with the unverified badge", 
   await expect(inspector.getByRole("status")).toContainText("Unverified placeholder data");
   await expect(inspector.getByLabel("Data label")).toContainText("Voc37.1 V");
   await expect(page.getByTestId("viewport-status")).toHaveText(/port/);
-  await page.screenshot({ path: `${SHOTS}phase-0-inspector-${info.project.name}.png` });
+  await page.screenshot({ path: shot("inspector", info.project.name) });
 });
 
 test("theme toggle switches to dark and tabs are keyboard reachable", async ({ page }, info) => {
@@ -41,6 +39,5 @@ test("theme toggle switches to dark and tabs are keyboard reachable", async ({ p
   expect(after).not.toBe(before);
   await page.getByRole("tab", { name: "BOM" }).click();
   await expect(page.getByRole("tabpanel")).toContainText("not available yet");
-  if (after === "dark")
-    await page.screenshot({ path: `${SHOTS}phase-0-dark-${info.project.name}.png` });
+  if (after === "dark") await page.screenshot({ path: shot("dark", info.project.name) });
 });

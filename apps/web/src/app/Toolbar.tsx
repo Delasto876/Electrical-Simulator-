@@ -1,3 +1,4 @@
+import { DEFAULT_CODE_PROFILE } from "@solar-sim/engine";
 import { useUi } from "../state/uiStore";
 
 /** Buttons for features that arrive in later phases are shown disabled with the phase in the tooltip. */
@@ -31,8 +32,12 @@ export function Toolbar() {
         ))}
       </nav>
       <div className="toolbar-right">
-        <span className="profile-chip" title="Code profiles arrive in Phase 1">
-          Code profile: <em>not available</em>
+        <span
+          className="profile-chip"
+          title={DEFAULT_CODE_PROFILE.caveat}
+          data-testid="code-profile"
+        >
+          Code profile: <strong>{DEFAULT_CODE_PROFILE.id}</strong>
         </span>
         <button
           type="button"
