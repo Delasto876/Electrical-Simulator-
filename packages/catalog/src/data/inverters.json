@@ -4,19 +4,30 @@
     "category": "inverter",
     "brand": "Generic",
     "model": "HY-6000 hybrid, 48 V battery, 230 V 50 Hz",
-    "dimensions": { "lengthMm": 556, "widthMm": 435, "heightMm": 130 },
+    "dimensions": {
+      "lengthMm": 556,
+      "widthMm": 435,
+      "heightMm": 130
+    },
     "weightKg": 20,
     "verified": false,
     "notes": "Generic representative placeholder, not manufacturer data.",
-    "price": { "amount": 1100, "currency": "USD", "unit": "each" },
-    "tags": ["6kW", "hybrid", "48V", "230V", "50Hz"],
+    "price": {
+      "amount": 1100,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "generic-hybrid-6k-48v-230v.glb",
+    "tags": ["Generic", "hybrid", "single-phase", "6kW"],
     "ports": [
       {
         "id": "pv1+",
         "type": "mc4",
         "polarity": "+",
         "gender": "male",
-        "position": [-0.15, 0, 0.05],
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.167, 0, 0],
         "direction": [0, -1, 0],
         "label": "PV1 +"
       },
@@ -25,7 +36,9 @@
         "type": "mc4",
         "polarity": "-",
         "gender": "female",
-        "position": [-0.12, 0, 0.05],
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.132, 0, 0],
         "direction": [0, -1, 0],
         "label": "PV1 -"
       },
@@ -34,7 +47,9 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "male",
-        "position": [-0.08, 0, 0.05],
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.097, 0, 0],
         "direction": [0, -1, 0],
         "label": "PV2 +"
       },
@@ -43,7 +58,9 @@
         "type": "mc4",
         "polarity": "-",
         "gender": "female",
-        "position": [-0.05, 0, 0.05],
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.062, 0, 0],
         "direction": [0, -1, 0],
         "label": "PV2 -"
       },
@@ -51,7 +68,8 @@
         "id": "bat+",
         "type": "battery-terminal",
         "polarity": "+",
-        "position": [0.02, 0, 0.05],
+        "group": "bat",
+        "position": [-0.007, 0, 0],
         "direction": [0, -1, 0],
         "label": "BAT +"
       },
@@ -59,47 +77,35 @@
         "id": "bat-",
         "type": "battery-terminal",
         "polarity": "-",
-        "position": [0.06, 0, 0.05],
+        "group": "bat",
+        "position": [0.033, 0, 0],
         "direction": [0, -1, 0],
         "label": "BAT -"
       },
       {
-        "id": "ac-in-l",
+        "id": "ac-l1",
         "type": "ac-terminal",
         "polarity": "L1",
-        "position": [0.12, 0, 0.05],
+        "group": "ac",
+        "position": [0.073, 0, 0],
         "direction": [0, -1, 0],
-        "label": "AC IN L"
+        "label": "AC L1"
       },
       {
-        "id": "ac-in-n",
+        "id": "ac-n",
         "type": "ac-terminal",
         "polarity": "N",
-        "position": [0.135, 0, 0.05],
+        "group": "ac",
+        "position": [0.093, 0, 0],
         "direction": [0, -1, 0],
-        "label": "AC IN N"
-      },
-      {
-        "id": "ac-out-l",
-        "type": "ac-terminal",
-        "polarity": "L1",
-        "position": [0.17, 0, 0.05],
-        "direction": [0, -1, 0],
-        "label": "AC OUT L"
-      },
-      {
-        "id": "ac-out-n",
-        "type": "ac-terminal",
-        "polarity": "N",
-        "position": [0.185, 0, 0.05],
-        "direction": [0, -1, 0],
-        "label": "AC OUT N"
+        "label": "AC N"
       },
       {
         "id": "pe",
         "type": "ground-point",
         "polarity": "PE",
-        "position": [0.22, 0, 0.05],
+        "group": "pe",
+        "position": [0.188, 0, 0],
         "direction": [0, -1, 0],
         "label": "PE"
       }
@@ -115,8 +121,50 @@
       "mpptMaxV": 450,
       "startupVoltageV": 150,
       "mppts": [
-        { "maxStrings": 1, "maxInputCurrentA": 18, "maxShortCircuitCurrentA": 22 },
-        { "maxStrings": 1, "maxInputCurrentA": 18, "maxShortCircuitCurrentA": 22 }
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 18,
+          "maxShortCircuitCurrentA": 22
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 18,
+          "maxShortCircuitCurrentA": 22
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.88
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.955
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.96
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.95
+        }
+      ],
+      "standbyW": 50,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
       ],
       "battery": {
         "nominalV": 48,
@@ -125,23 +173,2491 @@
         "maxChargeCurrentA": 120,
         "maxDischargeCurrentA": 135
       },
+      "recommendedBatteryFuseA": 175,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "deye-sun-5k-sg03lp1-eu",
+    "category": "inverter",
+    "brand": "Deye",
+    "model": "SUN-5K-SG03LP1-EU hybrid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 580,
+      "widthMm": 330,
+      "heightMm": 232
+    },
+    "weightKg": 20.5,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 1100,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "deye-sun-5k-sg03lp1-eu.glb",
+    "tags": ["Deye", "hybrid", "single-phase", "5kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 5000,
+      "surgePowerW": 10000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 6500,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 125,
+      "mpptMaxV": 425,
+      "startupVoltageV": 125,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13,
+          "maxShortCircuitCurrentA": 17
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13,
+          "maxShortCircuitCurrentA": 17
+        }
+      ],
       "efficiencyCurve": [
-        { "loadFraction": 0.05, "efficiency": 0.86 },
-        { "loadFraction": 0.1, "efficiency": 0.92 },
-        { "loadFraction": 0.3, "efficiency": 0.955 },
-        { "loadFraction": 0.5, "efficiency": 0.96 },
-        { "loadFraction": 1.0, "efficiency": 0.95 }
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.896
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.946
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.971
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.976
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.966
+        }
       ],
       "standbyW": 50,
-      "acOutput": { "voltageV": 230, "frequencyHz": 50, "system": "single-phase" },
       "transferSwitch": true,
       "overloadCurve": [
-        { "loadFraction": 1.1, "seconds": 60 },
-        { "loadFraction": 1.5, "seconds": 10 },
-        { "loadFraction": 2.0, "seconds": 5 }
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
       ],
-      "recommendedAcBreakerA": 40,
-      "recommendedBatteryFuseA": 200
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 120,
+        "maxDischargeCurrentA": 120
+      },
+      "recommendedBatteryFuseA": 150,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "deye-sun-8k-sg01lp1-us",
+    "category": "inverter",
+    "brand": "Deye",
+    "model": "SUN-8K-SG01LP1-US hybrid, split-phase 120/240 V",
+    "dimensions": {
+      "lengthMm": 705,
+      "widthMm": 420,
+      "heightMm": 280
+    },
+    "weightKg": 33,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 2600,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "deye-sun-8k-sg01lp1-us.glb",
+    "tags": ["Deye", "hybrid", "split-phase", "8kW"],
+    "ports": [
+      {
+        "id": "pv1a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.16, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A +"
+      },
+      {
+        "id": "pv1a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.136, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A -"
+      },
+      {
+        "id": "pv1b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.113, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B +"
+      },
+      {
+        "id": "pv1b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.089, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B -"
+      },
+      {
+        "id": "pv2a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2A +"
+      },
+      {
+        "id": "pv2a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.042, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2A -"
+      },
+      {
+        "id": "pv2b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.018, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2B +"
+      },
+      {
+        "id": "pv2b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [0.005, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2B -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.049, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.089, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.129, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.149, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.15, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.18, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 8000,
+      "surgePowerW": 16000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 10400,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 125,
+      "mpptMaxV": 425,
+      "startupVoltageV": 150,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 34
+        },
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 34
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.896
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.946
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.971
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.976
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.966
+        }
+      ],
+      "standbyW": 60,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 190,
+        "maxDischargeCurrentA": 190
+      },
+      "recommendedBatteryFuseA": 250,
+      "acOutput": {
+        "voltageV": 240,
+        "frequencyHz": 60,
+        "system": "split-phase",
+        "lineToNeutralV": 120
+      }
+    }
+  },
+  {
+    "id": "deye-sun-12k-sg04lp3-eu",
+    "category": "inverter",
+    "brand": "Deye",
+    "model": "SUN-12K-SG04LP3-EU hybrid, three-phase 230/400 V",
+    "dimensions": {
+      "lengthMm": 702,
+      "widthMm": 422,
+      "heightMm": 281
+    },
+    "weightKg": 33.6,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 3200,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "deye-sun-12k-sg04lp3-eu.glb",
+    "tags": ["Deye", "hybrid", "three-phase", "12kW"],
+    "ports": [
+      {
+        "id": "pv1a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.161, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A +"
+      },
+      {
+        "id": "pv1a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.129, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A -"
+      },
+      {
+        "id": "pv1b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.098, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B +"
+      },
+      {
+        "id": "pv1b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.066, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.034, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.003, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.049, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.089, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.129, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.149, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-l3",
+        "type": "ac-terminal",
+        "polarity": "L3",
+        "group": "ac",
+        "position": [0.151, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L3"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.151, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.181, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 12000,
+      "surgePowerW": 24000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 15600,
+      "maxPvVoltageV": 800,
+      "mpptMinV": 200,
+      "mpptMaxV": 650,
+      "startupVoltageV": 160,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 34
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13,
+          "maxShortCircuitCurrentA": 17
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.896
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.946
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.971
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.976
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.966
+        }
+      ],
+      "standbyW": 50,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 240,
+        "maxDischargeCurrentA": 240
+      },
+      "recommendedBatteryFuseA": 300,
+      "acOutput": {
+        "voltageV": 400,
+        "frequencyHz": 50,
+        "system": "three-phase",
+        "lineToNeutralV": 230
+      }
+    }
+  },
+  {
+    "id": "growatt-spf-5000-es",
+    "category": "inverter",
+    "brand": "Growatt",
+    "model": "SPF 5000 ES off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 455,
+      "widthMm": 330,
+      "heightMm": 130
+    },
+    "weightKg": 11.5,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 700,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "growatt-spf-5000-es.glb",
+    "tags": ["Growatt", "off-grid", "single-phase", "5kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 5000,
+      "surgePowerW": 10000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 6000,
+      "maxPvVoltageV": 450,
+      "mpptMinV": 120,
+      "mpptMaxV": 430,
+      "startupVoltageV": 150,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 22,
+          "maxShortCircuitCurrentA": 27
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.85
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.925
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.92
+        }
+      ],
+      "standbyW": 50,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 100,
+        "maxDischargeCurrentA": 116
+      },
+      "recommendedBatteryFuseA": 150,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "growatt-spf-6000t-dvm-mpv",
+    "category": "inverter",
+    "brand": "Growatt",
+    "model": "SPF 6000T DVM-MPV off-grid, split-phase 120/240 V",
+    "dimensions": {
+      "lengthMm": 520,
+      "widthMm": 370,
+      "heightMm": 145
+    },
+    "weightKg": 16,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 1300,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "growatt-spf-6000t-dvm-mpv.glb",
+    "tags": ["Growatt", "off-grid", "split-phase", "6kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.1, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.03, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.025, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.065, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.125, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.125, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.155, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 6000,
+      "surgePowerW": 18000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 8000,
+      "maxPvVoltageV": 250,
+      "mpptMinV": 64,
+      "mpptMaxV": 230,
+      "startupVoltageV": 70,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 27,
+          "maxShortCircuitCurrentA": 32
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 27,
+          "maxShortCircuitCurrentA": 32
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.85
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.925
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.92
+        }
+      ],
+      "standbyW": 60,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 120,
+        "maxDischargeCurrentA": 140
+      },
+      "recommendedBatteryFuseA": 175,
+      "acOutput": {
+        "voltageV": 240,
+        "frequencyHz": 60,
+        "system": "split-phase",
+        "lineToNeutralV": 120
+      }
+    }
+  },
+  {
+    "id": "growatt-min-6000tl-x",
+    "category": "inverter",
+    "brand": "Growatt",
+    "model": "MIN 6000TL-X grid-tie, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 375,
+      "widthMm": 425,
+      "heightMm": 150
+    },
+    "weightKg": 10.8,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 900,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "growatt-min-6000tl-x.glb",
+    "tags": ["Growatt", "grid-tie", "single-phase", "6kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.162, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.127, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.092, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.057, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [-0.002, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.018, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.182, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "grid-tie",
+      "ratedAcPowerW": 6000,
+      "surgePowerW": 0,
+      "surgeDurationS": 0,
+      "maxPvInputPowerW": 9000,
+      "maxPvVoltageV": 550,
+      "mpptMinV": 80,
+      "mpptMaxV": 550,
+      "startupVoltageV": 100,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13.5,
+          "maxShortCircuitCurrentA": 16.9
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13.5,
+          "maxShortCircuitCurrentA": 16.9
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.904
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.954
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.979
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.984
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.974
+        }
+      ],
+      "standbyW": 1,
+      "transferSwitch": false,
+      "overloadCurve": [],
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "growatt-mod-10ktl3-x",
+    "category": "inverter",
+    "brand": "Growatt",
+    "model": "MOD 10KTL3-X grid-tie, three-phase 400 V",
+    "dimensions": {
+      "lengthMm": 480,
+      "widthMm": 425,
+      "heightMm": 200
+    },
+    "weightKg": 14,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 1300,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "growatt-mod-10ktl3-x.glb",
+    "tags": ["Growatt", "grid-tie", "three-phase", "10kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.162, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.127, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.092, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.057, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [-0.002, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.018, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-l3",
+        "type": "ac-terminal",
+        "polarity": "L3",
+        "group": "ac",
+        "position": [0.038, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L3"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.058, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.182, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "grid-tie",
+      "ratedAcPowerW": 10000,
+      "surgePowerW": 0,
+      "surgeDurationS": 0,
+      "maxPvInputPowerW": 15000,
+      "maxPvVoltageV": 1100,
+      "mpptMinV": 140,
+      "mpptMaxV": 1000,
+      "startupVoltageV": 160,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13,
+          "maxShortCircuitCurrentA": 16
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 13,
+          "maxShortCircuitCurrentA": 16
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.906
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.956
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.981
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.986
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.976
+        }
+      ],
+      "standbyW": 1,
+      "transferSwitch": false,
+      "overloadCurve": [],
+      "acOutput": {
+        "voltageV": 400,
+        "frequencyHz": 50,
+        "system": "three-phase",
+        "lineToNeutralV": 230
+      }
+    }
+  },
+  {
+    "id": "luxpower-sna-5000-wpv",
+    "category": "inverter",
+    "brand": "Luxpower",
+    "model": "SNA 5000 WPV off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 480,
+      "widthMm": 330,
+      "heightMm": 130
+    },
+    "weightKg": 13,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 750,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "luxpower-sna-5000-wpv.glb",
+    "tags": ["Luxpower", "off-grid", "single-phase", "5kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 5000,
+      "surgePowerW": 10000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 6500,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 120,
+      "mpptMaxV": 385,
+      "startupVoltageV": 140,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 18,
+          "maxShortCircuitCurrentA": 22
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 18,
+          "maxShortCircuitCurrentA": 22
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.855
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.905
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.935
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.925
+        }
+      ],
+      "standbyW": 40,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 100,
+        "maxDischargeCurrentA": 110
+      },
+      "recommendedBatteryFuseA": 150,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "luxpower-lxp-lb-us-12k",
+    "category": "inverter",
+    "brand": "Luxpower",
+    "model": "LXP-LB-US 12K hybrid, split-phase 120/240 V",
+    "dimensions": {
+      "lengthMm": 650,
+      "widthMm": 500,
+      "heightMm": 230
+    },
+    "weightKg": 37,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 3500,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "luxpower-lxp-lb-us-12k.glb",
+    "tags": ["Luxpower", "hybrid", "split-phase", "12kW"],
+    "ports": [
+      {
+        "id": "pv1a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.2, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A +"
+      },
+      {
+        "id": "pv1a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.172, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A -"
+      },
+      {
+        "id": "pv1b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.144, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B +"
+      },
+      {
+        "id": "pv1b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.116, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.087, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.059, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "pv3+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt3",
+        "position": [-0.031, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV3 +"
+      },
+      {
+        "id": "pv3-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt3",
+        "position": [-0.003, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV3 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.125, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.145, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.165, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.22, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 12000,
+      "surgePowerW": 18000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 18000,
+      "maxPvVoltageV": 600,
+      "mpptMinV": 100,
+      "mpptMaxV": 480,
+      "startupVoltageV": 140,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 25,
+          "maxShortCircuitCurrentA": 31
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 15,
+          "maxShortCircuitCurrentA": 19
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 15,
+          "maxShortCircuitCurrentA": 19
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.885
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.935
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.96
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.965
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.955
+        }
+      ],
+      "standbyW": 60,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 250,
+        "maxDischargeCurrentA": 250
+      },
+      "recommendedBatteryFuseA": 300,
+      "acOutput": {
+        "voltageV": 240,
+        "frequencyHz": 60,
+        "system": "split-phase",
+        "lineToNeutralV": 120
+      }
+    }
+  },
+  {
+    "id": "srne-hf4850s80-h",
+    "category": "inverter",
+    "brand": "SRNE",
+    "model": "HF4850S80-H off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 420,
+      "widthMm": 280,
+      "heightMm": 110
+    },
+    "weightKg": 9,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 550,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "srne-hf4850s80-h.glb",
+    "tags": ["SRNE", "off-grid", "single-phase", "5kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.09, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.055, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.11, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 5000,
+      "surgePowerW": 10000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 5500,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 120,
+      "mpptMaxV": 450,
+      "startupVoltageV": 150,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 22,
+          "maxShortCircuitCurrentA": 27
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.85
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.925
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.92
+        }
+      ],
+      "standbyW": 45,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 80,
+        "maxDischargeCurrentA": 110
+      },
+      "recommendedBatteryFuseA": 150,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    }
+  },
+  {
+    "id": "srne-ml4860",
+    "category": "inverter",
+    "brand": "SRNE",
+    "model": "ML4860 MPPT charge controller 60 A (12/24/36/48 V)",
+    "dimensions": {
+      "lengthMm": 290,
+      "widthMm": 220,
+      "heightMm": 110
+    },
+    "weightKg": 3.5,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 180,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "srne-ml4860.glb",
+    "tags": ["SRNE", "mppt-controller", "dc-only", "controller"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.025, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.03, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.07, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "mppt-controller",
+      "ratedAcPowerW": 0,
+      "surgePowerW": 0,
+      "surgeDurationS": 0,
+      "maxPvInputPowerW": 3200,
+      "maxPvVoltageV": 150,
+      "mpptMinV": 60,
+      "mpptMaxV": 115,
+      "startupVoltageV": 60,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 50,
+          "maxShortCircuitCurrentA": 60
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.95
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.975
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.98
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.97
+        }
+      ],
+      "standbyW": 2,
+      "transferSwitch": false,
+      "overloadCurve": [],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 60,
+        "maxDischargeCurrentA": 60
+      },
+      "recommendedBatteryFuseA": 75
+    }
+  },
+  {
+    "id": "sol-ark-12k-2p-n",
+    "category": "inverter",
+    "brand": "Sol-Ark",
+    "model": "12K-2P-N hybrid, split-phase 120/240 V",
+    "dimensions": {
+      "lengthMm": 775,
+      "widthMm": 432,
+      "heightMm": 267
+    },
+    "weightKg": 34,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 5500,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "sol-ark-12k-2p-n.glb",
+    "tags": ["Sol-Ark", "hybrid", "split-phase", "9kW"],
+    "ports": [
+      {
+        "id": "pv1a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.166, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A +"
+      },
+      {
+        "id": "pv1a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.142, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A -"
+      },
+      {
+        "id": "pv1b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.117, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B +"
+      },
+      {
+        "id": "pv1b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.093, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B -"
+      },
+      {
+        "id": "pv2a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.069, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2A +"
+      },
+      {
+        "id": "pv2a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.044, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2A -"
+      },
+      {
+        "id": "pv2b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2B +"
+      },
+      {
+        "id": "pv2b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [0.004, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2B -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.048, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.088, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.128, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.148, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.156, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.186, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 9000,
+      "surgePowerW": 16000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 13000,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 150,
+      "mpptMaxV": 425,
+      "startupVoltageV": 125,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 37.5
+        },
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 37.5
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.885
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.935
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.96
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.965
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.955
+        }
+      ],
+      "standbyW": 60,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 185,
+        "maxDischargeCurrentA": 185
+      },
+      "recommendedBatteryFuseA": 225,
+      "acOutput": {
+        "voltageV": 240,
+        "frequencyHz": 60,
+        "system": "split-phase",
+        "lineToNeutralV": 120
+      }
+    }
+  },
+  {
+    "id": "sol-ark-15k-2p-n",
+    "category": "inverter",
+    "brand": "Sol-Ark",
+    "model": "15K-2P-N hybrid, split-phase 120/240 V",
+    "dimensions": {
+      "lengthMm": 813,
+      "widthMm": 457,
+      "heightMm": 267
+    },
+    "weightKg": 39,
+    "verified": false,
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "price": {
+      "amount": 7500,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "modelUrl": "sol-ark-15k-2p-n.glb",
+    "tags": ["Sol-Ark", "hybrid", "split-phase", "12kW"],
+    "ports": [
+      {
+        "id": "pv1a+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.178, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A +"
+      },
+      {
+        "id": "pv1a-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.153, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1A -"
+      },
+      {
+        "id": "pv1b+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.127, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B +"
+      },
+      {
+        "id": "pv1b-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.101, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1B -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.076, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.05, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "pv3+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt3",
+        "position": [-0.024, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV3 +"
+      },
+      {
+        "id": "pv3-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt3",
+        "position": [0.001, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV3 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.047, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.087, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac",
+        "position": [0.127, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L1"
+      },
+      {
+        "id": "ac-l2",
+        "type": "ac-terminal",
+        "polarity": "L2",
+        "group": "ac",
+        "position": [0.147, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC L2"
+      },
+      {
+        "id": "ac-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac",
+        "position": [0.167, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.199, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 12000,
+      "surgePowerW": 20000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 19500,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 125,
+      "mpptMaxV": 425,
+      "startupVoltageV": 125,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 36,
+          "maxShortCircuitCurrentA": 45
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 24,
+          "maxShortCircuitCurrentA": 30
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 24,
+          "maxShortCircuitCurrentA": 30
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.885
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.935
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.96
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.965
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.955
+        }
+      ],
+      "standbyW": 60,
+      "transferSwitch": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 275,
+        "maxDischargeCurrentA": 275
+      },
+      "recommendedBatteryFuseA": 350,
+      "acOutput": {
+        "voltageV": 240,
+        "frequencyHz": 60,
+        "system": "split-phase",
+        "lineToNeutralV": 120
+      }
     }
   }
 ]

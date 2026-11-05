@@ -9,7 +9,7 @@ export interface BomLine {
   /** Distinguishes variants of one catalog item, e.g. a rail stock length. */
   variant?: string;
   qty: number;
-  unit: "each" | "piece" | "set";
+  unit: "each" | "piece" | "set" | "m";
   /** Extra detail such as rail cut lengths. */
   detail?: string;
 }

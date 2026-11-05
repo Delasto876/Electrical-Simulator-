@@ -105,17 +105,17 @@ describe("loadCatalog", () => {
   });
 
   it("accepts a generic part with attributes", () => {
-    const cable = {
-      id: "generic-pv-wire-10awg",
-      category: "cable",
+    const conduit = {
+      id: "generic-emt-3-4",
+      category: "conduit",
       brand: "Generic",
-      model: "PV wire 10 AWG",
-      dimensions: { lengthMm: 1000, widthMm: 6, heightMm: 6 },
-      weightKg: 0.06,
-      attributes: { awg: "10" },
+      model: "EMT 3/4 in",
+      dimensions: { lengthMm: 3050, widthMm: 23, heightMm: 23 },
+      weightKg: 1.2,
+      attributes: { tradeSize: "3/4" },
     };
-    const parsed = Part.parse(cable);
-    expect(parsed.category).toBe("cable");
+    const parsed = Part.parse(conduit);
+    expect(parsed.category).toBe("conduit");
   });
 });
 

@@ -63,6 +63,185 @@
       },
       "recommendedFuseA": 125,
       "terminal": "m8"
+    },
+    "modelUrl": "generic-lfp-51v2-100ah-rack.glb"
+  },
+  {
+    "id": "generic-lfp-12v8-100ah",
+    "category": "battery",
+    "brand": "Generic",
+    "model": "LFP 12.8 V 100 Ah",
+    "dimensions": {
+      "lengthMm": 330,
+      "widthMm": 172,
+      "heightMm": 215
+    },
+    "weightKg": 11,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 300,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["LFP", "12V", "100Ah"],
+    "modelUrl": "generic-lfp-12v8-100ah.glb",
+    "ports": [
+      {
+        "id": "pos",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "dc",
+        "position": [0.125, 0.215, -0.056],
+        "direction": [0, 1, 0],
+        "label": "+"
+      },
+      {
+        "id": "neg",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "dc",
+        "position": [-0.125, 0.215, -0.056],
+        "direction": [0, 1, 0],
+        "label": "-"
+      }
+    ],
+    "electrical": {
+      "chemistry": "lfp",
+      "nominalV": 12.8,
+      "capacityAh": 100,
+      "usableDoD": 0.9,
+      "roundTripEfficiency": 0.95,
+      "maxContinuousChargeA": 100,
+      "maxContinuousDischargeA": 100,
+      "peakDischargeA": 200,
+      "peakDurationS": 3,
+      "internalResistanceMohm": 10,
+      "cellConfiguration": "4S1P",
+      "bms": {
+        "overVoltageV": 14.6,
+        "underVoltageV": 10.0,
+        "lowTempChargeCutoffC": 0
+      },
+      "recommendedFuseA": 125,
+      "terminal": "m8"
+    }
+  },
+  {
+    "id": "generic-agm-12v-100ah",
+    "category": "battery",
+    "brand": "Generic",
+    "model": "AGM lead-acid 12 V 100 Ah",
+    "dimensions": {
+      "lengthMm": 330,
+      "widthMm": 173,
+      "heightMm": 220
+    },
+    "weightKg": 29,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 220,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["AGM", "12V", "100Ah"],
+    "modelUrl": "generic-agm-12v-100ah.glb",
+    "ports": [
+      {
+        "id": "pos",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "dc",
+        "position": [0.125, 0.22, -0.056],
+        "direction": [0, 1, 0],
+        "label": "+"
+      },
+      {
+        "id": "neg",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "dc",
+        "position": [-0.125, 0.22, -0.056],
+        "direction": [0, 1, 0],
+        "label": "-"
+      }
+    ],
+    "electrical": {
+      "chemistry": "lead-agm",
+      "nominalV": 12,
+      "capacityAh": 100,
+      "usableDoD": 0.5,
+      "roundTripEfficiency": 0.82,
+      "maxContinuousChargeA": 30,
+      "maxContinuousDischargeA": 100,
+      "peakDischargeA": 600,
+      "peakDurationS": 3,
+      "internalResistanceMohm": 6,
+      "cellConfiguration": "6 cells",
+      "recommendedFuseA": 150,
+      "terminal": "m8"
+    }
+  },
+  {
+    "id": "generic-lfp-51v2-280ah-wall",
+    "category": "battery",
+    "brand": "Generic",
+    "model": "LFP 51.2 V 280 Ah wall unit (14.3 kWh)",
+    "dimensions": {
+      "lengthMm": 600,
+      "widthMm": 230,
+      "heightMm": 900
+    },
+    "weightKg": 115,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 3600,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["LFP", "48V", "280Ah", "wall"],
+    "modelUrl": "generic-lfp-51v2-280ah-wall.glb",
+    "ports": [
+      {
+        "id": "pos",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "dc",
+        "position": [0.26, 0.9, -0.085],
+        "direction": [0, 1, 0],
+        "label": "+"
+      },
+      {
+        "id": "neg",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "dc",
+        "position": [-0.26, 0.9, -0.085],
+        "direction": [0, 1, 0],
+        "label": "-"
+      }
+    ],
+    "electrical": {
+      "chemistry": "lfp",
+      "nominalV": 51.2,
+      "capacityAh": 280,
+      "usableDoD": 0.9,
+      "roundTripEfficiency": 0.95,
+      "maxContinuousChargeA": 140,
+      "maxContinuousDischargeA": 200,
+      "peakDischargeA": 280,
+      "peakDurationS": 3,
+      "internalResistanceMohm": 8,
+      "cellConfiguration": "16S1P",
+      "bms": {
+        "overVoltageV": 58.4,
+        "underVoltageV": 43.2,
+        "lowTempChargeCutoffC": 0
+      },
+      "recommendedFuseA": 250,
+      "terminal": "m10"
     }
   }
 ]

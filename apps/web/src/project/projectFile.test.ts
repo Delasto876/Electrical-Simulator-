@@ -11,6 +11,8 @@ import { NEW_PROJECT_ROOF } from "../config/defaults";
 
 const opts = (name: string) => ({
   name,
+  codeProfileId: "NEC-generic",
+  climate: { minAmbientC: -10, maxAmbientC: 40 },
   roof: NEW_PROJECT_ROOF,
   lengthUnits: "metric" as const,
   wireUnits: "awg" as const,
@@ -28,7 +30,7 @@ describe("project file", () => {
   it("migrates a version-0 draft (no schemaVersion) to the current version", () => {
     const draft = { meta: newProject(opts("Old"), NOW, "p0").meta };
     const migrated = parseProjectFile(draft);
-    expect(migrated.schemaVersion).toBe(2);
+    expect(migrated.schemaVersion).toBe(3);
     expect(migrated.codeProfileId).toBe("NEC-generic");
     expect(migrated.parts).toEqual([]);
     expect(migrated.roof.type).toBe("mono-pitch");
@@ -44,7 +46,9 @@ describe("project file", () => {
     delete v1.roof;
     delete v1.arrays;
     const p = parseProjectFile(v1);
-    expect(p.schemaVersion).toBe(2);
+    expect(p.schemaVersion).toBe(3);
+    expect(p.climate).toEqual({ minAmbientC: -10, maxAmbientC: 40 });
+    expect(p.strings).toEqual([]);
     expect(p.arrays).toEqual([]);
     expect(p.settings.lengthUnits).toBe("imperial");
   });
@@ -55,7 +59,7 @@ describe("project file", () => {
 
   it("rejects non-objects and invalid content", () => {
     expect(() => parseProjectFile([])).toThrow(ProjectFileError);
-    expect(() => parseProjectFile({ schemaVersion: 2, meta: {} })).toThrow(ProjectFileError);
+    expect(() => parseProjectFile({ schemaVersion: 3, meta: {} })).toThrow(ProjectFileError);
   });
 });
 

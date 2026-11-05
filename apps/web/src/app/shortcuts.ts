@@ -44,9 +44,20 @@ export const SHORTCUTS: { keys: string; action: string; run: (e: KeyboardEvent) 
     run: (e) => {
       if (e.key !== "Escape") return false;
       const ui = useUi.getState();
-      if (ui.tool.kind !== "select") ui.setTool({ kind: "select" });
+      if (ui.tool.kind === "cable" && ui.tool.from) ui.setTool({ kind: "cable", from: null });
+      else if (ui.tool.kind !== "select") ui.setTool({ kind: "select" });
       else ui.select(null);
       ui.setShowShortcuts(false);
+      return true;
+    },
+  },
+  {
+    keys: "C",
+    action: "Cable tool (click a port, then another)",
+    run: (e) => {
+      if (!plain(e, "c")) return false;
+      const ui = useUi.getState();
+      ui.setTool(ui.tool.kind === "cable" ? { kind: "select" } : { kind: "cable", from: null });
       return true;
     },
   },

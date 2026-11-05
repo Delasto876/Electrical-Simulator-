@@ -93,7 +93,14 @@ describe("computeArray", () => {
 describe("computeScene", () => {
   it("aggregates issues and BOM, skipping hidden arrays in the BOM", () => {
     const p = newProject(
-      { name: "t", roof: NEW_PROJECT_ROOF, lengthUnits: "metric", wireUnits: "awg" },
+      {
+        name: "t",
+        codeProfileId: "NEC-generic",
+        climate: { minAmbientC: -10, maxAmbientC: 40 },
+        roof: NEW_PROJECT_ROOF,
+        lengthUnits: "metric",
+        wireUnits: "awg",
+      },
       new Date(0),
       "p",
     );

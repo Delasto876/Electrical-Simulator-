@@ -12,7 +12,7 @@ export function Viewport() {
   const placing = tool.kind === "place" ? catalogById.get(tool.catalogId) : undefined;
   return (
     <div
-      className={`viewport-inner${placing ? " placing" : ""}`}
+      className={`viewport-inner${placing || tool.kind === "cable" ? " placing" : ""}`}
       onDragOver={(e) => {
         if (e.dataTransfer.types.includes(DRAG_MIME)) e.preventDefault();
       }}
@@ -84,11 +84,15 @@ export function Viewport() {
         <OrbitControls makeDefault enableDamping maxPolarAngle={Math.PI / 2 - 0.02} />
       </Canvas>
       <div className="viewport-overlay" data-testid="viewport-status" role="status">
-        {placing
-          ? placing.category === "pv-module"
-            ? `Click a roof surface to place an array of ${placing.model} · Esc to cancel`
-            : `Click the ground to place ${placing.model} · Esc to cancel`
-          : "Drag to orbit · click to select · drag a selected array to move it · ? for shortcuts"}
+        {tool.kind === "cable"
+          ? tool.from
+            ? "Cable: click the port to connect to (green = compatible) · Esc to restart"
+            : "Cable: click a port to start (string ends and equipment terminals are shown) · Esc to leave"
+          : placing
+            ? placing.category === "pv-module"
+              ? `Click a roof surface to place an array of ${placing.model} · Esc to cancel`
+              : `Click the ground to place ${placing.model} · Esc to cancel`
+            : "Drag to orbit · click to select · drag a selected array to move it · ? for shortcuts"}
       </div>
     </div>
   );

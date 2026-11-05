@@ -95,7 +95,10 @@ export const Inverter = PartBase.extend({
     standbyW: z.number().nonnegative(),
     acOutput: z
       .object({
+        /** Nominal output voltage: line-to-line for split-/three-phase (e.g. 240, 400) [V]. */
         voltageV: positive,
+        /** Line-to-neutral voltage where there is a neutral (e.g. 120 for 120/240 V split-phase) [V]. */
+        lineToNeutralV: positive.optional(),
         frequencyHz: z.union([z.literal(50), z.literal(60)]),
         system: z.enum(["single-phase", "split-phase", "three-phase"]),
       })

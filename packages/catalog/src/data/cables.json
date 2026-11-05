@@ -1,0 +1,467 @@
+[
+  {
+    "id": "generic-pv-wire-14awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "PV wire 14 AWG, 90 \u00b0C wet, 2000 V, sunlight-resistant",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 5.0,
+      "heightMm": 5.0
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 0.5,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["pv-wire", "14 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "pv-wire",
+      "awg": "14",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 5.0,
+      "maxVoltageV": 2000,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-pv-wire-12awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "PV wire 12 AWG, 90 \u00b0C wet, 2000 V, sunlight-resistant",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 5.5,
+      "heightMm": 5.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 0.7,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["pv-wire", "12 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "pv-wire",
+      "awg": "12",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 5.5,
+      "maxVoltageV": 2000,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-pv-wire-10awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "PV wire 10 AWG, 90 \u00b0C wet, 2000 V, sunlight-resistant",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 6.2,
+      "heightMm": 6.2
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 0.9,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["pv-wire", "10 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "pv-wire",
+      "awg": "10",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 6.2,
+      "maxVoltageV": 2000,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-pv-wire-8awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "PV wire 8 AWG, 90 \u00b0C wet, 2000 V, sunlight-resistant",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 7.4,
+      "heightMm": 7.4
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 1.5,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["pv-wire", "8 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "pv-wire",
+      "awg": "8",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 7.4,
+      "maxVoltageV": 2000,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-pv-wire-6awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "PV wire 6 AWG, 90 \u00b0C wet, 2000 V, sunlight-resistant",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 8.6,
+      "heightMm": 8.6
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 2.2,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["pv-wire", "6 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "pv-wire",
+      "awg": "6",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 8.6,
+      "maxVoltageV": 2000,
+      "fineStrand": false,
+      "sunlightResistant": true
+    }
+  },
+  {
+    "id": "generic-battery-cable-6awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 6 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 9.5,
+      "heightMm": 9.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 2.5,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "6 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "6",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 9.5,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-4awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 4 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 10.8,
+      "heightMm": 10.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 3.6,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "4 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "4",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 10.8,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-2awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 2 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 12.5,
+      "heightMm": 12.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 5.2,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "2 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "2",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 12.5,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-1-0awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 1/0 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 14.8,
+      "heightMm": 14.8
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 7.8,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "1/0 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "1/0",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 14.8,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-2-0awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 2/0 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 16.0,
+      "heightMm": 16.0
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 9.6,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "2/0 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "2/0",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 16.0,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-battery-cable-4-0awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "Battery cable 4/0 AWG, fine strand",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 19.5,
+      "heightMm": 19.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 15.0,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["battery-cable", "4/0 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "battery-cable",
+      "awg": "4/0",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 19.5,
+      "maxVoltageV": 600,
+      "fineStrand": true,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-thhn-12awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "THHN/THWN-2 12 AWG",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 3.9,
+      "heightMm": 3.9
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 0.4,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["thhn-thwn-2", "12 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "thhn-thwn-2",
+      "awg": "12",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 3.9,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-thhn-10awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "THHN/THWN-2 10 AWG",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 4.5,
+      "heightMm": 4.5
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 0.6,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["thhn-thwn-2", "10 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "thhn-thwn-2",
+      "awg": "10",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 4.5,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-thhn-8awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "THHN/THWN-2 8 AWG",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 6.0,
+      "heightMm": 6.0
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 1.0,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["thhn-thwn-2", "8 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "thhn-thwn-2",
+      "awg": "8",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 6.0,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": false
+    }
+  },
+  {
+    "id": "generic-thhn-6awg",
+    "category": "cable",
+    "brand": "Generic",
+    "model": "THHN/THWN-2 6 AWG",
+    "dimensions": {
+      "lengthMm": 1000,
+      "widthMm": 7.7,
+      "heightMm": 7.7
+    },
+    "weightKg": 0.05,
+    "verified": false,
+    "notes": "Generic placeholder. Outer diameters are typical values for the size, not a specific product.",
+    "price": {
+      "amount": 1.6,
+      "currency": "USD",
+      "unit": "m"
+    },
+    "tags": ["thhn-thwn-2", "6 AWG"],
+    "ports": [],
+    "wire": {
+      "kind": "thhn-thwn-2",
+      "awg": "6",
+      "material": "copper",
+      "insulationRatingC": 90,
+      "outerDiameterMm": 7.7,
+      "maxVoltageV": 600,
+      "fineStrand": false,
+      "sunlightResistant": false
+    }
+  }
+]

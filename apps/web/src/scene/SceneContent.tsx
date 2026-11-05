@@ -11,6 +11,8 @@ import { useUi } from "../state/uiStore";
 import { ArrayObject } from "./ArrayObject";
 import { FreePartObject } from "./FreePartObject";
 import { PlacementGhost, type Ghost } from "./PlacementGhost";
+import { PortMarkers } from "./PortMarkers";
+import { WiringObjects } from "./WiringObjects";
 import { useSceneModel } from "./useSceneModel";
 
 /** Set by <SceneContent>; lets the DOM drop handler (outside the canvas) place parts by raycast. */
@@ -80,6 +82,7 @@ export function SceneContent() {
   };
   const onSurfaceClick = (e: ThreeEvent<MouseEvent>, _s: MountSurface) => {
     e.stopPropagation();
+    if (tool.kind === "cable") return;
     if (placing) {
       if (
         placingModule &&
@@ -106,7 +109,7 @@ export function SceneContent() {
         )
       )
         finishPlacing();
-    } else if (!placing) useUi.getState().select(null);
+    } else if (!placing && tool.kind === "select") useUi.getState().select(null);
   };
 
   return (
@@ -134,6 +137,8 @@ export function SceneContent() {
       {project.parts.map((p) => (
         <FreePartObject key={p.id} part={p} />
       ))}
+      <WiringObjects />
+      <PortMarkers />
       {/* show the ghost only while still placing the same part */}
       <PlacementGhost
         ghost={

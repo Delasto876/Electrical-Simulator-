@@ -79,6 +79,10 @@ export const Port = z.object({
   /** MC4 pin = male, socket = female. */
   gender: z.enum(["male", "female"]).optional(),
   label: z.string().optional(),
+  /** Ports that belong together, e.g. "mppt1" for an MPPT's PV inputs, "bat", "ac-out". */
+  group: z.string().optional(),
+  /** Catalog id of the connector fitted on this port (e.g. an MC4 half), for mating checks. */
+  connector: z.string().optional(),
 });
 export type Port = z.infer<typeof Port>;
 

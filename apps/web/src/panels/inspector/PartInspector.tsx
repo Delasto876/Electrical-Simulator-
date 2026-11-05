@@ -4,6 +4,7 @@ import { deleteSelection, rotatePart, setFlag } from "../../state/actions";
 import { useProject } from "../../state/projectStore";
 import { Readout, Section } from "./fields";
 import { Nameplate } from "./Nameplate";
+import { InverterDetails } from "./InverterDetails";
 
 /** A single placed part (inverter, battery…). */
 export function PartInspector({ id }: { id: string }) {
@@ -23,7 +24,7 @@ export function PartInspector({ id }: { id: string }) {
             { label: "Rotation", value: `${part.rotationYDeg}°` },
             {
               label: "Ports",
-              value: `${cat.ports.length} (shown on the model; wiring arrives in Phase 3)`,
+              value: `${cat.ports.length} (shown as markers; draw cables with the Cable tool, C)`,
             },
           ]}
         />
@@ -43,6 +44,7 @@ export function PartInspector({ id }: { id: string }) {
           </button>
         </div>
       </Section>
+      {cat.category === "inverter" && <InverterDetails partId={id} />}
       <Nameplate part={cat} />
     </div>
   );

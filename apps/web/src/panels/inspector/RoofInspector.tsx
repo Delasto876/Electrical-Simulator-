@@ -4,6 +4,8 @@ import { useProject } from "../../state/projectStore";
 import { COVERING_INFO, ROOF_TYPE_INFO } from "../../roofs/registry";
 import { catalogById } from "../../app/catalog";
 import { useUi } from "../../state/uiStore";
+import { CODE_PROFILES, getCodeProfile } from "@solar-sim/engine";
+import { setClimate, setCodeProfile } from "../../state/actions";
 import { NumberField, Section, SelectField } from "./fields";
 
 export function RoofInspector() {
@@ -12,8 +14,45 @@ export function RoofInspector() {
   return (
     <>
       <SceneObjects />
+      <SiteAndCode />
       <RoofFields roof={roof} info={info} />
     </>
+  );
+}
+
+/** Code profile and design temperatures (drive Voc/Vmp and ampacity checks). */
+function SiteAndCode() {
+  const profileId = useProject((s) => s.project.codeProfileId);
+  const climate = useProject((s) => s.project.climate);
+  const profile = getCodeProfile(profileId);
+  return (
+    <Section title="Site & code">
+      <SelectField
+        label="Code profile"
+        value={profileId}
+        testId="code-profile-select"
+        options={CODE_PROFILES.map((p) => ({ value: p.id, label: p.name }))}
+        onChange={setCodeProfile}
+      />
+      {profile && <p className="hint">{profile.caveat}</p>}
+      <NumberField
+        label="Design low (max Voc)"
+        unit="°C"
+        value={climate.minAmbientC}
+        min={-60}
+        max={40}
+        onChange={(minAmbientC) => setClimate({ minAmbientC })}
+        testId="climate-min"
+      />
+      <NumberField
+        label="Design high (min Vmp)"
+        unit="°C"
+        value={climate.maxAmbientC}
+        min={0}
+        max={60}
+        onChange={(maxAmbientC) => setClimate({ maxAmbientC })}
+      />
+    </Section>
   );
 }
 

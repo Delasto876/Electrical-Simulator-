@@ -721,3 +721,18 @@ kbd {
   gap: 4px;
   font-size: 13px;
 }
+.insp-inline.wrap {
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.insp-inline input[type="number"][aria-label="Modules per string"] {
+  width: 6ch;
+}
+.insp-inline button,
+td button:not(.link) {
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+}

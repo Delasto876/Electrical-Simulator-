@@ -96,3 +96,40 @@ export const SCENE_COLORS = {
   inverter: "#f2f2f0",
   battery: "#3a3f46",
 };
+
+// ---------------------------------------------------------------- code profile & climate
+/** Code profile of a new project ("NEC-generic" or "Jamaica"; see packages/engine/src/profiles). */
+export const NEW_PROJECT_CODE_PROFILE = "NEC-generic";
+
+// ---------------------------------------------------------------- wiring
+/** Cable the cable tool / String Wizard uses for each port type (catalog ids). */
+export const DEFAULT_CABLE_FOR_PORT: Record<string, string> = {
+  mc4: "generic-pv-wire-10awg",
+  "battery-terminal": "generic-battery-cable-2-0awg",
+  "dc-terminal": "generic-battery-cable-6awg",
+  "ac-terminal": "generic-thhn-10awg",
+  "ground-point": "generic-thhn-10awg",
+};
+export const WIRING = {
+  /** Extra length added at each cable end for terminations and service loops [m]. */
+  slackPerEndM: 0.3,
+  /** Routes leave a port straight along its direction for this distance before turning [m]. */
+  standoffM: 0.15,
+  /** Conductor temperature assumed for voltage-drop resistance [°C] (NEC Ch. 9 Table 8 basis). */
+  conductorTempC: 75,
+  /** Current-carrying conductors assumed per raceway for ampacity until raceways exist (Phase 5). */
+  currentCarryingConductors: 2,
+  /** Tube radius used when a cable has no catalog diameter [m]. */
+  fallbackRadiusM: 0.003,
+};
+/** Cable colours in 3D by polarity (insulation colour code). Never the only cue: the inspector names the polarity. */
+export const CABLE_COLORS: Record<string, string> = {
+  "+": "#c62828",
+  "-": "#1d1d1d",
+  PE: "#2e7d32",
+  N: "#e0e0e0",
+  L1: "#1d1d1d",
+  L2: "#c62828",
+  L3: "#1565c0",
+  default: "#6d6d6d",
+};

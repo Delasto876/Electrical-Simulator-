@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import { applyPatches, enablePatches, produceWithPatches, type Draft, type Patch } from "immer";
-import { DEFAULT_UNITS, NEW_PROJECT_NAME, NEW_PROJECT_ROOF } from "../config/defaults";
+import { getCodeProfile, DEFAULT_CODE_PROFILE } from "@solar-sim/engine";
+import {
+  DEFAULT_UNITS,
+  NEW_PROJECT_CODE_PROFILE,
+  NEW_PROJECT_NAME,
+  NEW_PROJECT_ROOF,
+} from "../config/defaults";
 import { newProject, type ProjectFile } from "../project/projectFile";
 
 enablePatches();
@@ -39,8 +45,11 @@ interface ProjectState {
 const HISTORY_LIMIT = 200;
 
 export function freshProject(): ProjectFile {
+  const profile = getCodeProfile(NEW_PROJECT_CODE_PROFILE) ?? DEFAULT_CODE_PROFILE;
   return newProject({
     name: NEW_PROJECT_NAME,
+    codeProfileId: profile.id,
+    climate: { ...profile.climateDefaults },
     roof: NEW_PROJECT_ROOF,
     lengthUnits: DEFAULT_UNITS.length,
     wireUnits: DEFAULT_UNITS.wire,

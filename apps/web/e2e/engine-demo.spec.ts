@@ -58,3 +58,17 @@ test("conductor calculator shows sizing steps and voltage drop", async ({ page }
   await page.getByLabel("Current-carrying conductors").fill("8");
   await expect(page.getByTestId("required-size")).toHaveText("10 AWG");
 });
+
+test("brand inverters are in the catalog as unverified entries", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel("Search parts").fill("Sol-Ark");
+  await expect(page.getByRole("button", { name: /^12K-2P-N/ })).toBeVisible();
+  await page.getByRole("button", { name: /^15K-2P-N/ }).click();
+  const inspector = page.getByLabel("Inspector", { exact: true });
+  await expect(inspector.getByRole("status")).toContainText("Unverified");
+  await expect(inspector).toContainText("split-phase");
+  for (const brand of ["Deye", "Growatt", "Luxpower", "SRNE"]) {
+    await page.getByLabel("Search parts").fill(brand);
+    await expect(page.locator(".palette-brand", { hasText: brand }).first()).toBeVisible();
+  }
+});

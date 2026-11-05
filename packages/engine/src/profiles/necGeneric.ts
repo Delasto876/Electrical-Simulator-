@@ -40,4 +40,15 @@ export const NEC_GENERIC: CodeProfile = {
   },
   // Not NEC requirements (informational notes 210.19 / 215.2); brief §5.4 defaults.
   voltageDropLimitsPct: { dcString: 2, branch: 3, total: 5 },
+  // Generic temperate defaults; set the project's own design temperatures (e.g.
+  // ASHRAE extreme minimum / 2 % design high for the site). // VERIFY
+  climateDefaults: { minAmbientC: -10, maxAmbientC: 40 },
+  // Brief §5.3: Isc × 1.25 per string against the MPPT input rating. // VERIFY
+  mpptIscMultiplier: 1.25,
+  // NEC 690.12 requires rapid shutdown for PV on buildings (2014+). // VERIFY
+  rapidShutdownRequired: true,
+  grid: {
+    frequencyHz: 60,
+    voltages: ["120/240 V split-phase", "120/208 V three-phase", "277/480 V three-phase"],
+  },
 };

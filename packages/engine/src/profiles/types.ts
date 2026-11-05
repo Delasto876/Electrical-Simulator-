@@ -33,4 +33,17 @@ export interface CodeProfile {
     branch: number;
     total: number;
   };
+  /** Site climate defaults used when a project does not set its own design temperatures. */
+  climateDefaults: {
+    /** Record/design low ambient for maximum Voc [°C]. */
+    minAmbientC: number;
+    /** Design high ambient for minimum Vmp and ampacity [°C]. */
+    maxAmbientC: number;
+  };
+  /** Multiplier on Isc per string for the MPPT short-circuit input check (irradiance enhancement). */
+  mpptIscMultiplier: number;
+  /** Whether a module-level rapid-shutdown device is required on buildings. */
+  rapidShutdownRequired: boolean;
+  /** Utility frequency and typical service voltages, for presets and AC checks. */
+  grid: { frequencyHz: 50 | 60; voltages: string[] };
 }

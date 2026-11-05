@@ -7,6 +7,7 @@ import { useProject } from "../../state/projectStore";
 import { useSceneModel } from "../../scene/useSceneModel";
 import { Field, NumberField, Readout, Section, SelectField } from "./fields";
 import { Nameplate } from "./Nameplate";
+import { ArrayWiring } from "./ArrayWiring";
 
 /** Inspector for a PV array: what it is made of (editable) and what that produces (computed). */
 export function ArrayInspector({ id }: { id: string }) {
@@ -306,6 +307,8 @@ export function ArrayInspector({ id }: { id: string }) {
           </ul>
         </Section>
       )}
+
+      <ArrayWiring arrayId={a.id} />
 
       <Section title="Actions">
         <div className="insp-actions">

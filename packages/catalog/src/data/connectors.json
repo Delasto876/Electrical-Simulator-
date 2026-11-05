@@ -1,0 +1,182 @@
+[
+  {
+    "id": "generic-mc4-male",
+    "category": "connector",
+    "brand": "Generic",
+    "model": "MC4-compatible connector, male (pin)",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 1.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "male"],
+    "ports": [],
+    "modelUrl": "generic-mc4-male.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "single",
+      "gender": "male",
+      "ratedCurrentA": 30,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  },
+  {
+    "id": "generic-mc4-female",
+    "category": "connector",
+    "brand": "Generic",
+    "model": "MC4-compatible connector, female (socket)",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 1.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "female"],
+    "ports": [],
+    "modelUrl": "generic-mc4-female.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "single",
+      "gender": "female",
+      "ratedCurrentA": 30,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  },
+  {
+    "id": "staubli-mc4-pv-kst4",
+    "category": "connector",
+    "brand": "St\u00e4ubli",
+    "model": "MC4 PV-KST4/6II male",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Real product family. Ratings entered from memory, NOT verified: check the current datasheet.",
+    "price": {
+      "amount": 4.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "male"],
+    "ports": [],
+    "modelUrl": "generic-mc4-male.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "single",
+      "gender": "male",
+      "ratedCurrentA": 39,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  },
+  {
+    "id": "staubli-mc4-pv-kbt4",
+    "category": "connector",
+    "brand": "St\u00e4ubli",
+    "model": "MC4 PV-KBT4/6II female",
+    "dimensions": {
+      "lengthMm": 60,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Real product family. Ratings entered from memory, NOT verified: check the current datasheet.",
+    "price": {
+      "amount": 4.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "female"],
+    "ports": [],
+    "modelUrl": "generic-mc4-female.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "single",
+      "gender": "female",
+      "ratedCurrentA": 39,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  },
+  {
+    "id": "generic-mc4-y-branch-mmf",
+    "category": "connector",
+    "brand": "Generic",
+    "model": "MC4 Y-branch, 2 male in \u2192 1 female out",
+    "dimensions": {
+      "lengthMm": 110,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "female"],
+    "ports": [],
+    "modelUrl": "generic-mc4-female.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "y-branch",
+      "gender": "female",
+      "ratedCurrentA": 30,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  },
+  {
+    "id": "generic-mc4-y-branch-ffm",
+    "category": "connector",
+    "brand": "Generic",
+    "model": "MC4 Y-branch, 2 female in \u2192 1 male out",
+    "dimensions": {
+      "lengthMm": 110,
+      "widthMm": 20,
+      "heightMm": 20
+    },
+    "weightKg": 0.02,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data.",
+    "price": {
+      "amount": 6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["MC4", "male"],
+    "ports": [],
+    "modelUrl": "generic-mc4-male.glb",
+    "connector": {
+      "family": "mc4",
+      "kind": "y-branch",
+      "gender": "male",
+      "ratedCurrentA": 30,
+      "ratedVoltageV": 1500,
+      "crossSectionsMm2": [4, 6]
+    }
+  }
+]

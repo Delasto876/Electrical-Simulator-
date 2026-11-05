@@ -76,6 +76,15 @@ user action ──► state/actions.ts ──► project document (undoable, aut
 3. Add it to `compatibleSurfaces` of the attachments that suit it, and
    optionally to `PREFERRED_ATTACHMENT` in `config/defaults.ts`.
 
+### Add an inverter
+
+1. Add a row to `INVERTERS` in `packages/catalog/scripts/gen_inverters.py`
+   (brand, model, kind, AC/PV ratings, MPPT window, MPPTs as
+   `(strings, max input A, max Isc A)`, battery range, AC system, size, price).
+2. `python3 packages/catalog/scripts/gen_inverters.py`. Ports (MC4 pairs per MPPT
+   input, battery, AC, PE) are generated with the right polarity and gender.
+3. `pnpm models` builds its 3D model; `pnpm test` validates it.
+
 ### Add a design rule
 
 1. Add a code + title + explanation to `ISSUE_CODES` in `packages/engine/src/drc/issue.ts`.

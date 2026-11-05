@@ -24,23 +24,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.355, -0.03, 0.257],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.355, -0.03, 0.257],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.335, 0.0, 0.254],
+        "position": [0.335, 0, 0.254],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -63,7 +65,7 @@
       "cellType": "mono-perc",
       "halfCut": false,
       "bifacial": false,
-      "bifaciality": 0.0,
+      "bifaciality": 0,
       "firstYearDegradationPct": 2.0,
       "degradationPctPerYear": 0.55
     },
@@ -108,23 +110,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.424, -0.03, 0.54],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.424, -0.03, 0.54],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.404, 0.0, 0.395],
+        "position": [0.404, 0, 0.395],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -147,7 +151,7 @@
       "cellType": "mono-perc",
       "halfCut": false,
       "bifacial": false,
-      "bifaciality": 0.0,
+      "bifaciality": 0,
       "firstYearDegradationPct": 2.0,
       "degradationPctPerYear": 0.55
     },
@@ -192,23 +196,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.516, -0.03, 0.575],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.516, -0.03, 0.575],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.496, 0.0, 0.412],
+        "position": [0.496, 0, 0.412],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -231,7 +237,7 @@
       "cellType": "mono-perc",
       "halfCut": false,
       "bifacial": false,
-      "bifaciality": 0.0,
+      "bifaciality": 0,
       "firstYearDegradationPct": 2.0,
       "degradationPctPerYear": 0.55
     },
@@ -276,23 +282,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.587, -0.03, 0.611],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.587, -0.03, 0.611],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.861, 0.0, 0.4],
+        "position": [0.861, 0, 0.4],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -355,23 +363,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.539, -0.03, 0.797],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.539, -0.03, 0.797],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.519, 0.0, 0.523],
+        "position": [0.519, 0, 0.523],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -394,7 +404,7 @@
       "cellType": "mono-perc",
       "halfCut": true,
       "bifacial": false,
-      "bifaciality": 0.0,
+      "bifaciality": 0,
       "firstYearDegradationPct": 2.0,
       "degradationPctPerYear": 0.55
     },
@@ -434,23 +444,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.587, -0.03, 0.889],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.587, -0.03, 0.889],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.567, 0.0, 0.57],
+        "position": [0.567, 0, 0.57],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }
@@ -473,7 +485,7 @@
       "cellType": "mono-perc",
       "halfCut": true,
       "bifacial": false,
-      "bifaciality": 0.0,
+      "bifaciality": 0,
       "firstYearDegradationPct": 2.0,
       "degradationPctPerYear": 0.55
     },
@@ -513,23 +525,25 @@
         "type": "mc4",
         "polarity": "+",
         "gender": "female",
-        "position": [0.15, -0.01, 0.0],
+        "position": [0.587, -0.03, 0.941],
         "direction": [1, 0, 0],
-        "label": "+ lead"
+        "label": "+ lead",
+        "connector": "generic-mc4-female"
       },
       {
         "id": "neg",
         "type": "mc4",
         "polarity": "-",
         "gender": "male",
-        "position": [-0.15, -0.01, 0.0],
+        "position": [-0.587, -0.03, 0.941],
         "direction": [-1, 0, 0],
-        "label": "- lead"
+        "label": "- lead",
+        "connector": "generic-mc4-male"
       },
       {
         "id": "frame-gnd",
         "type": "ground-point",
-        "position": [0.567, 0.0, 0.596],
+        "position": [0.567, 0, 0.596],
         "direction": [0, -1, 0],
         "label": "frame grounding hole"
       }

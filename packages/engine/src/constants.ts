@@ -64,3 +64,13 @@ export const MM2_PER_KCMIL = (Math.PI / 4) * 0.0254 * 0.0254 * 1000;
 // ---------------------------------------------------------------- circuit solver
 /** Tiny conductance from every node to ground [S] so floating nodes do not make the MNA matrix singular. Standard SPICE practice (GMIN = 1e-12). */
 export const MNA_GMIN_S = 1e-12;
+
+// ---------------------------------------------------------------- connectors
+/**
+ * Contact resistance of one mated MC4 connector pair [Ω]. Brief §5.1 default
+ * "about 0.5 mΩ per MC4 pair"; connector datasheets quote ≤ 0.25–0.5 mΩ. // VERIFY
+ */
+export const MC4_PAIR_RESISTANCE_OHM = 0.0005;
+
+/** Cell temperature rise model for the hot-weather Vmp check: full sun [W/m²]. */
+export const DESIGN_HOT_IRRADIANCE_W_M2 = 1000;

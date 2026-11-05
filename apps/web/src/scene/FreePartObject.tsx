@@ -1,22 +1,14 @@
-import { Plane, Vector3 } from "three";
+import { Suspense, useMemo } from "react";
+import { Plane, Vector3, type Mesh, type Object3D } from "three";
 import type { ThreeEvent } from "@react-three/fiber";
-import { RoundedBox } from "@react-three/drei";
+import { RoundedBox, useGLTF } from "@react-three/drei";
 import { catalogById } from "../app/catalog";
-import { lookFor, freePartBox } from "../parts/registry";
+import { lookFor, freePartBox, modelUrl } from "../parts/registry";
 import type { FreePart } from "../project/projectFile";
 import { movePart } from "../state/actions";
 import { useUi } from "../state/uiStore";
 import { SCENE_COLORS } from "../config/defaults";
 import { useSurfaceDrag } from "./useSurfaceDrag";
-
-/** Colour of a port marker by polarity/type. Shape (sphere vs cube) is the non-colour cue. */
-const PORT_COLOR: Record<string, string> = {
-  "+": "#d62728",
-  "-": "#222222",
-  PE: "#2ca02c",
-  N: "#f0f0f0",
-  L1: "#7f4f24",
-};
 
 /** An inverter, battery or other single part standing on the ground. Drag to move; R rotates. */
 export function FreePartObject({ part }: { part: FreePart }) {
@@ -26,15 +18,12 @@ export function FreePartObject({ part }: { part: FreePart }) {
   const startDrag = useSurfaceDrag();
   const cat = catalogById.get(part.catalogId);
   if (!cat || part.hidden) return null;
-  const [x, y, z] = freePartBox(cat);
-  const look = lookFor(cat.category);
-  const color = look.renderer === "box" ? look.color : "#999";
   const selected = selection?.kind === "part" && selection.id === part.id;
   const live = drag?.kind === "part" && drag.id === part.id ? drag : undefined;
   const pos: [number, number, number] = live ? [live.x, part.position[1], live.z] : part.position;
 
   const onDown = (e: ThreeEvent<PointerEvent>) => {
-    if (tool.kind === "place" || e.button !== 0) return;
+    if (tool.kind !== "select" || e.button !== 0) return;
     e.stopPropagation();
     useUi.getState().select({ kind: "part", id: part.id });
     if (part.locked) return;
@@ -57,44 +46,66 @@ export function FreePartObject({ part }: { part: FreePart }) {
       position={pos}
       rotation-y={(part.rotationYDeg * Math.PI) / 180}
       onPointerDown={onDown}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => tool.kind === "select" && e.stopPropagation()}
     >
-      <RoundedBox
-        args={[x, y, z]}
-        radius={Math.min(0.02, x / 4, z / 4)}
-        position={[0, y / 2, 0]}
-        castShadow
-        receiveShadow
-      >
-        <meshStandardMaterial
-          color={color}
-          roughness={0.5}
-          emissive={selected ? SCENE_COLORS.selection : "#000"}
-          emissiveIntensity={selected ? 0.35 : 0}
-        />
-      </RoundedBox>
-      {cat.category === "inverter" && (
-        <mesh position={[0, y * 0.7, -z / 2 - 0.001]}>
-          <planeGeometry args={[x * 0.35, y * 0.15]} />
-          <meshStandardMaterial
-            color="#1b2733"
-            emissive="#2b6cb0"
-            emissiveIntensity={0.4}
-            side={2}
-          />
-        </mesh>
+      {cat.modelUrl ? (
+        <Suspense fallback={<BoxLook catalogId={part.catalogId} selected={selected} />}>
+          <GlbLook file={cat.modelUrl} selected={selected} />
+        </Suspense>
+      ) : (
+        <BoxLook catalogId={part.catalogId} selected={selected} />
       )}
-      {selected &&
-        cat.ports.map((p) => (
-          <mesh key={p.id} position={p.position} raycast={() => null}>
-            {p.type === "ground-point" ? (
-              <boxGeometry args={[0.02, 0.02, 0.02]} />
-            ) : (
-              <sphereGeometry args={[0.012, 12, 12]} />
-            )}
-            <meshBasicMaterial color={PORT_COLOR[p.polarity ?? ""] ?? "#ffbf00"} />
-          </mesh>
-        ))}
     </group>
+  );
+}
+
+/** Blender model of the part (ports come from the catalog, so port marker Empties are ignored here). */
+function GlbLook({ file, selected }: { file: string; selected: boolean }) {
+  const { scene } = useGLTF(modelUrl(file));
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((o: Object3D) => {
+      const m = o as Mesh;
+      if (m.isMesh) {
+        m.castShadow = true;
+        m.receiveShadow = true;
+        if (selected) {
+          const mat = (
+            m.material as { clone: () => typeof m.material }
+          ).clone() as Mesh["material"] & {
+            emissive?: { set: (c: string) => void };
+            emissiveIntensity?: number;
+          };
+          mat.emissive?.set(SCENE_COLORS.selection);
+          mat.emissiveIntensity = 0.35;
+          m.material = mat;
+        }
+      }
+    });
+    return clone;
+  }, [scene, selected]);
+  return <primitive object={model} />;
+}
+
+function BoxLook({ catalogId, selected }: { catalogId: string; selected: boolean }) {
+  const cat = catalogById.get(catalogId)!;
+  const [x, y, z] = freePartBox(cat);
+  const look = lookFor(cat.category);
+  const color = look.renderer === "box" ? look.color : "#999";
+  return (
+    <RoundedBox
+      args={[x, y, z]}
+      radius={Math.min(0.02, x / 4, z / 4)}
+      position={[0, y / 2, 0]}
+      castShadow
+      receiveShadow
+    >
+      <meshStandardMaterial
+        color={color}
+        roughness={0.5}
+        emissive={selected ? SCENE_COLORS.selection : "#000"}
+        emissiveIntensity={selected ? 0.35 : 0}
+      />
+    </RoundedBox>
   );
 }

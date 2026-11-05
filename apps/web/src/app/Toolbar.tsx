@@ -1,4 +1,4 @@
-import { DEFAULT_CODE_PROFILE } from "@solar-sim/engine";
+import { DEFAULT_CODE_PROFILE, getCodeProfile } from "@solar-sim/engine";
 import type { CameraPreset } from "../config/defaults";
 import { redo, renameProject, setSetting, undo } from "../state/actions";
 import { useProject } from "../state/projectStore";
@@ -16,10 +16,13 @@ export function Toolbar() {
   const setTheme = useUi((s) => s.setTheme);
   const camera = useUi((s) => s.camera);
   const exploded = useUi((s) => s.exploded);
+  const tool = useUi((s) => s.tool);
   const past = useProject((s) => s.past);
   const future = useProject((s) => s.future);
   const name = useProject((s) => s.project.meta.name);
   const settings = useProject((s) => s.project.settings);
+  const profile =
+    getCodeProfile(useProject((s) => s.project.codeProfileId)) ?? DEFAULT_CODE_PROFILE;
   return (
     <header className="toolbar">
       <div className="brand">
@@ -52,6 +55,28 @@ export function Toolbar() {
           ↷ Redo
         </button>
         <span className="toolbar-sep" aria-hidden />
+        <div role="group" aria-label="Tools" className="seg">
+          <button
+            type="button"
+            aria-pressed={tool.kind === "select"}
+            title="Select and move (Esc)"
+            onClick={() => useUi.getState().setTool({ kind: "select" })}
+          >
+            Select
+          </button>
+          <button
+            type="button"
+            aria-pressed={tool.kind === "cable"}
+            title="Draw a cable: click a port, then another port (C)"
+            onClick={() =>
+              useUi
+                .getState()
+                .setTool(tool.kind === "cable" ? { kind: "select" } : { kind: "cable", from: null })
+            }
+          >
+            Cable
+          </button>
+        </div>
         <div role="group" aria-label="Camera view" className="seg">
           {VIEWS.map((v) => (
             <button
@@ -96,12 +121,8 @@ export function Toolbar() {
         </button>
       </nav>
       <div className="toolbar-right">
-        <span
-          className="profile-chip"
-          title={DEFAULT_CODE_PROFILE.caveat}
-          data-testid="code-profile"
-        >
-          Code profile: <strong>{DEFAULT_CODE_PROFILE.id}</strong>
+        <span className="profile-chip" title={profile.caveat} data-testid="code-profile">
+          Code profile: <strong>{profile.id}</strong>
         </span>
         <button
           type="button"

@@ -13,9 +13,15 @@ export type Selection =
   | { kind: "array"; id: string }
   | { kind: "derived"; arrayId: string; key: string; catalogId: string }
   | { kind: "part"; id: string }
+  | { kind: "string"; id: string }
+  | { kind: "cable"; id: string }
   | null;
 
-export type Tool = { kind: "select" } | { kind: "place"; catalogId: string };
+/** select · place a catalog part · draw a cable (from = first port clicked) */
+export type Tool =
+  | { kind: "select" }
+  | { kind: "place"; catalogId: string }
+  | { kind: "cable"; from: string | null };
 
 /** Live position while dragging an array/part (committed on release). */
 export type DragPreview =

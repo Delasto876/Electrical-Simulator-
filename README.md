@@ -9,10 +9,17 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 2 (roof, panels and mounting hardware in 3D).** See `PLAN.md` for the roadmap.
+**Status: Phase 3 (wiring, strings, inverters and electrical checks).** See `PLAN.md` for the roadmap.
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![Tilted array on a flat roof](docs/screenshots/phase-2-flat-tilt-laptop.png)
+![A string into a Deye inverter](docs/screenshots/phase-3-string-laptop.png)
+
+Phase 3 adds inverters (Deye, Growatt, Luxpower, SRNE, Sol-Ark; single-, split- and
+three-phase; unverified specs), batteries, PV wire and MC4 connectors, strings
+(auto-string and String Wizard), a Cable tool, cold-weather Voc / hot-weather Vmp
+checks against each MPPT, polarity, MC4 mating and mixed-brand checks, cable
+ampacity and voltage drop, the MPPT operating point solved with the wiring, and a
+Jamaica code-profile preset.
 
 Phase 2 lets you edit the roof (mono-pitch, gable, flat slab, ground; corrugated,
 standing-seam, tile, shingle, concrete), place PV arrays with the array tool

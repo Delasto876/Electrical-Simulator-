@@ -11,7 +11,7 @@ import { ROOF_TYPES } from "@solar-sim/engine";
  *     literal values, not app defaults, so they stay reproducible).
  *   - Only the current-version schema is validated, after migration.
  */
-export const CURRENT_SCHEMA_VERSION = 2;
+export const CURRENT_SCHEMA_VERSION = 3;
 
 const v3 = z.tuple([z.number(), z.number(), z.number()]);
 
@@ -69,14 +69,55 @@ export const FreePartSchema = z.object({
 });
 export type FreePart = z.infer<typeof FreePartSchema>;
 
+/**
+ * A PV string: modules of one array wired in series, in order. The first
+ * module's − lead is the string − end, the last module's + lead the + end;
+ * in between, each module's + (female) mates the next module's − (male).
+ */
+export const StringInstanceSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  arrayId: z.string(),
+  /** [row, col] of each module in series order. */
+  modules: z.array(z.tuple([z.number().int().min(0), z.number().int().min(0)])).min(1),
+});
+export type StringInstance = z.infer<typeof StringInstanceSchema>;
+
+/**
+ * One conductor between two ports. Port keys: "m|<arrayId>|<row>|<col>|<portId>"
+ * for module leads, "p|<partId>|<portId>" for placed parts (see model/ports.ts).
+ */
+export const CableInstanceSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  from: z.string(),
+  to: z.string(),
+  /** Catalog cable (conductor type and size). */
+  cableId: z.string(),
+  /** Connector crimped on each end; null = automatic (opposite gender, same make as the port). */
+  connectorFrom: z.string().nullable(),
+  connectorTo: z.string().nullable(),
+  /** null = routed length + slack. */
+  lengthOverrideM: z.number().positive().nullable(),
+});
+export type CableInstance = z.infer<typeof CableInstanceSchema>;
+
+export const ClimateSchema = z.object({
+  /** Design low ambient (maximum Voc) [°C]. */
+  minAmbientC: z.number().min(-60).max(40),
+  /** Design high ambient (minimum Vmp, ampacity) [°C]. */
+  maxAmbientC: z.number().min(0).max(60),
+});
+export type Climate = z.infer<typeof ClimateSchema>;
+
 export const SettingsSchema = z.object({
   lengthUnits: z.enum(["metric", "imperial"]),
   wireUnits: z.enum(["awg", "mm2"]),
   gridSnap: z.boolean(),
 });
 
-export const ProjectFileV2 = z.object({
-  schemaVersion: z.literal(2),
+export const ProjectFileV3 = z.object({
+  schemaVersion: z.literal(3),
   meta: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -92,15 +133,17 @@ export const ProjectFileV2 = z.object({
     })
     .nullable(),
   codeProfileId: z.string(),
+  climate: ClimateSchema,
   roof: RoofSpecSchema,
   arrays: z.array(ArrayInstanceSchema),
   parts: z.array(FreePartSchema),
+  strings: z.array(StringInstanceSchema),
   connections: z.array(z.unknown()),
-  cables: z.array(z.unknown()),
+  cables: z.array(CableInstanceSchema),
   raceways: z.array(z.unknown()),
   settings: SettingsSchema,
 });
-export type ProjectFile = z.infer<typeof ProjectFileV2>;
+export type ProjectFile = z.infer<typeof ProjectFileV3>;
 
 type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
 
@@ -143,6 +186,15 @@ export const MIGRATIONS: Record<number, Migration> = {
       },
     };
   },
+  // 2 → 3 (Phase 3): PV strings, typed cables (v2 never stored cables) and design
+  // temperatures (NEC-generic defaults at the time: −10 °C / 40 °C).
+  2: (doc) => ({
+    ...doc,
+    schemaVersion: 3,
+    climate: { minAmbientC: -10, maxAmbientC: 40 },
+    strings: [],
+    cables: [],
+  }),
 };
 
 export class ProjectFileError extends Error {}
@@ -165,13 +217,15 @@ export function parseProjectFile(input: unknown): ProjectFile {
     doc = migrate(doc);
     version += 1;
   }
-  const result = ProjectFileV2.safeParse(doc);
+  const result = ProjectFileV3.safeParse(doc);
   if (!result.success) throw new ProjectFileError(z.prettifyError(result.error));
   return result.data;
 }
 
 export interface NewProjectOptions {
   name: string;
+  codeProfileId: string;
+  climate: Climate;
   roof: ProjectFile["roof"];
   lengthUnits: ProjectFile["settings"]["lengthUnits"];
   wireUnits: ProjectFile["settings"]["wireUnits"];
@@ -185,12 +239,14 @@ export function newProject(
   const stamp = now.toISOString();
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
-    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.2.0" },
+    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.3.0" },
     site: null,
-    codeProfileId: "NEC-generic",
+    codeProfileId: opts.codeProfileId,
+    climate: { ...opts.climate },
     roof: { ...opts.roof },
     arrays: [],
     parts: [],
+    strings: [],
     connections: [],
     cables: [],
     raceways: [],

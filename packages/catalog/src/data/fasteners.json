@@ -4,13 +4,23 @@
     "category": "fastener-set",
     "brand": "Generic",
     "model": "Roof fastener set (2 screws, sealing washers, sealant)",
-    "dimensions": { "lengthMm": 80, "widthMm": 40, "heightMm": 20 },
+    "dimensions": {
+      "lengthMm": 80,
+      "widthMm": 40,
+      "heightMm": 20
+    },
     "weightKg": 0.05,
     "verified": false,
     "notes": "One set per roof attachment. Match screw type to the roof structure (purlin, rafter, deck).",
-    "price": { "amount": 1.2, "currency": "USD", "unit": "set" },
+    "price": {
+      "amount": 1.2,
+      "currency": "USD",
+      "unit": "set"
+    },
     "tags": ["fasteners"],
     "ports": [],
-    "attributes": { "screwsPerSet": 2 }
+    "attributes": {
+      "screwsPerSet": 2
+    }
   }
 ]

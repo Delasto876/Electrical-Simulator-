@@ -1,4 +1,6 @@
 import batteries from "./batteries.json";
+import cables from "./cables.json";
+import connectors from "./connectors.json";
 import fasteners from "./fasteners.json";
 import inverters from "./inverters.json";
 import moduleClamps from "./module-clamps.json";
@@ -24,4 +26,6 @@ export const bundledCatalogRaw: unknown[] = [
   ...moduleClamps,
   ...tiltLegs,
   ...fasteners,
+  ...cables,
+  ...connectors,
 ];

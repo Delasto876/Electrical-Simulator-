@@ -55,7 +55,7 @@ export function ArrayObject({ computed }: { computed: ArrayComputed }) {
   const selectedKey =
     selection?.kind === "derived" && selection.arrayId === array.id ? selection.key : undefined;
   const step = exploded ? EXPLODE_STEP_M : 0;
-  const placing = tool.kind === "place";
+  const placing = tool.kind !== "select"; // placing parts or drawing cables: arrays are not grabbed
 
   const onModuleDown = (e: ThreeEvent<PointerEvent>) => {
     if (placing || e.button !== 0) return;
