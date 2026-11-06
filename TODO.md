@@ -4,7 +4,6 @@ Values the UI shows as "not available", and deferred work.
 
 ## Shown as "not available" in the UI
 
-- Timeline (Phase 6).
 - Design current of AC breakers fed from a source with no known load (e.g. the inverter AC input breaker): shown as "not available"; the inverter AC input current rating is not in the catalog yet.
 - Fault current where no source with a known fault level is reached (unwired devices).
 - I–V curve when the single-diode fit fails: the UI shows quick-mode numbers and "I–V curve not available".
@@ -18,9 +17,7 @@ Values the UI shows as "not available", and deferred work.
 - Static hosting config (Vercel/Netlify) and PWA manifest/service worker (Phase 8).
 - IEC-generic code profile: needs IEC 60364-5-52 ampacity tables (Jamaica preset done in Phase 3).
 - Metric (mm²) ampacity: only resistance tables exist so far; the calculator is AWG-only.
-- Bypass diodes under partial shading and mismatch between modules at different conditions (Phase 6, with shading). Strings are solved with identical modules at STC for now.
 - AC steady-state (RMS with power factor) solver; voltage drop for AC is available as a formula only.
-- Plane-of-array irradiance, weather providers (Phase 6).
 - Hip roofs and obstructions (chimney, tank, tree, wall); walls/room mode for the electrical room.
 - Measure tool (distance/angle); angle snap; group; copy/paste between projects; transform gizmos (move/rotate via drag + R works).
 - Attachments on corrugated roofs should land on crests and on purlins/rafters (structure spacing not modelled yet).
@@ -33,7 +30,6 @@ Values the UI shows as "not available", and deferred work.
 - Cable bend-point editing and auto-route along rails/raceways (the user routes cables through raceways they draw; outside raceways routes are simple orthogonal polylines).
 - Battery bank builder (series/parallel, busbars); C-rate/BMS checks beyond the continuous-current check.
 - AC load-flow (voltage drop per branch under load, neutral current on split-phase); Phase 4 checks ratings, kA, capacity and topology only.
-- MPPT operating point under real irradiance/temperature (Phase 6 time series); STC only now.
 - Converting the String Wizard's "Apply" for controllers with one MPPT and several parallel strings via Y-branches.
 - Snap animation when a DIN device clicks onto the rail; drag devices between slots (they take the first free slot now).
 - Busbars, neutral bars and N–G bond as explicit parts (the PE bar is a port of the enclosure).
@@ -50,3 +46,7 @@ Values the UI shows as "not available", and deferred work.
 - Neutral counted as current-carrying always (NEC 310.15(E) exceptions not modelled).
 - Bonding jumpers for metal raceways; FMC/LFMC as EGC length limits.
 - Straps and couplings drawn in 3D (counted in the BOM only).
+- Simulation: several inverters dispatched separately (one hybrid inverter drives the whole system now); grid charging of the battery; time-of-use tariffs; generator fuel use; battery ageing and temperature model; bifacial gain; horizon profile; a typical-year (TMY) option and an offline monthly table per city.
+- Loads not on the backed-up output (grid-only circuits) are not simulated; neutral current and AC voltage drop per branch under load.
+- Cable flow animation (cables are coloured by current at the slider time; no moving dashes).
+- Per-array POA and shading figures in the inspector at the slider time (the Simulation tab shows system values).

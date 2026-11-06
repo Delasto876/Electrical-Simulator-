@@ -855,7 +855,7 @@ td button:not(.link) {
 /* ---- Phase 6: simulation panel */
 .sim-panel {
   display: grid;
-  grid-template-columns: minmax(260px, 340px) 1fr;
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
   gap: 16px;
   align-items: start;
 }
@@ -877,6 +877,12 @@ td button:not(.link) {
 }
 .sim-field input,
 .sim-field select {
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sim-settings,
+.sim-results {
   min-width: 0;
 }
 .sim-field .insp-inline input[type="number"] {

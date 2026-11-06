@@ -35,7 +35,7 @@ test("theme toggle switches to dark and tabs are keyboard reachable", async ({ p
   await page.getByRole("button", { name: /Switch to/ }).click();
   const after = await page.evaluate(() => document.documentElement.dataset.theme);
   expect(after).not.toBe(before);
-  await page.getByRole("tab", { name: "Timeline" }).click();
-  await expect(page.getByRole("tabpanel")).toContainText("not available yet");
+  await page.getByRole("tab", { name: "Simulation" }).click();
+  await expect(page.getByRole("tabpanel")).toContainText("Run the simulation");
   if (after === "dark") await page.screenshot({ path: shot("dark", info.project.name) });
 });

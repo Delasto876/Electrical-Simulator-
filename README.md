@@ -9,10 +9,25 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 5 (raceways: PVC and flexible conduit, trunking, fill, bends, mitres, cut list).** See `PLAN.md` for the roadmap.
+**Status: Phase 6 (energy simulation with real weather, shading, battery, grid and generator).** See `PLAN.md` for the roadmap.
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![A conduit with four 90° bends and its fill](docs/screenshots/phase-5-conduit-bends-laptop.png)
+![A December day with a tree shading the array](docs/screenshots/phase-6-tree-shade-laptop.png)
+
+Phase 6 adds the **Simulation** tab (toolbar **Simulate**): real hourly weather
+for any place in the world from Open-Meteo (ERA5 reanalysis; default Kingston,
+Jamaica; pick a town in Site & code), or an offline clear-sky estimate. It
+simulates a day, month or year in 5/15/60-minute steps: sun position,
+Hay–Davies plane-of-array irradiance, shading from **trees, water tanks and
+neighbouring buildings** (toolbar **Obstacles**) and from the house and other
+arrays, bypass diodes, cell temperature, MPPT, wiring losses, inverter
+efficiency, battery state of charge with BMS limits, grid import/export, daily
+outages and the generator through the ATS. Results: totals, peak sun hours per
+day and month, power and SoC charts, a loss waterfall, and a time slider that
+moves the sun and the shadows and colours every cable by its current. A one-day
+case is checked against an independent LibreOffice spreadsheet
+(`docs/verification/day-check/`). Each load gets a daily-use profile in its
+inspector.
 
 Phase 5 adds the **Conduit** (U) and **Trunking** (T) tools: click points on the
 ground, walls, roof or equipment (height changes add a riser), Enter to finish.
