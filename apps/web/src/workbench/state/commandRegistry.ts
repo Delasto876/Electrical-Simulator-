@@ -95,6 +95,15 @@ import {
 import { catalog } from "../../app/catalog";
 import { UNITS, UNIT_LABEL, type Unit } from "../lib/units";
 import { rotatePlacing, startPlacing } from "./placeActions";
+import {
+  clampAll,
+  startClamp,
+  startCut,
+  startModule,
+  startPattern,
+  startRail,
+  startSplice,
+} from "./railToolActions";
 import { usePlace } from "./placeState";
 import { SURFACE_ID, SURFACE_NODE_ID } from "./wbDoc";
 import { currentDoc, useWb } from "./wbStore";
@@ -457,14 +466,21 @@ for (const [role, label] of [
       if (id) startPlacing(id);
     },
   });
-future(
-  "mount.pattern",
-  "Pattern",
-  Grid3x3,
-  10,
-  "Repeat feet or legs in rows and columns with a set spacing.",
-  "array rows columns",
-);
+add({
+  id: "mount.pattern",
+  label: "Pattern",
+  icon: Grid3x3,
+  description: "Repeat the selected foot or leg in rows and columns with a set spacing.",
+  keywords: "array rows columns copy",
+  disabled: () => {
+    const p = partOfSelection();
+    if (!p) return "Select an L-foot or leg first.";
+    return p.rail || p.module || p.clamp || p.splice
+      ? "Pattern repeats feet and legs."
+      : lockedReason();
+  },
+  run: () => void startPattern(),
+});
 add({
   id: "mount.rail",
   label: "Rail",
@@ -472,50 +488,126 @@ add({
   description: "Place a rail onto the feet.",
   variants: ["mount.rail.light", "mount.rail.std", "mount.rail.heavy"],
 });
-future("mount.rail.light", "Light rail", Ruler, 3, "Light-duty rail profile.");
-future("mount.rail.std", "Standard rail", Ruler, 3, "Standard rail profile.");
-future("mount.rail.heavy", "Heavy-duty rail", Ruler, 3, "Heavy-duty rail profile.");
-future(
-  "mount.cut",
-  "Cut",
-  Scissors,
-  3,
-  "Cut a rail at a typed distance, a foot or a clamp, with kerf; the offcut goes to the stock pool.",
-  "rail kerf offcut",
+const railTool = (id: string, label: string, catalogId: string, description: string) =>
+  add({
+    id,
+    label,
+    icon: Ruler,
+    description,
+    keywords: "rail place stock",
+    disabled: lockedReason,
+    run: () => void startRail(catalogId),
+  });
+railTool(
+  "mount.rail.light",
+  "Light rail",
+  "generic-rail-light",
+  "Light-duty rail profile (stock 2.1, 3.6, 4.2 m).",
 );
-future(
-  "mount.splice",
-  "Splice",
-  Link2,
-  3,
-  "Join two rails with a splice; checks alignment and support.",
-  "join rail",
+railTool(
+  "mount.rail.std",
+  "Standard rail",
+  "generic-rail-standard",
+  "Standard rail profile (stock 2.1, 3.6, 4.2 m).",
 );
+railTool(
+  "mount.rail.heavy",
+  "Heavy-duty rail",
+  "generic-rail-heavy",
+  "Heavy-duty rail profile (stock 2.1, 3.6, 4.2 m).",
+);
+const noRails = () =>
+  lockedReason() ??
+  (Object.values(currentDoc().parts).some((p) => p.rail) ? null : "Place a rail first.");
+add({
+  id: "mount.cut",
+  label: "Cut",
+  icon: Scissors,
+  description:
+    "Cut a rail at a typed distance, a foot, a clamp or the midpoint, with kerf; the cut-off goes to the offcut pool.",
+  shortcut: "Shift+C",
+  keywords: "cut rail kerf offcut",
+  disabled: noRails,
+  run: () => startCut(),
+});
+add({
+  id: "mount.splice",
+  label: "Splice",
+  icon: Link2,
+  description: "Join two rails with a splice; checks they are in line and offers Auto-align.",
+  keywords: "join rail splice",
+  disabled: () =>
+    lockedReason() ??
+    (Object.values(currentDoc().parts).filter((p) => p.rail).length >= 2
+      ? null
+      : "Place two rails first."),
+  run: () => startSplice(),
+});
 add({
   id: "mount.clamp",
   label: "Clamp",
   icon: Wrench,
-  description: "Mid and end clamps that hold the modules.",
-  variants: ["mount.clamp.mid", "mount.clamp.end"],
+  description: "Mid and end clamps that hold the modules (Add one, or Join modules).",
+  variants: ["mount.clamp.mid", "mount.clamp.end", "mount.clamp.all"],
 });
-future("mount.clamp.mid", "Mid clamp", Wrench, 3, "Clamp between two modules (20 mm gap).");
-future("mount.clamp.end", "End clamp", Wrench, 3, "Clamp at the edge of an array.");
-future(
-  "mod.place",
-  "Module",
-  Package,
-  3,
-  "Place a PV module onto the rails, portrait or landscape.",
-  "pv panel",
-);
-future(
-  "mod.array",
-  "Array",
-  Table,
-  3,
-  "Make rows × columns of modules with the clamp gap.",
-  "pv panel rows columns",
-);
+const noModules = () =>
+  lockedReason() ??
+  (Object.values(currentDoc().parts).some((p) => p.module)
+    ? null
+    : "Place modules on the rails first.");
+add({
+  id: "mount.clamp.mid",
+  label: "Mid clamp",
+  icon: Wrench,
+  description: "Mid clamps between two modules (20 mm gap). Join: click two neighbouring modules.",
+  keywords: "clamp join",
+  disabled: noModules,
+  run: () => startClamp("mid", "join"),
+});
+add({
+  id: "mount.clamp.end",
+  label: "End clamp",
+  icon: Wrench,
+  description: "End clamps at the edge of an array. Add mode: hover a rail and click.",
+  keywords: "clamp add",
+  disabled: noModules,
+  run: () => startClamp("end", "add"),
+});
+add({
+  id: "mount.clamp.all",
+  label: "Clamp all",
+  icon: Wrench,
+  description:
+    "One click: end clamps at every outer edge and mid clamps between modules, on every rail.",
+  shortcut: "Shift+J",
+  keywords: "join clamps all",
+  disabled: noModules,
+  run: () => void clampAll(),
+});
+const DEFAULT_MODULE = "generic-pv-550w-144hc";
+add({
+  id: "mod.place",
+  label: "Module",
+  icon: Package,
+  description: "Place a PV module onto two rails, portrait or landscape (R).",
+  keywords: "pv panel",
+  disabled: () =>
+    lockedReason() ??
+    (Object.values(currentDoc().parts).some((p) => p.rail) ? null : "Place rails first."),
+  run: () => void startModule(DEFAULT_MODULE),
+});
+add({
+  id: "mod.array",
+  label: "Array",
+  icon: Table,
+  description:
+    "Rows × columns of modules with the mid-clamp gap (set rows and columns in the options bar).",
+  keywords: "pv panel rows columns",
+  disabled: () =>
+    lockedReason() ??
+    (Object.values(currentDoc().parts).some((p) => p.rail) ? null : "Place rails first."),
+  run: () => void startModule(DEFAULT_MODULE, 2, 4),
+});
 future(
   "mod.weeb",
   "Bonding lug",
@@ -1168,7 +1260,7 @@ export const RIBBON: Record<Workspace, RibbonTab[]> = {
       panels: [
         P("Feet and legs", "mount.lfoot", "mount.legfront", "mount.legback", "mount.pattern"),
         P("Rails", "mount.rail", "mount.cut", "mount.splice"),
-        P("Clamps", "mount.clamp"),
+        P("Clamps", "mount.clamp", "mount.clamp.all"),
       ],
     },
     {

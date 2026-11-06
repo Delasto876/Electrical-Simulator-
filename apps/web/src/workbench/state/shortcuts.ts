@@ -1,6 +1,8 @@
 import { COMMANDS, disabledReason, runCommand } from "./commandRegistry";
 import { cancelPlacing, rotatePlacing, toggleTyping } from "./placeActions";
 import { usePlace } from "./placeState";
+import { cancelRailTool, rotateTool, toggleToolTyping } from "./railToolActions";
+import { useRailTool } from "./railToolState";
 import { useWb } from "./wbStore";
 import { useView } from "./wbView";
 
@@ -64,7 +66,9 @@ export function handleKeyDown(e: KeyboardEvent): void {
     if (editable(e.target)) (e.target as HTMLElement).blur();
     if (closeTopOverlay() || cancelActiveCommand()) return;
     if (usePlace.getState().typing) return void usePlace.setState({ typing: null });
+    if (useRailTool.getState().typed) return void useRailTool.setState({ typed: null });
     if (cancelPlacing()) return;
+    if (cancelRailTool()) return;
     if (v.measuring) {
       usePlace.setState({ measureA: null, measureHover: null });
       return void v.set({ measuring: false });
@@ -78,6 +82,16 @@ export function handleKeyDown(e: KeyboardEvent): void {
     if (e.key.toLowerCase() === "r" && !e.ctrlKey && !e.metaKey)
       return (e.preventDefault(), rotatePlacing(e.shiftKey ? -15 : 15));
   }
+  if (useRailTool.getState().tool && e.key === "Tab" && toggleToolTyping())
+    return e.preventDefault();
+  if (
+    useRailTool.getState().tool &&
+    e.key.toLowerCase() === "r" &&
+    !e.ctrlKey &&
+    !e.metaKey &&
+    !e.shiftKey
+  )
+    if (rotateTool()) return e.preventDefault();
   const combo = eventToCombo(e);
   if (combo === "Enter" && acceptActiveCommand()) return e.preventDefault();
   if (combo === "Ctrl+Z") return (e.preventDefault(), useWb.getState().undo());

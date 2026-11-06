@@ -400,6 +400,9 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
           }
         }
         const node = Object.values(d.nodes).find((n) => n.partId === c.id)!;
+        // the rail's name says its length: rename it to the piece that stays
+        const kept = c.cutOff === "start" ? cut.end.lengthM : cut.start.lengthM;
+        node.name = node.name.replace(/^Rail \d+ mm/, `Rail ${Math.round(kept * 1000)} mm`);
         if (c.cutOff === "keep") {
           d.parts[c.id] = startPart;
           addPartNode(d, endPart, c.newName, c.newNodeId, node.parentId ?? "node-rails");

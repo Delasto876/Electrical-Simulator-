@@ -1,6 +1,8 @@
 import { evaluatePlacement, placeCommand, type PlaceCandidate } from "../model/placeTool";
 import { partInfo } from "../model/partInfo";
 import { evalLength } from "../lib/units";
+import { clampSpecOf } from "../model/railKit";
+import { startClamp, startModule, startRail, startSplice } from "./railToolActions";
 import { SURFACE_ID } from "./wbDoc";
 import { usePlace } from "./placeState";
 import { currentDoc, useWb } from "./wbStore";
@@ -18,6 +20,19 @@ const SNAP_TOL_M = 0.04;
 export function startPlacing(partId: string): boolean {
   const info = partInfo(partId);
   if (!info) return false;
+  // rails, modules, clamps and splices have their own tools
+  switch (info.category) {
+    case "rail":
+      return startRail(partId);
+    case "pv-module":
+      return startModule(partId);
+    case "module-clamp":
+      startClamp(clampSpecOf(partId)?.kind ?? "end", "add");
+      return true;
+    case "rail-splice":
+      startSplice(partId);
+      return true;
+  }
   if (info.placeable !== true) {
     showToast(info.placeable, "warn");
     return false;

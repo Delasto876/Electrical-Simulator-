@@ -41,7 +41,7 @@ describe("part info", () => {
     });
     expect(partInfo("generic-mcb-ac-2p-63a")).toMatchObject({ dinModules: 2 });
     expect(partInfo("generic-base-plate-anchors")!.attachmentKind).toBe("base-plate");
-    expect(partInfo("generic-pv-400w-108hc")!.placeable).toMatch(/Phase 3/);
+    expect(partInfo("generic-pv-400w-108hc")!.placeable).toBe(true); // placed by the module tool
     expect(partInfo("generic-pv-wire-10awg")!.placeable).toMatch(/Phase 6/);
     expect(partInfo("nope")).toBeUndefined();
   });
@@ -126,10 +126,10 @@ describe("placing hardware", () => {
     });
     expect(place(d, "generic-hybrid-6k-48v-230v", 1.01, 0, { alt: true }).c.x).toBe(1.01);
   });
-  it("modules and other later-phase parts cannot be placed yet", () => {
-    expect(place(zinc, "generic-pv-400w-108hc", 0, 0).c).toMatchObject({
+  it("later-phase parts cannot be placed yet", () => {
+    expect(place(zinc, "generic-pv-wire-10awg", 0, 0).c).toMatchObject({
       valid: false,
-      reason: expect.stringMatching(/Phase 3/),
+      reason: expect.stringMatching(/Phase 6/),
     });
   });
 });

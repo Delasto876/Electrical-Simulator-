@@ -13,6 +13,8 @@ import { Invalidator } from "./Invalidator";
 import { SceneEnvironment } from "./SceneEnvironment";
 import { GuidesLayer } from "./GuidesLayer";
 import { PlaceGhost } from "./PlaceGhost";
+import { RailKitLayer } from "./RailKitLayer";
+import { RailToolGhost } from "./RailToolGhost";
 import { PlacedParts } from "./PlacedParts";
 import { SectionClip } from "./SectionClip";
 import { SurfaceAssembly } from "./SurfaceAssembly";
@@ -87,6 +89,8 @@ export function WorkbenchCanvas() {
             onContext={(id) => useView.getState().set({ hoverId: id })}
           >
             <PlacedParts doc={doc} surfaceId={node.surfaceId!} spec={spec} />
+            <RailKitLayer doc={doc} surfaceId={node.surfaceId!} />
+            <RailToolGhost doc={doc} surfaceId={node.surfaceId!} />
             <GuidesLayer doc={doc} spec={spec} />
             <PlaceGhost doc={doc} surfaceId={node.surfaceId!} spec={spec} />
           </SurfaceAssembly>

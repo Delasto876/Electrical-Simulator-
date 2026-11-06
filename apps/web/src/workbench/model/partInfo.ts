@@ -55,10 +55,6 @@ const COLOR: Record<string, string> = {
 };
 
 const LATER: Record<string, string> = {
-  "pv-module": "Modules are placed onto rails in Phase 3.",
-  rail: "Rails are placed onto feet in Phase 3.",
-  "rail-splice": "Splices join two rails (Phase 3).",
-  "module-clamp": "Clamps are added to rails and modules in Phase 3.",
   cable: "Wires are drawn between terminals in Phase 6.",
   connector: "Connectors are fitted to wire ends in Phase 6.",
   conduit: "Conduit is drawn as a run in Phase 7.",

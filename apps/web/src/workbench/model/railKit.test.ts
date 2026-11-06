@@ -295,3 +295,31 @@ describe("rail mechanics", () => {
     expect(codes).toContain("RAIL_UNSUPPORTED");
   });
 });
+
+describe("modules across a splice", () => {
+  it("a spliced rail run holds a module that sits across the joint, and join clamps it fully", () => {
+    let d = feetRows(newDoc(), [-0.6, 0.6], [-3.0, -1.8, -0.6, 0.6, 1.8, 3.0]);
+    for (const z of [-0.6, 0.6]) {
+      const a = evaluateRail(d, SURFACE_ID, RAIL, 3.6, [-3.3 + 1.8, z], 0, false, true);
+      d = run(d, railPlaceCommand(d, SURFACE_ID, RAIL, a.pose, null));
+      const b = evaluateRail(d, SURFACE_ID, RAIL, 3.6, [0.302 + 1.8, z], 0, false, true);
+      d = run(d, railPlaceCommand(d, SURFACE_ID, RAIL, b.pose, null));
+      const [ra, rb] = railsOf(d, SURFACE_ID).filter((r) => Math.abs(r.z - z) < 1e-6);
+      d = run(d, spliceCommand(d, ra!.id, rb!.id, "generic-splice-internal", true));
+    }
+    // the joint is at x = 0.301; the second module (centre ~ -0.6 + 1.154) sits across it
+    const m = evaluateModule(d, SURFACE_ID, MOD, [-1.75, 0], "portrait", false, true);
+    expect(m.valid).toBe(true);
+    d = run(d, moduleArrayCommand(d, SURFACE_ID, MOD, m, 1, 4));
+    d = run(d, joinCommand(d, SURFACE_ID, "all"));
+    const holds = holdsOf(d, SURFACE_ID);
+    expect(holds.map((h) => [h.railsInZone.length, h.clamps.length])).toEqual([
+      [2, 4],
+      [2, 4],
+      [2, 4],
+      [2, 4],
+    ]);
+    const errors = mechanicalIssues(d, SURFACE_ID).filter((i) => i.severity === "error");
+    expect(errors).toEqual([]);
+  });
+});

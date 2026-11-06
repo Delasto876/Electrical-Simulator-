@@ -127,3 +127,7 @@ docs/                             CHANGE_GUIDE.md, DEPLOY.md, screenshots/
 ## Phase 2 status (done)
 
 Parts Library thumbnails, drag-and-drop placement with ghost and snapping, attachment rules, joints (DIN slots), tilt legs and live BOM, precision system (live dimensions, Tab-to-type with expressions, rulers, guides, snaps, Measure) and the custom part wizard with `.partpack` and the drop-in folder. What is deliberately not done is in `TODO.md` ("after Phase 2"). Decisions D-104 to D-114.
+
+## Phase 3 status (done)
+
+Rails (three profiles, stock lengths) seated on feet, Cut with kerf and an offcut pool, Splice with alignment check and Auto-align into rail runs, modules and arrays snapped onto two rails inside the clamping zones, Clamp Add / Join / Clamp all, Pattern for feet, live mechanical Issues and a stock/waste BOM. Done criterion met by `apps/web/e2e/wb-phase3.spec.ts` (2 × 4 array end to end, cut, splice, one-click clamps, rollback). Decisions D-115 to D-122; not done in `TODO.md` ("after Phase 3").

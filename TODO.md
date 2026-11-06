@@ -77,3 +77,14 @@ Values the UI shows as "not available", and deferred work.
 - Guides are per document, not per surface; only one surface is used until the multi-surface work.
 - Part thumbnails of parts with a glb are drawn from the model; parts with a procedural look are a plain box until their Blender model exists.
 - Modules, rails, splices and clamps are still "Arrives in Phase 3"; tilt legs are placed on their own, the module frame they carry comes with modules.
+
+## Workbench (brief v2), after Phase 3
+
+- Mounting Layout Drawing (top view, auto-dimensioned, PDF/DXF) from §6B: not built yet (the BOM and Issues tab are live).
+- Rail placement snaps sideways to rows of feet only; rails on tilt legs work through the leg tops, but leg rows are not offered as a separate "rail on legs" mode, and modules on tilted rails are tilted from the rail heights (no separate tilt frame object).
+- The clamp glb models are not used for placed clamps (procedural clamps; D-122). Bolts are shown as heads, no thread normal maps (Phase 4 realism).
+- Expansion joints: the RAIL_RUN_EXPANSION rule warns, but a splice cannot yet be marked as an expansion joint (gap) to clear it.
+- Moving a module or a rail by mouse drag (move is by Properties fields); modules can be deleted and re-placed. Module rotation other than 0° on the surface is not offered.
+- Clamp Add mode snaps to the nearest frame edge; there is no "drag a clamp along the rail".
+- WEEB lugs, bonding jumpers and the bonding path through clamps and splices are Phase 8.
+- Cut indicator snaps (midpoint, attachments, clamps, 10 mm steps) are fixed; a step selector (10/50/100 mm) is not in the options bar.

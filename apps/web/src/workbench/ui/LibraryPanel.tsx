@@ -10,6 +10,7 @@ import {
 } from "../state/placeActions";
 import { usePlace } from "../state/placeState";
 import { partInfo } from "../model/partInfo";
+import { OffcutPool } from "./RailKitPanels";
 import { getThumbnail } from "../scene/thumbnails";
 import { exportPartPack, importPartPack } from "../model/customPackage";
 import { saveFile } from "../../lib/saveFile";
@@ -163,6 +164,7 @@ export function LibraryPanel() {
       </label>
       <div className="wb-libscroll">
         <MyParts parts={mine} selected={selected} total={Object.keys(custom).length} />
+        <OffcutPool />
         {groups.length === 0 && <p className="wb-empty">No part matches “{query}”.</p>}
         {groups.map((g) => {
           const isOpen = open.has(g.id) || query.trim() !== "";

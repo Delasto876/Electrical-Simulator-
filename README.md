@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 2: Parts Library, placement and the custom part wizard.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 3: rails, cut, splice, clamps and modules.** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -37,6 +37,14 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
   placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
   Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **Rails, cut, splice, clamps, modules (Phase 3)**: rails seat in the slot of a row of feet (stock 2.1 / 3.6 / 4.2 m,
+  three profiles) with live overhangs; **Cut** at a typed length from either end (3 mm kerf), the cut-off goes to the
+  **offcut pool** and can be reused ("Use offcut"); **Splice** checks the rails are in line and offers Auto-align, and
+  turns them into one rail run; modules snap onto two rails inside their clamping zones, and **Array** places rows ×
+  columns with the 20 mm mid-clamp gap; **Clamp all** (or Join / Add) puts end and mid clamps on every crossing in one
+  click. The **Issues** tab checks attachments, spans, overhangs, splice support, rails and clamps per module; the
+  **BOM** counts stock rails bought and the waste. **Pattern** repeats a foot in rows × columns. Everything is in
+  the timeline and can be rolled back.
 - **Precision**: rulers along the surface edges, guide lines (drag from a ruler or type), snap toggles in the status
   bar (grid, point, edge, guide, angle), a Measure tool (D), live BOM with fasteners counted.
 - **Custom parts**: _My parts → Add custom part_ turns a product photo into a library card and a 3D part (DIN breaker,

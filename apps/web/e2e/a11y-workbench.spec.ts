@@ -92,3 +92,55 @@ test("Phase 2 screens pass axe: placing bar, guides, BOM, placed part, custom pa
   await audit(page, "wizard review step", found);
   expect(found).toEqual([]);
 });
+
+test("Phase 3 screens pass axe: rail, cut, splice, clamp, module and pattern bars; issues; offcuts", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  const ribbon = async (tab: string, cmd: string, variant?: string) => {
+    await page.getByTestId(`ribbon-tab-${tab}`).click();
+    await page.getByTestId(`cmd-${cmd}`).click();
+    if (variant) await page.getByTestId(`cmd-${variant}`).click();
+  };
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await page.getByTestId("libgroup-roof-attachment").click();
+  await page.getByTestId("card-generic-l-foot-80").click();
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("1000");
+  await page.getByTestId("type-top").fill("1500");
+  await page.getByTestId("type-top").press("Enter");
+  await ribbon("mount", "mount.pattern");
+  await audit(page, "pattern bar", found);
+  await page.getByTestId("pattern-rows").fill("2");
+  await page.getByTestId("pattern-cols").fill("4");
+  await page.getByTestId("pattern-ok").click();
+  await ribbon("mount", "mount.rail", "mount.rail.std");
+  await page.getByTestId("tool-type").click();
+  await audit(page, "rail bar with typed fields", found);
+  await page.getByTestId("tool-fromLeft").fill("700");
+  await page.getByTestId("tool-fromTop").fill("1500");
+  await page.getByTestId("tool-place").click();
+  await audit(page, "rail properties", found);
+  await page.getByTestId("rail-cut").click();
+  await audit(page, "cut bar", found);
+  await page.getByTestId("cut-dist").fill("3000");
+  await page.getByTestId("cut-dist").press("Enter");
+  await audit(page, "offcut pool", found);
+  await ribbon("mount", "mount.rail", "mount.rail.std");
+  await page.getByTestId("tool-type").click();
+  await page.getByTestId("tool-fromLeft").fill("700");
+  await page.getByTestId("tool-fromTop").fill("2700");
+  await page.getByTestId("tool-place").click();
+  await page.keyboard.press("Escape");
+  await ribbon("mount", "mount.splice");
+  await audit(page, "splice bar", found);
+  await page.keyboard.press("Escape");
+  await ribbon("modules", "mod.array");
+  await audit(page, "module bar", found);
+  await page.keyboard.press("Escape");
+  await page.getByTestId("btab-issues").click();
+  await audit(page, "issues list", found);
+  expect(found).toEqual([]);
+});

@@ -6,6 +6,8 @@ import {
   projectOnRail,
   railCrossings,
   railIssues,
+  railEnds,
+  railFromStart,
   railPoint,
   railSupports,
   skinHeightM,
@@ -176,6 +178,65 @@ export function moduleRef(p: PlacedPart): ModuleOnRails | undefined {
 
 export const railRef = (p: PlacedPart): RailRef => ({ id: p.id, pose: railPose(p) });
 
+/** A rail run: spliced rails (or a single rail) seen as one continuous rail. */
+export interface RunRef extends RailRef {
+  pieces: PlacedPart[];
+}
+
+/**
+ * Rail runs on a surface. Modules and clamps work on runs, so a module that
+ * sits across a splice is on one rail, not on two half rails. A single rail's
+ * run has the rail's own id.
+ */
+export function runsOf(doc: WbDoc, surfaceId: string): RunRef[] {
+  const groups = new Map<string, PlacedPart[]>();
+  for (const r of railsOf(doc, surfaceId)) {
+    const key = r.rail!.runId ?? r.id;
+    (groups.get(key) ?? groups.set(key, []).get(key)!).push(r);
+  }
+  return [...groups.entries()].map(([id, pieces]) => {
+    if (pieces.length === 1) return { id, pose: railPose(pieces[0]!), pieces };
+    const first = railPose(pieces[0]!);
+    const e0 = railEnds(first);
+    const ts = pieces.flatMap((p) => {
+      const e = railEnds(railPose(p));
+      return [e.start, e.end].map(
+        (q) => (q[0] - e0.start[0]) * e0.u[0] + (q[1] - e0.start[1]) * e0.u[1],
+      );
+    });
+    const lo = Math.min(...ts);
+    const hi = Math.max(...ts);
+    const start: [number, number] = [e0.start[0] + e0.u[0] * lo, e0.start[1] + e0.u[1] * lo];
+    return { id, pose: railFromStart(start, first.rotDeg, hi - lo), pieces };
+  });
+}
+
+/** The run a rail belongs to. */
+export const runOfRail = (runs: readonly RunRef[], railId: string) =>
+  runs.find((r) => r.pieces.some((p) => p.id === railId));
+
+/** A distance along a rail piece, as a distance along its run. */
+export function toRunT(run: RunRef, railId: string, t: number): number {
+  const piece = run.pieces.find((p) => p.id === railId);
+  if (!piece) return t;
+  const pt = railPoint(railPose(piece), t);
+  const e = railEnds(run.pose);
+  return (pt[0] - e.start[0]) * e.u[0] + (pt[1] - e.start[1]) * e.u[1];
+}
+
+/** A distance along a run, as a rail piece and the distance along it (the nearest piece when in a gap). */
+export function fromRunT(run: RunRef, tRun: number): { railId: string; t: number } {
+  const pt = railPoint(run.pose, tRun);
+  let best: { railId: string; t: number; d: number } | undefined;
+  for (const p of run.pieces) {
+    const q = projectOnRail(railPose(p), pt);
+    const t = Math.min(p.rail!.lengthM, Math.max(0, q.t));
+    const d = Math.abs(t - q.t);
+    if (!best || d < best.d) best = { railId: p.id, t: q.t, d };
+  }
+  return { railId: best!.railId, t: best!.t };
+}
+
 export function clampRef(p: PlacedPart): PlacedClampRef | undefined {
   if (!p.clamp) return undefined;
   return {
@@ -202,11 +263,13 @@ export function moduleSeat(doc: WbDoc, p: PlacedPart): { y: number; pitchRad: nu
   const spec = doc.surfaces[p.surfaceId];
   const fallback = { y: (spec ? skinHeightM(spec, p.x, p.z) : 0) + 0.05, pitchRad: 0 };
   if (!m) return fallback;
-  const under = railsOf(doc, p.surfaceId)
-    .filter((r) => railCrossings(m.spec, m.pose, railPose(r)).length === 2)
-    .map((r) => {
-      const q = projectOnRail(railPose(r), [p.x, p.z]);
-      const pt = railPoint(railPose(r), Math.min(r.rail!.lengthM, Math.max(0, q.t)));
+  const under = runsOf(doc, p.surfaceId)
+    .filter((run) => railCrossings(m.spec, m.pose, run.pose).length === 2)
+    .map((run) => {
+      const q = projectOnRail(run.pose, [p.x, p.z]);
+      const at = fromRunT(run, Math.min(run.pose.lengthM, Math.max(0, q.t)));
+      const r = doc.parts[at.railId]!;
+      const pt = railPoint(run.pose, Math.min(run.pose.lengthM, Math.max(0, q.t)));
       // local z of the rail line under the module (rotDeg 0: surface z)
       const c = Math.cos((p.rotDeg * Math.PI) / 180);
       const s = Math.sin((p.rotDeg * Math.PI) / 180);
@@ -224,29 +287,45 @@ export function moduleSeat(doc: WbDoc, p: PlacedPart): { y: number; pitchRad: nu
 
 /** The surface's rails, modules and clamps as engine references. */
 function kit(doc: WbDoc, surfaceId: string) {
-  const rails = railsOf(doc, surfaceId).map(railRef);
+  const runs = runsOf(doc, surfaceId);
   const modules = modulesOf(doc, surfaceId).flatMap((p) => moduleRef(p) ?? []);
-  const clamps = clampsOf(doc, surfaceId).flatMap((p) => clampRef(p) ?? []);
-  return { rails, modules, clamps };
+  // clamps in run coordinates (their own rail piece is kept for the issues)
+  const pieceOf = new Map<string, string>();
+  const clamps = clampsOf(doc, surfaceId).flatMap((p) => {
+    const c = clampRef(p);
+    if (!c) return [];
+    const run = runOfRail(runs, c.railId);
+    pieceOf.set(c.id, c.railId);
+    return run ? [{ ...c, railId: run.id, t: toRunT(run, c.railId, c.t) }] : [c];
+  });
+  return { rails: runs as RailRef[], modules, clamps, pieceOf };
 }
 
 /** Every mechanical issue on a surface: rails, splices, runs, modules, clamps. */
 export function mechanicalIssues(doc: WbDoc, surfaceId: string): Issue[] {
   const rails = railsOf(doc, surfaceId);
   const out: Issue[] = [];
+  // attachments, spans and overhangs are checked per rail run: a spliced piece
+  // is held by the attachments of the whole run
   out.push(
     ...railIssues(
-      rails.map((r) => {
-        const s = railSpecOf(r.catalogId);
+      runsOf(doc, surfaceId).map((run) => {
+        const s = railSpecOf(run.pieces[0]!.catalogId);
         return {
-          id: r.id,
-          lengthM: r.rail!.lengthM,
+          id: run.pieces.length === 1 ? run.pieces[0]!.id : run.id,
+          lengthM: run.pose.lengthM,
           maxSpanM: s?.maxSpanM ?? 1.8,
           maxCantileverM: s?.maxCantileverM ?? 0.6,
-          supports: supportsOf(doc, r).map((x) => x.t),
+          supports: run.pieces.flatMap((p) =>
+            supportsOf(doc, p).map((x) => toRunT(run, p.id, x.t)),
+          ),
         };
       }),
-    ),
+    ).map((i) => {
+      // a run issue points at its rails
+      const run = runsOf(doc, surfaceId).find((r) => r.id === i.partIds[0]);
+      return run && run.pieces.length > 1 ? { ...i, partIds: run.pieces.map((p) => p.id) } : i;
+    }),
   );
   const splices = Object.values(doc.parts).filter((p) => p.splice && p.surfaceId === surfaceId);
   const runs = new Map<string, PlacedPart[]>();
@@ -296,7 +375,7 @@ export function mechanicalIssues(doc: WbDoc, surfaceId: string): Issue[] {
       const outer = c.t + (dir * c.widthM) / 2;
       ends.push({
         id: c.id,
-        railId: c.railId,
+        railId: k.pieceOf.get(c.id) ?? c.railId,
         railPastM: dir > 0 ? rail.pose.lengthM - outer : outer,
       });
     }
@@ -318,4 +397,14 @@ export function stockOf(doc: WbDoc) {
     Object.values(doc.parts).flatMap((p) => (p.rail ? [p.rail.lengthM] : [])),
     doc.offcuts.map((o) => o.lengthM),
   );
+}
+
+/** The modules a clamp grips (and whether in zone). */
+export function clampGrips(doc: WbDoc, p: PlacedPart) {
+  const c = clampRef(p);
+  if (!c) return [];
+  const run = runOfRail(runsOf(doc, p.surfaceId), c.railId);
+  if (!run) return [];
+  const modules = modulesOf(doc, p.surfaceId).flatMap((m) => moduleRef(m) ?? []);
+  return clampGrip({ ...c, railId: run.id, t: toRunT(run, c.railId, c.t) }, run, modules);
 }

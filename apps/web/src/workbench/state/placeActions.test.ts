@@ -28,8 +28,8 @@ const setType = (t: string) =>
 
 describe("the placing tool", () => {
   it("refuses a part that is not placeable yet and says why", () => {
-    expect(startPlacing("generic-pv-300w-60c")).toBe(false);
-    expect(useView.getState().toast?.text).toMatch(/Phase 3/);
+    expect(startPlacing("generic-pv-wire-10awg")).toBe(false);
+    expect(useView.getState().toast?.text).toMatch(/Phase 6/);
     expect(usePlace.getState().placing).toBeNull();
   });
 

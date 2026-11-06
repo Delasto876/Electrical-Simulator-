@@ -1698,3 +1698,73 @@ body,
   -webkit-user-drag: none;
   user-select: none;
 }
+
+/* ---- Phase 3: rails, issues, offcuts */
+.wb-dim.is-warn {
+  color: #1a1200;
+  background: #ffb020;
+  border-color: #ffb020;
+}
+.wb-dim.is-bad {
+  color: #fff;
+  background: #c62828;
+  border-color: #c62828;
+}
+.wb-issues {
+  list-style: none;
+  margin: 0;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wb-issue {
+  display: grid;
+  grid-template-columns: 18px minmax(160px, 260px) 1fr;
+  gap: 2px 8px;
+  align-items: start;
+  width: 100%;
+  text-align: left;
+  background: var(--wb-panel-2);
+  border: 1px solid var(--wb-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.wb-issue:hover {
+  border-color: var(--wb-accent);
+}
+.wb-issue.is-error svg {
+  color: var(--wb-err);
+}
+.wb-issue.is-warning svg {
+  color: var(--wb-warn);
+}
+.wb-issue-title {
+  font-weight: 600;
+}
+.wb-issue-fix {
+  grid-column: 2 / -1;
+  color: var(--wb-muted);
+}
+.wb-offcut {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+}
+.wb-offcut span {
+  flex: 1;
+}
+.wb-pad {
+  padding: 0 4px;
+}
+.wb-btnrow {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.wb-seg {
+  display: inline-flex;
+  gap: 2px;
+}

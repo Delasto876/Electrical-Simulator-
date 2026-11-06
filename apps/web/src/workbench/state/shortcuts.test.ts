@@ -52,7 +52,7 @@ describe("command registry", () => {
       const why = disabledReason(c);
       if (why && /Arrives/.test(why)) expect(why).toMatch(/Arrives in Phase \d+ \(.+\)\./);
     }
-    expect(disabledReason(COMMANDS["mount.cut"]!)).toMatch(/Phase 3/);
+    expect(disabledReason(COMMANDS["mount.cut"]!)).toMatch(/rail first/);
     expect(disabledReason(COMMANDS["wire.connect"]!)).toMatch(/Phase 6/);
   });
 

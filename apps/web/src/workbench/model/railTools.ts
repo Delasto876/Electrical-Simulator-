@@ -9,6 +9,7 @@ import {
   joinClamps,
   moduleSize,
   projectOnRail,
+  railPoint,
   railCrossings,
   railEnds,
   snapModule,
@@ -31,7 +32,10 @@ import {
   moduleSpecOf,
   modulesOf,
   railPose,
-  railRef,
+  fromRunT,
+  runOfRail,
+  runsOf,
+  toRunT,
   railsOf,
   supportsOf,
 } from "./railKit";
@@ -88,6 +92,8 @@ export function evaluateRail(
   raw: [number, number],
   rotDeg: number,
   free = false,
+  /** Typed start: keep the position along the rail exactly (only seat sideways). */
+  exactAlong = false,
 ): RailCandidate {
   const spec = doc.surfaces[surfaceId];
   const u: [number, number] = [
@@ -117,7 +123,7 @@ export function evaluateRail(
       snappedTo = "feet";
     }
     // along: continue a rail in line, end to end with a 2 mm gap
-    for (const r of railsOf(doc, surfaceId)) {
+    for (const r of exactAlong ? [] : railsOf(doc, surfaceId)) {
       const e = railEnds(railPose(r));
       if (Math.abs(Math.sin(((r.rotDeg - rotDeg) * Math.PI) / 180)) > 0.01) continue;
       for (const end of [e.start, e.end]) {
@@ -136,14 +142,19 @@ export function evaluateRail(
       }
     }
   }
-  if (!free && best && snappedTo !== "rail-end") {
+  if (!free && !exactAlong && best && snappedTo !== "rail-end") {
     // along (when not continuing a rail): preferred overhang past the first or last foot of the row
     const row = feet
       .filter((f) => Math.abs((f.x - best.x) * nrm[0] + (f.z - best.z) * nrm[1]) < 0.02)
       .map((f) => (f.x - cx) * u[0] + (f.z - cz) * u[1])
       .sort((a, b) => a - b);
     const can = DEFAULT_MOUNTING_RULES.preferredCantileverMm / 1000;
-    const cands = [row[0]! - can + lengthM / 2, row[row.length - 1]! + can - lengthM / 2];
+    const cands = [
+      row[0]! - can + lengthM / 2,
+      row[row.length - 1]! + can - lengthM / 2,
+      // equal overhang at both ends of the row
+      (row[0]! + row[row.length - 1]!) / 2,
+    ];
     let shift = 0;
     let sd = SNAP_ALONG_M;
     for (const c of cands)
@@ -375,49 +386,46 @@ export function evaluateClamp(
       inZone: false,
       grips: 0,
     };
-  const pose = railPose(best.r);
+  const run = runOfRail(runsOf(doc, surfaceId), best.r.id)!;
+  const pose = run.pose;
   const modules = modulesOf(doc, surfaceId).flatMap((p) => moduleRef(p) ?? []);
-  // snap to the nearest frame crossing: end clamps just outside the edge, mid clamps in the gap
-  let t = best.t;
+  // snap to the nearest frame crossing (in run coordinates): end clamps just outside the edge, mid clamps in the gap
+  const cursorT = toRunT(run, best.r.id, best.t);
+  let tRun = cursorT;
   let frameMm = 35;
   const xs = modules.flatMap((m) => railCrossings(m.spec, m.pose, pose).map((c) => ({ ...c, m })));
-  const near = xs.sort((a, b) => Math.abs(a.t - best!.t) - Math.abs(b.t - best!.t))[0];
-  if (near && Math.abs(near.t - best.t) < 0.15) {
+  const near = xs.sort((a, b) => Math.abs(a.t - cursorT) - Math.abs(b.t - cursorT))[0];
+  if (near && Math.abs(near.t - cursorT) < 0.15) {
     frameMm = moduleSpecOf(doc.parts[near.m.id]!.catalogId)?.frameMm ?? 35;
-    const catalogId = clampFor(kind, frameMm);
-    const w = (catalogId && clampSpecOf(catalogId)?.widthM) || 0.04;
+    const cid = clampFor(kind, frameMm);
+    const w = (cid && clampSpecOf(cid)?.widthM) || 0.04;
     if (kind === "end") {
-      const centre = near.m.pose;
-      const tc = projectOnRail(pose, [centre.x, centre.z]).t;
-      t = near.t + (near.t < tc ? -w / 2 : w / 2);
+      const tc = projectOnRail(pose, [near.m.pose.x, near.m.pose.z]).t;
+      tRun = near.t + (near.t < tc ? -w / 2 : w / 2);
     } else {
       const other = xs.find((x) => x.m.id !== near.m.id && Math.abs(x.t - near.t) <= 0.05);
-      t = other ? (other.t + near.t) / 2 : near.t;
+      tRun = other ? (other.t + near.t) / 2 : near.t;
     }
   }
   const catalogId = clampFor(kind, frameMm);
   const w = (catalogId && clampSpecOf(catalogId)?.widthM) || 0.04;
-  const grip = clampGrip(
-    { id: "?", railId: best.r.id, t, kind, widthM: w },
-    railRef(best.r),
-    modules,
-  );
-  const pt = [
-    pose.x + Math.cos((pose.rotDeg * Math.PI) / 180) * (t - pose.lengthM / 2),
-    pose.z + Math.sin((pose.rotDeg * Math.PI) / 180) * (t - pose.lengthM / 2),
-  ] as const;
+  const grip = clampGrip({ id: "?", railId: run.id, t: tRun, kind, widthM: w }, run, modules);
+  const at = fromRunT(run, tRun);
+  const piece = doc.parts[at.railId]!;
+  const t = at.t;
+  const pt = railPoint(pose, tRun);
   const clash = clampsOf(doc, surfaceId).some(
-    (c) => c.clamp!.railId === best!.r.id && Math.abs(c.clamp!.t - t) < w,
+    (c) => c.clamp!.railId === piece.id && Math.abs(c.clamp!.t - t) < w,
   );
   const inZone = grip.length > 0 && grip.every((g) => g.inZone);
   return {
-    valid: !clash && t >= 0 && t <= pose.lengthM,
+    valid: !clash && t >= -1e-6 && t <= piece.rail!.lengthM + 1e-6,
     ...(clash
       ? { reason: "A clamp is already there." }
-      : t < 0 || t > pose.lengthM
+      : t < -1e-6 || t > piece.rail!.lengthM + 1e-6
         ? { reason: "Off the end of the rail." }
         : {}),
-    railId: best.r.id,
+    railId: piece.id,
     t,
     x: pt[0],
     z: pt[1],
@@ -487,7 +495,7 @@ export function joinCommand(
     .filter((p) => moduleIds === "all" || moduleIds.includes(p.id))
     .flatMap((p) => moduleRef(p) ?? []);
   if (mods.length === 0) return { error: "Place modules on the rails first." };
-  const rails = railsOf(doc, surfaceId).map(railRef);
+  const runs = runsOf(doc, surfaceId);
   const frame = moduleSpecOf(doc.parts[mods[0]!.id]!.catalogId)?.frameMm ?? 35;
   const endId = clampFor("end", frame);
   const midId = clampFor("mid", frame);
@@ -495,9 +503,13 @@ export function joinCommand(
   const endW = clampSpecOf(endId)!.widthM;
   // when only some modules are picked, their neighbours still decide mid vs end
   const all = modulesOf(doc, surfaceId).flatMap((p) => moduleRef(p) ?? []);
-  const spots = joinClamps(all, rails, endW).filter((s) =>
-    s.moduleIds.some((id) => mods.some((m) => m.id === id)),
-  );
+  // clamp spots along each run, turned back into a rail piece and a distance along it
+  const spots = joinClamps(all, runs, endW)
+    .filter((s) => s.moduleIds.some((id) => mods.some((m) => m.id === id)))
+    .map((s) => {
+      const run = runs.find((r) => r.id === s.railId)!;
+      return { ...s, ...fromRunT(run, s.t) };
+    });
   const existing = clampsOf(doc, surfaceId).flatMap((p) => clampRef(p) ?? []);
   const fresh = spots.filter(
     (s) => !existing.some((e) => e.railId === s.railId && Math.abs(e.t - s.t) < 0.03),
@@ -568,8 +580,8 @@ function moduleProblem(
     )
       return { reason: "Overlaps another module.", railsInZone: 0 };
   }
-  const inZone = railsOf(doc, surfaceId).filter((r) => {
-    const c = railCrossings(spec, pose, railPose(r));
+  const inZone = runsOf(doc, surfaceId).filter((r) => {
+    const c = railCrossings(spec, pose, r.pose);
     return c.length === 2 && c.every((x) => x.inZone);
   }).length;
   if (inZone < 2)
@@ -587,6 +599,8 @@ export function evaluateModule(
   raw: [number, number],
   orientation: "portrait" | "landscape",
   free = false,
+  /** Typed position: used exactly; the rails still decide if it is allowed. */
+  exact = false,
 ): ModuleCandidate {
   const spec = moduleSpecOf(catalogId);
   if (!spec)
@@ -599,13 +613,14 @@ export function evaluateModule(
       orientation,
       railsInZone: 0,
     };
-  const rails = railsOf(doc, surfaceId).map(railRef);
+  const rails = runsOf(doc, surfaceId);
   const neighbours = modulesOf(doc, surfaceId).flatMap((p) => moduleRef(p) ?? []);
-  const s = free
-    ? { pose: { x: raw[0], z: raw[1], rotDeg: 0, orientation } }
-    : snapModule(spec, raw, orientation, rails, neighbours);
+  const s =
+    free || exact
+      ? { pose: { x: raw[0], z: raw[1], rotDeg: 0, orientation } }
+      : snapModule(spec, raw, orientation, rails, neighbours);
   const prob = moduleProblem(doc, surfaceId, catalogId, s.pose);
-  const valid = !prob.reason || (free && prob.reason.startsWith("A module needs"));
+  const valid = !prob.reason || (free && !exact && prob.reason.startsWith("A module needs"));
   return {
     valid,
     ...(prob.reason ? { reason: prob.reason } : {}),

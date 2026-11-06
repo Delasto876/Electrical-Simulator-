@@ -123,7 +123,7 @@ test("command search (S) finds commands, explains planned ones and runs real one
   await open(page);
   await page.keyboard.press("s");
   await page.getByTestId("search-input").fill("cut");
-  await expect(page.getByTestId("result-mount.cut")).toContainText("Arrives in Phase 3");
+  await expect(page.getByTestId("result-mount.cut")).toContainText("Place a rail first");
   await page.getByTestId("search-input").fill("wireframe");
   await page.keyboard.press("Enter");
   await expect(page.getByTestId("cmd-view.display")).toContainText("Wireframe");
@@ -134,7 +134,7 @@ test("command search (S) finds commands, explains planned ones and runs real one
   // disabled commands explain themselves when run
   await page.getByTestId("ribbon-tab-mount").click();
   await page.getByTestId("cmd-mount.cut").click({ force: true }); // disabled with a reason: clicking explains it
-  await expect(page.getByTestId("toast")).toContainText("Arrives in Phase 3");
+  await expect(page.getByTestId("toast")).toContainText("Place a rail first");
 });
 
 test("section plane: options bar with OK and Cancel, Esc cancels", async ({ page }) => {
@@ -318,7 +318,7 @@ test("save writes a versioned file with the history; the last session is restore
   const [dl] = await Promise.all([page.waitForEvent("download"), page.getByTestId("save").click()]);
   const file = JSON.parse(readFileSync((await dl.path())!, "utf8"));
   expect(dl.suggestedFilename()).toMatch(/\.solarbench\.json$/);
-  expect(file).toMatchObject({ schemaVersion: 2, app: "solar-workbench" });
+  expect(file).toMatchObject({ schemaVersion: 3, app: "solar-workbench" });
   expect(file.snapshot.commands.map((c: { type: string }) => c.type)).toEqual([
     "surface.setType",
     "surface.update",

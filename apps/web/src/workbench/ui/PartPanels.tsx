@@ -15,6 +15,7 @@ import { evalLength, formatLength } from "../lib/units";
 import { useWb, useDoc } from "../state/wbStore";
 import { useView } from "../state/wbView";
 import { AngleField, LengthField, Row, Section } from "./Fields";
+import { RailKitSection } from "./RailKitPanels";
 
 function Spin({ info }: { info: PartInfo }) {
   const g = useRef<Group>(null);
@@ -143,7 +144,7 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
             Unverified data. Check the manufacturer's datasheet.
           </p>
         )}
-        {!part.mount && (
+        {!part.mount && !part.clamp && !part.splice && (
           <>
             <LengthField
               id="part-from-left"
@@ -198,6 +199,7 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
         </button>
       </Section>
       {info.legRole && <TiltSection info={info} />}
+      <RailKitSection partId={part.id} />
     </>
   );
 }

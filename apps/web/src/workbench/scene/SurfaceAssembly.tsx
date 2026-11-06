@@ -10,6 +10,8 @@ import {
 } from "../state/placeActions";
 import { snapPoint } from "@solar-sim/engine";
 import { usePlace } from "../state/placeState";
+import { cancelRailTool, toolClick, toolMove } from "../state/railToolActions";
+import { useRailTool } from "../state/railToolState";
 import { useView } from "../state/wbView";
 import { currentDoc, useWb } from "../state/wbStore";
 import { SurfaceBody, type SurfaceBodyProps } from "./SurfaceBody";
@@ -107,6 +109,12 @@ export function SurfaceAssembly({
           if (e.delta <= 4) commitCandidate(e.shiftKey);
           return;
         }
+        if (useRailTool.getState().tool) {
+          if (e.delta > 4) return;
+          const l = toLocal(e);
+          if (l) toolClick(surfaceId, l[0], l[1], e.shiftKey);
+          return;
+        }
         if (useView.getState().measuring) {
           if (e.delta > 4) return;
           const p = measurePoint(e);
@@ -139,6 +147,9 @@ export function SurfaceAssembly({
         if (pl.placing) {
           const l = toLocal(e);
           if (l) updateCandidate(surfaceId, l[0], l[1], e.altKey);
+        } else if (useRailTool.getState().tool) {
+          const l = toLocal(e);
+          if (l) toolMove(surfaceId, l[0], l[1], e.altKey);
         } else if (pl.guideDrag) {
           const l = toLocal(e);
           if (l) {
@@ -157,6 +168,7 @@ export function SurfaceAssembly({
           cancelPlacing();
           return;
         }
+        if (cancelRailTool()) return;
         onContext(nodeId);
       }}
     >

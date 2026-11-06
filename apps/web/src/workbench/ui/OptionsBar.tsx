@@ -6,13 +6,16 @@ import { acceptActiveCommand, cancelActiveCommand } from "../state/shortcuts";
 import { partInfo } from "../model/partInfo";
 import { cancelPlacing, commitTyped, rotatePlacing } from "../state/placeActions";
 import { usePlace } from "../state/placeState";
+import { useRailTool } from "../state/railToolState";
+import { RailToolBar } from "./RailToolBar";
 import { useDoc, useWb } from "../state/wbStore";
 import { useView, type SectionAxis } from "../state/wbView";
 
 /** In-canvas options bar of the active command: its fields, OK (Enter) and Cancel (Esc). Phase 1 has the section plane. */
 export function OptionsBar() {
   const placing = usePlace((s) => s.placing);
-  return placing ? <PlacingBar /> : <SectionBar />;
+  const railTool = useRailTool((s) => s.tool);
+  return placing ? <PlacingBar /> : railTool ? <RailToolBar /> : <SectionBar />;
 }
 
 /** Options of the placing tool: free placement, rotation, tilt for legs, and the Tab-to-type distances. */

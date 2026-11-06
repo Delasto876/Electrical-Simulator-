@@ -26,7 +26,10 @@ export function PlacedParts({
       .filter((n) => n.partId)
       .map((n) => [n.partId!, n] as const),
   );
-  const parts = Object.values(doc.parts).filter((p) => p.surfaceId === surfaceId && !p.mount);
+  // rails, splices, clamps and modules are drawn by RailKitLayer
+  const parts = Object.values(doc.parts).filter(
+    (p) => p.surfaceId === surfaceId && !p.mount && !p.rail && !p.splice && !p.clamp && !p.module,
+  );
   return (
     <>
       {parts.map((p) => {

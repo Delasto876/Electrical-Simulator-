@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   Box,
   Eye,
@@ -5,8 +6,10 @@ import {
   Lock,
   Move,
   Pencil,
+  Link2,
   Ruler,
   RotateCw,
+  Scissors,
   Trash2,
   SlidersHorizontal,
   Tag,
@@ -20,6 +23,8 @@ import { useDoc, useWb } from "../state/wbStore";
 import { useView, type BottomTab } from "../state/wbView";
 import { formatLength } from "../lib/units";
 import { bomOf } from "../model/bom";
+import { mechanicalIssues } from "../model/railKit";
+import { IssuesList } from "./RailKitPanels";
 
 const ICONS: Record<string, LucideIcon> = {
   pencil: Pencil,
@@ -33,6 +38,8 @@ const ICONS: Record<string, LucideIcon> = {
   rotate: RotateCw,
   trash: Trash2,
   ruler: Ruler,
+  scissors: Scissors,
+  link: Link2,
 };
 
 const TABS: { id: BottomTab; label: string }[] = [
@@ -178,6 +185,8 @@ function Bom() {
 export function BottomPanel() {
   const tab = useView((s) => s.bottomTab);
   const log = useWb((s) => s.log);
+  const doc = useDoc();
+  const issueCount = useMemo(() => mechanicalIssues(doc, SURFACE_ID).length, [doc]);
   return (
     <div className="wb-bottom" data-testid="bottom-panel">
       <div role="tablist" aria-label="Results" className="wb-tabs">
@@ -194,6 +203,7 @@ export function BottomPanel() {
             onClick={() => useView.getState().set({ bottomTab: t.id })}
           >
             {t.label}
+            {t.id === "issues" && issueCount > 0 ? ` (${issueCount})` : ""}
           </button>
         ))}
       </div>
@@ -204,15 +214,7 @@ export function BottomPanel() {
         className="wb-bottom-body"
       >
         {tab === "timeline" && <Timeline />}
-        {tab === "issues" && (
-          <div className="wb-tabbody" data-testid="issues-empty">
-            <p>No issues.</p>
-            <p className="wb-hint">
-              Design rules start checking as soon as parts are placed (Phase 2 onwards): clamp
-              zones, spans, voltage, wire size, protection, grounding.
-            </p>
-          </div>
-        )}
+        {tab === "issues" && <IssuesList />}
         {tab === "calculations" && <Calculations />}
         {tab === "bom" && <Bom />}
         {tab === "log" && (
