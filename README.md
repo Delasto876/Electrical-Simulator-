@@ -10,7 +10,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > _unverified_.
 
 **Status: Solar Workbench (brief v2), Phase 1: the workbench shell and the Work Surface.** See `PLAN.md` for the phases.
-**Try it:** [open the Workbench](WORKBENCH_LINK) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer is at `#/classic` and in the [earlier preview](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA).
+**Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
 ![Zinc roof on the Workbench](docs/screenshots/wb-phase-1-zinc-laptop.png)
