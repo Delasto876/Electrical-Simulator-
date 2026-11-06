@@ -92,7 +92,10 @@ import {
   type SurfaceType,
   type TileColor,
 } from "@solar-sim/engine";
+import { catalog } from "../../app/catalog";
 import { UNITS, UNIT_LABEL, type Unit } from "../lib/units";
+import { rotatePlacing, startPlacing } from "./placeActions";
+import { usePlace } from "./placeState";
 import { SURFACE_ID, SURFACE_NODE_ID } from "./wbDoc";
 import { currentDoc, useWb } from "./wbStore";
 import {
@@ -148,6 +151,7 @@ const PHASE_TITLE: Record<number, string> = {
   7: "Trunking and conduit",
   8: "Protection, ATS, grounding, TEST",
   9: "Simulation and outputs",
+  10: "Polish",
 };
 const later = (phase: number) => () => `Arrives in Phase ${phase} (${PHASE_TITLE[phase]}).`;
 
@@ -179,6 +183,11 @@ export function setSurface(patch: Partial<SurfaceSpec>, merge = false): boolean 
 }
 
 const selection = () => useView.getState().selection;
+/** The placed part of the selected Browser node, if it is one. */
+const partOfSelection = () => {
+  const n = currentDoc().nodes[selection() ?? ""];
+  return n?.partId ? currentDoc().parts[n.partId] : undefined;
+};
 const needSelection = () =>
   selection() ? null : "Select an item in the Browser tree or on the canvas first.";
 
@@ -397,35 +406,62 @@ add({
   keywords: "foot hook standoff attachment",
   variants: LFOOTS.map(([k]) => `mount.${k}`),
 });
+const KIND_OF: Record<string, string> = {
+  lfoot: "l-foot",
+  slotted: "slotted-l-foot",
+  tilehook: "tile-hook",
+  standoff: "corrugated-standoff",
+  seamclamp: "seam-clamp",
+  baseplate: "base-plate",
+  ballast: "ballast-block",
+  groundscrew: "ground-screw",
+};
+/** The first catalog part of a mounting kind (the library lets you choose another). */
+function hardwareFor(match: (p: (typeof catalog)[number]) => boolean): string | undefined {
+  return catalog.find(match)?.id;
+}
+const placeBlocked = () => lockedReason();
 for (const [k, l] of LFOOTS)
-  future(
-    `mount.${k}`,
-    l,
-    Anvil,
-    2,
-    `Place a ${l.toLowerCase()} on a valid attachment point of the surface.`,
-  );
-future(
-  "mount.legfront",
-  "Front leg",
-  Hammer,
-  2,
-  "Tilt leg at the low edge; its length follows the tilt angle.",
-  "tilt leg",
-);
-future(
-  "mount.legback",
-  "Back leg",
-  Hammer,
-  2,
-  "Tilt leg at the high edge; its length follows the tilt angle.",
-  "tilt leg",
-);
+  add({
+    id: `mount.${k}`,
+    label: l,
+    icon: Anvil,
+    description: `Place a ${l.toLowerCase()} on a valid attachment point of the surface.`,
+    keywords: "foot hook attachment",
+    disabled: () => {
+      if (placeBlocked()) return placeBlocked();
+      return hardwareFor((p) => p.category === "roof-attachment" && p.mounting.kind === KIND_OF[k])
+        ? null
+        : "No such part in the catalog.";
+    },
+    run: () => {
+      const id = hardwareFor(
+        (p) => p.category === "roof-attachment" && p.mounting.kind === KIND_OF[k],
+      );
+      if (id) startPlacing(id);
+    },
+  });
+for (const [role, label] of [
+  ["front", "Front leg"],
+  ["back", "Back leg"],
+] as const)
+  add({
+    id: `mount.leg${role}`,
+    label,
+    icon: Hammer,
+    description: `Tilt leg at the ${role === "front" ? "low" : "high"} edge; its length follows the tilt angle.`,
+    keywords: "tilt leg",
+    disabled: placeBlocked,
+    run: () => {
+      const id = hardwareFor((p) => p.category === "tilt-leg" && p.mounting.role === role);
+      if (id) startPlacing(id);
+    },
+  });
 future(
   "mount.pattern",
   "Pattern",
   Grid3x3,
-  2,
+  10,
   "Repeat feet or legs in rows and columns with a set spacing.",
   "array rows columns",
 );
@@ -491,27 +527,63 @@ future(
 future("mod.jumper", "Jumper", Spline, 8, "Bonding jumper between rails.", "bond");
 
 // ---------------------------------------------------------------- modify / organise
-future("mod.move", "Move", Move, 2, "Move parts with live dimensions and typed distances.");
-future("mod.rotate", "Rotate", Rotate3d, 2, "Rotate parts with angle snaps.");
+add({
+  id: "mod.move",
+  label: "Move",
+  icon: Move,
+  description: "Select a part, then type its distances from the surface edges in Properties.",
+  keywords: "position distance",
+  disabled: () => (partOfSelection() ? null : "Select a placed part first."),
+  run: focusProp("part-from-left"),
+});
+add({
+  id: "mod.rotate",
+  label: "Rotate",
+  icon: Rotate3d,
+  description: "Rotate the selected part by 15°. While placing, the R key rotates the ghost.",
+  keywords: "turn angle",
+  disabled: () =>
+    usePlace.getState().placing || partOfSelection() ? null : "Select a placed part first.",
+  run: () => {
+    if (usePlace.getState().placing) return rotatePlacing(15);
+    const p = partOfSelection();
+    if (p)
+      useWb
+        .getState()
+        .dispatch(
+          { type: "part.rotate", id: p.id, rotDeg: (p.rotDeg + 15) % 360 },
+          { merge: true },
+        );
+  },
+});
 future(
   "mod.align",
   "Align",
   AlignHorizontalJustifyCenter,
-  2,
+  10,
   "Align parts to an edge, centre or guide.",
 );
-future("mod.mirror", "Mirror", FlipHorizontal, 2, "Mirror parts across a plane.");
-future("edit.copy", "Copy / paste", Copy, 2, "Duplicate the selection.");
-future("edit.group", "Group", Group, 2, "Group parts so they move together.");
-future("edit.ungroup", "Ungroup", Ungroup, 2, "Break a group apart.");
-future(
-  "edit.delete",
-  "Delete",
-  Trash2,
-  2,
-  "Delete the selected parts. (The Work Surface itself cannot be deleted.)",
-  "remove",
-);
+future("mod.mirror", "Mirror", FlipHorizontal, 10, "Mirror parts across a plane.");
+future("edit.copy", "Copy / paste", Copy, 10, "Duplicate the selection.");
+future("edit.group", "Group", Group, 10, "Group parts so they move together.");
+future("edit.ungroup", "Ungroup", Ungroup, 10, "Break a group apart.");
+add({
+  id: "edit.delete",
+  label: "Delete",
+  icon: Trash2,
+  description: "Delete the selected part. (The Work Surface itself cannot be deleted.)",
+  shortcut: "Delete",
+  keywords: "remove",
+  disabled: () => {
+    if (!partOfSelection()) return "Select a placed part first.";
+    return currentDoc().nodes[selection()!]?.locked ? "The part is locked." : null;
+  },
+  run: () => {
+    const p = partOfSelection();
+    if (p && useWb.getState().dispatch({ type: "part.delete", id: p.id }))
+      useView.getState().set({ selection: null });
+  },
+});
 add({
   id: "edit.hide",
   label: () => (currentDoc().nodes[selection() ?? ""]?.visible === false ? "Show" : "Hide"),
@@ -586,25 +658,53 @@ add({
 });
 
 // ---------------------------------------------------------------- inspect
-future(
-  "inspect.measure",
-  "Measure",
-  Ruler,
-  2,
-  "Measure distance, angle and area between points, edges and parts.",
-);
+add({
+  id: "inspect.measure",
+  label: "Measure",
+  icon: Ruler,
+  description: "Click two points on the surface to measure the distance. Esc ends the tool.",
+  shortcut: "D",
+  keywords: "distance tape",
+  pressed: () => useView.getState().measuring,
+  disabled: () => (usePlace.getState().placing ? "Finish or cancel placing first." : null),
+  run: () => {
+    const on = !useView.getState().measuring;
+    useView.getState().set({ measuring: on });
+    usePlace.getState().set({ measureA: null, measureHover: null });
+    if (on) showToast("Measure: click the first point, then the second. Esc ends.");
+  },
+});
+add({
+  id: "inspect.measure.clear",
+  label: "Clear measurements",
+  icon: Trash2,
+  description: "Remove every measurement from the surface.",
+  disabled: () => (currentDoc().measurements.length ? null : "No measurements."),
+  run: () => void useWb.getState().dispatch({ type: "measure.clear" }),
+});
+add({
+  id: "view.rulers",
+  label: "Rulers",
+  icon: Ruler,
+  description:
+    "Show rulers along the surface edges. Drag from a ruler onto the surface to pull out a guide line.",
+  shortcut: "Shift+R",
+  keywords: "guides scale",
+  pressed: () => useView.getState().rulers,
+  run: () => useView.getState().set({ rulers: !useView.getState().rulers }),
+});
 future(
   "inspect.dimension",
   "Dimension",
   Equal,
-  2,
+  10,
   "Place a persistent, editable dimension on the canvas.",
 );
 future(
   "inspect.origin",
   "Set origin",
   Crosshair,
-  2,
+  10,
   "Move the coordinate origin of the Work Surface.",
 );
 add({
@@ -1025,7 +1125,7 @@ const VIEW_TAB: RibbonTab = {
       "view.normal",
       "view.frame",
     ),
-    P("Display", "view.display", "view.env", "view.grid"),
+    P("Display", "view.display", "view.env", "view.grid", "view.rulers"),
     P("Panels", "view.browser", "view.properties", "view.timeline", "view.layout"),
     P("Appearance", "view.theme", "view.units"),
   ],
@@ -1077,7 +1177,14 @@ export const RIBBON: Record<Workspace, RibbonTab[]> = {
       id: "inspect",
       label: "INSPECT",
       panels: [
-        P("Measure", "inspect.measure", "inspect.dimension", "inspect.origin", "out.magnet"),
+        P(
+          "Measure",
+          "inspect.measure",
+          "inspect.measure.clear",
+          "inspect.dimension",
+          "inspect.origin",
+          "out.magnet",
+        ),
         P("Section", "inspect.section", "inspect.section.clear"),
         P("Review", "inspect.issues", "inspect.properties", "surface.facts"),
       ],

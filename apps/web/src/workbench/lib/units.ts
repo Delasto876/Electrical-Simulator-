@@ -112,3 +112,84 @@ export function parseLength(text: string, defaultUnit: Unit): number | undefined
       return v * M_PER.ft;
   }
 }
+
+/**
+ * Evaluate a typed length expression: `600+25`, `0.75m`, `2'6"`, `1.5 ft`,
+ * `(1.2+0.3)*2m`, `3 ft - 4 in`. A bare number uses `defaultUnit`; `*` and `/`
+ * take plain numbers. Returns metres, or undefined if it cannot be read.
+ */
+export function evalLength(text: string, defaultUnit: Unit): number | undefined {
+  const src = text.trim().replace(/[′]/g, "'").replace(/[″”“]/g, '"');
+  if (!src) return undefined;
+  let i = 0;
+  const ws = () => {
+    while (src[i] === " ") i++;
+  };
+  const literal = (): number | undefined => {
+    ws();
+    const rest = src.slice(i);
+    // feet and inches: 2'6"  2' 6 1/2"  2'  6"
+    const m =
+      new RegExp(String.raw`^(${NUMBER})\s*'\s*(?:(\d+(?:\.\d+)?)(?:\s+(\d+)/(\d+))?\s*"?)?`).exec(
+        rest,
+      ) ??
+      new RegExp(String.raw`^(${NUMBER})\s*(?:"|in(?:ch(?:es)?)?\b)`, "i").exec(rest) ??
+      new RegExp(String.raw`^(${NUMBER})\s*(?:mm|cm|ft|feet|foot|m)?(?![A-Za-z])`, "i").exec(rest);
+    if (!m) return undefined;
+    const lit = m[0].trim();
+    const v = parseLength(lit, defaultUnit);
+    if (v === undefined) return undefined;
+    i += m[0].length;
+    return v;
+  };
+  const factor = (): number | undefined => {
+    ws();
+    if (src[i] === "(") {
+      i++;
+      const v = expr();
+      ws();
+      if (v === undefined || src[i] !== ")") return undefined;
+      i++;
+      return v;
+    }
+    if (src[i] === "-") {
+      i++;
+      const v = factor();
+      return v === undefined ? undefined : -v;
+    }
+    return literal();
+  };
+  const term = (): number | undefined => {
+    let v = factor();
+    if (v === undefined) return undefined;
+    for (;;) {
+      ws();
+      const op = src[i];
+      if (op !== "*" && op !== "/") return v;
+      i++;
+      ws();
+      const m = new RegExp(String.raw`^${NUMBER}`).exec(src.slice(i));
+      if (!m) return undefined;
+      i += m[0].length;
+      const n = Number(m[0]);
+      if (op === "/" && n === 0) return undefined;
+      v = op === "*" ? v * n : v / n;
+    }
+  };
+  const expr = (): number | undefined => {
+    let v = term();
+    if (v === undefined) return undefined;
+    for (;;) {
+      ws();
+      const op = src[i];
+      if (op !== "+" && op !== "-") return v;
+      i++;
+      const t = term();
+      if (t === undefined) return undefined;
+      v = op === "+" ? v + t : v - t;
+    }
+  };
+  const v = expr();
+  ws();
+  return v !== undefined && i === src.length && Number.isFinite(v) ? v : undefined;
+}

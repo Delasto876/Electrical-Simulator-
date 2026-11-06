@@ -1,7 +1,16 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, ChevronRight, Search } from "lucide-react";
 import { PART_CATEGORIES, type Part } from "@solar-sim/catalog";
 import { CATEGORY_LABELS, catalog, partLabel } from "../../app/catalog";
+import {
+  cancelPlacing,
+  commitCandidate,
+  placeAtViewCentre,
+  startPlacing,
+} from "../state/placeActions";
+import { usePlace } from "../state/placeState";
+import { partInfo } from "../model/partInfo";
+import { getThumbnail } from "../scene/thumbnails";
 import { useView } from "../state/wbView";
 
 /** Two or three short spec chips for a card (from the catalog data, never invented). */
@@ -30,7 +39,81 @@ export function specChips(p: Part): string[] {
 
 const SHOW = 40;
 
-/** Parts Library: category accordion, search, cards. Thumbnails and drag-to-place arrive in Phase 2. */
+/** A card's picture: a real render of the part (drawn when the card scrolls into view, then cached). */
+function Thumb({ id, fallback }: { id: string; fallback: string }) {
+  const [src, setSrc] = useState<string | undefined>();
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    const info = partInfo(id);
+    if (!el || !info) return;
+    let live = true;
+    const go = () => void getThumbnail(info).then((u) => live && u && setSrc(u));
+    if (typeof IntersectionObserver === "undefined") {
+      go();
+      return () => void (live = false);
+    }
+    const io = new IntersectionObserver((e) => {
+      if (e.some((x) => x.isIntersecting)) {
+        io.disconnect();
+        go();
+      }
+    });
+    io.observe(el);
+    return () => {
+      live = false;
+      io.disconnect();
+    };
+  }, [id]);
+  return (
+    <span
+      className="wb-card-thumb"
+      ref={ref}
+      aria-hidden
+      data-testid={`thumb-${id}`}
+      data-ready={src ? "1" : "0"}
+    >
+      {src ? <img src={src} alt="" width={44} height={44} /> : fallback}
+    </span>
+  );
+}
+const DRAG_PX = 6;
+
+/**
+ * Drag a card onto the canvas: after a few pixels the placing tool starts, the
+ * ghost follows the cursor over the surface, and releasing over a valid spot
+ * places the part (Shift keeps the tool). Releasing anywhere else cancels.
+ */
+function startCardDrag(e: React.PointerEvent, partId: string) {
+  if (e.button !== 0) return;
+  const x0 = e.clientX;
+  const y0 = e.clientY;
+  let active = false;
+  const move = (m: PointerEvent) => {
+    if (active || Math.hypot(m.clientX - x0, m.clientY - y0) < DRAG_PX) return;
+    if (startPlacing(partId)) {
+      active = true;
+      usePlace.getState().set({ dragging: true });
+    } else done();
+  };
+  const up = (u: PointerEvent) => {
+    const wasActive = active;
+    done();
+    if (!wasActive) return;
+    const st = usePlace.getState();
+    if (st.cand?.valid) commitCandidate(u.shiftKey);
+    else cancelPlacing();
+    usePlace.getState().set({ dragging: false });
+  };
+  const done = () => {
+    window.removeEventListener("pointermove", move);
+    window.removeEventListener("pointerup", up);
+  };
+  window.addEventListener("pointermove", move);
+  window.addEventListener("pointerup", up);
+}
+
+/** Parts Library: category accordion, search, cards. Drag a card onto the surface, or double-click to place at the middle of the view. */
 export function LibraryPanel() {
   const query = useView((s) => s.libraryQuery);
   const selected = useView((s) => s.libraryPart);
@@ -102,6 +185,8 @@ export function LibraryPanel() {
                         className={`wb-card${selected === p.id ? " is-selected" : ""}`}
                         aria-pressed={selected === p.id}
                         data-testid={`card-${p.id}`}
+                        onPointerDown={(e) => startCardDrag(e, p.id)}
+                        onDoubleClick={() => placeAtViewCentre(p.id)}
                         onClick={() =>
                           useView.getState().set({
                             libraryPart: p.id,
@@ -110,9 +195,7 @@ export function LibraryPanel() {
                           })
                         }
                       >
-                        <span className="wb-card-thumb" aria-hidden>
-                          {p.category.slice(0, 2).toUpperCase()}
-                        </span>
+                        <Thumb id={p.id} fallback={p.category.slice(0, 2).toUpperCase()} />
                         <span className="wb-card-body">
                           <span className="wb-card-name">{partLabel(p)}</span>
                           <span className="wb-chips">

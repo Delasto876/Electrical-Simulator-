@@ -58,7 +58,16 @@ export type RailSplice = z.infer<typeof RailSplice>;
 export const RoofAttachment = PartBase.extend({
   category: z.literal("roof-attachment"),
   mounting: z.object({
-    kind: z.enum(["l-foot", "slotted-l-foot", "corrugated-standoff", "tile-hook", "seam-clamp"]),
+    kind: z.enum([
+      "l-foot",
+      "slotted-l-foot",
+      "corrugated-standoff",
+      "tile-hook",
+      "seam-clamp",
+      "base-plate",
+      "ballast-block",
+      "ground-screw",
+    ]),
     /** Height from roof surface to the rail seat [mm]. */
     heightMm: mm,
     compatibleSurfaces: z.array(RoofSurface).min(1),

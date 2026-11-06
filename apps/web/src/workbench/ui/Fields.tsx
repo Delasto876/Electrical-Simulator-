@@ -1,5 +1,5 @@
 import { useId, useState, type ReactNode } from "react";
-import { formatLength, lengthFieldValue, parseLength, type Unit } from "../lib/units";
+import { evalLength, formatLength, lengthFieldValue, type Unit } from "../lib/units";
 
 /** Label + control row of the Properties panel. */
 export function Row({
@@ -53,8 +53,8 @@ export function LengthField({
   };
   const commit = () => {
     if (edit === null) return;
-    const m = parseLength(text, unit);
-    if (m === undefined) return setBad("Not a length. Try 600, 0.75m or 2'6\".");
+    const m = evalLength(text, unit);
+    if (m === undefined) return setBad("Not a length. Try 600, 600+25, 0.75m or 2'6\".");
     if (m < minM - 1e-9 || m > maxM + 1e-9)
       return setBad(`Allowed: ${formatLength(minM, unit)} to ${formatLength(maxM, unit)}.`);
     if (Math.abs(m - valueM) > 1e-9) onCommit(m);

@@ -17,7 +17,10 @@ import { formatLength } from "../lib/units";
 import { setSurface } from "../state/commandRegistry";
 import { SURFACE_ID, surfaceOfNode } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
+import { partInfo } from "../model/partInfo";
+import { startPlacing } from "../state/placeActions";
 import { useView } from "../state/wbView";
+import { GuidesSection, PartPreview, PlacedPartProperties, TiltSection } from "./PartPanels";
 import { AngleField, CheckField, LengthField, Row, Section, SelectField } from "./Fields";
 import { Tip } from "./Tip";
 
@@ -233,6 +236,7 @@ function SurfaceProperties({ nodeId }: { nodeId: string }) {
           </div>
         </dl>
       </Section>
+      <GuidesSection />
       <Section title="Attachment rules">
         <p className="wb-warn" role="status">
           <ShieldAlert size={14} aria-hidden /> Unverified defaults. Check the product manual and
@@ -319,12 +323,16 @@ function PartProperties({ id }: { id: string }) {
           : undefined
   ) as Record<string, unknown> | undefined;
   const d = part.dimensions;
+  const info = partInfo(id);
   return (
     <>
-      <div className="wb-prop-hero" aria-hidden>
-        <Package size={44} strokeWidth={1.2} />
-        <span>3D preview arrives in Phase 2</span>
-      </div>
+      {info ? (
+        <PartPreview info={info} />
+      ) : (
+        <div className="wb-prop-hero" aria-hidden>
+          <Package size={44} strokeWidth={1.2} />
+        </div>
+      )}
       <Section title={partLabel(part)}>
         <p className="wb-hint">{CATEGORY_LABELS[part.category] ?? part.category}</p>
         {!part.verified && (
@@ -334,11 +342,17 @@ function PartProperties({ id }: { id: string }) {
           </p>
         )}
         <Tip
-          title="Place"
-          body="Dragging parts onto the Work Surface arrives in Phase 2."
-          warn="Arrives in Phase 2 (Parts Library and placement)."
+          title="Place on surface"
+          body="Click the surface to place it. Hold Shift to keep placing, R rotates, Tab types an exact distance."
+          {...(info && info.placeable !== true ? { warn: info.placeable } : {})}
         >
-          <button type="button" className="wb-btn" disabled aria-disabled data-testid="place-part">
+          <button
+            type="button"
+            className="wb-btn wb-btn-ok"
+            aria-disabled={!info || info.placeable !== true}
+            data-testid="place-part"
+            onClick={() => startPlacing(id)}
+          >
             Place on surface
           </button>
         </Tip>
@@ -374,6 +388,7 @@ function PartProperties({ id }: { id: string }) {
               ))}
         </dl>
       </Section>
+      {info?.legRole && <TiltSection info={info} />}
     </>
   );
 }
@@ -403,13 +418,15 @@ export function PropertiesPanel() {
       <div className="wb-panel-scroll" tabIndex={0} role="region" aria-label="Properties content">
         {libraryPart ? (
           <PartProperties id={libraryPart} />
+        ) : node?.partId ? (
+          <PlacedPartProperties partId={node.partId} />
         ) : node?.kind === "surface" ? (
           <SurfaceProperties nodeId={node.id} />
         ) : node ? (
           <Section title={node.name}>
             <p className="wb-hint">
               {node.kind === "category"
-                ? "Parts of this kind will be filed here when you place them (Phase 2)."
+                ? "Parts of this kind are filed here when you place them."
                 : "A folder in the assembly tree."}
             </p>
             <Row label="Items">{node.children.length}</Row>

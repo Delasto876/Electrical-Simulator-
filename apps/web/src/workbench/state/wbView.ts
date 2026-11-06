@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { DEFAULT_SNAPS, type SnapSettings } from "@solar-sim/engine";
 import type { Unit } from "../lib/units";
 
 /**
@@ -109,6 +110,12 @@ export interface ViewState {
   displayMode: DisplayMode;
   env: EnvPreset;
   grid: boolean;
+  /** Which snaps are on (status bar / Snap menu). */
+  snaps: SnapSettings;
+  /** Rulers along the surface edges (guides are pulled from them). */
+  rulers: boolean;
+  /** The Measure tool is active. */
+  measuring: boolean;
   theme: "dark" | "light";
   units: Unit;
   layout: PanelLayout;
@@ -145,6 +152,7 @@ interface Prefs {
   displayMode: DisplayMode;
   env: EnvPreset;
   grid: boolean;
+  snaps: SnapSettings;
 }
 
 function loadPrefs(): Partial<Prefs> {
@@ -165,6 +173,7 @@ function savePrefs(s: ViewState): void {
       displayMode: s.displayMode,
       env: s.env,
       grid: s.grid,
+      snaps: s.snaps,
     };
     localStorage.setItem(PREF_KEY, JSON.stringify(p));
   } catch {
@@ -189,6 +198,9 @@ export const useView = create<ViewState>((set, get) => ({
   displayMode: saved.displayMode ?? "realistic",
   env: saved.env ?? "daylight",
   grid: saved.grid ?? true,
+  snaps: { ...DEFAULT_SNAPS, ...saved.snaps },
+  rulers: true,
+  measuring: false,
   theme: saved.theme ?? "dark",
   units: saved.units ?? "mm",
   layout: { ...DEFAULT_LAYOUT, ...saved.layout },
@@ -219,7 +231,8 @@ useView.subscribe((s, prev) => {
     s.layout !== prev.layout ||
     s.displayMode !== prev.displayMode ||
     s.env !== prev.env ||
-    s.grid !== prev.grid
+    s.grid !== prev.grid ||
+    s.snaps !== prev.snaps
   )
     savePrefs(s);
 });

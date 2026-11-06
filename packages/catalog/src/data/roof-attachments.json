@@ -215,5 +215,134 @@
       "ratedUpliftN": 2000,
       "fastenerSetsPerAttachment": 0
     }
+  },
+  {
+    "id": "generic-base-plate-anchors",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Base plate 200 \u00d7 200 mm with 4 anchor bolts",
+    "dimensions": {
+      "lengthMm": 200,
+      "widthMm": 200,
+      "heightMm": 40
+    },
+    "weightKg": 1.6,
+    "verified": false,
+    "notes": "Generic placeholder. Anchor type, embedment and edge distance come from the anchor manufacturer.",
+    "price": {
+      "amount": 18,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["base-plate", "concrete"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.04, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "base-plate",
+      "heightMm": 40,
+      "compatibleSurfaces": ["concrete"],
+      "ratedUpliftN": 5000,
+      "fastenerSetsPerAttachment": 4
+    }
+  },
+  {
+    "id": "generic-ballast-block-300",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Concrete ballast block 400 \u00d7 200 \u00d7 100 mm",
+    "dimensions": {
+      "lengthMm": 400,
+      "widthMm": 200,
+      "heightMm": 100
+    },
+    "weightKg": 18,
+    "verified": false,
+    "notes": "Generic placeholder. Holds the array down by weight only; check the roof load.",
+    "price": {
+      "amount": 6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ballast"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.1, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "ballast-block",
+      "heightMm": 100,
+      "compatibleSurfaces": ["concrete"],
+      "ratedUpliftN": 176,
+      "fastenerSetsPerAttachment": 0
+    }
+  },
+  {
+    "id": "generic-ground-screw-76",
+    "category": "roof-attachment",
+    "brand": "Generic",
+    "model": "Ground screw 76 \u00d7 1200 mm",
+    "dimensions": {
+      "lengthMm": 76,
+      "widthMm": 76,
+      "heightMm": 1200
+    },
+    "weightKg": 9,
+    "verified": false,
+    "notes": "Generic placeholder. Depth and torque come from the geotechnical report.",
+    "price": {
+      "amount": 45,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ground-screw"],
+    "ports": [
+      {
+        "id": "anchor",
+        "type": "roof-anchor",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "fixing"
+      },
+      {
+        "id": "seat",
+        "type": "rail-slot",
+        "position": [0, 0.25, 0],
+        "direction": [0, 1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "ground-screw",
+      "heightMm": 250,
+      "compatibleSurfaces": ["ground"],
+      "ratedUpliftN": 6000,
+      "fastenerSetsPerAttachment": 0
+    }
   }
 ]

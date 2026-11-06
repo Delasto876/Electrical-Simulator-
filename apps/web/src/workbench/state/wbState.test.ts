@@ -299,3 +299,38 @@ describe("tree drag and drop targets", () => {
     expect(moved.rootIds).toEqual(["node-components", "node-work-surface"]);
   });
 });
+
+describe("file migration 1 → 2", () => {
+  it("opens a Phase 1 file: part nodes, empty parts, guides, measurements, default tilt; history replays", () => {
+    const d = newDoc("zinc") as unknown as Record<string, unknown>;
+    const v1 = {
+      schemaVersion: 1,
+      app: "solar-workbench",
+      snapshot: {
+        initial: {
+          ...d,
+          schemaVersion: 1,
+          nodes: Object.fromEntries(
+            Object.entries(d.nodes as Record<string, Record<string, unknown>>).map(([k, n]) => {
+              const { partId: _p, ...rest } = n;
+              return [k, rest];
+            }),
+          ),
+          parts: undefined,
+          guides: undefined,
+          measurements: undefined,
+          tilt: undefined,
+        },
+        commands: [{ type: "surface.update", id: "surface-1", patch: { pitchDeg: 22 } }],
+        cursor: 1,
+      },
+    };
+    const snap = parseFile(JSON.parse(JSON.stringify(v1)));
+    expect(snap.initial.schemaVersion).toBe(2);
+    expect(snap.initial.parts).toEqual({});
+    expect(snap.initial.tilt.tiltDeg).toBe(15);
+    expect(snap.initial.nodes["node-rails"]!.partId).toBeNull();
+    useWb.getState().reset(snap);
+    expect(currentDoc().surfaces[SURFACE_ID]!.pitchDeg).toBe(22);
+  });
+});

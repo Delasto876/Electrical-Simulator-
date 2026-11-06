@@ -1,7 +1,17 @@
 import { z } from "zod";
 import { SURFACE_TYPES } from "@solar-sim/engine";
 import { type WbSnapshot } from "./wbStore";
-import { SurfaceSpecSchema, TAG_COLORS, WB_SCHEMA_VERSION, WbDocSchema } from "./wbDoc";
+import {
+  DEFAULT_TILT,
+  GuideSchema,
+  MeasurementSchema,
+  PlacedPartSchema,
+  SurfaceSpecSchema,
+  TAG_COLORS,
+  TiltSettingsSchema,
+  WB_SCHEMA_VERSION,
+  WbDocSchema,
+} from "./wbDoc";
 import { reduceAll } from "./wbCommands";
 
 /**
@@ -32,6 +42,24 @@ export const CommandSchema = z.discriminatedUnion("type", [
     parentId: z.string().nullable(),
     index: z.number().int().min(0),
   }),
+  z.object({
+    type: z.literal("part.place"),
+    part: PlacedPartSchema,
+    name: z.string(),
+    nodeId: z.string(),
+    folderId: z.string(),
+  }),
+  z.object({ type: z.literal("part.move"), id: z.string(), x: z.number(), z: z.number() }),
+  z.object({ type: z.literal("part.rotate"), id: z.string(), rotDeg: z.number() }),
+  z.object({ type: z.literal("part.delete"), id: z.string() }),
+  z.object({ type: z.literal("tilt.update"), patch: TiltSettingsSchema.partial() }),
+  z.object({ type: z.literal("guide.add"), guide: GuideSchema }),
+  z.object({ type: z.literal("guide.move"), id: z.string(), at: z.number() }),
+  z.object({ type: z.literal("guide.lock"), id: z.string(), locked: z.boolean() }),
+  z.object({ type: z.literal("guide.delete"), id: z.string() }),
+  z.object({ type: z.literal("measure.add"), m: MeasurementSchema }),
+  z.object({ type: z.literal("measure.delete"), id: z.string() }),
+  z.object({ type: z.literal("measure.clear") }),
 ]);
 
 export const WbFileSchema = z.object({
@@ -42,28 +70,69 @@ export const WbFileSchema = z.object({
     commands: z.array(CommandSchema),
     cursor: z.number().int().min(0),
   }),
+  /** Custom parts (user uploads) the document uses, so the file is portable. */
+  customParts: z.array(z.record(z.string(), z.unknown())).default([]),
 });
 export type WbFile = z.infer<typeof WbFileSchema>;
 
 type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
-/** MIGRATIONS[n] takes a version-n file to version n+1. None yet (version 1 is the first). */
-export const MIGRATIONS: Record<number, Migration> = {};
+/** MIGRATIONS[n] takes a version-n file to version n+1. Never edit a released one. */
+export const MIGRATIONS: Record<number, Migration> = {
+  // 1 → 2 (Phase 2): placed parts, guides, measurements, tilt settings, part nodes, custom parts.
+  1: (file) => {
+    const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+    const initial = (snap.initial ?? {}) as Record<string, unknown>;
+    const nodes = Object.fromEntries(
+      Object.entries((initial.nodes ?? {}) as Record<string, Record<string, unknown>>).map(
+        ([k, n]) => [k, { ...n, partId: null }],
+      ),
+    );
+    return {
+      ...file,
+      schemaVersion: 2,
+      snapshot: {
+        ...snap,
+        initial: {
+          ...initial,
+          schemaVersion: 2,
+          nodes,
+          parts: {},
+          guides: [],
+          measurements: [],
+          tilt: { ...DEFAULT_TILT },
+        },
+      },
+      customParts: [],
+    };
+  },
+};
 
 export class WbFileError extends Error {}
 
-export function toFile(snapshot: WbSnapshot): WbFile {
+export function toFile(snapshot: WbSnapshot, customParts: Record<string, unknown>[] = []): WbFile {
   return {
     schemaVersion: WB_SCHEMA_VERSION,
     app: "solar-workbench",
     snapshot: { initial: snapshot.initial, commands: snapshot.commands, cursor: snapshot.cursor },
+    customParts,
   };
 }
 
-export const serializeFile = (snapshot: WbSnapshot): string =>
-  JSON.stringify(toFile(snapshot), null, 2);
+export const serializeFile = (
+  snapshot: WbSnapshot,
+  customParts: Record<string, unknown>[] = [],
+): string => JSON.stringify(toFile(snapshot, customParts), null, 2);
 
 /** Parse any saved version, migrate it, validate it and make sure the history replays. */
 export function parseFile(input: unknown): WbSnapshot {
+  return parseFileFull(input).snapshot;
+}
+
+/** Like parseFile, and also returns the custom parts stored in the file. */
+export function parseFileFull(input: unknown): {
+  snapshot: WbSnapshot;
+  customParts: Record<string, unknown>[];
+} {
   if (!input || typeof input !== "object" || Array.isArray(input))
     throw new WbFileError("The file must be a JSON object.");
   let doc = input as Record<string, unknown>;
@@ -81,10 +150,10 @@ export function parseFile(input: unknown): WbSnapshot {
   const r = WbFileSchema.safeParse(doc);
   if (!r.success) throw new WbFileError(z.prettifyError(r.error));
   const { initial, commands, cursor } = r.data.snapshot;
-  reduceAll(initial, commands); // throws if a command cannot be replayed
+  const typed = commands as WbSnapshot["commands"];
+  reduceAll(initial, typed); // throws if a command cannot be replayed
   return {
-    initial,
-    commands: commands as WbSnapshot["commands"],
-    cursor: Math.min(cursor, commands.length),
+    snapshot: { initial, commands: typed, cursor: Math.min(cursor, commands.length) },
+    customParts: r.data.customParts,
   };
 }

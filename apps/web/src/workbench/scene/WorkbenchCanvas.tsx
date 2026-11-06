@@ -11,6 +11,9 @@ import { ENVIRONMENT_DEFS } from "./environments";
 import { Ground } from "./Ground";
 import { Invalidator } from "./Invalidator";
 import { SceneEnvironment } from "./SceneEnvironment";
+import { GuidesLayer } from "./GuidesLayer";
+import { PlaceGhost } from "./PlaceGhost";
+import { PlacedParts } from "./PlacedParts";
 import { SectionClip } from "./SectionClip";
 import { SurfaceAssembly } from "./SurfaceAssembly";
 
@@ -72,6 +75,7 @@ export function WorkbenchCanvas() {
             key={node.id}
             spec={spec}
             nodeId={node.id}
+            surfaceId={node.surfaceId!}
             mode={v.displayMode}
             structure={structureOn(spec)}
             exploded={v.displayMode === "exploded"}
@@ -81,7 +85,11 @@ export function WorkbenchCanvas() {
             onHover={(id) => useView.getState().set({ hoverId: id })}
             onPointer={(p) => usePointer.getState().set({ x: p[0], y: p[1], z: p[2] })}
             onContext={(id) => useView.getState().set({ hoverId: id })}
-          />
+          >
+            <PlacedParts doc={doc} surfaceId={node.surfaceId!} spec={spec} />
+            <GuidesLayer doc={doc} spec={spec} />
+            <PlaceGhost doc={doc} surfaceId={node.surfaceId!} spec={spec} />
+          </SurfaceAssembly>
         );
       })}
       <SectionClip bounds={bounds} />

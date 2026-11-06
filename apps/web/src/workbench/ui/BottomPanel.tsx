@@ -1,9 +1,13 @@
 import {
+  Box,
   Eye,
   Layers,
   Lock,
   Move,
   Pencil,
+  Ruler,
+  RotateCw,
+  Trash2,
   SlidersHorizontal,
   Tag,
   Play,
@@ -15,6 +19,7 @@ import { SURFACE_ID } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
 import { useView, type BottomTab } from "../state/wbView";
 import { formatLength } from "../lib/units";
+import { bomOf } from "../model/bom";
 
 const ICONS: Record<string, LucideIcon> = {
   pencil: Pencil,
@@ -24,6 +29,10 @@ const ICONS: Record<string, LucideIcon> = {
   lock: Lock,
   tag: Tag,
   move: Move,
+  box: Box,
+  rotate: RotateCw,
+  trash: Trash2,
+  ruler: Ruler,
 };
 
 const TABS: { id: BottomTab; label: string }[] = [
@@ -122,6 +131,49 @@ function Calculations() {
   );
 }
 
+/** Bill of materials from the placed parts: quantities only, no prices. Updates live. */
+function Bom() {
+  const doc = useDoc();
+  const rows = bomOf(doc);
+  if (rows.length === 0)
+    return (
+      <div className="wb-tabbody" data-testid="bom-empty">
+        <p>No parts placed yet.</p>
+        <p className="wb-hint">
+          The bill of materials lists every placed part, with leg cut lengths and fasteners counted
+          automatically. Quantities only; there are no prices.
+        </p>
+      </div>
+    );
+  return (
+    <div className="wb-tabbody" data-testid="bom">
+      <table className="wb-table" aria-label="Bill of materials">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.key} data-testid="bom-row">
+              <td>
+                {r.label}
+                {!r.verified && <span className="wb-chip wb-chip-warn">unverified</span>}
+              </td>
+              <td>
+                {r.qty} {r.unit}
+              </td>
+              <td>{r.detail}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /** Bottom panel: Timeline, Issues, Calculations, BOM, Log. */
 export function BottomPanel() {
   const tab = useView((s) => s.bottomTab);
@@ -162,15 +214,7 @@ export function BottomPanel() {
           </div>
         )}
         {tab === "calculations" && <Calculations />}
-        {tab === "bom" && (
-          <div className="wb-tabbody" data-testid="bom-empty">
-            <p>No parts placed yet.</p>
-            <p className="wb-hint">
-              The bill of materials lists every placed part, rail cut and wire length (Phase 2
-              onwards).
-            </p>
-          </div>
-        )}
+        {tab === "bom" && <Bom />}
         {tab === "log" && (
           <ul className="wb-log" aria-label="Log">
             {log.length === 0 && <li className="wb-hint">Nothing logged yet.</li>}

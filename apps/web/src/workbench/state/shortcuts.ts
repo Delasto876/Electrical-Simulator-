@@ -1,4 +1,6 @@
 import { COMMANDS, disabledReason, runCommand } from "./commandRegistry";
+import { cancelPlacing, rotatePlacing, toggleTyping } from "./placeActions";
+import { usePlace } from "./placeState";
 import { useWb } from "./wbStore";
 import { useView } from "./wbView";
 
@@ -61,10 +63,21 @@ export function handleKeyDown(e: KeyboardEvent): void {
   if (e.key === "Escape") {
     if (editable(e.target)) (e.target as HTMLElement).blur();
     if (closeTopOverlay() || cancelActiveCommand()) return;
+    if (usePlace.getState().typing) return void usePlace.setState({ typing: null });
+    if (cancelPlacing()) return;
+    if (v.measuring) {
+      usePlace.setState({ measureA: null, measureHover: null });
+      return void v.set({ measuring: false });
+    }
     if (v.selection) v.set({ selection: null, libraryPart: null });
     return;
   }
   if (editable(e.target)) return;
+  if (usePlace.getState().placing) {
+    if (e.key === "Tab") return (e.preventDefault(), toggleTyping());
+    if (e.key.toLowerCase() === "r" && !e.ctrlKey && !e.metaKey)
+      return (e.preventDefault(), rotatePlacing(e.shiftKey ? -15 : 15));
+  }
   const combo = eventToCombo(e);
   if (combo === "Enter" && acceptActiveCommand()) return e.preventDefault();
   if (combo === "Ctrl+Z") return (e.preventDefault(), useWb.getState().undo());
