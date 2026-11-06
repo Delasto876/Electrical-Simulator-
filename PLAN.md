@@ -1,115 +1,125 @@
-# PLAN — 3D Solar & Electrical Design Simulator
+# PLAN — Solar Workbench (brief v2)
 
-A browser-based, fully 3D PV and electrical design aid. Not a stamped engineering
-tool: every result must be verified against local code, the utility and
-manufacturer datasheets.
+A professional, CAD-style 3D workbench in the browser for solar PV and
+electrical installation design: an empty **Work Surface** (concrete slab, zinc,
+Decromastic…), a parts library with real pictures, hardware that snaps
+together like real hardware, devices that open up for wiring, and a physics
+engine that checks every circuit like an inspector. Not a house designer.
+
+> **Design aid only.** The final design must be verified against local code,
+> the utility's rules and the manufacturers' datasheets. Catalog data is
+> `verified: false` unless a human checked it.
+
+## 0. Relationship to v1 (the "Classic designer")
+
+Phases 0–8 of the first brief are built and tested (roof-based designer: arrays,
+wiring, protection, raceways, simulation, reports, wizard). Brief v2 changes the
+product, so:
+
+- **Kept and reused as they are:** `packages/engine` (units, sun position, PV
+  single-diode, conductors, MNA, protection, grounding, raceway, simulation),
+  `packages/catalog` (parts, schemas), the report writers and weather code.
+- **Kept reachable, not extended:** the v1 app, at `#/classic`, until each of
+  its features is rebuilt in the Workbench (see the mapping below). It has its
+  own CSS and is a separate lazy-loaded chunk.
+- **New default app:** the Workbench (`apps/web/src/workbench/`), built to
+  brief v2, phase by phase.
+
+| v2 phase | What                                                      | Reuses from v1                             |
+| -------- | --------------------------------------------------------- | ------------------------------------------ |
+| 0        | Foundation, docs                                          | monorepo, CI, Zod catalog                  |
+| 1        | Workbench shell, Work Surface                             | roof surfaces idea, procedural 3D know-how |
+| 2        | Parts Library, placement, joints, precision, custom parts | catalog, port model                        |
+| 3        | Rails, cut, splice, clamps, modules                       | `engine/mounting` (layout, rail cut)       |
+| 4        | Realism pass                                              | —                                          |
+| 5        | Engine core wired to Properties                           | `engine` (done; coverage 98 %)             |
+| 6        | Openable devices and wiring                               | `model/electricalModel`, ports, nets       |
+| 7        | Trunking and conduit                                      | `engine/raceway`, `model/racewayModel`     |
+| 8        | Protection, ATS, grounding, TEST                          | `engine/protection`, `grounding`, `ats`    |
+| 9        | Simulation and outputs                                    | `engine/sim`, `weather/`, `reports/`       |
+| 10       | Polish and ship                                           | PWA, wizard, axe, deploy configs           |
 
 ## 1. Architecture
 
 ```
-┌──────────────────────────── apps/web (React + R3F) ────────────────────────────┐
-│ Toolbar │ Parts palette │   3D viewport (three.js)   │ Inspector │ Bottom tabs  │
-│         │               │  procedural parts + .glb   │           │ Issues/Calc/ │
-│         │               │                            │           │ Charts/BOM   │
-│                     Zustand + Immer store (scene doc, undo/redo patches)        │
-│                     Storage interface → IndexedDB autosave / JSON export        │
-└───────────────┬───────────────────────────────────────┬────────────────────────┘
-                │ pure function calls (no DOM)           │ JSON + Zod
+┌──────────────────────────── apps/web ───────────────────────────────────────────┐
+│  main.tsx ── #/classic → classic/ (v1, lazy)                                     │
+│           └─ default  → workbench/                                               │
+│                                                                                  │
+│  workbench/                                                                      │
+│   state/   wbDoc (schema, migrations) · wbStore (event-sourced history)          │
+│            wbView (UI state) · commandRegistry (ribbon = search = marking menu)  │
+│   ui/      AppBar · Ribbon · BrowserTree · LibraryPanel · PropertiesPanel ·      │
+│            Timeline/BottomPanel · StatusBar · ViewCube · NavBar · OptionsBar ·   │
+│            MarkingMenu · CommandSearch · ShortcutsSheet · Dock                   │
+│   scene/   WorkbenchCanvas · SurfaceBody · textures · materials · environments   │
+└───────────────┬───────────────────────────────────────┬──────────────────────────┘
+                │ pure calls (no DOM)                    │ JSON + Zod
         ┌───────▼────────┐                        ┌──────▼────────┐
-        │ packages/engine│  ← CodeProfile data →  │packages/catalog│
-        │ physics + DRC  │                        │ parts + schemas│
-        └────────────────┘                        └───────┬────────┘
-                                                          │ modelUrl
-                                          ┌───────────────▼──────────────┐
-                                          │ tools/blender (headless bpy) │
-                                          │ Python → .glb (committed)    │
-                                          └──────────────────────────────┘
+        │ packages/engine│                        │packages/catalog│
+        │ physics, rules │                        │ parts + schemas│
+        │ surface/ (new) │                        └───────────────┘
+        └────────────────┘
 ```
 
-### Packages
+### Event-sourced history
 
-| Path               | Responsibility                                                                                                                                               | Must not import              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| `packages/engine`  | Units, constants, sun position, PV single-diode model, conductors, ampacity, MNA solver, raceway, grounding, mechanical, DRC, code profiles, time-series sim | DOM, React, three            |
-| `packages/catalog` | Zod schemas for every part category, JSON data (all `verified: false`), loaders, CSV/JSON import/export                                                      | DOM, React, three            |
-| `apps/web`         | App shell, 3D scene, tools (cable, conduit, trunking, measure), inspector, reports, persistence                                                              | — (no physics formulas here) |
-| `tools/blender`    | Headless Blender (`bpy`) scripts producing `.glb` for fixed-shape parts                                                                                      | —                            |
+State is a pure function of `initial + commands[0..cursor]`. Every user action
+is a `Command {type, payload, label}` with a reducer. Undo/redo move the
+cursor; clicking a card in the **Timeline** rolls back to it; a new command
+after a rollback **truncates** the redo tail (logged in DECISIONS). Commands
+that are many small edits of one thing (a slider) merge into one card.
 
-### 3D model strategy (hybrid — see DECISIONS.md D-003)
+### Surfaces and hidden structure
 
-- **Procedural in three.js** (reshape live from specs): PV modules, rails, splices,
-  tilt legs, roof surfaces, cables/PV wire tubes, conduit runs and bends,
-  trunking with mitre cuts, DIN rail, ground conductor.
-- **Blender-generated `.glb`** (fixed shapes, high detail): MC4 male/female and
-  branch connectors, inverters, charge controllers, batteries, DIN breakers/RCDs/
-  SPDs, enclosures, combiner boxes, clamps, L-feet, tile hooks, seam clamps, WEEBs,
-  lugs, ground rod clamp, ATS, meter, generator.
-- Every part renders through one `<PartModel>` wrapper: if the catalog entry has
-  `modelUrl`, load the glb; otherwise use the procedural builder. Glb files are
-  modelled in metres, +Y up, origin at the mounting face, and carry Empties with a
-  `port_id` custom property (glTF extras) that the loader turns into typed ports.
-  Blender scripts read part sizes from the catalog JSON (single source of truth).
-- Generated glb files are committed under `apps/web/public/models/`. Scripts live
-  in `tools/blender/parts/*.py`; `pnpm models` regenerates them (needs `bpy`).
+`packages/engine/src/surface/` owns everything about a Work Surface that is
+not drawing: the eight types, size/pitch limits, the profile functions (zinc
+corrugation, Decromastic tile, standing seam, tile), the hidden **structure**
+(purlins, battens, rafters, anchor grids) and the data-driven **attachment rule
+set** per type. The web app only turns those numbers into meshes and textures.
 
-### Scene document
+### Rendering
 
-`ProjectFile { schemaVersion, meta, site, codeProfileId, parts[], connections[], cables[], raceways[], settings }`
-with `migrations[n]: (vN) => vN+1`. The store applies Immer patches; undo/redo keeps
-inverse patches.
-
-### Engine data flow
-
-scene → electrical graph (nodes = terminals, edges = conductors/devices/switches)
-→ MNA solve (Newton–Raphson for PV) → per-edge V/I/P → checks → `Issue[]`.
-Bonding graph is a separate graph traversal. All rule limits come from the
-active `CodeProfile`.
+Procedural PBR (canvas-generated colour, normal and roughness maps, real
+geometry for corrugation, tiles and seams), offline lighting (procedural
+environment, no HDR download), shadows from a sun light, display modes
+(Realistic, Shaded with edges, Wireframe, X-ray, Exploded), section plane.
 
 ## 2. Folder layout
 
 ```
-.
-├─ apps/web/                 Vite + React + R3F app
-│  ├─ public/models/         committed .glb exports from Blender
-│  ├─ src/config/            app defaults (one file)
-│  ├─ src/model/             pure glue: catalog + engine → derived scene
-│  ├─ src/state/             project store (undo) + actions.ts (every edit)
-│  ├─ src/{app,scene,parts,roofs,panels,storage,lib,styles}/
-│  └─ e2e/                   Playwright tests
-├─ packages/engine/src/      pure TS physics, rules, profiles
-├─ packages/catalog/src/     zod schemas, loaders; data/*.json
-├─ tools/blender/            bpy scripts, requirements.txt, build_all.py
-├─ docs/screenshots/         Playwright screenshots per phase
-├─ .github/workflows/ci.yml  lint, typecheck, test, build, e2e
-├─ docs/CHANGE_GUIDE.md      where to change what (start here)
-├─ PLAN.md  CLAUDE.md  DECISIONS.md  VERIFY.md  TODO.md  README.md
+packages/engine/src/surface/      surface types, profiles, structure, attachment rules
+packages/catalog/                 parts + Zod schemas (unchanged)
+apps/web/src/workbench/           the Workbench (new default app)
+apps/web/src/classic/             entry for the v1 designer (code still in app/, model/, panels/…)
+apps/web/e2e/                     Playwright (workbench.spec.ts + v1 specs under #/classic)
+docs/                             CHANGE_GUIDE.md, DEPLOY.md, screenshots/
 ```
 
-## 3. Phases (from the brief, with review stop after each)
+## 3. Phases (brief v2, with a review stop after each)
 
-0. Foundation — monorepo, tooling, CI, Zod schemas, app shell, rotating cube
-   (exported from headless Blender to prove the glb pipeline).
-1. Engine core — units, constants, sun position, single-diode, I–V, AWG,
-   voltage drop, ampacity, MNA; demo I–V page.
-2. Roof + panels + mounting hardware in 3D; ports, snapping, array tool, undo,
-   inspector, BOM stub.
-3. Wiring + MC4 + strings + inverter/battery; String Wizard; DC Vd.
-4. Protection, DIN enclosure, ATS, grounding/bonding, fault current.
-5. Raceway — conduit/trunking tools, fill, bends, mitres, cut list.
-6. Simulation — weather, POA, shading, time series, battery/ATS, charts.
-7. Reports — SLD, calc PDF, BOM (quantities only, no quotation: user request), checklist.
-8. Polish — new-project wizard with auto-design, examples, PWA (offline), perf, a11y (axe), deploy config.
+0. Foundation — monorepo, tooling, CI, Zod catalog, docs. **Done (v1 + this plan).**
+1. Workbench shell and canvas — all panels, ribbon, view cube, command search,
+   marking menu, docking, themes, Work Surface with all types.
+2. Parts Library and placement — thumbnails, drag and drop, joints, L-foot,
+   legs, precision system, custom part wizard (breaker, enclosure, ATS).
+3. Rails, splice, clamps, modules — cut, splice, clamp, array, offcuts, BOM stub.
+4. Realism pass — materials, HDRI, SSAO, SMAA, presets, Render button.
+5. Engine core in Properties — Voc, Vmp, Isc, Imp, temperature and irradiance.
+6. Openable devices and wiring — Device View, terminals, wire popover, status.
+7. Trunking and conduit.
+8. Protection, ATS, grounding, TEST workspace (meter, faults).
+9. Simulation and outputs (SLD, PDFs, BOM, quotation, checklist).
+10. Polish and ship — examples, tour, PWA, accessibility, performance, deploy.
 
 ## 4. Risks and mitigations
 
-| Risk                                                  | Mitigation                                                                                    |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Code tables recalled from memory may be wrong         | `// VERIFY` markers + `VERIFY.md`; tests cite sources; UI badge "unverified"                  |
-| Catalog numbers mistaken for manufacturer data        | `verified: false` default, badge in UI, catalog editor for real data                          |
-| Single-diode fit fails to converge for odd datasheets | Robust bounded solver, fallback to linear-coefficient quick mode, surfaced as a warning       |
-| MNA with nonlinear PV sources diverges                | Damped Newton, source stepping, iteration cap, diode-voltage limiting; property tests for KCL |
-| 60 fps with 120 panels + 500 wires                    | `InstancedMesh`, merged geometry for hardware, LOD, on-demand rendering                       |
-| Large glb files bloat the repo                        | Low-poly models, Draco/meshopt later if needed, size budget check in `build_all.py`           |
-| Blender not available in CI                           | glb files are committed; CI never needs Blender (D-004)                                       |
-| Scope is very large                                   | Strict phase gates; anything not computable shows "not available" and goes to `TODO.md`       |
-| Hurricane wind estimate misused                       | Prominent "simplified estimate" labelling and hurricane warning                               |
+| Risk                                                            | Mitigation                                                                                                                                              |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope is very large (a full CAD product)                        | Strict phases; each ends with a usable slice, tests, screenshots and a review stop; anything not computable shows "not available" and goes to `TODO.md` |
+| Attachment rules and profile dimensions are recalled, not cited | Data-driven, `verified: false`, shown in the UI, listed in `VERIFY.md`                                                                                  |
+| 60 fps with 120 panels, 600 hardware pieces, 500 wires          | `InstancedMesh`, frustum culling, render on demand, quality presets (Phase 4); perf test in CI                                                          |
+| Headless CI has no GPU                                          | Software WebGL (swiftshader) for Playwright; unit tests for all geometry/maths so the 3D layer stays thin                                               |
+| Procedural textures look flat                                   | Height-field based normal maps + roughness variation; real geometry for corrugation and tiles; screenshot review each phase                             |
+| v1 and v2 diverge                                               | v1 is frozen at `#/classic`; engine and catalog are shared; features move over phase by phase                                                           |
+| Custom part photos (Phase 2) need image tools                   | Canvas-based crop/perspective/background removal written as tested pure functions                                                                       |
