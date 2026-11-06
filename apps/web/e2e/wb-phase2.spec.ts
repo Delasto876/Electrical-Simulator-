@@ -87,14 +87,22 @@ test("dragging a card onto the surface shows a ghost with live dimensions, and r
   await chooseType(page, "plain");
   await page.getByTestId("libgroup-inverter").click();
   const card = page.getByTestId("card-generic-hybrid-6k-48v-230v");
+  await card.scrollIntoViewIfNeeded();
   const box = (await card.boundingBox())!;
   const canvas = (await page.getByTestId("canvas3d").boundingBox())!;
   await page.mouse.move(box.x + 20, box.y + 15);
   await page.mouse.down();
   await page.mouse.move(box.x + 60, box.y + 40, { steps: 4 });
-  await page.mouse.move(canvas.x + canvas.width / 2, canvas.y + canvas.height / 2, { steps: 12 });
+  const cx = canvas.x + canvas.width / 2;
+  const cy = canvas.y + canvas.height / 2;
+  await page.mouse.move(cx, cy, { steps: 12 });
   await expect(page.getByTestId("place-status")).toBeVisible();
-  await expect(page.getByTestId("live-dim").first()).toBeVisible();
+  // software WebGL is slow: keep nudging the cursor until the ghost and its dimensions are drawn
+  await expect(async () => {
+    await page.mouse.move(cx + 3, cy + 2);
+    await page.mouse.move(cx, cy);
+    await expect(page.getByTestId("live-dim").first()).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 30_000 });
   await page.screenshot({ path: wbShot("ghost-live-dims", info.project.name) });
   await page.mouse.up();
   await expect(page.getByTestId("options-bar")).toHaveCount(0);
@@ -169,4 +177,110 @@ test("library cards show a real rendered thumbnail of the part", async ({ page }
   await expect(thumb.locator("img")).toBeVisible();
   await page.getByTestId("libgroup-enclosure").click();
   await page.screenshot({ path: wbShot("library-thumbnails", info.project.name) });
+});
+
+/** A 240×600 picture of a breaker on a plain wall, as PNG bytes. */
+async function breakerPhoto(page: Page): Promise<Buffer> {
+  const url = await page.evaluate(() => {
+    const c = document.createElement("canvas");
+    c.width = 240;
+    c.height = 600;
+    const g = c.getContext("2d")!;
+    g.fillStyle = "#d8d8d0";
+    g.fillRect(0, 0, 240, 600);
+    g.fillStyle = "#f4f4f4";
+    g.fillRect(60, 40, 120, 520);
+    g.fillStyle = "#222";
+    g.fillRect(90, 250, 60, 100);
+    g.fillStyle = "#c33";
+    g.fillRect(100, 280, 40, 40);
+    return c.toDataURL("image/png");
+  });
+  return Buffer.from(url.split(",")[1]!, "base64");
+}
+
+test("a breaker photo becomes a library card, a 3D breaker, and snaps onto a DIN rail", async ({
+  page,
+}, info) => {
+  await open(page);
+  await page.getByTestId("add-custom-part").click();
+  await page.getByTestId("template-din-breaker").click();
+  // photo: remove the wall, calibrate the scale on the breaker width (60/120 px of 240 = 18 mm wide body)
+  await page.getByTestId("photo-file").setInputFiles({
+    name: "breaker.png",
+    mimeType: "image/png",
+    buffer: await breakerPhoto(page),
+  });
+  await expect(page.getByTestId("photo-canvas")).toBeVisible();
+  await page.getByTestId("photo-tool-background").click();
+  await page.getByTestId("photo-apply").click();
+  await page.getByTestId("photo-tool-scale").click();
+  const stage = (await page.locator(".wb-photo-stage").boundingBox())!;
+  await page.mouse.click(stage.x + stage.width * 0.25, stage.y + stage.height * 0.5);
+  await page.mouse.click(stage.x + stage.width * 0.75, stage.y + stage.height * 0.5);
+  await page.getByTestId("scale-real").fill("18");
+  await page.getByTestId("scale-set").click();
+  await expect(page.getByTestId("scale-result")).toContainText("mm");
+  await page.screenshot({ path: wbShot("wizard-photo", info.project.name) });
+  await page.getByTestId("photo-use").click();
+  await expect(page.getByTestId("wiz-note")).toContainText("Front photo saved");
+  // size and ratings
+  await page.getByTestId("wiz-next").click();
+  await page.getByTestId("wiz-name").fill("Acme 20 A MCB");
+  await page.getByTestId("spec-ratedCurrentA").fill("20");
+  await page.getByTestId("wiz-dim-d").fill("65");
+  // terminals on the photo
+  await page.getByTestId("wiz-next").click();
+  const ts = (await page.getByTestId("terminal-stage").boundingBox())!;
+  await page.mouse.click(ts.x + ts.width * 0.5, ts.y + ts.height * 0.1);
+  await page.mouse.click(ts.x + ts.width * 0.5, ts.y + ts.height * 0.9);
+  await expect(page.getByTestId("terminal-list").locator("li")).toHaveCount(2);
+  await page.getByTestId("wiz-next").click();
+  await page.getByTestId("wiz-save").click();
+  // a library card with its own picture
+  const card = page.locator('[data-testid^="card-user-acme-20-a-mcb"]');
+  await expect(card).toBeVisible();
+  await expect(page.getByTestId("part-preview")).toBeVisible();
+  await expect(page.getByTestId("thumb-user-acme-20-a-mcb")).toHaveAttribute("data-ready", "1", {
+    timeout: 30_000,
+  });
+  // an enclosure first, at a typed position, then the breaker onto its rail at the same spot
+  await page.getByTestId("libgroup-enclosure").click();
+  await page.getByTestId("card-generic-enclosure-12m").click();
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("3000");
+  await page.getByTestId("type-top").fill("3000");
+  await page.getByTestId("type-top").press("Enter");
+  await card.click();
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("3000");
+  await page.getByTestId("type-top").fill("3000");
+  await page.getByTestId("type-top").press("Enter");
+  await page.getByTestId("btab-bom").click();
+  await expect(page.getByTestId("bom")).toContainText("Acme 20 A MCB");
+  await expect(page.getByTestId("bom")).toContainText("on DIN rail");
+  await page.screenshot({ path: wbShot("custom-breaker-on-rail", info.project.name) });
+});
+
+test("a part pack exports, and importing it again restores the part", async ({ page }) => {
+  await open(page);
+  await page.getByTestId("add-custom-part").click();
+  await page.getByTestId("template-din-enclosure").click();
+  await page.getByTestId("wiz-step-2").click();
+  await page.getByTestId("wiz-name").fill("Pack Box");
+  await page.getByTestId("wiz-step-4").click();
+  await page.getByTestId("wiz-save").click();
+  await expect(page.getByTestId("card-user-pack-box")).toBeVisible();
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Export all" }).click(),
+  ]);
+  const path = await download.path();
+  await page.getByTestId("card-user-pack-box").click();
+  await page.getByTestId("remove-custom").click();
+  await expect(page.getByTestId("card-user-pack-box")).toHaveCount(0);
+  await page.getByTestId("import-pack").setInputFiles(path);
+  await expect(page.getByTestId("card-user-pack-box")).toBeVisible();
 });

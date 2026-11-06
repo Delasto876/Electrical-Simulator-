@@ -683,6 +683,18 @@ add({
   run: () => void useWb.getState().dispatch({ type: "measure.clear" }),
 });
 add({
+  id: "lib.addpart",
+  label: "Add custom part",
+  icon: Box,
+  description:
+    "Make a library part from a product photo: DIN breaker, DIN enclosure or transfer switch.",
+  keywords: "upload photo wizard user part pack",
+  run: () => {
+    openPanel("left");
+    useView.getState().set({ wizardOpen: true });
+  },
+});
+add({
   id: "view.rulers",
   label: "Rulers",
   icon: Ruler,

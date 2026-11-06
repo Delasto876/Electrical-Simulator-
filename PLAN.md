@@ -123,3 +123,7 @@ docs/                             CHANGE_GUIDE.md, DEPLOY.md, screenshots/
 | Procedural textures look flat                                   | Height-field based normal maps + roughness variation; real geometry for corrugation and tiles; screenshot review each phase                             |
 | v1 and v2 diverge                                               | v1 is frozen at `#/classic`; engine and catalog are shared; features move over phase by phase                                                           |
 | Custom part photos (Phase 2) need image tools                   | Canvas-based crop/perspective/background removal written as tested pure functions                                                                       |
+
+## Phase 2 status (done)
+
+Parts Library thumbnails, drag-and-drop placement with ghost and snapping, attachment rules, joints (DIN slots), tilt legs and live BOM, precision system (live dimensions, Tab-to-type with expressions, rulers, guides, snaps, Measure) and the custom part wizard with `.partpack` and the drop-in folder. What is deliberately not done is in `TODO.md` ("after Phase 2"). Decisions D-104 to D-114.

@@ -62,9 +62,9 @@ function PlacingBar() {
         type="button"
         className="wb-btn"
         onClick={() => rotatePlacing(15)}
-        aria-label="Rotate 15° (R)"
+        title="Rotate 15° (R)"
       >
-        Rotate {placing.rotDeg}°
+        Rotate {placing.rotDeg}° (R)
       </button>
       {info?.legRole && (
         <label>

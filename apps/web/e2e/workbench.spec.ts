@@ -293,7 +293,7 @@ test("dark and light themes; workspaces change the ribbon; planned buttons are v
   await page.keyboard.press("Escape");
 });
 
-test("Parts Library: categories, search, a card opens its data label in Properties (Place says why it is disabled)", async ({
+test("Parts Library: categories, search, a card opens its data label in Properties (Place starts the placing tool)", async ({
   page,
 }) => {
   await open(page);
@@ -302,7 +302,8 @@ test("Parts Library: categories, search, a card opens its data label in Properti
   const props = page.getByTestId("properties");
   await expect(props).toContainText("Deye");
   await expect(props).toContainText("Unverified placeholder data");
-  await expect(page.getByTestId("place-part")).toBeDisabled();
+  await expect(page.getByTestId("place-part")).toBeEnabled();
+  await expect(page.getByTestId("part-preview")).toBeVisible();
   await page.getByRole("button", { name: "Close part preview" }).click();
   await page.getByTestId("library-search").fill("zzzz");
   await expect(page.getByText("No part matches")).toBeVisible();
@@ -317,7 +318,7 @@ test("save writes a versioned file with the history; the last session is restore
   const [dl] = await Promise.all([page.waitForEvent("download"), page.getByTestId("save").click()]);
   const file = JSON.parse(readFileSync((await dl.path())!, "utf8"));
   expect(dl.suggestedFilename()).toMatch(/\.solarbench\.json$/);
-  expect(file).toMatchObject({ schemaVersion: 1, app: "solar-workbench" });
+  expect(file).toMatchObject({ schemaVersion: 2, app: "solar-workbench" });
   expect(file.snapshot.commands.map((c: { type: string }) => c.type)).toEqual([
     "surface.setType",
     "surface.update",

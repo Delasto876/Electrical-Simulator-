@@ -12,6 +12,7 @@ import { BrowserTree } from "./ui/BrowserTree";
 import { AboutDialog, CommandSearch, ConfirmDialog, ShortcutsSheet } from "./ui/Dialogs";
 import { Resizer } from "./ui/Dock";
 import { LibraryPanel } from "./ui/LibraryPanel";
+import { PartWizard } from "./ui/PartWizard";
 import { MarkingMenu } from "./ui/MarkingMenu";
 import { NavBar } from "./ui/NavBar";
 import { OptionsBar } from "./ui/OptionsBar";
@@ -170,6 +171,7 @@ export function Workbench() {
       <StatusBar />
       <MarkingMenu />
       <CommandSearch />
+      <PartWizard />
       <ShortcutsSheet />
       <AboutDialog />
       <ConfirmDialog />

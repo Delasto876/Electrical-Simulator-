@@ -1,4 +1,9 @@
 import { useRef, useState } from "react";
+import { exportPartPack, TEMPLATE_LABEL } from "../model/customPackage";
+import { saveFile } from "../../lib/saveFile";
+import { startPlacing } from "../state/placeActions";
+import { useCustomParts, type CustomPart } from "../state/customParts";
+import { showToast } from "../state/wbView";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import type { Group } from "three";
@@ -313,5 +318,92 @@ export function GuidesSection() {
         </button>
       )}
     </Section>
+  );
+}
+
+/** Properties of a custom part selected in the library: preview, data label, place, export, remove. */
+export function CustomPartProperties({ part }: { part: CustomPart }) {
+  const info = partInfo(part.id);
+  const doc = useDoc();
+  const used = Object.values(doc.parts).some((p) => p.catalogId === part.id);
+  return (
+    <>
+      {info && <PartPreview info={info} />}
+      <Section title={part.name}>
+        <p className="wb-hint">{TEMPLATE_LABEL[part.template]}</p>
+        <p className="wb-warn" role="status">
+          User-uploaded, user-verified: the numbers are what was typed in.{" "}
+          {part.approximate ? "3D shape is approximate." : ""}
+        </p>
+        <button
+          type="button"
+          className="wb-btn wb-btn-ok"
+          data-testid="place-part"
+          onClick={() => startPlacing(part.id)}
+        >
+          Place on surface
+        </button>{" "}
+        <button
+          type="button"
+          className="wb-btn"
+          onClick={() =>
+            void saveFile(exportPartPack([part]), `${part.id}.partpack`, "application/zip")
+              .then(() => showToast(`Saved ${part.id}.partpack`))
+              .catch((e: unknown) => showToast(String(e), "warn"))
+          }
+        >
+          Export
+        </button>{" "}
+        <button
+          type="button"
+          className="wb-btn"
+          disabled={used}
+          title={used ? "It is used in this design; delete the placed parts first." : undefined}
+          data-testid="remove-custom"
+          onClick={() => {
+            useCustomParts.getState().remove(part.id);
+            useView.getState().set({ libraryPart: null });
+          }}
+        >
+          <Trash2 size={14} aria-hidden /> Remove from library
+        </button>
+      </Section>
+      <Section title="Data label">
+        <dl className="wb-nameplate" aria-label="Part data label">
+          <div>
+            <dt>Brand</dt>
+            <dd>{part.brand || "—"}</dd>
+          </div>
+          <div>
+            <dt>Model</dt>
+            <dd>{part.model || "—"}</dd>
+          </div>
+          <div>
+            <dt>Size</dt>
+            <dd>
+              {part.dimsMm.w} × {part.dimsMm.h} × {part.dimsMm.d} mm
+            </dd>
+          </div>
+          <div>
+            <dt>Weight</dt>
+            <dd>{part.weightKg} kg</dd>
+          </div>
+          {Object.entries(part.specs).map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}</dt>
+              <dd>{String(v)}</dd>
+            </div>
+          ))}
+          <div>
+            <dt>Terminals</dt>
+            <dd>
+              {part.terminals.length
+                ? part.terminals.map((t) => t.label).join(", ")
+                : "none marked"}
+            </dd>
+          </div>
+        </dl>
+      </Section>
+    </>
   );
 }

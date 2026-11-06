@@ -1,5 +1,14 @@
 import { Component, Suspense, useMemo, type ReactNode } from "react";
-import { BoxGeometry, EdgesGeometry, type Material, type Mesh, type Object3D } from "three";
+import { useLoader } from "@react-three/fiber";
+import {
+  BoxGeometry,
+  EdgesGeometry,
+  SRGBColorSpace,
+  TextureLoader,
+  type Material,
+  type Mesh,
+  type Object3D,
+} from "three";
 import { useModel } from "../../parts/modelLoader";
 import { DIN_MODULE_MM } from "@solar-sim/engine";
 import type { PartInfo } from "../model/partInfo";
@@ -110,6 +119,19 @@ function EnclosureLook({ info, devices }: { info: PartInfo; devices: MountedDevi
         const mod = dv.info.dinModules ?? 1;
         const x = -railW / 2 + ((dv.slot + mod / 2) * DIN_MODULE_MM) / 1000;
         const dh = Math.min(0.09, dv.info.heightM);
+        const dd = Math.min(0.065, d - 0.04);
+        const dpos: [number, number, number] = [
+          x,
+          railY(dv.row, cfg.rows, h),
+          -d / 2 + 0.02 + dd / 2,
+        ];
+        const dsize: [number, number, number] = [(mod * DIN_MODULE_MM) / 1000 - 0.001, dh, dd];
+        if (dv.info.photo)
+          return (
+            <Suspense key={dv.id} fallback={<Box size={dsize} pos={dpos} color={dv.info.color} />}>
+              <PhotoBox size={dsize} pos={dpos} photo={dv.info.photo} color={dv.info.color} />
+            </Suspense>
+          );
         return (
           <Box
             key={dv.id}
@@ -124,7 +146,63 @@ function EnclosureLook({ info, devices }: { info: PartInfo; devices: MountedDevi
   );
 }
 
+/** A box with the part's front photo on its +z face (the face that looks down the slope). */
+function PhotoBox({
+  size,
+  pos,
+  photo,
+  color,
+}: {
+  size: [number, number, number];
+  pos: [number, number, number];
+  photo: string;
+  color: string;
+}) {
+  const loaded = useLoader(TextureLoader, photo);
+  const tex = useMemo(() => {
+    const t = loaded.clone();
+    t.colorSpace = SRGBColorSpace;
+    t.needsUpdate = true;
+    return t;
+  }, [loaded]);
+  return (
+    <mesh position={pos} castShadow receiveShadow>
+      <boxGeometry args={size} />
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <meshStandardMaterial
+          key={i}
+          attach={`material-${i}`}
+          color={i === 4 ? "#ffffff" : color}
+          map={i === 4 ? tex : null}
+          roughness={0.6}
+          metalness={0.15}
+          transparent={i === 4}
+        />
+      ))}
+    </mesh>
+  );
+}
+
 function PlainBox({ info, heightM }: { info: PartInfo; heightM: number }) {
+  if (info.photo)
+    return (
+      <Suspense
+        fallback={
+          <Box
+            size={[info.footprint.w, heightM, info.footprint.d]}
+            pos={[0, heightM / 2, 0]}
+            color={info.color}
+          />
+        }
+      >
+        <PhotoBox
+          size={[info.footprint.w, heightM, info.footprint.d]}
+          pos={[0, heightM / 2, 0]}
+          photo={info.photo}
+          color={info.color}
+        />
+      </Suspense>
+    );
   return (
     <Box
       size={[info.footprint.w, heightM, info.footprint.d]}

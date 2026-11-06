@@ -109,19 +109,17 @@ export const MIGRATIONS: Record<number, Migration> = {
 
 export class WbFileError extends Error {}
 
-export function toFile(snapshot: WbSnapshot, customParts: Record<string, unknown>[] = []): WbFile {
+export function toFile(snapshot: WbSnapshot, customParts: readonly object[] = []): WbFile {
   return {
     schemaVersion: WB_SCHEMA_VERSION,
     app: "solar-workbench",
     snapshot: { initial: snapshot.initial, commands: snapshot.commands, cursor: snapshot.cursor },
-    customParts,
+    customParts: customParts as Record<string, unknown>[],
   };
 }
 
-export const serializeFile = (
-  snapshot: WbSnapshot,
-  customParts: Record<string, unknown>[] = [],
-): string => JSON.stringify(toFile(snapshot, customParts), null, 2);
+export const serializeFile = (snapshot: WbSnapshot, customParts: readonly object[] = []): string =>
+  JSON.stringify(toFile(snapshot, customParts), null, 2);
 
 /** Parse any saved version, migrate it, validate it and make sure the history replays. */
 export function parseFile(input: unknown): WbSnapshot {

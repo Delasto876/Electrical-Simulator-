@@ -17,8 +17,8 @@ import shutil
 import subprocess
 import sys
 
-# Part models (base64 text) are only needed once the Workbench places parts (Phase 2).
-INCLUDE_MODELS = False
+# Part models (base64 text): the Workbench draws them on placed parts, previews and thumbnails (Phase 2).
+INCLUDE_MODELS = True
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 WEB = os.path.join(ROOT, "apps", "web")
@@ -33,7 +33,7 @@ def main() -> None:
     )
     models = os.path.join(OUT, "models")
     if not INCLUDE_MODELS:
-        shutil.rmtree(models, ignore_errors=True)  # the Workbench draws no part models yet (Phase 2 adds them)
+        shutil.rmtree(models, ignore_errors=True)
         os.makedirs(models, exist_ok=True)
     for name in os.listdir(models):
         if name.endswith(".glb"):

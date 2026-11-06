@@ -334,3 +334,18 @@ describe("file migration 1 → 2", () => {
     expect(currentDoc().surfaces[SURFACE_ID]!.pitchDeg).toBe(22);
   });
 });
+
+describe("custom parts in saved files", () => {
+  it("are embedded in the file, restored on open, and a broken one is skipped with a reason", async () => {
+    const { serializeFile, parseFileFull } = await import("./wbFile");
+    const { customPartsFromFile, draftToPart, emptyDraft } = await import("../model/customPackage");
+    const d = emptyDraft("din-breaker");
+    d.name = "Embedded breaker";
+    const part = draftToPart(d, new Set());
+    const text = serializeFile(useWb.getState().snapshot(), [part]);
+    const back = parseFileFull(JSON.parse(text));
+    const out = customPartsFromFile([...back.customParts, { id: "oops" }]);
+    expect(out.parts.map((p) => p.id)).toEqual([part.id]);
+    expect(out.problems[0]).toContain("oops");
+  });
+});

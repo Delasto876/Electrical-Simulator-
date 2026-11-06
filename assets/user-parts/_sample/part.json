@@ -1,0 +1,48 @@
+{
+  "format": "solar-workbench-part",
+  "id": "user-sample-mcb-1p-20a",
+  "template": "din-breaker",
+  "name": "SAMPLE 1-pole 20 A MCB (copy this folder)",
+  "brand": "Your brand",
+  "model": "Your model number",
+  "dimsMm": { "w": 18, "h": 90, "d": 65 },
+  "weightKg": 0.1,
+  "specs": {
+    "kind": "MCB",
+    "poles": 1,
+    "modules": 1,
+    "ratedCurrentA": 20,
+    "curve": "C",
+    "breakingCapacityKA": 6,
+    "ratedVoltageV": 230,
+    "dc": "AC"
+  },
+  "terminals": [
+    {
+      "id": "t1",
+      "label": "1 (line in)",
+      "kind": "screw",
+      "polarity": "L1",
+      "ratingA": 20,
+      "wireRange": "1-25 mm2",
+      "torqueNm": 2,
+      "face": "front",
+      "u": 0.5,
+      "v": 0.05
+    },
+    {
+      "id": "t2",
+      "label": "2 (load out)",
+      "kind": "screw",
+      "polarity": "L1",
+      "ratingA": 20,
+      "wireRange": "1-25 mm2",
+      "torqueNm": 2,
+      "face": "front",
+      "u": 0.5,
+      "v": 0.95
+    }
+  ],
+  "approximate": true,
+  "images": { "front": "front.png" }
+}

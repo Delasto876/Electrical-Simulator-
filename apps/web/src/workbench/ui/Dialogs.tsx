@@ -11,7 +11,7 @@ import {
 import { useView } from "../state/wbView";
 import { CmdIcon } from "./CmdIcon";
 
-function Modal({
+export function Modal({
   title,
   onClose,
   children,

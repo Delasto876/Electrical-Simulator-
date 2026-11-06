@@ -57,3 +57,38 @@ test("Workbench passes axe in the light theme", async ({ page }) => {
   await audit(page, "light output", found);
   expect(found).toEqual([]);
 });
+
+test("Phase 2 screens pass axe: placing bar, guides, BOM, placed part, custom part wizard", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await page.getByTestId("node-node-surface-1").click();
+  await page.getByTestId("guide-pos").fill("1500");
+  await page.getByTestId("guide-add").click();
+  await audit(page, "guides", found);
+  await page.getByTestId("libgroup-roof-attachment").click();
+  await page.getByTestId("card-generic-ballast-block-300").click();
+  await audit(page, "part properties with preview", found);
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await audit(page, "placing bar with typed fields", found);
+  await page.getByTestId("type-left").fill("3000");
+  await page.getByTestId("type-top").fill("3000");
+  await page.getByTestId("type-top").press("Enter");
+  await audit(page, "placed part properties", found);
+  await page.getByTestId("btab-bom").click();
+  await audit(page, "BOM with rows", found);
+  await page.getByTestId("add-custom-part").click();
+  await audit(page, "wizard type step", found);
+  await page.getByTestId("template-din-enclosure").click();
+  await audit(page, "wizard photo step", found);
+  await page.getByTestId("wiz-step-2").click();
+  await audit(page, "wizard size step", found);
+  await page.getByTestId("wiz-step-3").click();
+  await audit(page, "wizard terminals step", found);
+  await page.getByTestId("wiz-step-4").click();
+  await audit(page, "wizard review step", found);
+  expect(found).toEqual([]);
+});

@@ -16,7 +16,9 @@ import {
 } from "lucide-react";
 import { saveFile } from "../../lib/saveFile";
 import { COMMANDS, labelOf, runCommand } from "../state/commandRegistry";
-import { parseFile, serializeFile, WbFileError } from "../state/wbFile";
+import { customPartsFromFile } from "../model/customPackage";
+import { customPartList, useCustomParts } from "../state/customParts";
+import { parseFileFull, serializeFile, WbFileError } from "../state/wbFile";
 import { newDoc } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
 import { showToast, useView, WORKSPACES, WORKSPACE_LABEL } from "../state/wbView";
@@ -37,7 +39,7 @@ export async function saveProject(): Promise<void> {
   const snap = useWb.getState().snapshot();
   try {
     const name = `${fileStem(useWb.getState().docs[useWb.getState().cursor]!.name)}.solarbench.json`;
-    await saveFile(serializeFile(snap), name, "application/json");
+    await saveFile(serializeFile(snap, customPartList()), name, "application/json");
     showToast(`Saved ${name}`);
   } catch (e) {
     showToast(`Save failed: ${e instanceof Error ? e.message : String(e)}`, "warn");
@@ -81,7 +83,11 @@ export function AppBar() {
   const open = async (f: File | undefined) => {
     if (!f) return;
     try {
-      useWb.getState().reset(parseFile(JSON.parse(await f.text())));
+      const { snapshot, customParts } = parseFileFull(JSON.parse(await f.text()));
+      const embedded = customPartsFromFile(customParts);
+      useCustomParts.getState().merge(embedded.parts);
+      embedded.problems.forEach((p) => showToast(p, "warn"));
+      useWb.getState().reset(snapshot);
       useView.getState().set({ selection: null });
       showToast(`Opened ${f.name}`);
     } catch (e) {

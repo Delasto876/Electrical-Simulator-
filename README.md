@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 1: the workbench shell and the Work Surface.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 2: Parts Library, placement and the custom part wizard.** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -29,7 +29,19 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   structure** toggle (purlins, battens, rafters, anchor grids). Each type carries a data-driven, unverified
   **attachment rule set** shown in Properties.
 - **Browser tree** with eye, lock, isolate, rename, colour tags and drag to reorder; **Parts Library** with
-  categories, search and cards (thumbnails and placing come in Phase 2); **Properties** with the data label.
+  categories, search and cards with real rendered thumbnails; **Properties** with a rotating 3D preview and the data label.
+- **Placing parts (Phase 2)**: drag a card onto the surface (or double-click it, or press _Place on surface_): a ghost
+  follows the cursor, green when allowed and red with the reason when not, valid attachment points glow, and live
+  distances to the edges and neighbours show as you move. L-foot, slotted foot, tile hook, standoff, seam clamp, base
+  plate with anchors, ballast and ground screw snap onto purlins, battens, seams and anchor grids per surface type;
+  _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
+  placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
+  Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **Precision**: rulers along the surface edges, guide lines (drag from a ruler or type), snap toggles in the status
+  bar (grid, point, edge, guide, angle), a Measure tool (D), live BOM with fasteners counted.
+- **Custom parts**: _My parts → Add custom part_ turns a product photo into a library card and a 3D part (DIN breaker,
+  DIN enclosure, transfer switch): straighten, crop, remove background, calibrate the scale, enter ratings, mark
+  terminals. Export/import `.partpack`, or drop a folder in `assets/user-parts/` (see its README).
 - **Timeline**: every action is a command card; click one to roll back. History is event-sourced and saved
   with the file (`.solarbench.json`) and in the browser's autosave.
 - **View cube**, navigation bar (orbit, pan, zoom, fit, look at), display modes (Realistic, Shaded with edges,

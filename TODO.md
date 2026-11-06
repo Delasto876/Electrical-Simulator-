@@ -57,11 +57,23 @@ Values the UI shows as "not available", and deferred work.
 
 ## Workbench (brief v2), after Phase 1
 
-- Phase 2: Parts Library thumbnails from the 3D models, drag and drop with ghost, joints and snapping, L-foot / base plate / legs, precision system (live dimensions, Tab-to-type, rulers, guides, Measure), custom part wizard (breaker, enclosure, ATS).
-- Surface photo textures and scale calibration (Phase 2); drilled holes in concrete (CSG) and attachment point markers (Phase 2).
+- (Done in Phase 2: Parts Library thumbnails, drag and drop, snapping, L-foot / base plate / legs, precision system.) Was: Parts Library thumbnails from the 3D models, drag and drop with ghost, joints and snapping, L-foot / base plate / legs, precision system (live dimensions, Tab-to-type, rulers, guides, Measure), custom part wizard (breaker, enclosure, ATS).
+- Surface photo textures and scale calibration of a _surface_ (the custom-part wizard has its own scale calibrator); real CSG drilling of the slab (holes are drawn as discs now, D-113).
 - Seamless-tile upload for surfaces; rail/clamp profile tracing (Phase 2/3).
 - Drag-to-resize handles on the 3D surface; second plane as its own tree node; more than one surface.
 - Postprocessing (SSAO, SMAA, bloom), HDRI, quality presets, Render button (Phase 4).
 - Touch gestures and tablet layout of the Workbench (it is laptop-first now); embeddable iframe mode with a configurable brand.
 - Branching history (the timeline is linear: an edit after a rollback discards the rest, see D-094).
 - Port the v1 features (wiring, protection, raceway, simulation, reports, wizard) into the Workbench phase by phase, then retire `#/classic`.
+
+## Workbench (brief v2), after Phase 2
+
+- Dragging a placed part with the mouse (move is by typed distances in Properties now); Align, Mirror, Copy/paste, Group, Pattern (rows × columns of feet) are listed in the ribbon as "Arrives in Phase 10".
+- Dimension (persistent editable dimension) and Set origin tools; the Measure tool measures distance only (angle and area to come).
+- Custom parts: side/back/top photos are stored but only the front photo is mapped on the 3D body; terminal markers are stored but wires attach to them in Phase 6; HEIC photos need conversion to JPG/PNG first; a datasheet PDF cannot be attached yet.
+- Custom part templates beyond DIN breaker, DIN enclosure and transfer switch (inverter, battery, module, combiner); a photo-to-3D "auto build" beyond a textured box.
+- Snap menu: the five snap toggles live in the status bar; a per-snap tolerance setting and a "snap to part edges" mode are not built.
+- Rulers are always along the surface edges (left and up-slope); user origin and rulers in other units than the display unit are not available.
+- Guides are per document, not per surface; only one surface is used until the multi-surface work.
+- Part thumbnails of parts with a glb are drawn from the model; parts with a procedural look are a plain box until their Blender model exists.
+- Modules, rails, splices and clamps are still "Arrives in Phase 3"; tilt legs are placed on their own, the module frame they carry comes with modules.

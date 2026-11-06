@@ -165,7 +165,7 @@ export function BrowserTree() {
             ) : (
               <span className="wb-row-name">
                 {n.name}
-                {n.kind === "category" && <span className="wb-count"> (0)</span>}
+                {n.kind === "category" && <span className="wb-count"> ({n.children.length})</span>}
               </span>
             )}
             <span className="wb-row-tools" onClick={(e) => e.stopPropagation()}>

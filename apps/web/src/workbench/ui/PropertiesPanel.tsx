@@ -20,7 +20,14 @@ import { useDoc, useWb } from "../state/wbStore";
 import { partInfo } from "../model/partInfo";
 import { startPlacing } from "../state/placeActions";
 import { useView } from "../state/wbView";
-import { GuidesSection, PartPreview, PlacedPartProperties, TiltSection } from "./PartPanels";
+import { getCustomPart } from "../state/customParts";
+import {
+  CustomPartProperties,
+  GuidesSection,
+  PartPreview,
+  PlacedPartProperties,
+  TiltSection,
+} from "./PartPanels";
 import { AngleField, CheckField, LengthField, Row, Section, SelectField } from "./Fields";
 import { Tip } from "./Tip";
 
@@ -417,7 +424,11 @@ export function PropertiesPanel() {
       </div>
       <div className="wb-panel-scroll" tabIndex={0} role="region" aria-label="Properties content">
         {libraryPart ? (
-          <PartProperties id={libraryPart} />
+          getCustomPart(libraryPart) ? (
+            <CustomPartProperties part={getCustomPart(libraryPart)!} />
+          ) : (
+            <PartProperties id={libraryPart} />
+          )
         ) : node?.partId ? (
           <PlacedPartProperties partId={node.partId} />
         ) : node?.kind === "surface" ? (

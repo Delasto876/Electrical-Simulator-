@@ -96,6 +96,7 @@ function fromCatalog(p: Part): PartInfo {
     base.legRole = p.mounting.role;
     base.legRangeMm = [p.mounting.minLengthMm, p.mounting.maxLengthMm];
     base.footprint = { w: mm(d.widthMm), d: mm(d.heightMm) }; // leg cross-section
+    base.heightM = mm(d.lengthMm); // nominal length (placed legs use the length the tilt gives)
   }
   if (isCategory(p, "enclosure"))
     base.enclosure = { modulesPerRow: p.enclosure.modulesPerRow, rows: p.enclosure.rows };

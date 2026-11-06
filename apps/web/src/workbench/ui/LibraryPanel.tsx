@@ -11,7 +11,10 @@ import {
 import { usePlace } from "../state/placeState";
 import { partInfo } from "../model/partInfo";
 import { getThumbnail } from "../scene/thumbnails";
-import { useView } from "../state/wbView";
+import { exportPartPack, importPartPack } from "../model/customPackage";
+import { saveFile } from "../../lib/saveFile";
+import { customPartList, useCustomParts, type CustomPart } from "../state/customParts";
+import { showToast, useView } from "../state/wbView";
 
 /** Two or three short spec chips for a card (from the catalog data, never invented). */
 export function specChips(p: Part): string[] {
@@ -73,7 +76,7 @@ function Thumb({ id, fallback }: { id: string; fallback: string }) {
       data-testid={`thumb-${id}`}
       data-ready={src ? "1" : "0"}
     >
-      {src ? <img src={src} alt="" width={44} height={44} /> : fallback}
+      {src ? <img src={src} alt="" width={44} height={44} draggable={false} /> : fallback}
     </span>
   );
 }
@@ -119,6 +122,13 @@ export function LibraryPanel() {
   const selected = useView((s) => s.libraryPart);
   const [open, setOpen] = useState<Set<string>>(new Set(["pv-module"]));
   const [more, setMore] = useState<Set<string>>(new Set());
+  const custom = useCustomParts((s) => s.parts);
+  const mine = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return Object.values(custom).filter(
+      (c) => !q || `${c.name} ${c.brand} ${c.model} ${c.template}`.toLowerCase().includes(q),
+    );
+  }, [custom, query]);
 
   const groups = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -152,6 +162,7 @@ export function LibraryPanel() {
         />
       </label>
       <div className="wb-libscroll">
+        <MyParts parts={mine} selected={selected} total={Object.keys(custom).length} />
         {groups.length === 0 && <p className="wb-empty">No part matches “{query}”.</p>}
         {groups.map((g) => {
           const isOpen = open.has(g.id) || query.trim() !== "";
@@ -232,5 +243,121 @@ export function LibraryPanel() {
         })}
       </div>
     </div>
+  );
+}
+
+const customChips = (c: CustomPart): string[] => {
+  const sp = c.specs;
+  if (c.template === "din-breaker")
+    return [`${sp.ratedCurrentA} A`, `${sp.poles}P`, String(sp.kind)];
+  if (c.template === "din-enclosure")
+    return [`${sp.modulesPerRow} mod × ${sp.rows}`, String(sp.ip)];
+  return [`${sp.ratedCurrentA} A`, String(sp.kind)];
+};
+
+/** Parts the user made: wizard, part packs, assets/user-parts. */
+function MyParts({
+  parts,
+  selected,
+  total,
+}: {
+  parts: CustomPart[];
+  selected: string | null;
+  total: number;
+}) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const importPack = async (f: File | undefined) => {
+    if (!f) return;
+    try {
+      const out = importPartPack(new Uint8Array(await f.arrayBuffer()));
+      useCustomParts.getState().merge(out.parts);
+      showToast(
+        `Imported ${out.parts.length} part(s)${out.problems.length ? `; ${out.problems.length} problem(s): ${out.problems[0]}` : ""}.`,
+        out.problems.length ? "warn" : "info",
+      );
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : String(e), "warn");
+    }
+  };
+  return (
+    <section className="wb-libgroup" data-testid="my-parts">
+      <div className="wb-libgroup-head wb-myparts-head">
+        <span>My parts</span>
+        <span className="wb-count">{total}</span>
+        <button
+          type="button"
+          className="wb-btn"
+          data-testid="add-custom-part"
+          onClick={() => useView.getState().set({ wizardOpen: true })}
+        >
+          Add custom part
+        </button>
+      </div>
+      <div className="wb-myparts-tools">
+        <label className="wb-linkbtn">
+          Import .partpack
+          <input
+            ref={fileRef}
+            type="file"
+            accept=".partpack,.zip,application/zip"
+            hidden
+            data-testid="import-pack"
+            onChange={(e) => {
+              void importPack(e.target.files?.[0]);
+              e.target.value = "";
+            }}
+          />
+        </label>
+        <button
+          type="button"
+          className="wb-linkbtn"
+          disabled={total === 0}
+          onClick={() =>
+            void saveFile(exportPartPack(customPartList()), "my-parts.partpack", "application/zip")
+              .then(() => showToast("Saved my-parts.partpack"))
+              .catch((e: unknown) => showToast(String(e), "warn"))
+          }
+        >
+          Export all
+        </button>
+      </div>
+      {total === 0 && (
+        <p className="wb-empty">No custom parts yet. Add one from a product photo.</p>
+      )}
+      <ul className="wb-cards">
+        {parts.map((c) => (
+          <li key={c.id}>
+            <button
+              type="button"
+              className={`wb-card${selected === c.id ? " is-selected" : ""}`}
+              aria-pressed={selected === c.id}
+              data-testid={`card-${c.id}`}
+              onPointerDown={(e) => startCardDrag(e, c.id)}
+              onDoubleClick={() => placeAtViewCentre(c.id)}
+              onClick={() =>
+                useView.getState().set({
+                  libraryPart: c.id,
+                  selection: null,
+                  layout: { ...useView.getState().layout, rightOpen: true },
+                })
+              }
+            >
+              <Thumb id={c.id} fallback="MY" />
+              <span className="wb-card-body">
+                <span className="wb-card-name">{c.name}</span>
+                <span className="wb-chips">
+                  {customChips(c).map((x) => (
+                    <span key={x} className="wb-chip">
+                      {x}
+                    </span>
+                  ))}
+                  <span className="wb-chip wb-chip-warn">user-verified</span>
+                </span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

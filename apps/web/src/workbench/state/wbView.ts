@@ -116,6 +116,8 @@ export interface ViewState {
   rulers: boolean;
   /** The Measure tool is active. */
   measuring: boolean;
+  /** The Add custom part wizard is open. */
+  wizardOpen: boolean;
   theme: "dark" | "light";
   units: Unit;
   layout: PanelLayout;
@@ -201,6 +203,7 @@ export const useView = create<ViewState>((set, get) => ({
   snaps: { ...DEFAULT_SNAPS, ...saved.snaps },
   rulers: true,
   measuring: false,
+  wizardOpen: false,
   theme: saved.theme ?? "dark",
   units: saved.units ?? "mm",
   layout: { ...DEFAULT_LAYOUT, ...saved.layout },
