@@ -253,3 +253,32 @@ export const CABLE_COLORS: Record<string, string> = {
   L3: "#1565c0",
   default: "#6d6d6d",
 };
+
+// ---------------------------------------------------------------- auto-design (wizard, examples)
+/** What the New-project wizard's auto-design starts from (model/autoDesign.ts). */
+export const AUTO_DESIGN = {
+  /** Largest DC/AC ratio accepted when choosing a string layout. */
+  maxDcAcRatio: 1.35,
+  /** Equipment row distance in front of the building wall [m]. */
+  yardOffsetM: 1.7,
+  /** Starting conductors; the sizing loop upsizes whatever the rules flag. */
+  wire: {
+    pv: "generic-pv-wire-10awg",
+    battery: "generic-battery-cable-2-0awg",
+    ac: "generic-thhn-10awg",
+    branch: "generic-thhn-12awg",
+    ground: "generic-bare-cu-8awg",
+  },
+  acPanelId: "generic-enclosure-24m-metal",
+  dcPanelId: "generic-enclosure-8m",
+  dcIsolatorId: "generic-isolator-dc-2p-32a",
+  batteryId: "generic-lfp-51v2-280ah-wall",
+  groundRodId: "generic-ground-rod-2400x16",
+  /** Smallest branch breaker for a load [A]. */
+  minBranchA: 20,
+  /** Loads on the backed-up output when the wizard starts. */
+  defaultLoads: { "generic-load-fridge-150w": 1, "generic-load-lighting-300w": 1 } as Record<
+    string,
+    number
+  >,
+};

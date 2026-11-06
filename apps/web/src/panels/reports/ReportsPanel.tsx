@@ -127,7 +127,13 @@ export function ReportsPanel() {
         </p>
         <h3 className="section-title">Single-line diagram</h3>
         {sld.nodes.length > 0 ? (
-          <div className="sld-preview" data-testid="sld-preview">
+          <div
+            className="sld-preview"
+            data-testid="sld-preview"
+            tabIndex={0}
+            role="region"
+            aria-label="Single-line diagram preview (scrolls sideways)"
+          >
             <DrawingSvg drawing={sld.drawing} label="Single-line diagram" />
           </div>
         ) : (

@@ -61,6 +61,9 @@ interface UiState {
   showShortcuts: boolean;
   /** ATS scenario: sources the user has switched off (utility outage, generator stopped…). */
   outages: string[];
+  /** New-project wizard open. */
+  wizardOpen: boolean;
+  setWizardOpen: (open: boolean) => void;
   /** View toggles: enclosures see-through; bonding colours (green bonded / red floating). */
   xray: boolean;
   bondingView: boolean;
@@ -107,6 +110,8 @@ export const useUi = create<UiState>((set) => ({
   drag: null,
   showShortcuts: false,
   outages: [],
+  wizardOpen: false,
+  setWizardOpen: (wizardOpen) => set({ wizardOpen }),
   xray: false,
   bondingView: false,
   racewayHover: null,

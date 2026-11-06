@@ -53,7 +53,7 @@ def main() -> None:
     for root, _, names in os.walk(OUT):
         for n in names:
             rel = os.path.relpath(os.path.join(root, n), OUT).replace(os.sep, "/")
-            if rel in ("index.html", "simulator.html", "files.json") or rel.endswith(".css"):
+            if rel in ("index.html", "simulator.html", "files.json", "sw.js", "manifest.webmanifest") or rel.endswith(".css"):
                 continue
             files[rel] = rel
     with open(os.path.join(OUT, "files.json"), "w", encoding="utf-8") as f:

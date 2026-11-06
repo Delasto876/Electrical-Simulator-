@@ -98,7 +98,7 @@ active `CodeProfile`.
 5. Raceway — conduit/trunking tools, fill, bends, mitres, cut list.
 6. Simulation — weather, POA, shading, time series, battery/ATS, charts.
 7. Reports — SLD, calc PDF, BOM (quantities only, no quotation: user request), checklist.
-8. Polish — wizard, examples, PWA, perf, a11y, deploy config.
+8. Polish — new-project wizard with auto-design, examples, PWA (offline), perf, a11y (axe), deploy config.
 
 ## 4. Risks and mitigations
 

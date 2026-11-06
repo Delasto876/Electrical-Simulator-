@@ -13,8 +13,7 @@ Values the UI shows as "not available", and deferred work.
 - Typed schemas for the remaining generic categories (cable, connector, conduit, din-device, …): currently `GenericPart` with free-form `attributes`.
 - Catalog editor (form, JSON import/export UI, CSV import).
 - Branded placeholder entries (see D-012, waiting for user answer).
-- Bundle size: the R3F/drei chunk is ~1 MB (270 kB gzip). Tree-shake / lazy-load in Phase 8.
-- Static hosting config (Vercel/Netlify) and PWA manifest/service worker (Phase 8).
+- Bundle size: the R3F/drei chunk is still ~1 MB (278 kB gzip); chart tabs already load on demand.
 - IEC-generic code profile: needs IEC 60364-5-52 ampacity tables (Jamaica preset done in Phase 3).
 - Metric (mm²) ampacity: only resistance tables exist so far; the calculator is AWG-only.
 - AC steady-state (RMS with power factor) solver; voltage drop for AC is available as a formula only.
@@ -53,3 +52,5 @@ Values the UI shows as "not available", and deferred work.
 - Reports: quotation / pricing was left out on request; panel schedule per enclosure; labels as printable stickers; SLD manual layout overrides and enclosure boundaries drawn around their devices; Excel export of the checklist.
 - PDF: embed a Unicode font so Ω, ≤ and − print as symbols (spelled out now).
 - Published preview page: Open-Meteo and place search are blocked by the page host, so the simulation there uses the clear-sky estimate (labelled); real weather works in the local app.
+- Auto-design: three-phase systems, several inverters, AC coupling, a generator/ATS option, raceways, SPDs and rapid-shutdown devices (shown as notes/warnings instead).
+- Tablet/touch e2e for 3D picking; screen-reader description of the 3D scene beyond the object list.

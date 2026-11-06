@@ -46,6 +46,14 @@ export function Toolbar() {
       <nav className="toolbar-actions" aria-label="Main actions">
         <button
           type="button"
+          data-testid="new-project"
+          onClick={() => useUi.getState().setWizardOpen(true)}
+          title="Start a new project with the step-by-step wizard"
+        >
+          ＋ New project
+        </button>
+        <button
+          type="button"
           onClick={undo}
           disabled={past.length === 0}
           title={past.length ? `Undo ${past.at(-1)!.label} (Ctrl+Z)` : "Nothing to undo"}

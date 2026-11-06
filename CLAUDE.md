@@ -15,6 +15,7 @@
 | Lint / format / types    | `pnpm lint`, `pnpm format:check`, `pnpm typecheck`                                      |
 | Production build         | `pnpm build`                                                                            |
 | E2E + screenshots        | `pnpm e2e` (Playwright; writes `docs/screenshots/`)                                     |
+| Preview link build       | `pnpm build:artifact` (then publish `apps/web/dist-artifact/`, see `docs/DEPLOY.md`)    |
 | Regenerate 3D models     | `pnpm models` or `pnpm models <script_stem>` (needs bpy, see `tools/blender/README.md`) |
 
 Before declaring a phase done: `pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build && pnpm e2e`, then look at the screenshots.

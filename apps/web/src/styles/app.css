@@ -8,8 +8,8 @@
   --border: #d5d9df;
   --accent: #0b6bcb;
   --accent-text: #ffffff;
-  --ok: #009e73;
-  --warn: #b35900;
+  --ok: #00785a; /* ≥ 4.5:1 on white (WCAG AA) */
+  --warn: #9a4d00;
   --error: #c0392b;
   --warn-bg: #fff4e5;
   --focus: #0b6bcb;
@@ -28,6 +28,7 @@
   --border: #323944;
   --accent: #4ea1f3;
   --accent-text: #08121c;
+  --ok: #3ccf9e;
   --warn: #f0a04b;
   --warn-bg: #3a2a14;
   --focus: #7cc0ff;
@@ -54,6 +55,18 @@ button,
 input {
   font: inherit;
   color: inherit;
+}
+/* Default look for plain buttons in both themes (classes below override it). */
+:where(button) {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+:where(button):disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 :focus-visible {
   outline: 2px solid var(--focus);
@@ -1016,6 +1029,9 @@ button.primary {
   padding: 8px 0;
   border-bottom: 1px solid var(--border);
 }
+.sld-preview:focus-visible {
+  outline: 2px solid var(--focus);
+}
 .sld-preview {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1038,4 +1054,59 @@ button.primary {
   justify-content: flex-end;
   gap: 8px;
   margin-top: 12px;
+}
+
+/* ---------- Phase 8: new-project wizard ---------- */
+.wizard-card {
+  width: min(640px, calc(100vw - 32px));
+  max-height: 88vh;
+}
+.wizard-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+.wizard-steps button {
+  border-radius: 999px;
+}
+.wizard-steps li[aria-current="step"] button {
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.wizard-steps li.done button {
+  color: var(--muted);
+}
+.wizard-body input[type="text"],
+.wizard-body input[type="search"] {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: inherit;
+}
+.wizard-systems,
+.wizard-loads {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 8px 0;
+  display: grid;
+  gap: 6px;
+}
+.wizard-systems label {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.wizard-summary {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--panel-2);
+  display: grid;
+  gap: 4px;
 }

@@ -4,6 +4,7 @@ import { createStorage, startAutosave } from "../storage/autosave";
 import { Toolbar } from "./Toolbar";
 import { ShortcutsOverlay } from "./ShortcutsOverlay";
 import { DialogHost } from "./DialogHost";
+import { NewProjectWizard } from "./NewProjectWizard";
 import { useShortcuts } from "./shortcuts";
 import { PartsPalette } from "../panels/PartsPalette";
 import { Inspector } from "../panels/inspector/Inspector";
@@ -42,6 +43,7 @@ export function App() {
         <BottomPanel />
       </section>
       <ShortcutsOverlay />
+      <NewProjectWizard />
       <DialogHost />
     </div>
   );

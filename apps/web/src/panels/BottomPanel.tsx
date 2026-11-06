@@ -1,9 +1,16 @@
+import { lazy, Suspense } from "react";
 import { useUi, type BottomTab } from "../state/uiStore";
-import { IvCurvePanel } from "./charts/IvCurvePanel";
+
+// Chart tabs load on first open (Recharts is the largest library in the app).
+const IvCurvePanel = lazy(() =>
+  import("./charts/IvCurvePanel").then((m) => ({ default: m.IvCurvePanel })),
+);
+const SimulationPanel = lazy(() =>
+  import("./sim/SimulationPanel").then((m) => ({ default: m.SimulationPanel })),
+);
 import { ConductorCalculator } from "./calcs/ConductorCalculator";
 import { BomTable } from "./results/BomTable";
 import { CutList } from "./results/CutList";
-import { SimulationPanel } from "./sim/SimulationPanel";
 import { IssuesList } from "./results/IssuesList";
 import { ReportsPanel } from "./reports/ReportsPanel";
 
@@ -45,25 +52,27 @@ export function BottomPanel() {
         aria-labelledby={`tab-${active.id}`}
         className="tabpanel"
       >
-        {active.id === "issues" ? (
-          <IssuesList />
-        ) : active.id === "bom" ? (
-          <BomTable />
-        ) : active.id === "cuts" ? (
-          <CutList />
-        ) : active.id === "simulation" ? (
-          <SimulationPanel />
-        ) : active.id === "reports" ? (
-          <ReportsPanel />
-        ) : active.id === "charts" ? (
-          <IvCurvePanel />
-        ) : active.id === "calculations" ? (
-          <ConductorCalculator />
-        ) : (
-          <p className="empty">
-            {active.label}: not available yet (arrives in Phase {active.phase}).
-          </p>
-        )}
+        <Suspense fallback={<p className="empty">Loading…</p>}>
+          {active.id === "issues" ? (
+            <IssuesList />
+          ) : active.id === "bom" ? (
+            <BomTable />
+          ) : active.id === "cuts" ? (
+            <CutList />
+          ) : active.id === "simulation" ? (
+            <SimulationPanel />
+          ) : active.id === "reports" ? (
+            <ReportsPanel />
+          ) : active.id === "charts" ? (
+            <IvCurvePanel />
+          ) : active.id === "calculations" ? (
+            <ConductorCalculator />
+          ) : (
+            <p className="empty">
+              {active.label}: not available yet (arrives in Phase {active.phase}).
+            </p>
+          )}
+        </Suspense>
       </div>
     </div>
   );

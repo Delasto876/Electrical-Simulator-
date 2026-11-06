@@ -10,6 +10,8 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:4173",
     trace: "retain-on-failure",
+    // The offline service worker is tested on its own (phase8.spec.ts); elsewhere it would cache between tests.
+    serviceWorkers: "block",
     launchOptions: {
       // Software WebGL so the 3D viewport renders in headless CI.
       args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"],
@@ -23,8 +25,8 @@ export default defineConfig({
     {
       name: "tablet",
       use: { ...devices["Desktop Chrome"], viewport: { width: 820, height: 1180 }, hasTouch: true },
-      // 3D clicks in phase2/phase3 specs are calibrated for the laptop camera (touch pass: Phase 8).
-      testIgnore: /phase[234567]\.spec\.ts/,
+      // 3D clicks in phase2/phase3 specs are calibrated for the laptop camera (laptop project only).
+      testIgnore: /phase[2345678]\.spec\.ts/,
     },
   ],
   webServer: {

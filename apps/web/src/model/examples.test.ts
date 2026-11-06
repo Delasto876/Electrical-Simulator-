@@ -76,3 +76,15 @@ describe("hybrid example (Phase 4 done-criterion)", () => {
     );
   });
 });
+
+describe("auto-designed examples", () => {
+  for (const id of ["grid-tie", "off-grid"] as const)
+    it(`${id}: valid, wired, no design errors`, () => {
+      const p = buildExample(id, new Date("2026-01-01T00:00:00Z"));
+      expect(parseProjectFile(JSON.parse(JSON.stringify(p)))).toEqual(p);
+      const s = computeScene(p);
+      expect(s.issues.filter((i) => i.severity === "error").map((i) => i.message)).toEqual([]);
+      expect(s.electrical.strings.size).toBeGreaterThan(0);
+      expect(s.electrical.inverters.size).toBe(1);
+    });
+});

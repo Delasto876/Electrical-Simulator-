@@ -8,6 +8,7 @@ import {
   type RacewayRun,
 } from "../project/projectFile";
 import { computeArray } from "./arrayModel";
+import { autoDesign, type AutoDesignInput } from "./autoDesign";
 import { draftArray } from "./newArray";
 import { arrayPeKey, partPortKey } from "./ports";
 import { chunkStrings, stringEnds } from "./strings";
@@ -19,12 +20,33 @@ import { anchorForCentre } from "./transforms";
  * device below was sized by hand against the rules (see the comments); the
  * design should show only meaningful warnings.
  */
-export const EXAMPLES = [{ id: "hybrid", name: "Hybrid: PV + battery + generator + ATS" }] as const;
+export const EXAMPLES = [
+  { id: "hybrid", name: "Hybrid: PV + battery + generator + ATS" },
+  { id: "grid-tie", name: "Grid-tie house, 5 kWp (Jamaica, 230 V 50 Hz)" },
+  { id: "off-grid", name: "Off-grid cabin, 3 kWp with battery (Jamaica)" },
+] as const;
 
 export function buildExample(id: (typeof EXAMPLES)[number]["id"], now = new Date()): ProjectFile {
   switch (id) {
     case "hybrid":
       return hybridExample(now);
+    case "grid-tie":
+      return autoExample(now, "grid-tie", "Example: grid-tie house", {
+        system: "grid-tie",
+        targetKwp: 5,
+        moduleId: "generic-pv-300w-60c",
+      });
+    case "off-grid":
+      return autoExample(now, "off-grid", "Example: off-grid cabin", {
+        system: "off-grid",
+        targetKwp: 3,
+        moduleId: "generic-pv-450w-144hc",
+        loads: {
+          "generic-load-fridge-150w": 1,
+          "generic-load-lighting-300w": 1,
+          "generic-load-pump-750w": 1,
+        },
+      });
   }
 }
 
@@ -36,6 +58,26 @@ const THHN8 = "generic-thhn-8awg"; // 40 A backed-up main
 const THHN12 = "generic-thhn-12awg"; // 20 A branches
 const BARE6 = "generic-bare-cu-6awg";
 const BARE4 = "generic-bare-cu-4awg"; // inverter EGC: battery fuse 300 A → 4 AWG (NEC 250.122)
+
+/** Examples made by the auto-designer (the same code as the New-project wizard), Jamaica profile. */
+function autoExample(now: Date, id: string, name: string, input: AutoDesignInput): ProjectFile {
+  const profile = getCodeProfile("Jamaica") ?? DEFAULT_CODE_PROFILE;
+  const p = newProject(
+    {
+      name,
+      codeProfileId: profile.id,
+      climate: { ...profile.climateDefaults },
+      roof: { ...NEW_PROJECT_ROOF },
+      lengthUnits: "metric",
+      wireUnits: "awg",
+      site: DEFAULT_SITE,
+      simulation: DEFAULT_SIMULATION,
+    },
+    now,
+    `example-${id}-${now.getTime()}`,
+  );
+  return autoDesign(p, input).project;
+}
 
 function hybridExample(now: Date): ProjectFile {
   const profile = getCodeProfile("NEC-generic") ?? DEFAULT_CODE_PROFILE;

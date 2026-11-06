@@ -9,9 +9,41 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 7 (reports: calculation sheet, single-line diagram, BOM, checklist).** See `PLAN.md` for the roadmap.
+**Status: Phase 8 (polish: new-project wizard with auto-design, examples, offline install, speed, accessibility, hosting).** All planned phases are built; see `PLAN.md` and `TODO.md`.
 **Try it:** [open the simulator](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
+
+![New-project wizard](docs/screenshots/phase-8-wizard-laptop.png)
+
+Phase 8 adds:
+
+- **New project wizard** (toolbar **＋ New project**): job and client → site and
+  code profile → roof → system. Pick grid-tie, hybrid or off-grid, a target kWp
+  and a module (inverter and battery automatically or by choice, loads for the
+  backed-up output). The auto-designer then:
+  - chooses the inverter and string layout with the String Wizard;
+  - lays the array out on the best-facing roof surface;
+  - places the inverter, combiner or DC isolators where needed, the battery
+    bank with its Class T fuse, an AC panel with breakers, the utility, loads,
+    two bonded ground rods, the EGCs and the GEC;
+  - runs the design rules and upsizes every conductor or breaker they flag
+    until the design is clean.
+
+  "Empty roof" starts from scratch.
+
+- **Examples**: grid-tie house (5 kWp) and off-grid cabin (3 kWp), both built
+  by the same auto-designer, next to the hybrid example.
+- **Offline / install**: production builds are installable web apps (manifest
+  and service worker); after one visit the app opens and works without a
+  network (real weather excepted).
+- **Speed**: the chart tabs load on demand, which cuts the start-up bundle from
+  1.4 MB to 0.5 MB. A 132-module design is re-checked in about 15 ms, and a test
+  guards this.
+- **Accessibility**: an axe-core audit (WCAG 2.1 AA) runs in the e2e suite on
+  every tab, the wizard and dark mode. Contrast and keyboard issues it found
+  are fixed.
+- **Hosting**: `netlify.toml`, `vercel.json` and a manual GitHub Pages workflow
+  (see [`docs/DEPLOY.md`](docs/DEPLOY.md)).
 
 ![Reports tab with the generated single-line diagram](docs/screenshots/phase-7-reports-laptop.png)
 
