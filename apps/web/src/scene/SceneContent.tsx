@@ -5,7 +5,7 @@ import { roofTopHeightM, surfaceCoords, type MountSurface } from "@solar-sim/eng
 import { CAMERA_PRESETS, SCENE_COLORS } from "../config/defaults";
 import { catalogById } from "../app/catalog";
 import { RoofMesh } from "../roofs/RoofMesh";
-import { addArrayAt, addPartAt, mountDevice } from "../state/actions";
+import { addArrayAt, addObstruction, addPartAt, mountDevice } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { useUi } from "../state/uiStore";
 import { ArrayObject } from "./ArrayObject";
@@ -13,6 +13,7 @@ import { FreePartObject } from "./FreePartObject";
 import { PlacementGhost, type Ghost } from "./PlacementGhost";
 import { PortMarkers } from "./PortMarkers";
 import { RacewayObjects } from "./RacewayObjects";
+import { ObstructionObjects } from "./ObstructionObjects";
 import { racewayPointAt, racewayToolClick } from "../app/racewayTool";
 import { WiringObjects } from "./WiringObjects";
 import { useSceneModel } from "./useSceneModel";
@@ -111,6 +112,11 @@ export function SceneContent() {
       setGhost({ kind: "part", catalogId: placing.id, x: e.point.x, z: e.point.z });
   };
   const onGroundClick = (e: ThreeEvent<MouseEvent>) => {
+    if (tool.kind === "obstruction") {
+      addObstruction(tool.obstruction, e.point.x, e.point.z);
+      useUi.getState().setTool({ kind: "select" });
+      return;
+    }
     if (placingDin) return; // handled by the enclosure under the pointer
     if (placing && !placingModule) {
       if (
@@ -179,6 +185,7 @@ export function SceneContent() {
       ))}
       <WiringObjects />
       <RacewayObjects />
+      <ObstructionObjects />
       <PortMarkers />
       {/* show the ghost only while still placing the same part */}
       <PlacementGhost

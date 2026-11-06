@@ -3,6 +3,7 @@ import { IvCurvePanel } from "./charts/IvCurvePanel";
 import { ConductorCalculator } from "./calcs/ConductorCalculator";
 import { BomTable } from "./results/BomTable";
 import { CutList } from "./results/CutList";
+import { SimulationPanel } from "./sim/SimulationPanel";
 import { IssuesList } from "./results/IssuesList";
 
 const TABS: { id: BottomTab; label: string; phase: number }[] = [
@@ -11,7 +12,7 @@ const TABS: { id: BottomTab; label: string; phase: number }[] = [
   { id: "charts", label: "Charts", phase: 1 },
   { id: "bom", label: "BOM", phase: 2 },
   { id: "cuts", label: "Cut list", phase: 5 },
-  { id: "timeline", label: "Timeline", phase: 6 },
+  { id: "simulation", label: "Simulation", phase: 6 },
 ];
 
 export function BottomPanel() {
@@ -48,6 +49,8 @@ export function BottomPanel() {
           <BomTable />
         ) : active.id === "cuts" ? (
           <CutList />
+        ) : active.id === "simulation" ? (
+          <SimulationPanel />
         ) : active.id === "charts" ? (
           <IvCurvePanel />
         ) : active.id === "calculations" ? (

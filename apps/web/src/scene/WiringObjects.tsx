@@ -14,13 +14,26 @@ import { CABLE_COLORS, SCENE_COLORS, WIRING } from "../config/defaults";
 import type { CableComputed } from "../model/electricalModel";
 import { GlbInstances } from "../parts/GlbInstances";
 import { useUi } from "../state/uiStore";
+import { useProject } from "../state/projectStore";
+import { useSim } from "../sim/simStore";
+import { cableCurrentsAt, currentColor } from "../model/liveCurrents";
 import { useSceneModel } from "./useSceneModel";
 
 /** Every cable as a tube along its route, plus an MC4 half at each MC4 end. */
 export function WiringObjects() {
-  const { electrical } = useSceneModel();
+  const scene = useSceneModel();
+  const { electrical } = scene;
   const selection = useUi((s) => s.selection);
+  const project = useProject((s) => s.project);
+  const out = useSim((s) => s.output);
+  const index = useSim((s) => s.index);
   const cables = [...electrical.cables.values()].filter((c) => c.points.length >= 2);
+  // live view: current at the time-slider position, as a share of each cable's ampacity
+  const live = useMemo(
+    () =>
+      out ? cableCurrentsAt(project, scene, out, Math.min(index, out.times.length - 1)) : undefined,
+    [out, index, project, scene],
+  );
 
   // MC4 halves at cable ends, grouped by connector model for instancing
   const connectors = useMemo(() => {
@@ -59,6 +72,7 @@ export function WiringObjects() {
           key={c.cable.id}
           c={c}
           selected={selection?.kind === "cable" && selection.id === c.cable.id}
+          liveA={live?.get(c.cable.id)}
         />
       ))}
       {connectors.map(([file, items]) => (
@@ -85,7 +99,16 @@ function selectCable(e: ThreeEvent<PointerEvent>, id: string) {
  * A cable as tubes: the pieces outside raceways are solid; the pieces inside a
  * conduit or trunking are hidden, and shown see-through when the cable is selected.
  */
-function CableTube({ c, selected }: { c: CableComputed; selected: boolean }) {
+function CableTube({
+  c,
+  selected,
+  liveA,
+}: {
+  c: CableComputed;
+  selected: boolean;
+  /** Current at the simulation time slider [A] (undefined: no results). */
+  liveA?: number | undefined;
+}) {
   const radius = c.part ? c.part.wire.outerDiameterMm / 2000 : WIRING.fallbackRadiusM;
   const pieces = useMemo(
     () =>
@@ -128,8 +151,18 @@ function CableTube({ c, selected }: { c: CableComputed; selected: boolean }) {
               transparent={p.inside}
               opacity={p.inside ? 0.45 : 1}
               depthTest={!p.inside}
-              emissive={selected ? SCENE_COLORS.selection : bad ? SCENE_COLORS.ghostBad : "#000"}
-              emissiveIntensity={selected ? 0.6 : bad ? 0.5 : 0}
+              emissive={
+                selected
+                  ? SCENE_COLORS.selection
+                  : liveA !== undefined
+                    ? currentColor(liveA / (c.ampacity?.allowableAmpacityA ?? 30))
+                    : bad
+                      ? SCENE_COLORS.ghostBad
+                      : "#000"
+              }
+              emissiveIntensity={
+                selected ? 0.6 : liveA !== undefined ? (liveA > 0.05 ? 0.9 : 0) : bad ? 0.5 : 0
+              }
             />
           </mesh>
         ),

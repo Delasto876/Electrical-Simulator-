@@ -8,6 +8,7 @@ import { CODE_PROFILES, getCodeProfile, SOIL_RESISTIVITY_OHM_M } from "@solar-si
 import { setClimate, setCodeProfile, setSoil } from "../../state/actions";
 import { SOIL_TYPES } from "../../project/projectFile";
 import { NumberField, Section, SelectField } from "./fields";
+import { SiteLocation } from "./SiteLocation";
 
 export function RoofInspector() {
   const roof = useProject((s) => s.project.roof);
@@ -15,6 +16,7 @@ export function RoofInspector() {
   return (
     <>
       <SceneObjects />
+      <SiteLocation />
       <SiteAndCode />
       <RoofFields roof={roof} info={info} />
     </>
@@ -73,7 +75,14 @@ function SceneObjects() {
   const arrays = useProject((s) => s.project.arrays);
   const parts = useProject((s) => s.project.parts);
   const raceways = useProject((s) => s.project.raceways);
-  if (arrays.length === 0 && parts.length === 0 && raceways.length === 0) return null;
+  const obstructions = useProject((s) => s.project.obstructions);
+  if (
+    arrays.length === 0 &&
+    parts.length === 0 &&
+    raceways.length === 0 &&
+    obstructions.length === 0
+  )
+    return null;
   return (
     <Section title="Objects in the scene">
       <ul className="object-list">
@@ -102,6 +111,18 @@ function SceneObjects() {
               onClick={() => useUi.getState().select({ kind: "part", id: p.id })}
             >
               {catalogById.get(p.catalogId)?.model ?? p.catalogId}
+            </button>
+          </li>
+        ))}
+        {obstructions.map((o) => (
+          <li key={o.id}>
+            <button
+              type="button"
+              className="link"
+              data-testid={`obj-${o.id}`}
+              onClick={() => useUi.getState().select({ kind: "obstruction", id: o.id })}
+            >
+              {o.name}
             </button>
           </li>
         ))}

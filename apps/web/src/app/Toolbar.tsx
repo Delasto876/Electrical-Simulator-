@@ -2,6 +2,7 @@ import { DEFAULT_CODE_PROFILE, getCodeProfile } from "@solar-sim/engine";
 import type { CameraPreset } from "../config/defaults";
 import { buildExample, EXAMPLES } from "../model/examples";
 import { startRacewayTool } from "./racewayTool";
+import { runSimulation } from "../sim/runSimulation";
 import { loadProject, redo, renameProject, setSetting, undo } from "../state/actions";
 import { useProject } from "../state/projectStore";
 import { useUi } from "../state/uiStore";
@@ -182,7 +183,30 @@ export function Toolbar() {
             </option>
           ))}
         </select>
-        <button type="button" disabled title="Available from Phase 6">
+        <select
+          aria-label="Add a tree, tank or building that can shade the array"
+          data-testid="obstacles"
+          value=""
+          onChange={(e) => {
+            const k = e.target.value as "tree" | "tank" | "building" | "";
+            if (k) useUi.getState().setTool({ kind: "obstruction", obstruction: k });
+          }}
+        >
+          <option value="">Obstacles…</option>
+          <option value="tree">Tree</option>
+          <option value="tank">Water tank</option>
+          <option value="building">Neighbouring building</option>
+        </select>
+        <button
+          type="button"
+          className="primary"
+          title="Simulate a day, month or year with real weather (Simulation tab)"
+          data-testid="simulate"
+          onClick={() => {
+            useUi.getState().setBottomTab("simulation");
+            void runSimulation();
+          }}
+        >
           Simulate
         </button>
       </nav>

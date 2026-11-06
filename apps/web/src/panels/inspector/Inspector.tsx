@@ -8,6 +8,7 @@ import { RoofInspector } from "./RoofInspector";
 import { StringInspector } from "./StringInspector";
 import { CableInspector } from "./CableInspector";
 import { RacewayInspector } from "./RacewayInspector";
+import { ObstructionInspector } from "./ObstructionInspector";
 
 /** Right-hand panel: shows whatever is selected (scene object first, else a palette part). */
 export function Inspector() {
@@ -29,6 +30,7 @@ export function Inspector() {
   else if (selection?.kind === "string") body = <StringInspector id={selection.id} />;
   else if (selection?.kind === "cable") body = <CableInspector id={selection.id} />;
   else if (selection?.kind === "raceway") body = <RacewayInspector id={selection.id} />;
+  else if (selection?.kind === "obstruction") body = <ObstructionInspector id={selection.id} />;
   else if (catalogPart) body = <Nameplate part={catalogPart} />;
   else
     body = (

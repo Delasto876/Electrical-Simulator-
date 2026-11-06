@@ -1,5 +1,11 @@
 import { getCodeProfile, roofSurfaces, type RoofSpec, type WizardOption } from "@solar-sim/engine";
-import { DEFAULT_BATTERY_CABLE, DEFAULT_CABLE_FOR_PORT, RACEWAY, SNAP } from "../config/defaults";
+import {
+  DEFAULT_BATTERY_CABLE,
+  DEFAULT_CABLE_FOR_PORT,
+  OBSTRUCTION_DEFAULTS,
+  RACEWAY,
+  SNAP,
+} from "../config/defaults";
 import { catalogById, getPart } from "../app/catalog";
 import { nextFreeSlot } from "../model/placement";
 import { defaultAttachmentFor, defaultMountingFor } from "../model/hardware";
@@ -11,7 +17,9 @@ import type {
   Climate,
   FreePart,
   ProjectFile,
+  Obstruction,
   RacewayRun,
+  SimulationSettings,
   StringInstance,
 } from "../project/projectFile";
 import type { Draft } from "immer";
@@ -173,6 +181,7 @@ export function deleteSelection(): void {
   if (sel.kind === "string") return removeString(sel.id);
   if (sel.kind === "cable") return deleteCable(sel.id);
   if (sel.kind === "raceway") return deleteRaceway(sel.id);
+  if (sel.kind === "obstruction") return deleteObstruction(sel.id);
   if (sel.kind !== "array" && sel.kind !== "part") return;
   const list = sel.kind === "array" ? project().arrays : project().parts;
   const item = list.find((x) => x.id === sel.id);
@@ -594,6 +603,87 @@ export function deleteRaceway(id: string): void {
   commit(`Delete ${r.name}`, (d) => {
     d.raceways = d.raceways.filter((x) => x.id !== id);
     for (const c of d.cables) c.racewayIds = c.racewayIds.filter((x) => x !== id);
+  });
+  useUi.getState().select(null);
+}
+
+// ---------------------------------------------------------------- site, simulation, obstructions (Phase 6)
+
+/** Move the project to another place (from the place search or typed coordinates). */
+export function setSite(site: ProjectFile["site"]): void {
+  commit("Change site", (d) => {
+    d.site = { ...site };
+  });
+}
+
+export function updateSimulation(
+  changes: Partial<SimulationSettings>,
+  label = "Edit simulation settings",
+): void {
+  commit(
+    label,
+    (d) => {
+      Object.assign(d.simulation, changes);
+    },
+    `sim:${Object.keys(changes).sort().join(",")}`,
+  );
+}
+
+/** How a load is used through the day (null = back to its default). */
+export function setLoadProfile(
+  partId: string,
+  profile: SimulationSettings["loadProfiles"][string] | null,
+): void {
+  commit(
+    "Edit load profile",
+    (d) => {
+      if (profile) d.simulation.loadProfiles[partId] = profile;
+      else delete d.simulation.loadProfiles[partId];
+    },
+    `load:${partId}`,
+  );
+}
+
+export function addObstruction(kind: Obstruction["kind"], x: number, z: number): string {
+  const id = newId("obstruction");
+  const n = project().obstructions.filter((o) => o.kind === kind).length + 1;
+  const base = OBSTRUCTION_DEFAULTS[kind];
+  commit(`Add ${base.name.toLowerCase()}`, (d) => {
+    d.obstructions.push({
+      id,
+      kind,
+      ...base,
+      name: `${base.name} ${n}`,
+      position: [x, 0, z],
+      rotationYDeg: 0,
+      locked: false,
+      hidden: false,
+    });
+  });
+  useUi.getState().select({ kind: "obstruction", id });
+  return id;
+}
+
+export function updateObstruction(
+  id: string,
+  changes: Partial<Omit<Obstruction, "id" | "kind">>,
+  label = "Edit obstruction",
+): void {
+  commit(
+    label,
+    (d) => {
+      const o = d.obstructions.find((x) => x.id === id);
+      if (o) Object.assign(o, changes);
+    },
+    `obstruction:${id}:${Object.keys(changes).sort().join(",")}`,
+  );
+}
+
+export function deleteObstruction(id: string): void {
+  const o = project().obstructions.find((x) => x.id === id);
+  if (!o || o.locked) return;
+  commit(`Delete ${o.name}`, (d) => {
+    d.obstructions = d.obstructions.filter((x) => x.id !== id);
   });
   useUi.getState().select(null);
 }

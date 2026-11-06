@@ -120,6 +120,7 @@ export const SIM_CHANNELS = [
   "sunAzimuthDeg",
   "pvDcW",
   "pvAcW",
+  "pvToBatteryW",
   "loadW",
   "soc",
   "batteryW",
@@ -155,6 +156,8 @@ export interface SimOutput {
     poaKWhPerM2: number;
     pvDcKWh: number;
     pvAcKWh: number;
+    /** PV energy stored in the battery (DC) [kWh]. */
+    pvToBatteryKWh: number;
     loadKWh: number;
     loadServedKWh: number;
     gridImportKWh: number;
@@ -484,6 +487,7 @@ export function simulate(input: SimInput): SimOutput {
     channels.sunAzimuthDeg[k] = sun.azimuthDeg;
     channels.pvDcW[k] = pvDc;
     channels.pvAcW[k] = pvAc;
+    channels.pvToBatteryW[k] = f.pvToBatteryW;
     channels.loadW[k] = loadW;
     channels.soc[k] = f.socAfter;
     channels.batteryW[k] = f.batteryW;
@@ -551,6 +555,7 @@ export function simulate(input: SimInput): SimOutput {
       poaKWhPerM2: kwh(t.poa),
       pvDcKWh: kwh(t.pvDc),
       pvAcKWh: kwh(t.pvAc),
+      pvToBatteryKWh: kwh(t.pvToBat),
       loadKWh: kwh(t.load),
       loadServedKWh: kwh(t.served),
       gridImportKWh: kwh(t.imp),

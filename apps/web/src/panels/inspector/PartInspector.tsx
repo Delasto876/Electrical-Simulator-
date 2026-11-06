@@ -7,6 +7,7 @@ import { Readout, Section } from "./fields";
 import { Nameplate } from "./Nameplate";
 import { InverterDetails } from "./InverterDetails";
 import { ProtectionDetails } from "./ProtectionDetails";
+import { LoadProfileEditor } from "./LoadProfileEditor";
 
 /** A single placed part (inverter, battery…). */
 export function PartInspector({ id }: { id: string }) {
@@ -66,6 +67,9 @@ export function PartInspector({ id }: { id: string }) {
       </Section>
       {cat.category === "inverter" && <InverterDetails partId={id} />}
       <ProtectionDetails partId={id} part={cat} />
+      {cat.category === "load" && "load" in cat && (
+        <LoadProfileEditor partId={id} ratedW={(cat as { load: { powerW: number } }).load.powerW} />
+      )}
       <Nameplate part={cat} />
     </div>
   );

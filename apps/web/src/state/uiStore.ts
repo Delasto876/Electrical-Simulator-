@@ -6,7 +6,7 @@ import type { CameraPreset } from "../config/defaults";
  * mode, camera, theme, transient drag previews.
  */
 export type Theme = "light" | "dark";
-export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "cuts" | "timeline";
+export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "cuts" | "simulation";
 
 export type Selection =
   | { kind: "roof" }
@@ -16,6 +16,7 @@ export type Selection =
   | { kind: "string"; id: string }
   | { kind: "cable"; id: string }
   | { kind: "raceway"; id: string }
+  | { kind: "obstruction"; id: string }
   | null;
 
 /**
@@ -26,6 +27,7 @@ export type Tool =
   | { kind: "select" }
   | { kind: "place"; catalogId: string }
   | { kind: "cable"; from: string | null }
+  | { kind: "obstruction"; obstruction: "tree" | "tank" | "building" }
   | {
       kind: "raceway";
       raceway: "conduit" | "trunking";

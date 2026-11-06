@@ -851,3 +851,94 @@ td button:not(.link) {
 .palette-group[open] > summary::before {
   content: "▾ ";
 }
+
+/* ---- Phase 6: simulation panel */
+.sim-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .sim-panel {
+    grid-template-columns: 1fr;
+  }
+}
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+}
+.sim-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.82em;
+  gap: 2px;
+}
+.sim-field input,
+.sim-field select {
+  min-width: 0;
+}
+.sim-field .insp-inline input[type="number"] {
+  width: 3.5em;
+}
+.sim-site {
+  margin: 0 0 8px;
+  font-size: 0.9em;
+}
+.sim-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+}
+.sim-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+}
+.sim-card strong {
+  font-size: 1.15em;
+}
+.sim-card.bad strong {
+  color: var(--error);
+}
+.sim-slider {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0 4px;
+}
+.sim-slider input[type="range"] {
+  flex: 1;
+}
+.sim-now {
+  font-size: 0.82em;
+  margin: 0 0 8px;
+}
+.sim-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+}
+.sim-chart {
+  margin: 0;
+}
+.sim-chart figcaption {
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.psh-table {
+  font-size: 0.8em;
+  max-height: 200px;
+  overflow: auto;
+  display: block;
+}
+button.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
