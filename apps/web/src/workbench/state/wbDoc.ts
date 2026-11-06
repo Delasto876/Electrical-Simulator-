@@ -14,7 +14,7 @@ import {
  * the empty starting document. Change the shape → bump WB_SCHEMA_VERSION and
  * add a migration in wbFile.ts (never edit a released one).
  */
-export const WB_SCHEMA_VERSION = 2;
+export const WB_SCHEMA_VERSION = 3;
 
 export const TAG_COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "grey"] as const;
 export type TagColor = (typeof TAG_COLORS)[number];
@@ -51,6 +51,56 @@ export interface PlacedPart {
   mount: { enclosureId: string; row: number; slot: number } | null;
   /** Placed with "Free placement" (snapping and attachment rules off). */
   free: boolean;
+  /** Rails: length, the stock piece it was cut from, cut ends, the run it was spliced into. */
+  rail?: RailInfo;
+  /** Clamps: the rail they sit on and where (distance from the rail start). */
+  clamp?: ClampInfo;
+  /** Splices: the two rails they join. */
+  splice?: SpliceInfo;
+  /** PV modules: portrait or landscape. */
+  module?: ModuleInfo;
+}
+
+export interface RailInfo {
+  lengthM: number;
+  stockId: string;
+  /** The ends that were sawn (drawn as bare cut faces). */
+  cutStart: boolean;
+  cutEnd: boolean;
+  /** Rail run (a folder node) after a splice; null for a single rail. */
+  runId: string | null;
+}
+
+export interface ClampInfo {
+  railId: string;
+  /** Distance from the rail start [m]. */
+  t: number;
+  kind: "mid" | "end";
+}
+
+export interface SpliceInfo {
+  railA: string;
+  railB: string;
+  bonded: boolean;
+}
+
+export interface ModuleInfo {
+  orientation: "portrait" | "landscape";
+}
+
+/** A stock rail bought for the job (each rail and offcut came out of one). */
+export interface StockPiece {
+  id: string;
+  catalogId: string;
+  lengthM: number;
+}
+
+/** A cut-off piece kept for reuse ("use offcut" in the library). */
+export interface Offcut {
+  id: string;
+  catalogId: string;
+  lengthM: number;
+  stockId: string;
 }
 
 /** A guide line dragged out of a ruler (x = value, or z = value, surface-local). */
@@ -100,6 +150,10 @@ export interface WbDoc {
   guides: Guide[];
   measurements: Measurement[];
   tilt: TiltSettings;
+  /** Stock rails bought (one per rail placed new). */
+  stock: StockPiece[];
+  /** Offcut pool. */
+  offcuts: Offcut[];
 }
 
 export const SurfaceSpecSchema = z.object({
@@ -147,7 +201,25 @@ export const PlacedPartSchema = z.object({
     })
     .nullable(),
   free: z.boolean(),
+  rail: z
+    .object({
+      lengthM: z.number().positive(),
+      stockId: z.string(),
+      cutStart: z.boolean(),
+      cutEnd: z.boolean(),
+      runId: z.string().nullable(),
+    })
+    .optional(),
+  clamp: z.object({ railId: z.string(), t: z.number(), kind: z.enum(["mid", "end"]) }).optional(),
+  splice: z.object({ railA: z.string(), railB: z.string(), bonded: z.boolean() }).optional(),
+  module: z.object({ orientation: z.enum(["portrait", "landscape"]) }).optional(),
 });
+export const StockPieceSchema = z.object({
+  id: z.string(),
+  catalogId: z.string(),
+  lengthM: z.number().positive(),
+});
+export const OffcutSchema = StockPieceSchema.extend({ stockId: z.string() });
 export const GuideSchema = z.object({
   id: z.string(),
   axis: z.enum(["x", "z"]),
@@ -179,6 +251,8 @@ export const WbDocSchema = z.object({
   guides: z.array(GuideSchema),
   measurements: z.array(MeasurementSchema),
   tilt: TiltSettingsSchema,
+  stock: z.array(StockPieceSchema),
+  offcuts: z.array(OffcutSchema),
 });
 
 export const SURFACE_ID = "surface-1";
@@ -190,6 +264,7 @@ export const COMPONENT_FOLDERS: { id: string; name: string }[] = [
   { id: "node-rails", name: "Rails" },
   { id: "node-lfeet", name: "L-Feet" },
   { id: "node-modules", name: "Modules" },
+  { id: "node-clamps", name: "Clamps" },
   { id: "node-devices", name: "Devices" },
   { id: "node-wires", name: "Wires" },
 ];
@@ -244,6 +319,8 @@ export function newDoc(type: SurfaceType = "plain", name = "Untitled workbench")
     guides: [],
     measurements: [],
     tilt: { ...DEFAULT_TILT },
+    stock: [],
+    offcuts: [],
   };
 }
 
@@ -276,8 +353,9 @@ export function folderForCategory(category: string): string {
     case "tilt-leg":
       return "node-lfeet";
     case "pv-module":
-    case "module-clamp":
       return "node-modules";
+    case "module-clamp":
+      return "node-clamps";
     case "cable":
     case "connector":
       return "node-wires";

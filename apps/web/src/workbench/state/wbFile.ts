@@ -6,6 +6,7 @@ import {
   GuideSchema,
   MeasurementSchema,
   PlacedPartSchema,
+  StockPieceSchema,
   SurfaceSpecSchema,
   TAG_COLORS,
   TiltSettingsSchema,
@@ -60,6 +61,53 @@ export const CommandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("measure.add"), m: MeasurementSchema }),
   z.object({ type: z.literal("measure.delete"), id: z.string() }),
   z.object({ type: z.literal("measure.clear") }),
+  z.object({
+    type: z.literal("rail.place"),
+    part: PlacedPartSchema,
+    name: z.string(),
+    nodeId: z.string(),
+    folderId: z.string(),
+    stock: StockPieceSchema.nullable(),
+    offcutId: z.string().nullable(),
+  }),
+  z.object({
+    type: z.literal("rail.cut"),
+    id: z.string(),
+    tM: z.number(),
+    kerfM: z.number().min(0),
+    newId: z.string(),
+    newNodeId: z.string(),
+    newName: z.string(),
+    cutOff: z.enum(["keep", "start", "end"]),
+  }),
+  z.object({
+    type: z.literal("rail.splice"),
+    part: PlacedPartSchema,
+    name: z.string(),
+    nodeId: z.string(),
+    runNodeId: z.string(),
+    runName: z.string(),
+  }),
+  z.object({
+    type: z.literal("part.pose"),
+    id: z.string(),
+    x: z.number(),
+    z: z.number(),
+    rotDeg: z.number(),
+  }),
+  z.object({
+    type: z.literal("parts.add"),
+    items: z.array(
+      z.object({
+        part: PlacedPartSchema,
+        name: z.string(),
+        nodeId: z.string(),
+        folderId: z.string(),
+      }),
+    ),
+    label: z.string(),
+  }),
+  z.object({ type: z.literal("offcut.discard"), id: z.string() }),
 ]);
 
 export const WbFileSchema = z.object({
@@ -105,6 +153,37 @@ export const MIGRATIONS: Record<number, Migration> = {
       customParts: [],
     };
   },
+};
+
+// 2 → 3 (Phase 3): stock and offcut pool, a Clamps folder in the Browser tree.
+MIGRATIONS[2] = (file) => {
+  const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+  const initial = (snap.initial ?? {}) as Record<string, unknown>;
+  const nodes = { ...((initial.nodes ?? {}) as Record<string, Record<string, unknown>>) };
+  const comp = nodes["node-components"];
+  if (comp && !nodes["node-clamps"]) {
+    const children = [...((comp.children ?? []) as string[])];
+    const at = children.indexOf("node-modules");
+    children.splice(at < 0 ? children.length : at + 1, 0, "node-clamps");
+    nodes["node-components"] = { ...comp, children };
+    nodes["node-clamps"] = {
+      id: "node-clamps",
+      name: "Clamps",
+      kind: "category",
+      parentId: "node-components",
+      children: [],
+      surfaceId: null,
+      partId: null,
+      visible: true,
+      locked: false,
+      color: null,
+    };
+  }
+  return {
+    ...file,
+    schemaVersion: 3,
+    snapshot: { ...snap, initial: { ...initial, schemaVersion: 3, nodes, stock: [], offcuts: [] } },
+  };
 };
 
 export class WbFileError extends Error {}

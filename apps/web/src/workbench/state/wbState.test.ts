@@ -33,6 +33,7 @@ describe("document", () => {
       "1:Rails",
       "1:L-Feet",
       "1:Modules",
+      "1:Clamps",
       "1:Devices",
       "1:Wires",
     ]);
@@ -275,7 +276,7 @@ describe("tree drag and drop targets", () => {
     });
     expect(dropTarget(d, "node-rails", "node-wires", "after")).toEqual({
       parentId: "node-components",
-      index: 4,
+      index: 5,
     });
     expect(dropTarget(d, "node-rails", "node-lfeet", "after")).toEqual({
       parentId: "node-components",
@@ -326,8 +327,13 @@ describe("file migration 1 → 2", () => {
       },
     };
     const snap = parseFile(JSON.parse(JSON.stringify(v1)));
-    expect(snap.initial.schemaVersion).toBe(2);
+    // migrated through every version to the current one
+    expect(snap.initial.schemaVersion).toBe(3);
     expect(snap.initial.parts).toEqual({});
+    expect(snap.initial.stock).toEqual([]);
+    expect(snap.initial.offcuts).toEqual([]);
+    expect(snap.initial.nodes["node-clamps"]!.parentId).toBe("node-components");
+    expect(snap.initial.nodes["node-components"]!.children).toContain("node-clamps");
     expect(snap.initial.tilt.tiltDeg).toBe(15);
     expect(snap.initial.nodes["node-rails"]!.partId).toBeNull();
     useWb.getState().reset(snap);

@@ -312,6 +312,39 @@ export const ISSUE_CODES = {
     explain:
       "Polarity-sensitive DC breakers only interrupt reliably when the source feeds the marked line terminals in the marked polarity.",
   },
+  RAIL_UNSUPPORTED: {
+    title: "Rail without enough attachments",
+    explain:
+      "A rail must sit on at least two attachments (L-feet, hooks, legs). A rail resting on one or none is not fixed to the structure.",
+  },
+  SPLICE_UNSUPPORTED: {
+    title: "Splice far from an attachment",
+    explain:
+      "A splice is weaker than the rail. Most manufacturers want a support close to each splice; a splice in the middle of a span bends.",
+  },
+  RAIL_RUN_EXPANSION: {
+    title: "Long rail run without an expansion gap",
+    explain:
+      "Aluminium grows about 2.4 mm per metre per 100 °C. Very long spliced runs need an expansion joint (a gap at a splice) so they do not push the attachments.",
+  },
+  MODULE_RAILS: {
+    title: "Module not on two rails",
+    explain:
+      "A module must sit on at least two rails, and each rail must cross the frame inside the clamping zone.",
+  },
+  MODULE_CLAMPS: {
+    title: "Module held by fewer than four clamps",
+    explain: "Each module needs four clamps (two per rail) inside its clamping zones.",
+  },
+  RAIL_END_PAST_CLAMP: {
+    title: "Rail ends too close to an end clamp",
+    explain:
+      "The rail must run a little past the outside of every end clamp, or the clamp sits on the rail end and can slip off.",
+  },
+  CLAMP_LOOSE: {
+    title: "Clamp not holding a module",
+    explain: "A clamp that does not grip a module frame does nothing; delete it or move it.",
+  },
   DIN_UNMOUNTED: {
     title: "DIN device not mounted in an enclosure",
     explain: "Breakers, isolators and SPDs must be mounted on a DIN rail inside an enclosure.",

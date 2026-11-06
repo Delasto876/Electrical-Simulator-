@@ -61,4 +61,7 @@ export * from "./assembly/snap";
 export * from "./assembly/joints";
 export * from "./assembly/din";
 export * from "./assembly/tiltFrame";
+export * from "./assembly/rails";
+export * from "./assembly/modules";
+export * from "./assembly/mechRules";
 export * from "./image/homography";

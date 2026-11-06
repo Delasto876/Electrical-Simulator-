@@ -34,6 +34,8 @@ export interface PartInfo {
   legRangeMm?: [number, number];
   /** Fastener sets per attachment (catalog hardware). */
   fastenerSets?: number;
+  /** Height of the rail seat above the surface [m] (roof attachments). */
+  seatM?: number;
 }
 
 const COLOR: Record<string, string> = {
@@ -90,6 +92,7 @@ function fromCatalog(p: Part): PartInfo {
   if (isCategory(p, "roof-attachment")) {
     base.attachmentKind = p.mounting.kind;
     base.fastenerSets = p.mounting.fastenerSetsPerAttachment;
+    base.seatM = p.mounting.heightMm / 1000;
     if (p.mounting.kind === "ground-screw") base.footprint = { w: 0.12, d: 0.12 };
   }
   if (isCategory(p, "tilt-leg")) {
