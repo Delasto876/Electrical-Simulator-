@@ -10,3 +10,4 @@ tools/blender/.venv/
 __pycache__/
 *.blend1
 .DS_Store
+apps/web/dist-artifact

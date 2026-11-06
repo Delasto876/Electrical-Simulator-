@@ -616,6 +616,17 @@ export function setSite(site: ProjectFile["site"]): void {
   });
 }
 
+/** Client / job details printed on reports (typing in one field merges into one undo step). */
+export function updateReportInfo(changes: Partial<ProjectFile["report"]>): void {
+  commit(
+    "Edit report details",
+    (d) => {
+      Object.assign(d.report, changes);
+    },
+    `report:${Object.keys(changes).sort().join(",")}`,
+  );
+}
+
 export function updateSimulation(
   changes: Partial<SimulationSettings>,
   label = "Edit simulation settings",

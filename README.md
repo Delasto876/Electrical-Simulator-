@@ -9,10 +9,32 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 6 (energy simulation with real weather, shading, battery, grid and generator).** See `PLAN.md` for the roadmap.
+**Status: Phase 7 (reports: calculation sheet, single-line diagram, BOM, checklist).** See `PLAN.md` for the roadmap.
+**Try it:** [open the simulator](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
-![A December day with a tree shading the array](docs/screenshots/phase-6-tree-shade-laptop.png)
+![Reports tab with the generated single-line diagram](docs/screenshots/phase-7-reports-laptop.png)
+
+Phase 7 adds the **Reports** tab and Lumix Technologies branding (logo and
+contact details on every page, from `config/company.ts`). Enter the client, site
+address, job reference, revision and preparer once; then export:
+
+- **Calculation sheet** (PDF or Excel): basis of design, arrays and inverters,
+  strings against each MPPT window (Voc cold, Vmp hot), every conductor
+  (design current, allowable ampacity, conductors in raceway, voltage drop),
+  every breaker / fuse / isolator, grounding electrode and bonding, raceway
+  fill and bends, energy results when the simulation is current, open issues.
+- **Single-line diagram** (PDF, A3): generated from the wiring with device
+  designators (S1, CMB1, CB1, F1, INV1, BAT1, ATS1, UT1, GEN1, LD1…), DC and AC
+  circuits, conductor labels like "(2) #10 PV", raceways and EGC sizes, plus the
+  circuit schedule. A live preview sits in the Reports tab.
+- **Bill of materials** (CSV, Excel or PDF): quantities by category, **no
+  prices**. The BOM tab has the same three buttons.
+- **Installation and commissioning checklist** (PDF): steps named for this
+  design's own strings and devices, with expected readings (Voc, Isc,
+  insulation resistance, electrode resistance, ATS transfer times) and blanks
+  for measured values and initials.
+- **Full design report**: all four in one PDF.
 
 Phase 6 adds the **Simulation** tab (toolbar **Simulate**): real hourly weather
 for any place in the world from Open-Meteo (ERA5 reanalysis; default Kingston,
@@ -68,7 +90,7 @@ Phase 2 lets you edit the roof (mono-pitch, gable, flat slab, ground; corrugated
 standing-seam, tile, shingle, concrete), place PV arrays with the array tool
 (click "Place" or drag a module onto the roof), and get every rail, splice,
 clamp, L-foot or tilt leg laid out automatically with a cut list, mechanical
-checks, a BOM with placeholder prices, undo/redo and browser autosave.
+checks, a BOM, undo/redo and browser autosave.
 
 The engine (`packages/engine`) currently provides: sun position (NOAA), the
 De Soto single-diode PV model with I–V/P–V curves, cell temperature (NOCT and

@@ -112,3 +112,40 @@ describe("steps", () => {
     expect((await getCached(k))?.timesMs.length).toBe(768);
   });
 });
+
+describe("weather when Open-Meteo cannot be reached", () => {
+  it("falls back to the clear-sky estimate and says so in the label", async () => {
+    const { weatherFor } = await import("../sim/runSimulation");
+    const { useProject } = await import("../state/projectStore");
+    useProject.getState().replace({
+      ...useProject.getState().project,
+      simulation: {
+        ...useProject.getState().project.simulation,
+        source: "open-meteo",
+        date: "2019-03-02",
+      },
+    });
+    const offline = (() => Promise.reject(new TypeError("Failed to fetch"))) as typeof fetch;
+    const w = await weatherFor(offline);
+    expect(w.series.source).toBe("clear-sky");
+    expect(w.series.label).toMatch(/NOT measured data/);
+  });
+
+  it("still reports other Open-Meteo errors", async () => {
+    const { weatherFor } = await import("../sim/runSimulation");
+    const bad = (() =>
+      Promise.resolve(
+        new Response(JSON.stringify({ error: true, reason: "Bad date" }), { status: 400 }),
+      )) as typeof fetch;
+    const { useProject } = await import("../state/projectStore");
+    useProject.getState().replace({
+      ...useProject.getState().project,
+      simulation: {
+        ...useProject.getState().project.simulation,
+        source: "open-meteo",
+        date: "2019-03-03",
+      },
+    });
+    await expect(weatherFor(bad)).rejects.toThrow(/Bad date/);
+  });
+});

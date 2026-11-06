@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { notify } from "../../app/dialogs";
 import { ISSUE_CODES } from "@solar-sim/engine";
 import { catalogById, getPart } from "../../app/catalog";
 import { connectStringToMppt, removeString } from "../../state/actions";
@@ -192,5 +193,5 @@ export function StringInspector({ id }: { id: string }) {
 }
 
 function alertNoInput() {
-  window.alert("No free input pair on that MPPT. Remove a string from it or pick another MPPT.");
+  notify("No free input pair on that MPPT. Remove a string from it or pick another MPPT.");
 }

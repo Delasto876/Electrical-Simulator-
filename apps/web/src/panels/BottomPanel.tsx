@@ -5,6 +5,7 @@ import { BomTable } from "./results/BomTable";
 import { CutList } from "./results/CutList";
 import { SimulationPanel } from "./sim/SimulationPanel";
 import { IssuesList } from "./results/IssuesList";
+import { ReportsPanel } from "./reports/ReportsPanel";
 
 const TABS: { id: BottomTab; label: string; phase: number }[] = [
   { id: "issues", label: "Issues", phase: 2 },
@@ -13,6 +14,7 @@ const TABS: { id: BottomTab; label: string; phase: number }[] = [
   { id: "bom", label: "BOM", phase: 2 },
   { id: "cuts", label: "Cut list", phase: 5 },
   { id: "simulation", label: "Simulation", phase: 6 },
+  { id: "reports", label: "Reports", phase: 7 },
 ];
 
 export function BottomPanel() {
@@ -51,6 +53,8 @@ export function BottomPanel() {
           <CutList />
         ) : active.id === "simulation" ? (
           <SimulationPanel />
+        ) : active.id === "reports" ? (
+          <ReportsPanel />
         ) : active.id === "charts" ? (
           <IvCurvePanel />
         ) : active.id === "calculations" ? (

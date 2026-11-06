@@ -948,3 +948,94 @@ button.primary {
   color: var(--accent-text);
   border-color: var(--accent);
 }
+
+/* ---------- Phase 7: reports ---------- */
+.report-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.export-buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.export-msg {
+  font-size: 12px;
+}
+.bom-table .bom-section th {
+  background: var(--panel-2);
+  font-weight: 600;
+  padding-top: 6px;
+}
+.reports-panel {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+  gap: 16px;
+}
+.reports-side input[type="text"] {
+  width: 100%;
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: inherit;
+}
+.company-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: #141414;
+}
+.company-card .muted {
+  color: #555;
+}
+.company-card img {
+  width: 44px;
+  height: auto;
+}
+.report-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.report-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sld-preview {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: auto;
+  background: #fff;
+}
+.drawing-svg {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+}
+@media (max-width: 900px) {
+  .reports-panel {
+    grid-template-columns: 1fr;
+  }
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { notify } from "../../app/dialogs";
 import { isCategory, type Part } from "@solar-sim/catalog";
 import { catalogById, partLabel, partsOf } from "../../app/catalog";
 import { isDinDevice, railOccupancy } from "../../model/placement";
@@ -78,7 +79,7 @@ function EnclosureRail({ partId, part }: { partId: string; part: Part }) {
           disabled={!pick}
           onClick={() => {
             if (!mountDevice(partId, pick))
-              window.alert("This enclosure has no free DIN slots for that device.");
+              notify("This enclosure has no free DIN slots for that device.");
           }}
         >
           Add to rail

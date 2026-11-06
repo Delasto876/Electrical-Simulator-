@@ -1,5 +1,6 @@
 pnpm-lock.yaml
 **/dist
+**/dist-artifact
 **/coverage
 apps/web/public/models
 docs/screenshots

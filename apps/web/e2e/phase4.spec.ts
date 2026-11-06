@@ -5,9 +5,9 @@ import { shot } from "./shots";
 // (heavy scene, same flows as the laptop).
 
 async function openHybrid(page: Page) {
-  page.on("dialog", (d) => void d.accept());
   await page.goto("/");
   await page.getByTestId("examples").selectOption("hybrid");
+  await page.getByTestId("dialog-ok").click();
   await expect(page.getByRole("textbox", { name: "Project name" })).toHaveValue(/Example: hybrid/);
 }
 

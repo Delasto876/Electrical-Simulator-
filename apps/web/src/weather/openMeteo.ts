@@ -54,6 +54,8 @@ const ArchiveResponse = z.object({
 });
 
 export class WeatherError extends Error {}
+/** Open-Meteo could not be reached at all (offline, or blocked by the page host). */
+export class WeatherUnreachableError extends WeatherError {}
 
 /** Parse an archive response. Missing values: radiation → 0, temperature/wind → previous value. */
 export function parseArchive(json: unknown): WeatherSeries {
@@ -98,7 +100,7 @@ export async function fetchArchive(
   try {
     res = await fetchImpl(archiveUrl(latitudeDeg, longitudeDeg, startDate, endDate));
   } catch {
-    throw new WeatherError(
+    throw new WeatherUnreachableError(
       "Could not reach Open-Meteo (offline?). Use the clear-sky estimate or try again.",
     );
   }

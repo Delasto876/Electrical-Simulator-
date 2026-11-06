@@ -6,7 +6,8 @@ import type { CameraPreset } from "../config/defaults";
  * mode, camera, theme, transient drag previews.
  */
 export type Theme = "light" | "dark";
-export type BottomTab = "issues" | "calculations" | "charts" | "bom" | "cuts" | "simulation";
+export type BottomTab =
+  "issues" | "calculations" | "charts" | "bom" | "cuts" | "simulation" | "reports";
 
 export type Selection =
   | { kind: "roof" }

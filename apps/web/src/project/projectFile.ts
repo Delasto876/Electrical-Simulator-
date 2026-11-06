@@ -11,7 +11,7 @@ import { ROOF_TYPES } from "@solar-sim/engine";
  *     literal values, not app defaults, so they stay reproducible).
  *   - Only the current-version schema is validated, after migration.
  */
-export const CURRENT_SCHEMA_VERSION = 6;
+export const CURRENT_SCHEMA_VERSION = 7;
 
 const v3 = z.tuple([z.number(), z.number(), z.number()]);
 
@@ -230,6 +230,19 @@ export const SOIL_TYPES = [
 ] as const;
 export const EarthingSchema = z.object({ soil: z.enum(SOIL_TYPES) });
 
+/** Who the design is for and who prepared it (printed on every report). */
+export const ReportInfoSchema = z.object({
+  clientName: z.string(),
+  siteAddress: z.string(),
+  preparedBy: z.string(),
+  /** Quote / job number. */
+  reference: z.string(),
+  /** Drawing revision, e.g. "A". */
+  revision: z.string(),
+  notes: z.string(),
+});
+export type ReportInfo = z.infer<typeof ReportInfoSchema>;
+
 export const SettingsSchema = z.object({
   lengthUnits: z.enum(["metric", "imperial"]),
   wireUnits: z.enum(["awg", "mm2"]),
@@ -238,7 +251,7 @@ export const SettingsSchema = z.object({
 
 /** The current project schema (older versions are migrated to it). */
 export const ProjectFileSchema = z.object({
-  schemaVersion: z.literal(6),
+  schemaVersion: z.literal(7),
   meta: z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -265,6 +278,7 @@ export const ProjectFileSchema = z.object({
   raceways: z.array(RacewayRunSchema),
   obstructions: z.array(ObstructionSchema),
   simulation: SimulationSchema,
+  report: ReportInfoSchema,
   settings: SettingsSchema,
 });
 export type ProjectFile = z.infer<typeof ProjectFileSchema>;
@@ -375,6 +389,19 @@ export const MIGRATIONS: Record<number, Migration> = {
       },
     };
   },
+  // 6 → 7 (Phase 7): client and job details printed on reports.
+  6: (doc) => ({
+    ...doc,
+    schemaVersion: 7,
+    report: {
+      clientName: "",
+      siteAddress: "",
+      preparedBy: "",
+      reference: "",
+      revision: "A",
+      notes: "",
+    },
+  }),
 };
 
 export class ProjectFileError extends Error {}
@@ -402,6 +429,15 @@ export function parseProjectFile(input: unknown): ProjectFile {
   return result.data;
 }
 
+export const EMPTY_REPORT_INFO: ReportInfo = {
+  clientName: "",
+  siteAddress: "",
+  preparedBy: "",
+  reference: "",
+  revision: "A",
+  notes: "",
+};
+
 export interface NewProjectOptions {
   name: string;
   codeProfileId: string;
@@ -421,7 +457,7 @@ export function newProject(
   const stamp = now.toISOString();
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
-    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.6.0" },
+    meta: { id, name: opts.name, createdAt: stamp, updatedAt: stamp, appVersion: "0.7.0" },
     site: { ...opts.site },
     codeProfileId: opts.codeProfileId,
     climate: { ...opts.climate },
@@ -435,6 +471,7 @@ export function newProject(
     raceways: [],
     obstructions: [],
     simulation: structuredClone(opts.simulation),
+    report: { ...EMPTY_REPORT_INFO },
     settings: { lengthUnits: opts.lengthUnits, wireUnits: opts.wireUnits, gridSnap: true },
   };
 }

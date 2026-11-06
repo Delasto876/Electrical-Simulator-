@@ -1,9 +1,8 @@
 import { useMemo } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useModel } from "./modelLoader";
 import type { ThreeEvent } from "@react-three/fiber";
 import type { BufferGeometry, Material, Mesh } from "three";
 import type { Placed } from "@solar-sim/engine";
-import { modelUrl } from "./registry";
 import { useInstanceMatrices } from "./useInstances";
 
 /**
@@ -24,7 +23,7 @@ export function GlbInstances<T extends Placed>({
   highlightKey?: string | undefined;
   onPointerDown?: (e: ThreeEvent<PointerEvent>, item: T) => void;
 }) {
-  const { scene } = useGLTF(modelUrl(file));
+  const { scene } = useModel(file);
   const parts = useMemo(() => {
     scene.updateMatrixWorld(true);
     const out: { geometry: BufferGeometry; material: Material }[] = [];

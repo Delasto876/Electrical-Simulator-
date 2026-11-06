@@ -56,6 +56,23 @@ describe("project file", () => {
     expect(p.settings.lengthUnits).toBe("imperial");
   });
 
+  it("migrates a version-6 file (Phase 6) by adding empty report details, revision A", () => {
+    const v6 = { ...newProject(opts("V6"), NOW, "v6"), schemaVersion: 6 } as Record<
+      string,
+      unknown
+    >;
+    delete v6.report;
+    const p = parseProjectFile(v6);
+    expect(p.report).toEqual({
+      clientName: "",
+      siteAddress: "",
+      preparedBy: "",
+      reference: "",
+      revision: "A",
+      notes: "",
+    });
+  });
+
   it("refuses files from a newer app", () => {
     expect(() => parseProjectFile({ schemaVersion: 99 })).toThrow(/newer app/);
   });

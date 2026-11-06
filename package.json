@@ -17,7 +17,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r typecheck",
-    "models": "python3 tools/blender/build_all.py"
+    "models": "python3 tools/blender/build_all.py",
+    "build:artifact": "python3 tools/publish/build_artifact.py"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

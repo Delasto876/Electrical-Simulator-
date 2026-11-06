@@ -32,7 +32,3 @@ export function fmtDeg(deg: number, digits = 0): string {
 export function fmtKg(kg: number, units: LengthUnits): string {
   return units === "imperial" ? `${(kg * 2.20462).toFixed(0)} lb` : `${kg.toFixed(0)} kg`;
 }
-
-export function fmtMoney(amount: number, currency: string): string {
-  return `${amount.toFixed(2)} ${currency}`;
-}

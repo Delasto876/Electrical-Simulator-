@@ -9,7 +9,6 @@ const june = readFileSync(new URL("kingston-2025-06.json", FIX), "utf8");
 const geo = readFileSync(new URL("geocode-montego.json", FIX), "utf8");
 
 async function openHybrid(page: Page) {
-  page.on("dialog", (d) => void d.accept());
   await page.route("https://archive-api.open-meteo.com/**", (r) =>
     r.fulfill({
       body: june,
@@ -26,6 +25,7 @@ async function openHybrid(page: Page) {
   );
   await page.goto("/");
   await page.getByTestId("examples").selectOption("hybrid");
+  await page.getByTestId("dialog-ok").click();
   await expect(page.getByRole("textbox", { name: "Project name" })).toHaveValue(/Example: hybrid/);
 }
 

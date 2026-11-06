@@ -97,7 +97,7 @@ active `CodeProfile`.
 4. Protection, DIN enclosure, ATS, grounding/bonding, fault current.
 5. Raceway — conduit/trunking tools, fill, bends, mitres, cut list.
 6. Simulation — weather, POA, shading, time series, battery/ATS, charts.
-7. Reports — SLD, calc PDF, BOM/quotation, checklist.
+7. Reports — SLD, calc PDF, BOM (quantities only, no quotation: user request), checklist.
 8. Polish — wizard, examples, PWA, perf, a11y, deploy config.
 
 ## 4. Risks and mitigations

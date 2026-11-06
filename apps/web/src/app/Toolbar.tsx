@@ -1,4 +1,5 @@
 import { DEFAULT_CODE_PROFILE, getCodeProfile } from "@solar-sim/engine";
+import { askConfirm } from "./dialogs";
 import type { CameraPreset } from "../config/defaults";
 import { buildExample, EXAMPLES } from "../model/examples";
 import { startRacewayTool } from "./racewayTool";
@@ -168,12 +169,10 @@ export function Toolbar() {
           onChange={(e) => {
             const ex = EXAMPLES.find((x) => x.id === e.target.value);
             if (!ex) return;
-            if (
-              window.confirm(
-                `Open the example “${ex.name}” as a new project? Your current design stays in this browser's storage, but there is no project list to reopen it yet: export it first if you need it.`,
-              )
-            )
-              loadProject(buildExample(ex.id));
+            void askConfirm(
+              `Open the example “${ex.name}” as a new project? Your current design stays in this browser's storage, but there is no project list to reopen it yet: export it first if you need it.`,
+              "Open example",
+            ).then((ok) => ok && loadProject(buildExample(ex.id)));
           }}
         >
           <option value="">Examples…</option>

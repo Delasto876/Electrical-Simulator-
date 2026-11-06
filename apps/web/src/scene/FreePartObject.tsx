@@ -1,10 +1,12 @@
 import { Suspense, useMemo } from "react";
+import { notify } from "../app/dialogs";
 import { Plane, Vector3, type Material, type Mesh, type Object3D } from "three";
 import type { ThreeEvent } from "@react-three/fiber";
-import { RoundedBox, useGLTF } from "@react-three/drei";
+import { RoundedBox } from "@react-three/drei";
+import { useModel } from "../parts/modelLoader";
 import { catalogById } from "../app/catalog";
 import { partTransform } from "../model/placement";
-import { lookFor, freePartBox, modelUrl } from "../parts/registry";
+import { lookFor, freePartBox } from "../parts/registry";
 import type { FreePart } from "../project/projectFile";
 import { mountDevice, movePart } from "../state/actions";
 import { useProject } from "../state/projectStore";
@@ -52,7 +54,7 @@ export function FreePartObject({ part }: { part: FreePart }) {
     ) {
       e.stopPropagation();
       if (mountDevice(part.id, tool.catalogId)) useUi.getState().setTool({ kind: "select" });
-      else window.alert("This enclosure has no free DIN slots for that device.");
+      else notify("This enclosure has no free DIN slots for that device.");
       return;
     }
     if (tool.kind !== "select") return;
@@ -109,7 +111,7 @@ function GlbLook({
   tint: string | undefined;
   seeThrough: boolean;
 }) {
-  const { scene } = useGLTF(modelUrl(file));
+  const { scene } = useModel(file);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     clone.traverse((o: Object3D) => {

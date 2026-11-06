@@ -50,3 +50,6 @@ Values the UI shows as "not available", and deferred work.
 - Loads not on the backed-up output (grid-only circuits) are not simulated; neutral current and AC voltage drop per branch under load.
 - Cable flow animation (cables are coloured by current at the slider time; no moving dashes).
 - Per-array POA and shading figures in the inspector at the slider time (the Simulation tab shows system values).
+- Reports: quotation / pricing was left out on request; panel schedule per enclosure; labels as printable stickers; SLD manual layout overrides and enclosure boundaries drawn around their devices; Excel export of the checklist.
+- PDF: embed a Unicode font so Ω, ≤ and − print as symbols (spelled out now).
+- Published preview page: Open-Meteo and place search are blocked by the page host, so the simulation there uses the clear-sky estimate (labelled); real weather works in the local app.
