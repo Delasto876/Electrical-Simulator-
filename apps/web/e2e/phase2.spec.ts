@@ -23,7 +23,7 @@ async function setGrid(page: Page, rows: number, cols: number) {
 test("array tool: 3 × 4 array on the corrugated roof with rails, clamps and L-feet in the BOM", async ({
   page,
 }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await placeArray(page);
   await setGrid(page, 3, 4);
   await expect(page.getByTestId("array-power")).toHaveText(/12 × 400 W = 4\.80 kWp/);
@@ -47,7 +47,7 @@ test("array tool: 3 × 4 array on the corrugated roof with rails, clamps and L-f
 });
 
 test("flat roof: tilt legs follow the tilt angle", async ({ page }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await placeArray(page);
   await setGrid(page, 3, 4);
   // Switch the roof to a flat concrete slab: the array becomes a tilted rack on legs.
@@ -73,7 +73,7 @@ test("flat roof: tilt legs follow the tilt angle", async ({ page }, info) => {
 });
 
 test("undo/redo, issues, delete and autosave across reload", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await placeArray(page);
   await setGrid(page, 1, 12); // 12 modules in a row is wider than the 12 m roof
   await page.getByRole("tab", { name: "Issues" }).click();
@@ -103,7 +103,7 @@ test("undo/redo, issues, delete and autosave across reload", async ({ page }) =>
 });
 
 test("place an inverter on the ground and rotate it", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByRole("button", { name: /Place HY-6000/ }).click();
   const box = (await page.getByTestId("viewport-canvas").boundingBox())!;
   await page.mouse.move(box.x + box.width * 0.08, box.y + box.height * 0.9);

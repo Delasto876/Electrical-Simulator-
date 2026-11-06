@@ -4,7 +4,7 @@ import { shot } from "./shots";
 test("app shell loads with layout, roof and disclaimer", async ({ page }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("/#/classic");
 
   await expect(page.getByRole("banner")).toContainText("Solar Design Simulator");
   await expect(page.getByRole("note")).toContainText("Design aid only");
@@ -20,7 +20,7 @@ test("app shell loads with layout, roof and disclaimer", async ({ page }, info) 
 test("selecting a palette part shows its data label with the unverified badge", async ({
   page,
 }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByLabel("Search parts").fill("400");
   await page.getByRole("button", { name: /^PV-400/ }).click();
   const inspector = page.getByLabel("Inspector", { exact: true });
@@ -30,7 +30,7 @@ test("selecting a palette part shows its data label with the unverified badge", 
 });
 
 test("theme toggle switches to dark and tabs are keyboard reachable", async ({ page }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   const before = await page.evaluate(() => document.documentElement.dataset.theme);
   await page.getByRole("button", { name: /Switch to/ }).click();
   const after = await page.evaluate(() => document.documentElement.dataset.theme);

@@ -1,7 +1,7 @@
 {
-  "name": "Solar Design Simulator — Lumix Technologies",
-  "short_name": "Solar Designer",
-  "description": "3D solar PV and electrical design simulator (design aid).",
+  "name": "Solar Workbench",
+  "short_name": "Workbench",
+  "description": "3D workbench for solar PV and electrical installation design (design aid).",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

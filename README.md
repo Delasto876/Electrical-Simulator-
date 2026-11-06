@@ -9,9 +9,38 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Phase 8 (polish: new-project wizard with auto-design, examples, offline install, speed, accessibility, hosting).** All planned phases are built; see `PLAN.md` and `TODO.md`.
-**Try it:** [open the simulator](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`).
+**Status: Solar Workbench (brief v2), Phase 1: the workbench shell and the Work Surface.** See `PLAN.md` for the phases.
+**Try it:** [open the Workbench](WORKBENCH_LINK) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer is at `#/classic` and in the [earlier preview](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
+
+![Zinc roof on the Workbench](docs/screenshots/wb-phase-1-zinc-laptop.png)
+
+## Solar Workbench
+
+An empty **Work Surface** you build on, with a CAD-style interface:
+
+- **Workspaces and ribbon**: DESIGN, WIRING, TEST, SIMULATE, OUTPUT, each with its own ribbon tabs and
+  labelled panels. Dropdown buttons (Type ▾, Pitch ▾, Edge ▾, Display ▾), rich tooltips with the shortcut,
+  and every planned button is visible, disabled, and says which phase brings it.
+- **Work Surface**, eight types: plain workplane, concrete slab (formwork lines, tie holes, drains), zinc roof
+  (real corrugated geometry, spangle texture, screws on the crests), Decromastic (stone-coated tile),
+  standing-seam metal, concrete/clay tile, flat membrane with ballast pavers, ground mount with a pad. Size up
+  to 30 × 30 m, pitch 0–45°, azimuth, thickness, edge style, a second plane (gable or fold) and a **Show
+  structure** toggle (purlins, battens, rafters, anchor grids). Each type carries a data-driven, unverified
+  **attachment rule set** shown in Properties.
+- **Browser tree** with eye, lock, isolate, rename, colour tags and drag to reorder; **Parts Library** with
+  categories, search and cards (thumbnails and placing come in Phase 2); **Properties** with the data label.
+- **Timeline**: every action is a command card; click one to roll back. History is event-sourced and saved
+  with the file (`.solarbench.json`) and in the browser's autosave.
+- **View cube**, navigation bar (orbit, pan, zoom, fit, look at), display modes (Realistic, Shaded with edges,
+  Wireframe, X-ray, Exploded), environments (Studio, Daylight, Overcast, Sunset), section plane with an
+  in-canvas options bar (OK / Cancel).
+- **Command search (S)**, **marking menu** (right-click or M), shortcut cheat sheet (?), resizable and
+  collapsible panels remembered between visits, dark and light themes, mm / cm / m / in / ft-in with typed
+  units (`10ft`, `0.75m`).
+- Accessibility: axe-core (WCAG 2.1 AA) runs in the test suite on every workspace, menu and dialog, in both themes.
+
+## First-generation designer (v1, `#/classic`)
 
 ![New-project wizard](docs/screenshots/phase-8-wizard-laptop.png)
 

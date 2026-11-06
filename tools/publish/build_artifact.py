@@ -13,8 +13,12 @@ import base64
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+
+# Part models (base64 text) are only needed once the Workbench places parts (Phase 2).
+INCLUDE_MODELS = False
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 WEB = os.path.join(ROOT, "apps", "web")
@@ -22,12 +26,15 @@ OUT = os.path.join(WEB, "dist-artifact")
 
 
 def main() -> None:
-    env = dict(os.environ, VITE_MODELS_AS_TEXT="1")
+    env = dict(os.environ, VITE_MODELS_AS_TEXT="1", VITE_NO_CLASSIC="1")
     subprocess.run(
         ["npx", "vite", "build", "--base", "./", "--outDir", OUT, "--emptyOutDir"],
         cwd=WEB, env=env, check=True,
     )
     models = os.path.join(OUT, "models")
+    if not INCLUDE_MODELS:
+        shutil.rmtree(models, ignore_errors=True)  # the Workbench draws no part models yet (Phase 2 adds them)
+        os.makedirs(models, exist_ok=True)
     for name in os.listdir(models):
         if name.endswith(".glb"):
             path = os.path.join(models, name)
@@ -41,8 +48,8 @@ def main() -> None:
     js_src = re.search(r'<script type="module"[^>]*src="\./([^"]+)"', html).group(1)
     css = open(os.path.join(OUT, css_href), encoding="utf-8").read()
     page = (
-        "<title>Solar Design Simulator</title>\n"
-        '<meta name="description" content="3D solar PV and electrical design simulator by Lumix Technologies (design aid)">\n'
+        "<title>Solar Workbench</title>\n"
+        '<meta name="description" content="Solar Workbench: 3D solar PV and electrical installation design (design aid)">\n'
         f"<style>{css}</style>\n"
         '<div id="root"></div>\n'
         f'<script type="module" src="./{js_src}"></script>\n'

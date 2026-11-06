@@ -6,7 +6,7 @@ import { shot } from "./shots";
 // Reports: job details, the generated single-line diagram, and every export
 // (BOM as CSV / Excel / PDF, calculation sheet, SLD, checklist, full pack).
 async function openHybridReports(page: Page) {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByTestId("examples").selectOption("hybrid");
   await page.getByTestId("dialog-ok").click();
   await expect(page.getByRole("textbox", { name: "Project name" })).toHaveValue(/Example: hybrid/);

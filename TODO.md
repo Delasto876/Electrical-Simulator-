@@ -54,3 +54,14 @@ Values the UI shows as "not available", and deferred work.
 - Published preview page: Open-Meteo and place search are blocked by the page host, so the simulation there uses the clear-sky estimate (labelled); real weather works in the local app.
 - Auto-design: three-phase systems, several inverters, AC coupling, a generator/ATS option, raceways, SPDs and rapid-shutdown devices (shown as notes/warnings instead).
 - Tablet/touch e2e for 3D picking; screen-reader description of the 3D scene beyond the object list.
+
+## Workbench (brief v2), after Phase 1
+
+- Phase 2: Parts Library thumbnails from the 3D models, drag and drop with ghost, joints and snapping, L-foot / base plate / legs, precision system (live dimensions, Tab-to-type, rulers, guides, Measure), custom part wizard (breaker, enclosure, ATS).
+- Surface photo textures and scale calibration (Phase 2); drilled holes in concrete (CSG) and attachment point markers (Phase 2).
+- Seamless-tile upload for surfaces; rail/clamp profile tracing (Phase 2/3).
+- Drag-to-resize handles on the 3D surface; second plane as its own tree node; more than one surface.
+- Postprocessing (SSAO, SMAA, bloom), HDRI, quality presets, Render button (Phase 4).
+- Touch gestures and tablet layout of the Workbench (it is laptop-first now); embeddable iframe mode with a configurable brand.
+- Branching history (the timeline is linear: an edit after a rollback discards the rest, see D-094).
+- Port the v1 features (wiring, protection, raceway, simulation, reports, wizard) into the Workbench phase by phase, then retire `#/classic`.

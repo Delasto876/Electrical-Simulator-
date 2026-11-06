@@ -5,7 +5,7 @@ import { shot } from "./shots";
 test("new-project wizard: job, site, roof, hybrid system → wired design with no errors", async ({
   page,
 }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByTestId("new-project").click();
   const wiz = page.getByTestId("wizard");
   await expect(wiz).toBeVisible();
@@ -34,7 +34,7 @@ test("new-project wizard: job, site, roof, hybrid system → wired design with n
 });
 
 test("wizard explains a target that cannot fit the roof", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByTestId("new-project").click();
   for (let i = 0; i < 2; i++) await page.getByTestId("wizard-next").click();
   await page.getByTestId("wizard-roof-width").fill("4");
@@ -49,7 +49,7 @@ test("wizard explains a target that cannot fit the roof", async ({ page }) => {
 
 for (const id of ["grid-tie", "off-grid"] as const)
   test(`${id} example loads with no design errors`, async ({ page }, info) => {
-    await page.goto("/");
+    await page.goto("/#/classic");
     await page.getByTestId("examples").selectOption(id);
     await page.getByTestId("dialog-ok").click();
     await page.getByRole("tab", { name: "Issues" }).click();
@@ -63,7 +63,7 @@ test.describe("offline (installed app)", () => {
     page,
     context,
   }) => {
-    await page.goto("/");
+    await page.goto("/#/classic");
     await page.evaluate(async () => {
       await navigator.serviceWorker.ready;
     });
@@ -75,7 +75,7 @@ test.describe("offline (installed app)", () => {
     const manifest = await page.evaluate(async () =>
       (await fetch("./manifest.webmanifest")).json(),
     );
-    expect(manifest.short_name).toBe("Solar Designer");
+    expect(manifest.short_name).toBe("Workbench");
     await context.setOffline(true);
     await page.reload();
     await expect(page.getByTestId("new-project")).toBeVisible();

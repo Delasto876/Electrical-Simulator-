@@ -14,12 +14,12 @@ async function summary(page: Page) {
 }
 
 test("toolbar shows the active code profile", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await expect(page.getByTestId("code-profile")).toHaveText(/NEC-generic/);
 });
 
 test("I–V curve changes with irradiance and temperature", async ({ page }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByRole("tab", { name: "Charts" }).click();
   await page.getByTestId("iv-module").selectOption("generic-pv-400w-108hc");
   await expect(page.getByRole("img", { name: /I–V and P–V curve/ })).toBeVisible();
@@ -46,7 +46,7 @@ test("I–V curve changes with irradiance and temperature", async ({ page }, inf
 });
 
 test("conductor calculator shows sizing steps and voltage drop", async ({ page }, info) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByRole("tab", { name: "Calculations" }).click();
   // Defaults: PV source Isc 13.79 A, 90 °C wire, 33 °C ambient, 10 mm above a sunny roof, 2 CCC.
   await expect(page.getByTestId("required-size")).toHaveText("12 AWG");
@@ -60,7 +60,7 @@ test("conductor calculator shows sizing steps and voltage drop", async ({ page }
 });
 
 test("brand inverters are in the catalog as unverified entries", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByLabel("Search parts").fill("Sol-Ark");
   await expect(page.getByRole("button", { name: /^12K-2P-N/ })).toBeVisible();
   await page.getByRole("button", { name: /^15K-2P-N/ }).click();

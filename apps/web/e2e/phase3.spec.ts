@@ -5,7 +5,7 @@ import { shot } from "./shots";
 
 /** Place the Deye 8K on the ground and a 2 × 6 array of 400 W modules on the roof. */
 async function buildSystem(page: Page) {
-  await page.goto("/");
+  await page.goto("/#/classic");
   const box = (await page.getByTestId("viewport-canvas").boundingBox())!;
   await page.getByRole("button", { name: /Place SUN-8K/ }).click();
   await page.mouse.move(box.x + box.width * 0.15, box.y + box.height * 0.85);

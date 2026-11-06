@@ -26,7 +26,7 @@ export default defineConfig({
       name: "tablet",
       use: { ...devices["Desktop Chrome"], viewport: { width: 820, height: 1180 }, hasTouch: true },
       // 3D clicks in phase2/phase3 specs are calibrated for the laptop camera (laptop project only).
-      testIgnore: /phase[2345678]\.spec\.ts/,
+      testIgnore: /(phase[2345678]|workbench|a11y-workbench)\.spec\.ts/,
     },
   ],
   webServer: {

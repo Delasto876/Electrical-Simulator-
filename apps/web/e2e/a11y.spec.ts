@@ -19,7 +19,7 @@ async function audit(page: Page, what: string, found: string[]) {
 
 test("main screen, every bottom tab and the wizard pass axe", async ({ page }) => {
   const found: string[] = [];
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByTestId("examples").selectOption("hybrid");
   await page.getByTestId("dialog-ok").click();
   await expect(page.getByRole("textbox", { name: "Project name" })).toHaveValue(/hybrid/);
@@ -48,7 +48,7 @@ test("main screen, every bottom tab and the wizard pass axe", async ({ page }) =
 
 test("dark theme passes axe", async ({ page }) => {
   const found: string[] = [];
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByRole("button", { name: /dark/i }).click();
   await audit(page, "dark main", found);
   await page.getByRole("tab", { name: "Reports" }).click();

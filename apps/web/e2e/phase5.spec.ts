@@ -5,7 +5,7 @@ import { shot } from "./shots";
 // (screen axes map onto the ground plane there). Laptop project only.
 
 async function openHybrid(page: Page) {
-  await page.goto("/");
+  await page.goto("/#/classic");
   await page.getByTestId("examples").selectOption("hybrid");
   await page.getByTestId("dialog-ok").click();
   await expect(page.getByRole("textbox", { name: "Project name" })).toHaveValue(/Example: hybrid/);
