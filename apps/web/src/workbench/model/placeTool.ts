@@ -58,7 +58,15 @@ const footprintOf = (p: PlacedPart, w: number, d: number): Footprint => ({
 export function surfaceParts(doc: WbDoc, surfaceId: string): PlacedPart[] {
   // rails, modules, clamps and splices sit on top of the attachments: they do not block them
   return Object.values(doc.parts).filter(
-    (p) => p.surfaceId === surfaceId && !p.mount && !p.rail && !p.module && !p.clamp && !p.splice,
+    (p) =>
+      p.surfaceId === surfaceId &&
+      !p.mount &&
+      !p.rail &&
+      !p.module &&
+      !p.clamp &&
+      !p.splice &&
+      !p.wire &&
+      !p.raceway,
   );
 }
 

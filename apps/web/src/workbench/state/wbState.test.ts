@@ -37,6 +37,7 @@ describe("document", () => {
       "1:Clamps",
       "1:Devices",
       "1:Wires",
+      "1:Trunking & conduit",
     ]);
     expect(surfaceOfNode(d, SURFACE_NODE_ID)).toBe(d.surfaces[SURFACE_ID]);
     expect(surfaceOfNode(d, "node-rails")).toBeUndefined();

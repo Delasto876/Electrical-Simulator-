@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { ThreeEvent } from "@react-three/fiber";
 import { DIN_MODULE_MM } from "@solar-sim/engine";
 import type { PartInfo } from "../model/partInfo";
+import { devicePose, railY } from "../model/enclosureGeom";
 import { Box, PhotoBox } from "./LookPrimitives";
 
 /**
@@ -23,9 +24,7 @@ export interface MountedDevice {
   selected?: boolean;
 }
 
-/** Vertical position of a DIN rail row inside an enclosure [m]. */
-export const railY = (row: number, rows: number, h: number): number =>
-  rows === 1 ? h * 0.5 : h * (0.78 - (0.56 * row) / (rows - 1));
+export { railY } from "../model/enclosureGeom";
 
 /** The door's swing when open [rad] (about its left hinge, outwards). */
 export const DOOR_OPEN_RAD = 1.9;
@@ -219,15 +218,7 @@ export function EnclosureLook({
         />
       ))}
       {devices.map((dv) => {
-        const mod = dv.info.dinModules ?? 1;
-        const x = -railW / 2 + ((dv.slot + mod / 2) * DIN_MODULE_MM) / 1000;
-        const dh = Math.min(0.09, dv.info.heightM);
-        const dpos: [number, number, number] = [
-          x,
-          railY(dv.row, cfg.rows, h),
-          -d / 2 + 0.02 + dd / 2,
-        ];
-        const dsize: [number, number, number] = [(mod * DIN_MODULE_MM) / 1000 - 0.001, dh, dd];
+        const { pos: dpos, size: dsize } = devicePose(info, dv.info, dv.row, dv.slot);
         const click = open && onDevice ? (e: ThreeEvent<MouseEvent>) => onDevice(dv, e) : undefined;
         if (dv.info.photo)
           return (

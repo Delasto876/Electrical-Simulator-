@@ -14,6 +14,8 @@ import {
   SlidersHorizontal,
   Tag,
   Play,
+  Plug,
+  Rows3,
   type LucideIcon,
 } from "lucide-react";
 import { surfaceFacts } from "@solar-sim/engine";
@@ -23,7 +25,7 @@ import { useDoc, useWb } from "../state/wbStore";
 import { useView, type BottomTab } from "../state/wbView";
 import { formatLength } from "../lib/units";
 import { bomOf } from "../model/bom";
-import { allIssues } from "../model/railKit";
+import { allIssues } from "../model/issues";
 import { IssuesList } from "./RailKitPanels";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -40,6 +42,8 @@ const ICONS: Record<string, LucideIcon> = {
   ruler: Ruler,
   scissors: Scissors,
   link: Link2,
+  plug: Plug,
+  rows: Rows3,
 };
 
 const TABS: { id: BottomTab; label: string }[] = [

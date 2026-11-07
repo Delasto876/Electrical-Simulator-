@@ -116,6 +116,9 @@ import {
   startSplice,
 } from "./railToolActions";
 import { usePlace } from "./placeState";
+import { useWire } from "./wireState";
+import { DEFAULT_CONDUIT, startRaceway, startWire } from "./wireActions";
+import { racewaySpecOf } from "../model/wireKit";
 import { coverSelection, isCoverOpen, selectedEnclosures } from "./coverActions";
 import { kitCardId, kitList } from "../model/kits";
 import { SURFACE_ID, SURFACE_NODE_ID } from "./wbDoc";
@@ -1206,25 +1209,31 @@ add({
 });
 
 // ---------------------------------------------------------------- later workspaces (planned)
-for (const [k, l, ic] of [
-  ["pv", "PV wire", Cable],
-  ["thhn", "THHN/THWN-2", Cable],
-  ["battery", "Battery cable", Battery],
-  ["ground", "Bare ground", Zap],
-] as [string, string, LucideIcon][])
-  future(
-    `wire.${k}`,
-    l,
-    ic,
-    6,
-    `Pick ${l}, a gauge and an end termination, then choose the destination terminal.`,
-  );
+const WIRE_KINDS: [string, string, string, LucideIcon][] = [
+  ["pv", "PV wire 10 AWG", "generic-pv-wire-10awg", Cable],
+  ["thhn", "THHN/THWN-2 10 AWG", "generic-thhn-10awg", Cable],
+  ["battery", "Battery cable 2/0 AWG", "generic-battery-cable-2-0awg", Battery],
+  ["ground", "Bare copper 8 AWG", "generic-bare-cu-8awg", Zap],
+];
+for (const [k, l, cable, ic] of WIRE_KINDS)
+  add({
+    id: `wire.${k}`,
+    label: l,
+    icon: ic,
+    description: `Wire with ${l}: click a terminal, then the terminal it goes to. The gauge can be changed in the bar.`,
+    keywords: `wire cable ${k} ${l}`,
+    run: () => void startWire(cable),
+  });
 add({
   id: "wire.add",
-  label: "Add wire",
+  label: "Wire",
   icon: Cable,
-  description: "Draw a wire from one terminal to another.",
-  variants: ["wire.pv", "wire.thhn", "wire.battery", "wire.ground"],
+  description:
+    "Draw a wire: click a terminal on any part (inverter, battery, breaker, module), then the terminal it goes to. Terminals show as coloured dots.",
+  shortcut: "W",
+  keywords: "wire cable conductor connect terminal",
+  pressed: () => useWire.getState().tool?.kind === "wire",
+  run: () => void startWire(),
 });
 future(
   "wire.connect",
@@ -1283,20 +1292,30 @@ for (const k of kitList())
     disabled: lockedReason,
     run: () => void startPlacing(kitCardId(k)),
   });
-future(
-  "race.trunk",
-  "Trunking",
-  Rows3,
-  7,
-  "Draw trunking; add cables; fill gauge and mitre cut list.",
-);
-future(
-  "race.conduit",
-  "Conduit",
-  Spline,
-  7,
-  "Draw conduit with elbows, bend counter and expansion fittings.",
-);
+add({
+  id: "race.trunk",
+  label: "Trunking",
+  icon: Rows3,
+  description:
+    "Draw trunking (4 × 4 in by default) on a wall or roof: click the corners, Enter finishes. Wires pulled through it show the fill and the mitre cut list.",
+  keywords: "trunking wireway duct cable tray 4 inch",
+  pressed: () =>
+    useWire.getState().tool?.kind === "raceway" &&
+    racewaySpecOf((useWire.getState().tool as { catalogId: string }).catalogId)?.kind ===
+      "trunking",
+  run: () => void startRaceway(),
+});
+add({
+  id: "race.conduit",
+  label: "Conduit",
+  icon: Spline,
+  description: "Draw a conduit run (3/4 in PVC by default): click the corners, Enter finishes.",
+  keywords: "conduit pipe pvc emt",
+  pressed: () =>
+    useWire.getState().tool?.kind === "raceway" &&
+    racewaySpecOf((useWire.getState().tool as { catalogId: string }).catalogId)?.kind === "conduit",
+  run: () => void startRaceway(DEFAULT_CONDUIT),
+});
 future("prot.breaker", "Breaker", PlugZap, 8, "Snap DIN breakers onto a rail.");
 future("prot.fuse", "Fuse", Zap, 8, "Battery fuses (Class T, MRBF, ANL).");
 future("prot.ats", "Transfer switch", Cpu, 8, "Place an ATS and choose its source priority.");
@@ -1402,13 +1421,18 @@ const BUILD_TAB: RibbonTab = {
     G("ASSEMBLE", ["mount.clamp.all", "mount.clamp"], ["edit.group", "edit.ungroup"]),
     G(
       "CONSTRUCT",
-      ["construct.surface", "construct.wall", "construct.origin"],
-      ["view.rulers", "construct.surface.delete"],
+      ["construct.surface", "construct.wall"],
+      ["construct.origin", "view.rulers", "construct.surface.delete"],
     ),
     G(
       "INSPECT",
       ["inspect.measure", "inspect.section"],
       ["inspect.measure.clear", "inspect.issues", "surface.facts"],
+    ),
+    G(
+      "WIRE",
+      ["wire.add", "race.trunk"],
+      ["wire.pv", "wire.thhn", "wire.battery", "wire.ground", "race.conduit"],
     ),
     G(
       "INSERT",

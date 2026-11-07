@@ -1,7 +1,9 @@
 import { legLengths, type TiltFrame, tiltFrame } from "@solar-sim/engine";
 import type { WbDoc } from "../state/wbDoc";
 import { partInfo } from "./partInfo";
-import { stockSummary } from "@solar-sim/engine";
+import { cutFromStock, mitreCutList, stockSummary } from "@solar-sim/engine";
+import { WIRE_END_ALLOWANCE_M, WIRE_SLACK_FRACTION } from "../../config/wireColors";
+import { racewayLocal, racewaySpecOf, wireGeom, allTerminals } from "./wireKit";
 
 /**
  * BILL OF MATERIALS from the placed parts: one row per kind of part with its
@@ -12,7 +14,7 @@ export interface BomRow {
   key: string;
   label: string;
   qty: number;
-  unit: "ea" | "set";
+  unit: "ea" | "set" | "m";
   detail: string;
   verified: boolean;
 }
@@ -53,6 +55,7 @@ export function bomOf(doc: WbDoc): BomRow[] {
     const info = partInfo(p.catalogId);
     if (!info) continue;
     if (p.rail) continue; // rails are counted as stock bought, below
+    if (p.wire || p.raceway) continue; // by length / stock sticks, below
     if (info.legRole) {
       const len = Math.round(legLengthMm(doc, info.legRole));
       add(
@@ -106,6 +109,55 @@ export function bomOf(doc: WbDoc): BomRow[] {
         `${placed.length} piece(s) on the surface, ${pooled.length} offcut(s) kept, waste ${sum.wastePct.toFixed(1)} %`,
         info?.verified ?? false,
       );
+  }
+  // wires: metres per cable, with slack and a termination allowance per end
+  const terms = allTerminals(doc);
+  const wireLen = new Map<string, { m: number; n: number }>();
+  for (const p of Object.values(doc.parts)) {
+    if (!p.wire) continue;
+    const g = wireGeom(doc, p, terms);
+    if (g.lengthM <= 0) continue;
+    const buy = g.lengthM * (1 + WIRE_SLACK_FRACTION) + 2 * WIRE_END_ALLOWANCE_M;
+    const w = wireLen.get(p.catalogId) ?? { m: 0, n: 0 };
+    wireLen.set(p.catalogId, { m: w.m + buy, n: w.n + 1 });
+  }
+  for (const [catalogId, w] of wireLen) {
+    const info = partInfo(catalogId);
+    add(
+      `${catalogId}|wire`,
+      info?.label ?? catalogId,
+      Math.ceil(w.m * 10) / 10,
+      "m",
+      `${w.n} wire(s); +${Math.round(WIRE_SLACK_FRACTION * 100)} % slack and ${WIRE_END_ALLOWANCE_M * 1000} mm per end`,
+      info?.verified ?? false,
+    );
+  }
+  // trunking and conduit: sticks from the cut list (mitred trunking corners, conduit elbows)
+  const runs = new Map<string, { pieces: number[]; corners: number }>();
+  for (const p of Object.values(doc.parts)) {
+    if (!p.raceway) continue;
+    const rs = racewaySpecOf(p.catalogId);
+    if (!rs) continue;
+    const pts = racewayLocal(doc, p);
+    const cut = mitreCutList(pts, rs.widthM);
+    const r = runs.get(p.catalogId) ?? { pieces: [], corners: 0 };
+    for (const pc of cut.pieces)
+      r.pieces.push(rs.kind === "trunking" ? Math.max(pc.leftM, pc.rightM) : pc.centreM);
+    r.corners += cut.corners.length;
+    runs.set(p.catalogId, r);
+  }
+  for (const [catalogId, r] of runs) {
+    const rs = racewaySpecOf(catalogId)!;
+    const info = partInfo(catalogId);
+    const plan = cutFromStock(r.pieces, rs.stockLengthM, 0.003);
+    add(
+      `${catalogId}|stock`,
+      `${info?.label ?? catalogId}, ${Math.round(rs.stockLengthM / 0.3048)} ft lengths`,
+      plan.stocks,
+      "ea",
+      `${r.pieces.length} piece(s), ${r.corners} ${rs.kind === "trunking" ? "mitred corner(s)" : "elbow(s)"}, ${plan.joints} joint(s), waste ${(plan.waste * 1000).toFixed(0)} mm`,
+      info?.verified ?? false,
+    );
   }
   return [...rows.values()].sort((a, b) => a.label.localeCompare(b.label));
 }

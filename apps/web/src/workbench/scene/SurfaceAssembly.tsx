@@ -14,6 +14,8 @@ import { cancelRailTool, toolClick, toolMove } from "../state/railToolActions";
 import { useRailTool } from "../state/railToolState";
 import { gizmoDragTo } from "../state/editActions";
 import { partDragTo } from "../state/dragActions";
+import { useWire } from "../state/wireState";
+import { addRacewayPoint, racewayHover } from "../state/wireActions";
 import { useView } from "../state/wbView";
 import { currentDoc, useWb } from "../state/wbStore";
 import { SurfaceBody, type SurfaceBodyProps } from "./SurfaceBody";
@@ -118,6 +120,12 @@ export function SurfaceAssembly({
           if (l) toolClick(surfaceId, l[0], l[1], e.shiftKey);
           return;
         }
+        if (useWire.getState().tool) {
+          if (e.delta > 4 || useWire.getState().tool?.kind !== "raceway") return;
+          const l = toLocal(e);
+          if (l) addRacewayPoint(surfaceId, l[0], l[1], e.altKey);
+          return;
+        }
         if (useView.getState().measuring) {
           if (e.delta > 4) return;
           const p = measurePoint(e);
@@ -153,6 +161,11 @@ export function SurfaceAssembly({
         if (gd) {
           const l = toLocal(e);
           if (l) gizmoDragTo(gd.axis === "x" ? l[0] : l[1], e.altKey);
+          return;
+        }
+        if (useWire.getState().tool?.kind === "raceway") {
+          const l = toLocal(e);
+          if (l) racewayHover(surfaceId, l[0], l[1], e.altKey);
           return;
         }
         const pl = usePlace.getState();

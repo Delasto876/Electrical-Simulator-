@@ -92,6 +92,16 @@ describe("walls and surfaces on planes", () => {
     const v3 = JSON.parse(serializeFile({ initial: newDoc(), commands: [], cursor: 0 }));
     v3.schemaVersion = 3;
     v3.snapshot.initial.schemaVersion = 3;
-    expect(parseFile(v3).initial.schemaVersion).toBe(4);
+    expect(parseFile(v3).initial.schemaVersion).toBe(5);
+    // a version 4 file without the Trunking & conduit folder gets it
+    const v4 = JSON.parse(serializeFile({ initial: newDoc(), commands: [], cursor: 0 }));
+    v4.schemaVersion = 4;
+    v4.snapshot.initial.schemaVersion = 4;
+    delete v4.snapshot.initial.nodes["node-raceways"];
+    const comp = v4.snapshot.initial.nodes["node-components"];
+    comp.children = comp.children.filter((c: string) => c !== "node-raceways");
+    const m = parseFile(v4).initial;
+    expect(m.nodes["node-raceways"]?.name).toBe("Trunking & conduit");
+    expect(m.nodes["node-components"]!.children).toContain("node-raceways");
   });
 });

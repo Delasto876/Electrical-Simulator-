@@ -64,13 +64,10 @@ const COLOR: Record<string, string> = {
 };
 
 const LATER: Record<string, string> = {
-  cable: "Wires are drawn between terminals in Phase 6.",
-  connector: "Connectors are fitted to wire ends in Phase 6.",
-  conduit: "Conduit is drawn as a run in Phase 7.",
-  "conduit-fitting": "Fittings are added by the conduit tool in Phase 7.",
-  trunking: "Trunking is drawn as a run in Phase 7.",
+  connector: "Connectors are fitted to wire ends with the Wire tool (counted in a later phase).",
+  "conduit-fitting": "Elbows and couplings are counted from the conduit run in a later phase.",
   "fastener-set": "Fasteners are added automatically with the hardware.",
-  termination: "Terminations are fitted to wire ends in Phase 6.",
+  termination: "Lugs and ferrules on wire ends are counted in a later phase.",
 };
 
 const mm = (v: number) => v / 1000;

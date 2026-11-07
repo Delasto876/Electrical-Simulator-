@@ -8,6 +8,8 @@ import { cancelPlacing, commitTyped, rotatePlacing } from "../state/placeActions
 import { usePlace } from "../state/placeState";
 import { useRailTool } from "../state/railToolState";
 import { RailToolBar } from "./RailToolBar";
+import { WireToolBar } from "./WirePanels";
+import { useWire } from "../state/wireState";
 import { useDoc, useWb } from "../state/wbStore";
 import { useView, type SectionAxis } from "../state/wbView";
 
@@ -17,7 +19,9 @@ export function OptionsBar() {
   const railTool = useRailTool((s) => s.tool);
   // while a part is dragged on the canvas the dimensions there say it all: keep the view clear
   const canvasDrag = useRailTool((s) => s.canvasDrag);
+  const wireTool = useWire((s) => s.tool);
   if (canvasDrag) return null;
+  if (wireTool) return <WireToolBar />;
   return placing ? <PlacingBar /> : railTool ? <RailToolBar /> : <SectionBar />;
 }
 

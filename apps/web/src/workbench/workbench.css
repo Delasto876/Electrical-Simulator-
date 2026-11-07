@@ -2128,3 +2128,49 @@ body,
 .wb-navbar .wb-btn {
   white-space: nowrap;
 }
+
+/* ---- Phase 7: wiring */
+.wb-term {
+  display: block;
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  background: var(--term, #8f9aa6);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.55),
+    0 1px 4px rgb(0 0 0 / 0.4);
+  cursor: crosshair;
+  transition: transform 0.08s;
+}
+.wb-term.is-used {
+  border-style: dotted;
+}
+.wb-term:hover,
+.wb-term:focus-visible,
+.wb-term.is-hover {
+  transform: scale(1.45);
+}
+.wb-term.is-from {
+  transform: scale(1.5);
+  border-color: #4d9bff;
+  box-shadow: 0 0 0 3px rgb(77 155 255 / 0.45);
+}
+.wb-term-label {
+  position: absolute;
+  left: 16px;
+  top: -6px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.94);
+  border: 1px solid rgb(22 24 28 / 0.5);
+  color: #16181c;
+  font: 600 11px/1.35 var(--wb-font);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.wb-bad {
+  color: var(--wb-err);
+  font-weight: 700;
+}

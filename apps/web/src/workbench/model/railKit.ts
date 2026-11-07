@@ -410,6 +410,7 @@ export function clampGrips(doc: WbDoc, p: PlacedPart) {
 }
 
 /** Mechanical issues of every surface in the document. */
-export function allIssues(doc: WbDoc): Issue[] {
+/** Mechanical issues of every surface (the Issues tab adds wiring: model/issues.ts). */
+export function allMechanicalIssues(doc: WbDoc): Issue[] {
   return sortIssues(Object.keys(doc.surfaces).flatMap((id) => mechanicalIssues(doc, id)));
 }

@@ -9,6 +9,7 @@ import {
   type Xform,
 } from "../model/editTools";
 import { usePlace } from "./placeState";
+import { useWire } from "./wireState";
 import { useRailTool, type RailTool } from "./railToolState";
 import { SURFACE_ID } from "./wbDoc";
 import { currentDoc, useWb } from "./wbStore";
@@ -29,6 +30,7 @@ export function selectedPartIds(): string[] {
 
 function begin(tool: RailTool, hint: string): boolean {
   usePlace.getState().set({ placing: null, cand: null, typing: null });
+  useWire.getState().set({ tool: null });
   useView.getState().set({ measuring: false });
   const surfaceId =
     currentDoc().parts[(tool as { ids?: string[] }).ids?.[0] ?? ""]?.surfaceId ?? SURFACE_ID;

@@ -114,3 +114,12 @@ Values the UI shows as "not available", and deferred work.
 - The coloured icons are lucide icons tinted by group; hand-drawn product icons like Fusion's are not made.
 - The 615, 625, 665 and 700 W modules are estimated classes, not products; replace them with the modules you buy.
 - Wiring and raceways are Phase 7 now.
+
+## Workbench (brief v2), after Phase 7
+
+- Wires route directly or through one run; routing through several runs in a row, along a wall without a run (clipped to the surface), and around obstacles is not built.
+- Wires inside a DIN box take the direct route; the comb busbar and neutral/earth bars are not modelled.
+- Connectors (MC4 pairs), lugs and ferrules on wire ends are not counted in the BOM yet.
+- Conduit elbows, couplings and expansion fittings are not counted (the v1 conduit tool has the rules); bend radius is not drawn.
+- Wire ampacity, voltage drop and OCPD coordination use the v1 engine and arrive with the electrical simulation (Phase 8).
+- Editing a run's corners after it is drawn is not built (delete and redraw, or move the whole run).

@@ -93,8 +93,10 @@ export function duplicate(
     // rails first (they buy stock), then enclosures and everything that stands, then what hangs on them
     const order = [
       ...parts.filter((p) => p.rail),
-      ...parts.filter((p) => !p.rail && !p.clamp && !p.mount && !p.splice),
+      ...parts.filter((p) => !p.rail && !p.clamp && !p.mount && !p.splice && !p.wire),
       ...parts.filter((p) => p.clamp || p.mount),
+      // wires last: they land on the copies of their parts
+      ...parts.filter((p) => p.wire),
     ];
     for (const p of order) {
       const [x, z, rotDeg] = applyXform(p.x, p.z, p.rotDeg, t);
@@ -201,6 +203,46 @@ export function duplicate(
             },
           ],
           label,
+        });
+        if (ok) {
+          map.set(p.id, id);
+          newIds.push(id);
+        } else skipped++;
+        continue;
+      }
+      if (p.wire) {
+        const a = map.get(p.wire.a.partId);
+        const b = map.get(p.wire.b.partId);
+        if (!a || !b) continue; // a wire is only copied with both of its parts
+        const via = p.wire.racewayId ? (map.get(p.wire.racewayId) ?? p.wire.racewayId) : null;
+        const ok = run({
+          type: "wire.add",
+          part: {
+            ...p,
+            id,
+            x,
+            z,
+            wire: { a: { ...p.wire.a, partId: a }, b: { ...p.wire.b, partId: b }, racewayId: via },
+          },
+          name: rename(nameOf(doc, p.id), countOf(work, p.catalogId) + 1),
+          nodeId: node,
+          folderId: folderForCategory("cable"),
+        });
+        if (ok) {
+          map.set(p.id, id);
+          newIds.push(id);
+        } else skipped++;
+        continue;
+      }
+      if (p.raceway) {
+        const flip = (q: [number, number]): [number, number] =>
+          t.kind === "mirror" ? (t.axis === "x" ? [-q[0], q[1]] : [q[0], -q[1]]) : q;
+        const ok = run({
+          type: "raceway.add",
+          part: { ...p, id, x, z, rotDeg: 0, raceway: { points: p.raceway.points.map(flip) } },
+          name: rename(nameOf(doc, p.id), countOf(work, p.catalogId) + 1),
+          nodeId: node,
+          folderId: folderForCategory("trunking"),
         });
         if (ok) {
           map.set(p.id, id);

@@ -7,6 +7,8 @@ import { startClamp, startModule, startRail, startSplice } from "./railToolActio
 import { SURFACE_ID } from "./wbDoc";
 import { activeSurfaceId } from "./activeSurface";
 import { usePlace } from "./placeState";
+import { useWire } from "./wireState";
+import { startRaceway, startWire } from "./wireActions";
 import { currentDoc, useWb } from "./wbStore";
 import { showToast, useView } from "./wbView";
 
@@ -42,6 +44,11 @@ export function startPlacing(partId: string): boolean {
     case "rail-splice":
       startSplice(partId);
       return true;
+    case "cable":
+      return startWire(partId);
+    case "trunking":
+    case "conduit":
+      return startRaceway(partId);
   }
   if (info.placeable !== true) {
     showToast(info.placeable, "warn");
@@ -54,6 +61,7 @@ export function startPlacing(partId: string): boolean {
     showToast("The surface is locked. Unlock it in the Browser tree.", "warn");
     return false;
   }
+  useWire.getState().set({ tool: null });
   usePlace.getState().set({
     placing: { partId, rotDeg: 0, keep: false },
     cand: null,

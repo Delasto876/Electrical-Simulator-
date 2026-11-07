@@ -48,7 +48,8 @@ describe("part info", () => {
     });
     expect(partInfo("generic-base-plate-anchors")!.attachmentKind).toBe("base-plate");
     expect(partInfo("generic-pv-400w-108hc")!.placeable).toBe(true); // placed by the module tool
-    expect(partInfo("generic-pv-wire-10awg")!.placeable).toMatch(/Phase 6/);
+    expect(partInfo("generic-pv-wire-10awg")!.placeable).toBe(true); // drawn by the Wire tool
+    expect(partInfo("generic-mc4-male")!.placeable).toMatch(/Wire tool/);
     expect(partInfo("nope")).toBeUndefined();
   });
   it("custom parts resolve through the store", () => {
@@ -133,9 +134,9 @@ describe("placing hardware", () => {
     expect(place(d, "generic-hybrid-6k-48v-230v", 1.01, 0, { alt: true }).c.x).toBe(1.01);
   });
   it("later-phase parts cannot be placed yet", () => {
-    expect(place(zinc, "generic-pv-wire-10awg", 0, 0).c).toMatchObject({
+    expect(place(zinc, "generic-mc4-male", 0, 0).c).toMatchObject({
       valid: false,
-      reason: expect.stringMatching(/Phase 6/),
+      reason: expect.stringMatching(/Wire tool/),
     });
   });
 });

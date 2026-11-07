@@ -2,16 +2,9 @@ import { useMemo } from "react";
 import { AlertTriangle, Info, OctagonAlert } from "lucide-react";
 import { ISSUE_CODES, projectOnRail, type Issue } from "@solar-sim/engine";
 import { formatLength } from "../lib/units";
-import {
-  clampGrips,
-  holdsOf,
-  allIssues,
-  railPose,
-  railSpecOf,
-  stockOf,
-  supportsOf,
-} from "../model/railKit";
+import { clampGrips, holdsOf, railPose, railSpecOf, stockOf, supportsOf } from "../model/railKit";
 import { joinCommand } from "../model/railTools";
+import { allIssues } from "../model/issues";
 import { startCut, startRail, startSplice } from "../state/railToolActions";
 import { useDoc, useWb } from "../state/wbStore";
 import { showToast, useView } from "../state/wbView";

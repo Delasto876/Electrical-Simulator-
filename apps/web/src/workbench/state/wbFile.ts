@@ -109,6 +109,26 @@ const BaseCommandSchema = z.discriminatedUnion("type", [
   }),
   z.object({ type: z.literal("offcut.discard"), id: z.string() }),
   z.object({
+    type: z.literal("wire.add"),
+    part: PlacedPartSchema,
+    name: z.string(),
+    nodeId: z.string(),
+    folderId: z.string(),
+  }),
+  z.object({
+    type: z.literal("raceway.add"),
+    part: PlacedPartSchema,
+    name: z.string(),
+    nodeId: z.string(),
+    folderId: z.string(),
+  }),
+  z.object({
+    type: z.literal("wire.update"),
+    id: z.string(),
+    cableId: z.string().optional(),
+    racewayId: z.string().nullable().optional(),
+  }),
+  z.object({
     type: z.literal("surface.add"),
     id: z.string(),
     spec: SurfaceSpecSchema,
@@ -213,6 +233,35 @@ MIGRATIONS[3] = (file) => {
     ...file,
     schemaVersion: 4,
     snapshot: { ...snap, initial: { ...initial, schemaVersion: 4 } },
+  };
+};
+
+// 4 → 5 (Phase 7): wires and trunking/conduit runs are placed parts; a "Trunking & conduit" folder.
+MIGRATIONS[4] = (file) => {
+  const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+  const initial = (snap.initial ?? {}) as Record<string, unknown>;
+  const nodes = { ...((initial.nodes ?? {}) as Record<string, Record<string, unknown>>) };
+  const comp = nodes["node-components"];
+  if (comp && !nodes["node-raceways"]) {
+    const children = [...((comp.children ?? []) as string[]), "node-raceways"];
+    nodes["node-components"] = { ...comp, children };
+    nodes["node-raceways"] = {
+      id: "node-raceways",
+      name: "Trunking & conduit",
+      kind: "category",
+      parentId: "node-components",
+      children: [],
+      surfaceId: null,
+      partId: null,
+      visible: true,
+      locked: false,
+      color: null,
+    };
+  }
+  return {
+    ...file,
+    schemaVersion: 5,
+    snapshot: { ...snap, initial: { ...initial, schemaVersion: 5, nodes } },
   };
 };
 

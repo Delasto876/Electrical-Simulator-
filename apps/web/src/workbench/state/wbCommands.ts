@@ -35,6 +35,11 @@ export type WbCommand =
   | { type: "part.move"; id: string; x: number; z: number }
   | { type: "part.rotate"; id: string; rotDeg: number }
   | { type: "part.delete"; id: string }
+  /** A wire between two terminals (or a trunking/conduit run): a placed part with its own node. */
+  | { type: "wire.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
+  | { type: "raceway.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
+  /** Change a wire's cable or the raceway it runs through (null = direct). */
+  | { type: "wire.update"; id: string; cableId?: string; racewayId?: string | null }
   | { type: "tilt.update"; patch: Partial<TiltSettings> }
   | { type: "guide.add"; guide: Guide }
   | { type: "guide.move"; id: string; at: number }
@@ -116,6 +121,9 @@ export const COMMAND_ICON: Record<WbCommandType, string> = {
   "rail.splice": "link",
   "part.pose": "move",
   "parts.add": "box",
+  "wire.add": "plug",
+  "raceway.add": "rows",
+  "wire.update": "plug",
   "offcut.discard": "trash",
   batch: "box",
   "surface.add": "layers",
@@ -191,6 +199,12 @@ export function commandLabel(c: WbCommand, doc: WbDoc): string {
       return `Align ${nodeOfPart(doc, c.id)}`;
     case "parts.add":
       return c.label;
+    case "wire.add":
+      return `Wire ${c.name}`;
+    case "raceway.add":
+      return `Draw ${c.name}`;
+    case "wire.update":
+      return `Change ${nodeOfPart(doc, c.id)}`;
     case "offcut.discard":
       return "Discard offcut";
     case "batch":
@@ -250,7 +264,10 @@ function removeParts(d: Draft<WbDoc>, ids: ReadonlySet<string>): void {
     }
 }
 
-/** Everything that goes when a part is deleted: devices in an enclosure, clamps and splices on a rail. */
+/**
+ * Everything that goes when a part is deleted: devices in an enclosure, clamps
+ * and splices on a rail, and every wire landed on any of those.
+ */
 function dependents(doc: WbDoc, id: string): Set<string> {
   const out = new Set([id]);
   for (const q of Object.values(doc.parts)) {
@@ -258,6 +275,8 @@ function dependents(doc: WbDoc, id: string): Set<string> {
     if (q.clamp?.railId === id) out.add(q.id);
     if (q.splice && (q.splice.railA === id || q.splice.railB === id)) out.add(q.id);
   }
+  for (const q of Object.values(doc.parts))
+    if (q.wire && (out.has(q.wire.a.partId) || out.has(q.wire.b.partId))) out.add(q.id);
   return out;
 }
 
@@ -333,6 +352,36 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
         return doc;
       if (p.mount && !doc.parts[p.mount.enclosureId]) return doc;
       return produce(doc, (d) => addPartNode(d, p, c.name, c.nodeId, c.folderId));
+    }
+    case "wire.add": {
+      const p = c.part;
+      const w = p.wire;
+      if (!w || doc.parts[p.id] || doc.nodes[c.nodeId] || !doc.nodes[c.folderId]) return doc;
+      if (!doc.parts[w.a.partId] || !doc.parts[w.b.partId] || !doc.surfaces[p.surfaceId])
+        return doc;
+      if (w.a.partId === w.b.partId && w.a.portId === w.b.portId) return doc;
+      if (w.racewayId && !doc.parts[w.racewayId]?.raceway) return doc;
+      return produce(doc, (d) => addPartNode(d, p, c.name, c.nodeId, c.folderId));
+    }
+    case "raceway.add": {
+      const p = c.part;
+      if (!p.raceway || p.raceway.points.length < 2) return doc;
+      if (doc.parts[p.id] || doc.nodes[c.nodeId] || !doc.nodes[c.folderId]) return doc;
+      if (!doc.surfaces[p.surfaceId]) return doc;
+      return produce(doc, (d) => addPartNode(d, p, c.name, c.nodeId, c.folderId));
+    }
+    case "wire.update": {
+      const p = doc.parts[c.id];
+      if (!p?.wire || partLocked(doc, c.id)) return doc;
+      const cable = c.cableId ?? p.catalogId;
+      const via = c.racewayId === undefined ? p.wire.racewayId : c.racewayId;
+      if (via && !doc.parts[via]?.raceway) return doc;
+      if (cable === p.catalogId && via === p.wire.racewayId) return doc;
+      return produce(doc, (d) => {
+        const q = d.parts[c.id]!;
+        q.catalogId = cable;
+        q.wire!.racewayId = via;
+      });
     }
     case "parts.add": {
       const ok = c.items.filter(
@@ -575,6 +624,10 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
       if (!p || partLocked(doc, c.id)) return doc;
       return produce(doc, (d) => {
         removeParts(d, dependents(doc, c.id));
+        // wires pulled through a deleted raceway now run directly
+        if (p.raceway)
+          for (const q of Object.values(d.parts))
+            if (q.wire?.racewayId === c.id) q.wire.racewayId = null;
         // a deleted new rail was never needed: its stock piece goes unless another piece uses it
         if (p.rail) {
           const sid = p.rail.stockId;

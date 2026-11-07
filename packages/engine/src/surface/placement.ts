@@ -120,6 +120,17 @@ export function worldToLocal(s: SurfaceSpec, world: V3): V3 {
   return rotX(rotY(p, -(180 - s.azimuthDeg)), -s.pitchDeg);
 }
 
+/**
+ * First-plane local point → world (the placement: pitch, then azimuth, then
+ * the lift and the surface origin). Inverse of `worldToLocal`. Used to join
+ * parts on different surfaces (a wire from a roof to a wall).
+ */
+export function localToWorld(s: SurfaceSpec, local: V3): V3 {
+  const { offset } = placement(s);
+  const p = firstPlaneToWorld(s, local);
+  return [p[0] + offset[0], p[1] + offset[1], p[2] + offset[2]];
+}
+
 /** Bounds around several surfaces (camera framing, environment). */
 export function boundsOf(list: readonly SurfaceSpec[]): Bounds {
   const bs = list.map(surfaceBounds);

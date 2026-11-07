@@ -23,6 +23,7 @@ import {
 } from "../model/railTools";
 import { moduleSize } from "@solar-sim/engine";
 import { usePlace } from "./placeState";
+import { useWire } from "./wireState";
 import { useRailTool, type RailTool } from "./railToolState";
 import { SURFACE_ID } from "./wbDoc";
 import type { WbCommand } from "./wbCommands";
@@ -37,6 +38,7 @@ const st = () => useRailTool.getState();
 
 function begin(tool: RailTool, hint: string): void {
   usePlace.getState().set({ placing: null, cand: null, typing: null });
+  useWire.getState().set({ tool: null });
   useView.getState().set({ measuring: false });
   st().set({
     tool,

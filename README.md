@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 6: professional CAD look, drag on the canvas, Fusion-style dimensions and view cube, feet rails, 450–720 W modules.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 7: wires between terminals, trunking and conduit runs, fill, cut list.** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -37,6 +37,11 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
   placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
   Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **Wiring (Phase 7)**: **W** starts the Wire tool: terminals show as coloured dots on every part (inverters,
+  batteries, breakers inside boxes, modules); click one and then the one it goes to, or pick both by name.
+  Reversed polarity and AC-to-DC are refused with the reason. **Trunking** (4 × 4 in by default) and **conduit** are
+  drawn by clicking corners on a wall or roof; pull wires through a run and see its fill, the mitre cut list and
+  the lengths to buy. Wires are bought by the metre in the BOM; deleting a part takes its wires.
 - **CAD look and ease of use (Phase 6)**: Inter font, coloured tool icons per toolbar group, a CAD studio backdrop;
   **press and drag** any placed part (feet, boxes, inverters, rails, modules) to move it, with black Fusion-style
   dimensions, release to drop (Ctrl copies, Alt fine steps, Esc cancels); the **view cube** spins the model when

@@ -23,6 +23,7 @@ const BY_GROUP: Record<string, Tone> = {
   ASSEMBLE: "green",
   CONSTRUCT: "amber",
   INSPECT: "violet",
+  WIRE: "red",
   INSERT: "teal",
   SELECT: "slate",
 };

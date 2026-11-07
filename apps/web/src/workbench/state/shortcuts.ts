@@ -4,6 +4,8 @@ import { usePlace } from "./placeState";
 import { cancelRailTool, rotateTool, toggleToolTyping } from "./railToolActions";
 import { useRailTool } from "./railToolState";
 import { commitEdit } from "./editActions";
+import { cancelWireTool, finishRaceway, undoRacewayPoint } from "./wireActions";
+import { useWire } from "./wireState";
 import { useWb } from "./wbStore";
 import { useView } from "./wbView";
 
@@ -72,6 +74,7 @@ export function handleKeyDown(e: KeyboardEvent): void {
     if (useRailTool.getState().typed) return void useRailTool.setState({ typed: null });
     if (cancelPlacing()) return;
     if (cancelRailTool()) return;
+    if (cancelWireTool()) return;
     if (v.measuring) {
       usePlace.setState({ measureA: null, measureHover: null });
       return void v.set({ measuring: false });
@@ -97,6 +100,11 @@ export function handleKeyDown(e: KeyboardEvent): void {
     if (rotateTool()) return e.preventDefault();
   const combo = eventToCombo(e);
   if (combo === "Enter" && acceptActiveCommand()) return e.preventDefault();
+  // Raceway tool: Enter finishes the run, Backspace takes the last corner back
+  if (useWire.getState().tool?.kind === "raceway") {
+    if (combo === "Enter") return (e.preventDefault(), void finishRaceway());
+    if (combo === "Backspace") return (e.preventDefault(), void undoRacewayPoint());
+  }
   if (combo === "Ctrl+Z") return (e.preventDefault(), useWb.getState().undo());
   if (combo === "Ctrl+Shift+Z" || combo === "Ctrl+Y")
     return (e.preventDefault(), useWb.getState().redo());

@@ -7,6 +7,8 @@ import { useDoc } from "../state/wbStore";
 import { usePointer } from "../state/pointer";
 import { useView } from "../state/wbView";
 import { CAMERA_FOV, CameraRig } from "./CameraRig";
+import { RacewayLayer } from "./RacewayLayer";
+import { WiringLayer } from "./WiringLayer";
 import { ENVIRONMENT_DEFS } from "./environments";
 import { Ground } from "./Ground";
 import { Invalidator } from "./Invalidator";
@@ -105,9 +107,11 @@ export function WorkbenchCanvas() {
             <EditGizmo doc={doc} spec={spec} surfaceId={node.surfaceId!} />
             <GuidesLayer doc={doc} spec={spec} />
             <PlaceGhost doc={doc} surfaceId={node.surfaceId!} spec={spec} />
+            <RacewayLayer doc={doc} spec={spec} surfaceId={node.surfaceId!} />
           </SurfaceAssembly>
         );
       })}
+      <WiringLayer doc={doc} />
       <OriginLayer size={bounds.radiusM} />
       <SectionClip bounds={bounds} />
       <OrbitControls

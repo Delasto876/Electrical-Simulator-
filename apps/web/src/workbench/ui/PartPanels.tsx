@@ -16,6 +16,7 @@ import { useWb, useDoc } from "../state/wbStore";
 import { useView } from "../state/wbView";
 import { AngleField, LengthField, Row, Section } from "./Fields";
 import { RailKitSection } from "./RailKitPanels";
+import { RacewaySection, WireSection } from "./WirePanels";
 import { setCovers } from "../state/coverActions";
 import { selectNode } from "../state/wbView";
 
@@ -147,7 +148,7 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
             Unverified data. Check the manufacturer's datasheet.
           </p>
         )}
-        {!part.mount && !part.clamp && !part.splice && (
+        {!part.mount && !part.clamp && !part.splice && !part.wire && (
           <>
             <LengthField
               id="part-from-left"
@@ -203,6 +204,8 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
       </Section>
       {info.legRole && <TiltSection info={info} />}
       <RailKitSection partId={part.id} />
+      <WireSection partId={part.id} />
+      <RacewaySection partId={part.id} />
       {(info.enclosure || part.mount) && (
         <EnclosureSection enclosureId={part.mount ? part.mount.enclosureId : part.id} />
       )}

@@ -14,7 +14,7 @@ import {
  * the empty starting document. Change the shape → bump WB_SCHEMA_VERSION and
  * add a migration in wbFile.ts (never edit a released one).
  */
-export const WB_SCHEMA_VERSION = 4;
+export const WB_SCHEMA_VERSION = 5;
 
 export const TAG_COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "grey"] as const;
 export type TagColor = (typeof TAG_COLORS)[number];
@@ -59,6 +59,28 @@ export interface PlacedPart {
   splice?: SpliceInfo;
   /** PV modules: portrait or landscape. */
   module?: ModuleInfo;
+  /** Wires: the cable (catalogId) between two terminals, optionally through a raceway. */
+  wire?: WireInfo;
+  /** Trunking and conduit runs: the centreline on the surface. */
+  raceway?: RacewayInfo;
+}
+
+/** One end of a wire: a terminal (catalog port id) of a placed part. */
+export interface WireEnd {
+  partId: string;
+  portId: string;
+}
+
+export interface WireInfo {
+  a: WireEnd;
+  b: WireEnd;
+  /** The trunking or conduit run it is pulled through; null = run directly. */
+  racewayId: string | null;
+}
+
+export interface RacewayInfo {
+  /** Centreline corners on the surface [m], relative to the part's x, z (so Move moves the run). */
+  points: [number, number][];
 }
 
 export interface RailInfo {
@@ -214,6 +236,14 @@ export const PlacedPartSchema = z.object({
   clamp: z.object({ railId: z.string(), t: z.number(), kind: z.enum(["mid", "end"]) }).optional(),
   splice: z.object({ railA: z.string(), railB: z.string(), bonded: z.boolean() }).optional(),
   module: z.object({ orientation: z.enum(["portrait", "landscape"]) }).optional(),
+  wire: z
+    .object({
+      a: z.object({ partId: z.string(), portId: z.string() }),
+      b: z.object({ partId: z.string(), portId: z.string() }),
+      racewayId: z.string().nullable(),
+    })
+    .optional(),
+  raceway: z.object({ points: z.array(z.tuple([z.number(), z.number()])).min(2) }).optional(),
 });
 export const StockPieceSchema = z.object({
   id: z.string(),
@@ -268,6 +298,7 @@ export const COMPONENT_FOLDERS: { id: string; name: string }[] = [
   { id: "node-clamps", name: "Clamps" },
   { id: "node-devices", name: "Devices" },
   { id: "node-wires", name: "Wires" },
+  { id: "node-raceways", name: "Trunking & conduit" },
 ];
 
 const node = (n: Partial<TreeNode> & Pick<TreeNode, "id" | "name" | "kind">): TreeNode => ({
@@ -372,6 +403,9 @@ export function folderForCategory(category: string): string {
     case "cable":
     case "connector":
       return "node-wires";
+    case "trunking":
+    case "conduit":
+      return "node-raceways";
     default:
       return "node-devices";
   }

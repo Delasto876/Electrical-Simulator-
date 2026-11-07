@@ -220,3 +220,41 @@ test("Phase 6 screens pass axe: CAD look, view cube with hot spots and turn arro
   await page.keyboard.press("Escape");
   expect(found).toEqual([]);
 });
+
+test("Phase 7 screens pass axe: wire bar with terminals, trunking bar, wire and run properties", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await page.getByTestId("libgroup-inverter").click();
+  await page.getByTestId("card-generic-hybrid-6k-48v-230v").click();
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("3000");
+  await page.getByTestId("type-top").fill("3000");
+  await page.getByTestId("type-top").press("Enter");
+  await page.getByTestId("cmd-race.trunk").click();
+  for (const [l, t] of <[string, string][]>[
+    ["2000", "4000"],
+    ["5000", "4000"],
+  ]) {
+    await page.getByTestId("raceway-left").fill(l);
+    await page.getByTestId("raceway-top").fill(t);
+    await page.getByTestId("raceway-add-point").click();
+  }
+  await audit(page, "trunking bar", found);
+  await page.getByTestId("raceway-finish").click();
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("w");
+  await expect(page.locator('[data-testid^="term-"]').first()).toBeAttached();
+  await audit(page, "wire bar and terminals", found);
+  await page.getByTestId("wire-from").selectOption("p1:pe");
+  await page.getByTestId("wire-to").selectOption("p1:ac-in-l1");
+  await page.getByTestId("wire-connect").click();
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await page.getByTestId("node-node-p2").click();
+  await audit(page, "trunking properties", found);
+  expect(found).toEqual([]);
+});

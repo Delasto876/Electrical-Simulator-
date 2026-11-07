@@ -144,6 +144,10 @@ Real brand inverters (Deye, Growatt, Luxpower, SRNE, Sol-Ark) with datasheet lin
 
 The user asked for a professional CAD look before wiring: Inter font, colour-gradient tool icons per toolbar group, a CAD studio backdrop (default), Fusion-style black dimensions with arrowheads, press-and-drag of parts on the canvas (one Move card, ghosts and live dimensions), a Fusion-like view cube (drag to spin, corner and edge hot spots, 90° turn arrows, home), a 12 × 8 m build plate for new projects (surfaces up to 60 m), rails sold in 14 / 16 / 18 / 20 / 24 ft sticks and the popular 450–720 W modules picked by wattage. Decisions D-138 to D-145. Wiring and raceways move to Phase 7 (below).
 
+## Phase 7 status (done: wiring and raceways)
+
+Wire tool (W): click a terminal on any part (inverters, batteries, DIN devices inside boxes, modules, custom parts), then the terminal it goes to, or pick both by name; colours by polarity; AC-to-DC, reversed polarity and wrong cable kinds are caught. Trunking and conduit runs are drawn by clicking corners (kept square) on walls and roofs; wires are pulled through a run; fill against NEC wireway / conduit limits, a mitre cut list and stock lengths in the BOM; deleting a part takes its wires, deleting a run re-routes its wires directly. Document schema 5. Decisions D-146 to D-152. Electrical simulation in the Workbench is next (Phase 8).
+
 ## Roadmap after Phase 4 (re-ordered with the user)
 
 5. ✅ (see Phase 5 status; the user's product photos, N/PE bars and wiring inside follow) **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.

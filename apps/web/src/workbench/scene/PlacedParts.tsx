@@ -34,7 +34,15 @@ export function PlacedParts({
   );
   // rails, splices, clamps and modules are drawn by RailKitLayer
   const parts = Object.values(doc.parts).filter(
-    (p) => p.surfaceId === surfaceId && !p.mount && !p.rail && !p.splice && !p.clamp && !p.module,
+    (p) =>
+      p.surfaceId === surfaceId &&
+      !p.mount &&
+      !p.rail &&
+      !p.splice &&
+      !p.clamp &&
+      !p.module &&
+      !p.wire &&
+      !p.raceway,
   );
   return (
     <>

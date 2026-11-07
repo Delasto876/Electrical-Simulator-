@@ -47,6 +47,8 @@ export * from "./raceway/thermal";
 export * from "./raceway/packing";
 export * from "./raceway/location";
 export * from "./raceway/cutting";
+export * from "./wiring/route";
+export * from "./wiring/rules";
 export * from "./irradiance/poa";
 export * from "./pv/bypass";
 export * from "./sim/shading";
