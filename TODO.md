@@ -106,3 +106,11 @@ Values the UI shows as "not available", and deferred work.
 - N and PE bars, cable glands, wires inside the box and labels printed on the device fronts are not drawn yet (Phase 6 wiring).
 - Kits are fixed lists; a "save this box as a ready-made box" command (from a box built by hand) is not built.
 - Covers open in place; an exploded "take the cover off and lay it beside the box" view is not built.
+
+## Workbench (brief v2), after Phase 6
+
+- Dragging moves parts in the surface plane; snapping a dragged foot onto the structure (like placing) and dragging a part from one surface to another are not built. Clamps and DIN devices follow their rail or box but cannot be dragged on their own.
+- The view cube cannot roll the view (Fusion's arrows rotate about the view direction); its arrows turn the model 90° about the vertical axis instead.
+- The coloured icons are lucide icons tinted by group; hand-drawn product icons like Fusion's are not made.
+- The 615, 625, 665 and 700 W modules are estimated classes, not products; replace them with the modules you buy.
+- Wiring and raceways are Phase 7 now.

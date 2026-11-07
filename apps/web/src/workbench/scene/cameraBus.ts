@@ -21,3 +21,23 @@ export function subscribeCamera(l: Listener): () => void {
     listeners.delete(l);
   };
 }
+
+/**
+ * Orbit requests from the HTML view cube (drag it to spin the model, or the
+ * 90° turn arrows). Angles in radians: azimuth turns about world up (+ = the
+ * camera moves to the right around the model), polar tilts (+ = look more
+ * from above). The camera rig listens.
+ */
+type OrbitListener = (dAzRad: number, dPolRad: number, animate: boolean) => void;
+const orbitListeners = new Set<OrbitListener>();
+
+export function requestOrbit(dAzRad: number, dPolRad: number, animate = false): void {
+  for (const l of orbitListeners) l(dAzRad, dPolRad, animate);
+}
+
+export function onOrbitRequest(l: OrbitListener): () => void {
+  orbitListeners.add(l);
+  return () => {
+    orbitListeners.delete(l);
+  };
+}

@@ -35,9 +35,10 @@ export const DISPLAY_MODE_LABEL: Record<DisplayMode, string> = {
   exploded: "Exploded",
 };
 
-export const ENVIRONMENTS = ["studio", "daylight", "overcast", "sunset"] as const;
+export const ENVIRONMENTS = ["cad", "studio", "daylight", "overcast", "sunset"] as const;
 export type EnvPreset = (typeof ENVIRONMENTS)[number];
 export const ENV_LABEL: Record<EnvPreset, string> = {
+  cad: "CAD studio",
   studio: "Studio",
   daylight: "Daylight",
   overcast: "Overcast",
@@ -138,7 +139,13 @@ export interface ViewState {
   /** A command whose options bar is open (e.g. "inspect.section"). */
   activeCommand: { id: string; backup?: SectionState } | null;
   /** A camera move asked for; `partIds` frames those parts instead of the whole scene. */
-  cameraRequest: { n: number; kind: ViewKind; partIds?: string[] } | null;
+  cameraRequest: {
+    n: number;
+    kind: ViewKind;
+    partIds?: string[];
+    /** Look from this direction (world, towards the camera), e.g. a view-cube corner. */
+    dir?: [number, number, number];
+  } | null;
   searchOpen: boolean;
   shortcutsOpen: boolean;
   aboutOpen: boolean;
@@ -158,6 +165,8 @@ export interface ViewState {
   confirm: { message: string; okLabel: string; onOk: () => void } | null;
   set: (p: Partial<ViewState>) => void;
   requestView: (kind: ViewKind, partIds?: string[]) => void;
+  /** Move the camera to look from a direction (view-cube corner or edge). */
+  requestDirection: (dir: [number, number, number]) => void;
   requestFocus: (id: string) => void;
 }
 
@@ -171,6 +180,8 @@ interface Prefs {
   env: EnvPreset;
   grid: boolean;
   snaps: SnapSettings;
+  /** Look version: 2 = the CAD studio backdrop became the default (Phase 6). */
+  look?: number;
 }
 
 function loadPrefs(): Partial<Prefs> {
@@ -192,6 +203,7 @@ function savePrefs(s: ViewState): void {
       env: s.env,
       grid: s.grid,
       snaps: s.snaps,
+      look: LOOK_VERSION,
     };
     localStorage.setItem(PREF_KEY, JSON.stringify(p));
   } catch {
@@ -199,7 +211,10 @@ function savePrefs(s: ViewState): void {
   }
 }
 
+const LOOK_VERSION = 2;
 const saved = loadPrefs();
+// prefs saved before the CAD look: switch the backdrop once to CAD studio (the user can switch back)
+if ((saved.look ?? 1) < LOOK_VERSION) delete saved.env;
 
 export const useView = create<ViewState>((set, get) => ({
   workspace: "design",
@@ -215,7 +230,7 @@ export const useView = create<ViewState>((set, get) => ({
   hoverId: null,
   isolated: null,
   displayMode: saved.displayMode ?? "realistic",
-  env: saved.env ?? "daylight",
+  env: saved.env ?? "cad",
   grid: saved.grid ?? true,
   snaps: { ...DEFAULT_SNAPS, ...saved.snaps },
   rulers: true,
@@ -254,6 +269,8 @@ export const useView = create<ViewState>((set, get) => ({
         ...(partIds?.length ? { partIds } : {}),
       },
     }),
+  requestDirection: (dir) =>
+    set({ cameraRequest: { n: (get().cameraRequest?.n ?? 0) + 1, kind: "fit", dir } }),
   requestFocus: (id) => set({ focusField: { n: (get().focusField?.n ?? 0) + 1, id } }),
 }));
 

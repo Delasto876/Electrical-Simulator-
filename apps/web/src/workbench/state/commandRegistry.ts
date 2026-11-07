@@ -521,19 +521,19 @@ railTool(
   "mount.rail.light",
   "Light rail",
   "generic-rail-light",
-  "Light-duty rail profile (stock 2.1, 3.6, 4.2 m).",
+  "Light-duty rail profile (stock 14, 16, 18, 20, 24 ft).",
 );
 railTool(
   "mount.rail.std",
   "Standard rail",
   "generic-rail-standard",
-  "Standard rail profile (stock 2.1, 3.6, 4.2 m).",
+  "Standard rail profile (stock 14, 16, 18, 20, 24 ft).",
 );
 railTool(
   "mount.rail.heavy",
   "Heavy-duty rail",
   "generic-rail-heavy",
-  "Heavy-duty rail profile (stock 2.1, 3.6, 4.2 m).",
+  "Heavy-duty rail profile (stock 14, 16, 18, 20, 24 ft).",
 );
 const noRails = () =>
   lockedReason() ??
@@ -1023,6 +1023,7 @@ for (const m of DISPLAY_MODES)
     run: () => useView.getState().set({ displayMode: m as DisplayMode }),
   });
 const ENV_ICON: Record<EnvPreset, LucideIcon> = {
+  cad: Box,
   studio: Lightbulb,
   daylight: Sun,
   overcast: CloudRain,

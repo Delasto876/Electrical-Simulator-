@@ -19,7 +19,7 @@ import { COMMANDS, labelOf, runCommand } from "../state/commandRegistry";
 import { customPartsFromFile } from "../model/customPackage";
 import { customPartList, useCustomParts } from "../state/customParts";
 import { parseFileFull, serializeFile, WbFileError } from "../state/wbFile";
-import { newDoc } from "../state/wbDoc";
+import { startDoc } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
 import { showToast, useView, WORKSPACES, WORKSPACE_LABEL } from "../state/wbView";
 import { Dropdown } from "./Dropdown";
@@ -53,7 +53,7 @@ export function newProject(): void {
         "Start a new empty workbench? The current one stays in this browser's autosave only until you change something.",
       okLabel: "New workbench",
       onOk: () => {
-        useWb.getState().reset(newDoc());
+        useWb.getState().reset(startDoc());
         useView.getState().set({
           selection: null,
           isolated: null,

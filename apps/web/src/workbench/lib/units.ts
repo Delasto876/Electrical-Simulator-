@@ -193,3 +193,13 @@ export function evalLength(text: string, defaultUnit: Unit): number | undefined 
   ws();
   return v !== undefined && i === src.length && Number.isFinite(v) ? v : undefined;
 }
+
+/**
+ * A rail stock length as installers say it: whole feet first ("14 ft · 4267 mm"),
+ * plain millimetres for metric stock or offcuts.
+ */
+export function formatStock(m: number): string {
+  const ft = m / 0.3048;
+  const mm = Math.round(m * 1000);
+  return Math.abs(ft - Math.round(ft)) < 0.005 ? `${Math.round(ft)} ft · ${mm} mm` : `${mm} mm`;
+}

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { applyCommand, commandLabel, mergeCommands, reduceAll, type WbCommand } from "./wbCommands";
-import { newDoc, type WbDoc } from "./wbDoc";
+import { startDoc, type WbDoc } from "./wbDoc";
 
 /**
  * EVENT-SOURCED HISTORY. `docs[i]` is the document after the first `i`
@@ -64,9 +64,9 @@ function build(initial: WbDoc, commands: readonly WbCommand[], cursor: number, a
 }
 
 export const useWb = create<WbState>((set, get) => ({
-  initial: newDoc(),
+  initial: startDoc(),
   entries: [],
-  docs: [newDoc()],
+  docs: [startDoc()],
   cursor: 0,
   revision: 0,
   log: [],

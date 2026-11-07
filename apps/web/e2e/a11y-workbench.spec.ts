@@ -205,3 +205,18 @@ test("Phase 5 screens pass axe: brand filter, ready-made boxes, kit preview, DIN
   await page.keyboard.press("Escape");
   expect(found).toEqual([]);
 });
+
+test("Phase 6 screens pass axe: CAD look, view cube with hot spots and turn arrows, rail stock in feet", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await expect(page.getByTestId("cube-turn-left")).toBeVisible();
+  await audit(page, "CAD look with view cube", found);
+  await page.getByTestId("cmd-mount.rail").click();
+  await page.getByRole("menuitem", { name: "Standard rail" }).click();
+  await audit(page, "rail bar in feet", found);
+  await page.keyboard.press("Escape");
+  expect(found).toEqual([]);
+});

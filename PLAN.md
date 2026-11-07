@@ -140,10 +140,14 @@ BUILD tab with Fusion-style groups, Fusion shortcuts and navigation, multi-selec
 
 Real brand inverters (Deye, Growatt, Luxpower, SRNE, Sol-Ark) with datasheet links and a brand filter; HT-series DIN boxes from 4 to 18 way; new DIN devices (2P DC breakers 20 A and 125 A, voltage protector, manual changeover, DIN ATS); **ready-made boxes** (PV combiner 2-in 2-out with breakers and SPDs, battery disconnect, changeover, ATS, AC distribution board, hybrid inverter board) placed as one step; boxes open (door swings, inner cover off) to reach and select the devices; detailed DIN device looks; Look at selection (Shift+F) zooms onto a part. The canvas can no longer be hidden by the panels (layout bar, drawers on small screens). Decisions D-132 to D-137; not done in `TODO.md` ("after Phase 5").
 
+## Phase 6 status (done, re-scoped with the user: professional CAD look and ease of use)
+
+The user asked for a professional CAD look before wiring: Inter font, colour-gradient tool icons per toolbar group, a CAD studio backdrop (default), Fusion-style black dimensions with arrowheads, press-and-drag of parts on the canvas (one Move card, ghosts and live dimensions), a Fusion-like view cube (drag to spin, corner and edge hot spots, 90° turn arrows, home), a 12 × 8 m build plate for new projects (surfaces up to 60 m), rails sold in 14 / 16 / 18 / 20 / 24 ft sticks and the popular 450–720 W modules picked by wattage. Decisions D-138 to D-145. Wiring and raceways move to Phase 7 (below).
+
 ## Roadmap after Phase 4 (re-ordered with the user)
 
 5. ✅ (see Phase 5 status; the user's product photos, N/PE bars and wiring inside follow) **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.
-6. **Wiring and raceways**: wires between terminals, 4-inch (and other) trunking and conduit run along walls and roofs, wires pulled through them; fill, bends, cut list.
+6. ✅ became the CAD look phase (see Phase 6 status); **wiring and raceways are now Phase 7**: wires between terminals, 4-inch (and other) trunking and conduit run along walls and roofs, wires pulled through them; fill, bends, cut list.
 7. **Electrical simulation and TEST**: circuits solved in the Workbench (the v1 engine), protection, grounding, ATS behaviour, meter probes, energy simulation.
 8. **Realism pass** (was Phase 4): post-processing, HDRI, quality presets, renders.
 9. **Outputs**: layout drawing, SLD, calculation sheet, BOM, reports (porting v1).

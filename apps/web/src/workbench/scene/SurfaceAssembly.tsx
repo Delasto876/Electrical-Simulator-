@@ -13,6 +13,7 @@ import { usePlace } from "../state/placeState";
 import { cancelRailTool, toolClick, toolMove } from "../state/railToolActions";
 import { useRailTool } from "../state/railToolState";
 import { gizmoDragTo } from "../state/editActions";
+import { partDragTo } from "../state/dragActions";
 import { useView } from "../state/wbView";
 import { currentDoc, useWb } from "../state/wbStore";
 import { SurfaceBody, type SurfaceBodyProps } from "./SurfaceBody";
@@ -132,6 +133,7 @@ export function SurfaceAssembly({
           }
           return;
         }
+        if (e.delta > 4) return; // the end of a drag, a pan or an orbit is not a click
         onSelect(nodeId);
       }}
       onPointerOver={(e) => {
@@ -145,6 +147,8 @@ export function SurfaceAssembly({
       }}
       onPointerMove={(e) => {
         onPointer([e.point.x, e.point.y, e.point.z]);
+        const ld = toLocal(e);
+        if (ld && partDragTo(surfaceId, ld, e.altKey)) return;
         const gd = useRailTool.getState().gizmoDrag;
         if (gd) {
           const l = toLocal(e);

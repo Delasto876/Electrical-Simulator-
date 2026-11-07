@@ -501,6 +501,170 @@
     }
   },
   {
+    "id": "longi-lr5-72hth-595m",
+    "category": "pv-module",
+    "brand": "LONGi",
+    "model": "Hi-MO 6 LR5-72HTH-595M 144 half-cell HPBC",
+    "dimensions": {
+      "lengthMm": 2278,
+      "widthMm": 1134,
+      "heightMm": 35
+    },
+    "weightKg": 27.5,
+    "verified": false,
+    "notes": "STC values from the manufacturer datasheet / distributor tables found by web search on 2026-11-07 (the PDF itself was not downloaded). NOT verified: check the datasheet of the module you install. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 178,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["595W", "144-cell", "half-cut", "LONGi"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.587, -0.03, 0.888],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.587, -0.03, 0.888],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0, 0.57],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 595,
+      "vocV": 52.66,
+      "vmpV": 44.51,
+      "iscA": 14.4,
+      "impA": 13.37,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.23,
+      "tempCoeffIscPctPerC": 0.05,
+      "noctC": 43,
+      "cellCount": 144,
+      "cellsInSeries": 72,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 25,
+      "bypassDiodes": 3,
+      "cellType": "ibc",
+      "halfCut": true,
+      "bifacial": false,
+      "bifaciality": 0,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 273,
+          "toMm": 683
+        }
+      ]
+    },
+    "datasheetUrl": "https://gycxsolar.com/wp-content/uploads/2023/12/L_Gi_LE_PM_T_PMD_059_F133_LR_5_72_HTH_590_600_M_V1_35_35_and_15_Frame_Scientist_V19_42b14719df.pdf"
+  },
+  {
+    "id": "longi-lr5-72hth-600m",
+    "category": "pv-module",
+    "brand": "LONGi",
+    "model": "Hi-MO 6 LR5-72HTH-600M 144 half-cell HPBC",
+    "dimensions": {
+      "lengthMm": 2278,
+      "widthMm": 1134,
+      "heightMm": 35
+    },
+    "weightKg": 27.5,
+    "verified": false,
+    "notes": "STC values from the manufacturer datasheet / distributor tables found by web search on 2026-11-07 (the PDF itself was not downloaded). NOT verified: check the datasheet of the module you install. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 180,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["600W", "144-cell", "half-cut", "LONGi"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.587, -0.03, 0.888],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.587, -0.03, 0.888],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0, 0.57],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 600,
+      "vocV": 52.81,
+      "vmpV": 44.66,
+      "iscA": 14.46,
+      "impA": 13.44,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.23,
+      "tempCoeffIscPctPerC": 0.05,
+      "noctC": 43,
+      "cellCount": 144,
+      "cellsInSeries": 72,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 25,
+      "bypassDiodes": 3,
+      "cellType": "ibc",
+      "halfCut": true,
+      "bifacial": false,
+      "bifaciality": 0,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 273,
+          "toMm": 683
+        }
+      ]
+    },
+    "datasheetUrl": "https://gycxsolar.com/wp-content/uploads/2023/12/L_Gi_LE_PM_T_PMD_059_F133_LR_5_72_HTH_590_600_M_V1_35_35_and_15_Frame_Scientist_V19_42b14719df.pdf"
+  },
+  {
     "id": "generic-pv-610w-132hc-bifacial",
     "category": "pv-module",
     "brand": "Generic",
@@ -580,5 +744,575 @@
         }
       ]
     }
+  },
+  {
+    "id": "generic-pv-615w-156hc-topcon",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-615 156-cell half-cut TOPCon bifacial (182 mm)",
+    "dimensions": {
+      "lengthMm": 2465,
+      "widthMm": 1134,
+      "heightMm": 30
+    },
+    "weightKg": 34.0,
+    "verified": false,
+    "notes": " Generic class: Vmp/Voc taken from the neighbouring rows of the Jinko Tiger Neo 78HL4 family, Imp = P / Vmp and Isc scaled with it. ESTIMATED, not a product: use your module's datasheet. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 184,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["615W", "156-cell", "half-cut", "TOPCon", "bifacial"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.587, -0.03, 0.961],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.587, -0.03, 0.961],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0, 0.616],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 615,
+      "vocV": 55.4,
+      "vmpV": 45.8,
+      "iscA": 14.12,
+      "impA": 13.43,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.25,
+      "tempCoeffIscPctPerC": 0.045,
+      "noctC": 43,
+      "cellCount": 156,
+      "cellsInSeries": 78,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 30,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 296,
+          "toMm": 740
+        }
+      ]
+    }
+  },
+  {
+    "id": "jinko-jkm620n-78hl4-bdv",
+    "category": "pv-module",
+    "brand": "Jinko",
+    "model": "Tiger Neo JKM620N-78HL4-BDV 156 half-cell TOPCon bifacial",
+    "dimensions": {
+      "lengthMm": 2465,
+      "widthMm": 1134,
+      "heightMm": 30
+    },
+    "weightKg": 34.0,
+    "verified": false,
+    "notes": "STC values from the manufacturer datasheet / distributor tables found by web search on 2026-11-07 (the PDF itself was not downloaded). NOT verified: check the datasheet of the module you install. Column order of the table read as Vmp, Imp, Voc, Isc. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 186,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["620W", "156-cell", "half-cut", "TOPCon", "bifacial", "Jinko"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.587, -0.03, 0.961],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.587, -0.03, 0.961],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0, 0.616],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 620,
+      "vocV": 55.58,
+      "vmpV": 45.93,
+      "iscA": 14.19,
+      "impA": 13.5,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.25,
+      "tempCoeffIscPctPerC": 0.045,
+      "noctC": 43,
+      "cellCount": 156,
+      "cellsInSeries": 78,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 30,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 296,
+          "toMm": 740
+        }
+      ]
+    },
+    "datasheetUrl": "https://www.esol.cl/files/JKM625N.pdf"
+  },
+  {
+    "id": "generic-pv-625w-156hc-topcon",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-625 156-cell half-cut TOPCon bifacial (182 mm)",
+    "dimensions": {
+      "lengthMm": 2465,
+      "widthMm": 1134,
+      "heightMm": 30
+    },
+    "weightKg": 34.0,
+    "verified": false,
+    "notes": " Generic class: Vmp/Voc taken from the neighbouring rows of the Jinko Tiger Neo 78HL4 family, Imp = P / Vmp and Isc scaled with it. ESTIMATED, not a product: use your module's datasheet. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 188,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["625W", "156-cell", "half-cut", "TOPCon", "bifacial"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.587, -0.03, 0.961],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.587, -0.03, 0.961],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.567, 0, 0.616],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 625,
+      "vocV": 55.7,
+      "vmpV": 46.1,
+      "iscA": 14.25,
+      "impA": 13.56,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.25,
+      "tempCoeffIscPctPerC": 0.045,
+      "noctC": 43,
+      "cellCount": 156,
+      "cellsInSeries": 78,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 30,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 30,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 296,
+          "toMm": 740
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-665w-132hc-bifacial",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-665 132-cell half-cut PERC bifacial (210 mm)",
+    "dimensions": {
+      "lengthMm": 2384,
+      "widthMm": 1303,
+      "heightMm": 35
+    },
+    "weightKg": 38.3,
+    "verified": false,
+    "notes": " Generic class: Vmp/Voc taken from the neighbouring rows of the Trina Vertex TSM-DEG21C.20 (650/655 W rows) family, Imp = P / Vmp and Isc scaled with it. ESTIMATED, not a product: use your module's datasheet. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 200,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["665W", "132-cell", "half-cut", "bifacial", "210mm"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.671, -0.03, 0.93],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.671, -0.03, 0.93],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.651, 0, 0.596],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 665,
+      "vocV": 46.1,
+      "vmpV": 38.3,
+      "iscA": 18.45,
+      "impA": 17.36,
+      "tempCoeffPmaxPctPerC": -0.34,
+      "tempCoeffVocPctPerC": -0.25,
+      "tempCoeffIscPctPerC": 0.04,
+      "noctC": 43,
+      "cellCount": 132,
+      "cellsInSeries": 66,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 35,
+      "bypassDiodes": 3,
+      "cellType": "mono-perc",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.7,
+      "firstYearDegradationPct": 2.0,
+      "degradationPctPerYear": 0.45
+    },
+    "mechanical": {
+      "frameThicknessMm": 35,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 286,
+          "toMm": 715
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic-pv-700w-132hc-topcon",
+    "category": "pv-module",
+    "brand": "Generic",
+    "model": "PV-700 132-cell half-cut TOPCon bifacial (210 mm)",
+    "dimensions": {
+      "lengthMm": 2384,
+      "widthMm": 1303,
+      "heightMm": 33
+    },
+    "weightKg": 38.3,
+    "verified": false,
+    "notes": " Generic class: Vmp/Voc taken from the neighbouring rows of the Trina Vertex N TSM-NEG21C.20 family, Imp = P / Vmp and Isc scaled with it. ESTIMATED, not a product: use your module's datasheet. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 210,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["700W", "132-cell", "half-cut", "TOPCon", "bifacial", "210mm"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.671, -0.03, 0.93],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.671, -0.03, 0.93],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.651, 0, 0.596],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 700,
+      "vocV": 48.7,
+      "vmpV": 40.8,
+      "iscA": 18.2,
+      "impA": 17.16,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.24,
+      "tempCoeffIscPctPerC": 0.04,
+      "noctC": 43,
+      "cellCount": 132,
+      "cellsInSeries": 66,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 35,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 33,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 286,
+          "toMm": 715
+        }
+      ]
+    }
+  },
+  {
+    "id": "trina-tsm-715neg21c20",
+    "category": "pv-module",
+    "brand": "Trina",
+    "model": "Vertex N TSM-715NEG21C.20 132 half-cell TOPCon bifacial",
+    "dimensions": {
+      "lengthMm": 2384,
+      "widthMm": 1303,
+      "heightMm": 33
+    },
+    "weightKg": 38.3,
+    "verified": false,
+    "notes": "STC values from the manufacturer datasheet / distributor tables found by web search on 2026-11-07 (the PDF itself was not downloaded). NOT verified: check the datasheet of the module you install. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 214,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["715W", "132-cell", "half-cut", "TOPCon", "bifacial", "Trina", "210mm"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.671, -0.03, 0.93],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.671, -0.03, 0.93],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.651, 0, 0.596],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 715,
+      "vocV": 49.2,
+      "vmpV": 41.1,
+      "iscA": 18.44,
+      "impA": 17.4,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.24,
+      "tempCoeffIscPctPerC": 0.04,
+      "noctC": 43,
+      "cellCount": 132,
+      "cellsInSeries": 66,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 35,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 33,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 286,
+          "toMm": 715
+        }
+      ]
+    },
+    "datasheetUrl": "https://www.sunwaypv.com/product/trina-vertex-n-solar-panel-675w-700w-tsm-neg21c-20"
+  },
+  {
+    "id": "trina-tsm-720neg21c20",
+    "category": "pv-module",
+    "brand": "Trina",
+    "model": "Vertex N TSM-720NEG21C.20 132 half-cell TOPCon bifacial",
+    "dimensions": {
+      "lengthMm": 2384,
+      "widthMm": 1303,
+      "heightMm": 33
+    },
+    "weightKg": 38.3,
+    "verified": false,
+    "notes": "STC values from the manufacturer datasheet / distributor tables found by web search on 2026-11-07 (the PDF itself was not downloaded). NOT verified: check the datasheet of the module you install. Temperature coefficients, fuse rating and bifaciality are typical for the cell type (VERIFY).",
+    "price": {
+      "amount": 216,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["720W", "132-cell", "half-cut", "TOPCon", "bifacial", "Trina", "210mm"],
+    "ports": [
+      {
+        "id": "pos",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "male",
+        "position": [0.671, -0.03, 0.93],
+        "direction": [1, 0, 0],
+        "label": "+ lead",
+        "connector": "generic-mc4-male"
+      },
+      {
+        "id": "neg",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "female",
+        "position": [-0.671, -0.03, 0.93],
+        "direction": [-1, 0, 0],
+        "label": "- lead",
+        "connector": "generic-mc4-female"
+      },
+      {
+        "id": "frame-gnd",
+        "type": "ground-point",
+        "position": [0.651, 0, 0.596],
+        "direction": [0, -1, 0],
+        "label": "frame grounding hole"
+      }
+    ],
+    "electrical": {
+      "pmaxW": 720,
+      "vocV": 49.4,
+      "vmpV": 41.3,
+      "iscA": 18.49,
+      "impA": 17.44,
+      "tempCoeffPmaxPctPerC": -0.29,
+      "tempCoeffVocPctPerC": -0.24,
+      "tempCoeffIscPctPerC": 0.04,
+      "noctC": 43,
+      "cellCount": 132,
+      "cellsInSeries": 66,
+      "maxSystemVoltageV": 1500,
+      "maxSeriesFuseA": 35,
+      "bypassDiodes": 3,
+      "cellType": "topcon",
+      "halfCut": true,
+      "bifacial": true,
+      "bifaciality": 0.8,
+      "firstYearDegradationPct": 1.0,
+      "degradationPctPerYear": 0.4
+    },
+    "mechanical": {
+      "frameThicknessMm": 33,
+      "clampingZones": [
+        {
+          "edge": "long",
+          "fromMm": 286,
+          "toMm": 715
+        }
+      ]
+    },
+    "datasheetUrl": "https://www.sunwaypv.com/product/trina-vertex-n-solar-panel-675w-700w-tsm-neg21c-20"
   }
 ]

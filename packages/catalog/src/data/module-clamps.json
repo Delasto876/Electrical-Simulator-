@@ -37,6 +37,42 @@
     }
   },
   {
+    "id": "generic-end-clamp-33",
+    "category": "module-clamp",
+    "brand": "Generic",
+    "model": "End clamp for 33 mm frames",
+    "dimensions": {
+      "lengthMm": 40,
+      "widthMm": 30,
+      "heightMm": 47
+    },
+    "weightKg": 0.06,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 1.4,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["end", "33mm"],
+    "ports": [
+      {
+        "id": "seat",
+        "type": "clamp-seat",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "end",
+      "frameThicknessMm": 33,
+      "widthMm": 40,
+      "gapMm": 0,
+      "bonding": false
+    }
+  },
+  {
     "id": "generic-end-clamp-35",
     "category": "module-clamp",
     "brand": "Generic",
@@ -142,6 +178,42 @@
     "mounting": {
       "kind": "mid",
       "frameThicknessMm": 30,
+      "widthMm": 40,
+      "gapMm": 20,
+      "bonding": true
+    }
+  },
+  {
+    "id": "generic-mid-clamp-33",
+    "category": "module-clamp",
+    "brand": "Generic",
+    "model": "Mid clamp for 33 mm frames",
+    "dimensions": {
+      "lengthMm": 40,
+      "widthMm": 44,
+      "heightMm": 47
+    },
+    "weightKg": 0.06,
+    "verified": false,
+    "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
+    "price": {
+      "amount": 1.6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mid", "33mm"],
+    "ports": [
+      {
+        "id": "seat",
+        "type": "clamp-seat",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "rail seat"
+      }
+    ],
+    "mounting": {
+      "kind": "mid",
+      "frameThicknessMm": 33,
       "widthMm": 40,
       "gapMm": 20,
       "bonding": true

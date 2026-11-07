@@ -66,6 +66,12 @@ export function startMove(copy = false): boolean {
   );
 }
 
+/** Start Move/Copy for these parts (the canvas drag). */
+export function startMoveOf(ids: string[], copy: boolean, hint: string): boolean {
+  if (ids.length === 0) return false;
+  return begin({ kind: "move", ids, dx: "0", dz: "0", copy }, hint);
+}
+
 export function startPattern(): boolean {
   const ids = needSelection();
   if (!ids) return false;

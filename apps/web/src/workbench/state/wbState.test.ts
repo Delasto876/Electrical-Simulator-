@@ -54,8 +54,8 @@ describe("commands", () => {
       applyCommand(zinc, { type: "surface.setType", id: SURFACE_ID, surfaceType: "zinc" }),
     ).toBe(zinc);
     const big = applyCommand(zinc, upd({ widthM: 99 }));
-    expect(big.surfaces[SURFACE_ID]!.widthM).toBe(30);
-    expect(applyCommand(big, upd({ widthM: 30 }))).toBe(big);
+    expect(big.surfaces[SURFACE_ID]!.widthM).toBe(60);
+    expect(applyCommand(big, upd({ widthM: 60 }))).toBe(big);
     expect(applyCommand(d0, { type: "surface.update", id: "nope", patch: {} })).toBe(d0);
   });
 

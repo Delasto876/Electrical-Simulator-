@@ -146,7 +146,7 @@ export const SURFACE_INFO: Record<SurfaceType, SurfaceInfo> = {
 
 export const SURFACE_LIMITS = {
   minSizeM: 1,
-  maxSizeM: 30,
+  maxSizeM: 60,
   maxPitchDeg: 45,
   minThicknessMm: 5,
   maxThicknessMm: 600,

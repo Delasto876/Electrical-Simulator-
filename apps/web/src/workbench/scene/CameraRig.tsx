@@ -1,11 +1,16 @@
 /* eslint-disable react-hooks/immutability -- three.js objects (camera, renderer, lights) are mutable by design */
 import { useEffect, useRef } from "react";
 import { invalidate, useFrame, useThree } from "@react-three/fiber";
-import { Box3, Sphere, Vector3, type Object3D, type PerspectiveCamera } from "three";
+import { Box3, Sphere, Spherical, Vector3, type Object3D, type PerspectiveCamera } from "three";
 import type { Bounds } from "@solar-sim/engine";
 import { easeInOut, poseFor, type Pose, type V3 } from "../lib/camera";
 import { useView } from "../state/wbView";
-import { publishCamera } from "./cameraBus";
+import { onOrbitRequest, publishCamera } from "./cameraBus";
+
+const normalise = (v: V3): V3 => {
+  const l = Math.hypot(v[0], v[1], v[2]) || 1;
+  return [v[0] / l, v[1] / l, v[2] / l];
+};
 
 export const CAMERA_FOV = 35;
 const TWEEN_S = 0.38;
@@ -82,9 +87,26 @@ export function CameraRig({ bounds, normal }: { bounds: Bounds; normal: V3 }) {
   useEffect(() => {
     if (!request || !controls) return;
     const framed = request.partIds ? boundsOfParts(scene, request.partIds) : null;
-    goTo(poseFor(request.kind, framed ?? bounds, CAMERA_FOV, aspect, normal, currentDir()), true);
+    const dir = request.dir ? normalise(request.dir) : currentDir();
+    goTo(poseFor(request.kind, framed ?? bounds, CAMERA_FOV, aspect, normal, dir), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [request?.n]);
+
+  // the view cube spins the model: drag (immediate) or the 90° arrows (animated)
+  useEffect(() => {
+    if (!controls) return;
+    return onOrbitRequest((dAz, dPol, animate) => {
+      const t = controls.target;
+      const off = camera.position.clone().sub(t);
+      const s = new Spherical().setFromVector3(off);
+      s.theta += dAz;
+      s.phi = Math.min(Math.PI - 0.02, Math.max(0.02, s.phi - dPol));
+      const p = new Vector3().setFromSpherical(s).add(t);
+      const to: Pose = { position: [p.x, p.y, p.z], target: [t.x, t.y, t.z], up: [0, 1, 0] };
+      goTo(to, animate);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [controls]);
 
   // refit when the surface size changes a lot
   useEffect(() => {

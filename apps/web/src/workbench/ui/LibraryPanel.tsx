@@ -269,7 +269,7 @@ function BrandFilter({ brand }: { brand: string | null }) {
     <div className="wb-brands" role="group" aria-label="Filter by brand" data-testid="brand-filter">
       <button
         type="button"
-        className="wb-brand"
+        className="wb-brandchip"
         aria-pressed={brand === null}
         onClick={() => set(null)}
       >
@@ -279,7 +279,7 @@ function BrandFilter({ brand }: { brand: string | null }) {
         <button
           key={b}
           type="button"
-          className="wb-brand"
+          className="wb-brandchip"
           aria-pressed={brand === b}
           data-testid={`brand-${b}`}
           onClick={() => set(brand === b ? null : b)}

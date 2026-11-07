@@ -49,7 +49,7 @@ describe("surface defaults and limits", () => {
       corrugation: { pitchMm: 10, depthMm: 90 },
     });
     expect([s.widthM, s.depthM, s.pitchDeg, s.azimuthDeg, s.thicknessMm]).toEqual([
-      30, 1, 45, 270, 600,
+      60, 1, 45, 270, 600,
     ]);
     expect(s.secondPlane.foldDeg).toBe(-90);
     expect(s.corrugation).toEqual({ pitchMm: 50, depthMm: 35 });

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { Html, Line } from "@react-three/drei";
-import { CircleGeometry, Matrix4, MeshBasicMaterial, Vector3 } from "three";
+import { Html } from "@react-three/drei";
+import { CircleGeometry, Matrix4, MeshBasicMaterial } from "three";
 import {
   attachmentHints,
   attachmentRuleFor,
@@ -18,6 +18,7 @@ import type { WbDoc } from "../state/wbDoc";
 import { useView } from "../state/wbView";
 import { Instances } from "./Instances";
 import { BoundsOutline } from "./PartLook";
+import { Dimension } from "./Dimension";
 
 const OK = "#3ddc84";
 const BAD = "#ff5d5d";
@@ -133,34 +134,23 @@ export function PlaceGhost({
           ["down", P(cand.x, spec.depthM / 2), ed.downSlope],
         ] as const
       ).map(([k, end, dist]) => (
-        <group key={k}>
-          <Line
-            points={[new Vector3(cand.x, lineY, cand.z), new Vector3(...end)]}
-            color="#8fd3ff"
-            lineWidth={1}
-            transparent
-            opacity={0.6}
-            depthTest={false}
-          />
-          <Label
-            at={[(cand.x + end[0]) / 2, lineY + 0.02, (cand.z + end[2]) / 2]}
-            text={formatLength(dist, unit, 0)}
-          />
-        </group>
+        <Dimension
+          key={k}
+          a={[cand.x, lineY, cand.z]}
+          b={end}
+          text={formatLength(dist, unit, 0)}
+          testid="live-dim"
+        />
       ))}
       {near.map((n) => (
-        <group key={n.id}>
-          <Line
-            points={[new Vector3(cand.x, lineY, cand.z), new Vector3(n.x, lineY, n.z)]}
-            color="#ffd84a"
-            lineWidth={1.5}
-            depthTest={false}
-          />
-          <Label
-            at={[(cand.x + n.x) / 2, lineY + 0.04, (cand.z + n.z) / 2]}
-            text={formatLength(n.distanceM, unit, 0)}
-          />
-        </group>
+        <Dimension
+          key={n.id}
+          a={[cand.x, lineY, cand.z]}
+          b={[n.x, lineY, n.z]}
+          text={formatLength(n.distanceM, unit, 0)}
+          testid="live-dim"
+          labelLift={0.04}
+        />
       ))}
       {eq && (
         <Label

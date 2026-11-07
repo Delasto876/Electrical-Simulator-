@@ -1,7 +1,7 @@
 import { Check, X } from "lucide-react";
 import { isCategory } from "@solar-sim/catalog";
 import { catalog } from "../../app/catalog";
-import { formatLength } from "../lib/units";
+import { formatLength, formatStock } from "../lib/units";
 import { railSpecOf } from "../model/railKit";
 import {
   autoAlign,
@@ -308,7 +308,7 @@ export function RailToolBar() {
                 const s = railSpecOf(e.target.value);
                 patchTool({
                   catalogId: e.target.value,
-                  lengthM: Math.max(...(s?.stockLengthsM ?? [4.2])),
+                  lengthM: Math.min(...(s?.stockLengthsM ?? [4.2])),
                 });
               }}
             >
@@ -333,7 +333,7 @@ export function RailToolBar() {
               >
                 {(spec?.stockLengthsM ?? [4.2]).map((l) => (
                   <option key={l} value={l}>
-                    {fmt(l)}
+                    {formatStock(l)}
                   </option>
                 ))}
               </select>
@@ -567,11 +567,14 @@ export function RailToolBar() {
             >
               {catalog
                 .filter((p) => isCategory(p, "pv-module"))
-                .map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.model}
-                  </option>
-                ))}
+                .map((p) =>
+                  isCategory(p, "pv-module") ? (
+                    <option key={p.id} value={p.id}>
+                      {p.electrical.pmaxW} W · {p.brand === "Generic" ? "" : `${p.brand} `}
+                      {p.model}
+                    </option>
+                  ) : null,
+                )}
             </select>
           </label>
           <button

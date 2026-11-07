@@ -13,6 +13,7 @@ import { useView } from "../state/wbView";
 import { Dropdown } from "./Dropdown";
 import { VariantItems } from "./CommandMenu";
 import { CmdIcon } from "./CmdIcon";
+import { toneOf } from "./IconTones";
 import { Tip } from "./Tip";
 
 function RibbonButton({ cmd }: { cmd: Cmd }) {
@@ -124,8 +125,14 @@ export function Ribbon() {
         ))}
       </div>
       <div role="tabpanel" className="wb-ribbon-panels" aria-label={tab.label}>
-        {tab.panels.map((p) => (
-          <div key={p.label} className="wb-ribbon-panel" role="group" aria-label={p.label}>
+        {tab.panels.map((p, i) => (
+          <div
+            key={p.label}
+            className="wb-ribbon-panel"
+            role="group"
+            aria-label={p.label}
+            data-tone={toneOf(p.label, i)}
+          >
             <div className="wb-ribbon-items">
               {p.items.map((it) => {
                 const c = COMMANDS[it.id];

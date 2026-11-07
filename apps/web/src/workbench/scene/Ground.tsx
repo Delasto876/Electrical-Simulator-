@@ -38,7 +38,7 @@ export function Ground({
           sectionSize={5}
           sectionThickness={1.1}
           sectionColor={theme === "dark" ? "#7b8896" : "#6f7884"}
-          fadeDistance={Math.max(60, size * 0.15)}
+          fadeDistance={Math.max(150, size * 0.3)}
           fadeStrength={1.4}
         />
       )}

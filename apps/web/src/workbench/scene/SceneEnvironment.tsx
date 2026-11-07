@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/immutability -- three.js objects (camera, renderer, lights) are mutable by design */
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { invalidate, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, Sky } from "@react-three/drei";
-import type { DirectionalLight } from "three";
+import { CanvasTexture, SRGBColorSpace, type DirectionalLight } from "three";
 import type { Bounds } from "@solar-sim/engine";
 import { ENVIRONMENT_DEFS, unit } from "./environments";
 import type { EnvPreset } from "../state/wbView";
@@ -43,7 +43,9 @@ export function SceneEnvironment({
 
   return (
     <>
-      {def.background ? (
+      {def.gradient ? (
+        <GradientBackdrop top={def.gradient[theme][0]} bottom={def.gradient[theme][1]} />
+      ) : def.background ? (
         <color attach="background" args={[def.background[theme]]} />
       ) : (
         <>
@@ -88,5 +90,32 @@ export function SceneEnvironment({
         ))}
       </Environment>
     </>
+  );
+}
+
+/** A vertical gradient as the scene background (a 2 × 256 canvas texture, stretched to the screen). */
+function GradientBackdrop({ top, bottom }: { top: string; bottom: string }) {
+  const tex = useMemo(() => {
+    if (typeof document === "undefined") return null;
+    const c = document.createElement("canvas");
+    c.width = 2;
+    c.height = 256;
+    const g = c.getContext("2d");
+    if (!g) return null;
+    const grad = g.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, top);
+    grad.addColorStop(1, bottom);
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 2, 256);
+    const t = new CanvasTexture(c);
+    t.colorSpace = SRGBColorSpace;
+    return t;
+  }, [top, bottom]);
+  useEffect(() => () => tex?.dispose(), [tex]);
+  useEffect(() => invalidate(), [tex]);
+  return tex ? (
+    <primitive attach="background" object={tex} />
+  ) : (
+    <color attach="background" args={[bottom]} />
   );
 }

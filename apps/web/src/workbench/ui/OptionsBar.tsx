@@ -15,6 +15,9 @@ import { useView, type SectionAxis } from "../state/wbView";
 export function OptionsBar() {
   const placing = usePlace((s) => s.placing);
   const railTool = useRailTool((s) => s.tool);
+  // while a part is dragged on the canvas the dimensions there say it all: keep the view clear
+  const canvasDrag = useRailTool((s) => s.canvasDrag);
+  if (canvasDrag) return null;
   return placing ? <PlacingBar /> : railTool ? <RailToolBar /> : <SectionBar />;
 }
 

@@ -11,7 +11,9 @@ import {
 } from "lucide-react";
 import { effectiveLayout } from "./state/layout";
 import { DEFAULT_LAYOUT } from "./state/wbView";
+import "@fontsource-variable/inter/index.css";
 import "./workbench.css";
+import { IconTones } from "./ui/IconTones";
 import { WorkbenchCanvas } from "./scene/WorkbenchCanvas";
 import { startAutosave } from "./state/persist";
 import { handleKeyDown } from "./state/shortcuts";
@@ -175,6 +177,7 @@ export function Workbench() {
 
   return (
     <div className="wb" data-theme={theme} data-testid="workbench">
+      <IconTones />
       <AppBar />
       <Ribbon />
       <div className="wb-body" style={{ gridTemplateColumns: cols, gridTemplateRows: rows }}>

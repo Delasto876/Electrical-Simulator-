@@ -8,6 +8,7 @@ import { usePlace } from "../state/placeState";
 import type { WbDoc } from "../state/wbDoc";
 import { useWb } from "../state/wbStore";
 import { useView } from "../state/wbView";
+import { DIM_INK, Dimension } from "./Dimension";
 
 const RULER_W = 0.22;
 const Y = 0.004;
@@ -194,23 +195,22 @@ export function GuidesLayer({ doc, spec }: { doc: WbDoc; spec: SurfaceSpec }) {
         ];
         const dist = Math.hypot(m.b[0] - m.a[0], m.b[1] - m.a[1], m.b[2] - m.a[2]);
         return (
-          <group key={m.id}>
-            <Line
-              points={[new Vector3(...m.a), new Vector3(...m.b)]}
-              color="#ffd84a"
-              lineWidth={2}
-              depthTest={false}
-            />
-            <Lbl at={mid} text={formatLength(dist, unit, 0)} />
-          </group>
+          <Dimension
+            key={m.id}
+            a={m.a}
+            b={m.b}
+            text={formatLength(dist, unit, 0)}
+            testid="measure-dim"
+            labelLift={mid[1] - (m.a[1] + m.b[1]) / 2}
+          />
         );
       })}
       {measureA && measureHover && (
         <group>
           <Line
             points={[new Vector3(...measureA), new Vector3(...measureHover)]}
-            color="#ffd84a"
-            lineWidth={2}
+            color={DIM_INK}
+            lineWidth={1.5}
             dashed
             dashSize={0.08}
             gapSize={0.05}

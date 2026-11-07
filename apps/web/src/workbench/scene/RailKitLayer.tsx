@@ -23,6 +23,7 @@ import type { PlacedPart, WbDoc } from "../state/wbDoc";
 import { usePlace } from "../state/placeState";
 import { useRailTool } from "../state/railToolState";
 import { selectNode, useView } from "../state/wbView";
+import { dragHandlers } from "./surfaceGroup";
 
 /**
  * RAILS, SPLICES, CLAMPS AND MODULES in the surface frame. Rails are real
@@ -156,8 +157,9 @@ function glassMaterial(
 
 const UNIT_BOX = new BoxGeometry(1, 1, 1);
 
-function useSelect(nodeId: string | undefined) {
+function useSelect(nodeId: string | undefined, part?: PlacedPart) {
   return {
+    ...(part ? dragHandlers(part.id, part.surfaceId, () => !usePlace.getState().placing) : {}),
     onClick: (e: {
       delta: number;
       stopPropagation: () => void;
@@ -165,8 +167,8 @@ function useSelect(nodeId: string | undefined) {
       ctrlKey: boolean;
       metaKey: boolean;
     }) => {
-      if (!nodeId || usePlace.getState().placing || useRailTool.getState().tool || e.delta > 4)
-        return;
+      if (e.delta > 4) return void e.stopPropagation();
+      if (!nodeId || usePlace.getState().placing || useRailTool.getState().tool) return;
       if (useView.getState().measuring) return;
       e.stopPropagation();
       selectNode(nodeId, e.shiftKey || e.ctrlKey || e.metaKey);
@@ -191,7 +193,7 @@ function RailObject({
   const L = part.rail!.lengthM;
   const geo = useMemo(() => railGeometry(w, h, L), [w, h, L]);
   const y = railBaseY(doc, part);
-  const sel = useSelect(nodeId);
+  const sel = useSelect(nodeId, part);
   return (
     <group
       position={[part.x, y, part.z]}
@@ -320,7 +322,7 @@ function ModuleObject({
   selected: boolean;
 }) {
   const spec = moduleSpecOf(part.catalogId);
-  const sel = useSelect(nodeId);
+  const sel = useSelect(nodeId, part);
   if (!spec) return null;
   const o = part.module!.orientation;
   const { w, d } = moduleSize(spec, o);

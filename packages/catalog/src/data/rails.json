@@ -3,13 +3,13 @@
     "id": "generic-rail-light",
     "category": "rail",
     "brand": "Generic",
-    "model": "Light rail (stock 2.1 / 3.6 / 4.2 m)",
+    "model": "Light rail (stock 14 / 16 / 18 / 20 / 24 ft)",
     "dimensions": {
-      "lengthMm": 4200,
+      "lengthMm": 7315,
       "widthMm": 40,
       "heightMm": 35
     },
-    "weightKg": 2.73,
+    "weightKg": 4.75,
     "verified": false,
     "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
     "price": {
@@ -31,7 +31,7 @@
       "profile": "light",
       "heightMm": 35,
       "widthMm": 40,
-      "stockLengthsMm": [2100, 3600, 4200],
+      "stockLengthsMm": [4267, 4877, 5486, 6096, 7315],
       "maxSpanMm": 1200,
       "maxCantileverMm": 400,
       "weightKgPerM": 0.65
@@ -41,13 +41,13 @@
     "id": "generic-rail-standard",
     "category": "rail",
     "brand": "Generic",
-    "model": "Standard rail (stock 2.1 / 3.6 / 4.2 m)",
+    "model": "Standard rail (stock 14 / 16 / 18 / 20 / 24 ft)",
     "dimensions": {
-      "lengthMm": 4200,
+      "lengthMm": 7315,
       "widthMm": 42,
       "heightMm": 45
     },
-    "weightKg": 3.99,
+    "weightKg": 6.95,
     "verified": false,
     "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
     "price": {
@@ -69,7 +69,7 @@
       "profile": "standard",
       "heightMm": 45,
       "widthMm": 42,
-      "stockLengthsMm": [2100, 3600, 4200],
+      "stockLengthsMm": [4267, 4877, 5486, 6096, 7315],
       "maxSpanMm": 1800,
       "maxCantileverMm": 600,
       "weightKgPerM": 0.95
@@ -79,13 +79,13 @@
     "id": "generic-rail-heavy",
     "category": "rail",
     "brand": "Generic",
-    "model": "Heavy rail (stock 2.1 / 3.6 / 4.2 m)",
+    "model": "Heavy rail (stock 14 / 16 / 18 / 20 / 24 ft)",
     "dimensions": {
-      "lengthMm": 4200,
+      "lengthMm": 7315,
       "widthMm": 45,
       "heightMm": 60
     },
-    "weightKg": 5.88,
+    "weightKg": 10.24,
     "verified": false,
     "notes": "Generic placeholder. Structural limits depend on wind/snow load and the manufacturer's engineering letter.",
     "price": {
@@ -107,7 +107,7 @@
       "profile": "heavy",
       "heightMm": 60,
       "widthMm": 45,
-      "stockLengthsMm": [2100, 3600, 4200],
+      "stockLengthsMm": [4267, 4877, 5486, 6096, 7315],
       "maxSpanMm": 2400,
       "maxCantileverMm": 800,
       "weightKgPerM": 1.4

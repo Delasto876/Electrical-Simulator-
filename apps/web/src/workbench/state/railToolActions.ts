@@ -64,7 +64,8 @@ export function startRail(catalogId: string, offcutId: string | null = null): bo
   const spec = railSpecOf(catalogId);
   const off = offcutId ? currentDoc().offcuts.find((o) => o.id === offcutId) : undefined;
   if (!spec && !off) return false;
-  const lengthM = off ? off.lengthM : Math.max(...(spec?.stockLengthsM ?? [4.2]));
+  // the shortest stick by default (14 ft): it fits most rows and wastes least
+  const lengthM = off ? off.lengthM : Math.min(...(spec?.stockLengthsM ?? [4.2]));
   begin(
     {
       kind: "rail",

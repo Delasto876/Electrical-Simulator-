@@ -73,6 +73,8 @@ export interface RailToolState {
   typed: { fromLeft: string; fromTop: string } | null;
   /** A drag on a Move or Pattern arrow: which axis, where it started, the value then. */
   gizmoDrag: { axis: "x" | "z"; start: number; value: number } | null;
+  /** A part is being dragged on the canvas (the Move tool runs underneath; the arrows hide). */
+  canvasDrag: boolean;
   set: (p: Partial<RailToolState>) => void;
 }
 
@@ -87,5 +89,6 @@ export const useRailTool = create<RailToolState>((set) => ({
   moduleCand: null,
   typed: null,
   gizmoDrag: null,
+  canvasDrag: false,
   set: (p) => set(p),
 }));

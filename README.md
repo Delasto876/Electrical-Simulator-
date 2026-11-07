@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 5: brand inverters, DIN boxes 4–18 way, ready-made boxes, openable covers.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 6: professional CAD look, drag on the canvas, Fusion-style dimensions and view cube, feet rails, 450–720 W modules.** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -37,6 +37,11 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
   placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
   Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **CAD look and ease of use (Phase 6)**: Inter font, coloured tool icons per toolbar group, a CAD studio backdrop;
+  **press and drag** any placed part (feet, boxes, inverters, rails, modules) to move it, with black Fusion-style
+  dimensions, release to drop (Ctrl copies, Alt fine steps, Esc cancels); the **view cube** spins the model when
+  dragged and has corner/edge hot spots and 90° turn arrows; new projects start on a 12 × 8 m plate; rails come in
+  14/16/18/20/24 ft sticks; modules from 450 to 720 W are picked by wattage.
 - **Boxes and brands (Phase 5)**: Deye, Growatt, Luxpower, SRNE and Sol-Ark inverters with datasheet links and a
   brand filter in the library; HT DIN boxes from 4 to 18 way; **ready-made boxes** placed in one step (PV combiner
   2-in 2-out with DC breakers and SPDs, battery disconnect, manual changeover, ATS with voltage protector, AC

@@ -4,6 +4,7 @@ import { orientInfo, partInfo } from "../model/partInfo";
 import type { PlacedPart, WbDoc } from "../state/wbDoc";
 import { usePlace } from "../state/placeState";
 import { placingDinDevice, toggleCover } from "../state/coverActions";
+import { dragHandlers } from "./surfaceGroup";
 import { selectNode, useView } from "../state/wbView";
 import type { ThreeEvent } from "@react-three/fiber";
 import { BoundsOutline, PartLook, type MountedDevice } from "./PartLook";
@@ -122,8 +123,10 @@ function PlacedPartObject({
     <group
       position={[part.x, y, part.z]}
       rotation={[0, -rad(part.rotDeg), 0]}
+      {...dragHandlers(part.id, part.surfaceId, () => !placing)}
       onClick={(e) => {
-        if (placing || e.delta > 4) return;
+        if (placing) return;
+        if (e.delta > 4) return void e.stopPropagation();
         e.stopPropagation();
         selectNode(nodeId, e.shiftKey || e.ctrlKey || e.metaKey);
       }}

@@ -17,6 +17,8 @@ export interface EnvironmentDef {
   label: string;
   /** Backdrop colours for the dark and light themes; null = draw a sky. */
   background: { dark: string; light: string } | null;
+  /** A vertical backdrop gradient (top, bottom) per theme, drawn instead of the flat colour. */
+  gradient?: { dark: [string, string]; light: [string, string] };
   sky?: { turbidity: number; rayleigh: number };
   /** Ground colour for the dark and light themes. */
   ground: { dark: string; light: string };
@@ -29,6 +31,22 @@ export interface EnvironmentDef {
 }
 
 export const ENVIRONMENT_DEFS: Record<EnvPreset, EnvironmentDef> = {
+  // the backdrop of a desktop CAD package: a soft grey-blue gradient, even light, crisp shadows
+  cad: {
+    label: "CAD studio",
+    background: { dark: "#3a4350", light: "#dfe6ee" },
+    gradient: { dark: ["#56616f", "#1f242b"], light: ["#ffffff", "#b9c6d4"] },
+    ground: { dark: "#3b434d", light: "#d5dbe2" },
+    sun: { dir: [0.45, 1, 0.65], color: "#ffffff", intensity: 2.6 },
+    hemi: { sky: "#f4f8ff", ground: "#7d8794", intensity: 0.75 },
+    formers: [
+      { position: [0, 7, 0], scale: [12, 12], intensity: 2.0, color: "#ffffff" },
+      { position: [-6, 2, 4], scale: [6, 6], intensity: 1.1, color: "#eaf2ff" },
+      { position: [6, 3, -3], scale: [6, 6], intensity: 0.9, color: "#fff6ec" },
+    ],
+    shadow: 0.3,
+    exposure: 1,
+  },
   studio: {
     label: "Studio",
     background: { dark: "#2a2e35", light: "#d9dde3" },

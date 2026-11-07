@@ -1,6 +1,6 @@
 import { Line } from "@react-three/drei";
 import { useThree, type ThreeEvent } from "@react-three/fiber";
-import { Vector3, type Object3D } from "three";
+import { Vector3 } from "three";
 import { moduleSize, type SurfaceSpec } from "@solar-sim/engine";
 import { applyXform, expandSelection } from "../model/editTools";
 import { partInfo } from "../model/partInfo";
@@ -9,6 +9,10 @@ import { beginGizmoDrag, editXforms, endGizmoDrag } from "../state/editActions";
 import { useRailTool } from "../state/railToolState";
 import type { PlacedPart, WbDoc } from "../state/wbDoc";
 import { UNIT_GHOST } from "./ghostGeometry";
+import { surfaceGroupOf } from "./surfaceGroup";
+import { Dimension } from "./Dimension";
+import { formatLength } from "../lib/units";
+import { useView } from "../state/wbView";
 
 /**
  * MOVE / PATTERN / MIRROR on the canvas: translucent copies where OK would put
@@ -47,12 +51,6 @@ function sizeOf(p: PlacedPart): { w: number; d: number; h: number } {
 function setOrbit(controls: unknown, on: boolean): void {
   const c = controls as { enabled: boolean } | null;
   if (c) c.enabled = on;
-}
-
-/** The Work Surface group an object belongs to (to read pointer positions in the surface frame). */
-function surfaceGroupOf(o: Object3D | null): Object3D | null {
-  for (let p = o; p; p = p.parent) if (p.userData.surfaceGroup) return p;
-  return null;
 }
 
 function Arrow({
@@ -121,7 +119,9 @@ export function EditGizmo({
   surfaceId: string;
 }) {
   const tool = useRailTool((s) => s.tool);
+  const unit = useView((s) => s.units);
   useRailTool((s) => s.gizmoDrag);
+  const canvasDrag = useRailTool((s) => s.canvasDrag);
   if (!tool || (tool.kind !== "move" && tool.kind !== "pattern" && tool.kind !== "mirror"))
     return null;
   const parts = expandSelection(doc, tool.ids).filter((p) => p.surfaceId === surfaceId);
@@ -160,6 +160,8 @@ export function EditGizmo({
     az = [cx, y, cz + Math.max(0, ...tz.map((t) => t.dz))];
   }
   const mirror = tool.kind === "mirror" && xforms[0]?.kind === "mirror" ? xforms[0] : null;
+  const mv = tool.kind === "move" && xforms[0]?.kind === "translate" ? xforms[0] : null;
+  const dimY = 0.06;
   return (
     <group>
       {ghosts.map((g) => (
@@ -174,7 +176,23 @@ export function EditGizmo({
           <meshBasicMaterial color={GHOST} transparent opacity={0.35} depthWrite={false} />
         </mesh>
       ))}
-      {tool.kind !== "mirror" && (
+      {mv && Math.abs(mv.dx) >= 0.001 && (
+        <Dimension
+          a={[cx, dimY, cz]}
+          b={[cx + mv.dx, dimY, cz]}
+          text={`${mv.dx > 0 ? "+" : "−"}${formatLength(Math.abs(mv.dx), unit, 0)}`}
+          testid="move-dim"
+        />
+      )}
+      {mv && Math.abs(mv.dz) >= 0.001 && (
+        <Dimension
+          a={[cx + mv.dx, dimY, cz]}
+          b={[cx + mv.dx, dimY, cz + mv.dz]}
+          text={`${mv.dz > 0 ? "+" : "−"}${formatLength(Math.abs(mv.dz), unit, 0)}`}
+          testid="move-dim"
+        />
+      )}
+      {tool.kind !== "mirror" && !canvasDrag && (
         <>
           <Arrow at={ax} axis="x" length={0.6} color={X_COLOR} testid="gizmo-x" />
           <Arrow at={az} axis="z" length={0.6} color={Z_COLOR} testid="gizmo-z" />

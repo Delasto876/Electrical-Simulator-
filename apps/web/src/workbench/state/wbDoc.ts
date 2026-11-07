@@ -158,8 +158,8 @@ export interface WbDoc {
 
 export const SurfaceSpecSchema = z.object({
   type: z.enum(SURFACE_TYPES),
-  widthM: z.number().min(1).max(30),
-  depthM: z.number().min(1).max(30),
+  widthM: z.number().min(1).max(60),
+  depthM: z.number().min(1).max(60),
   pitchDeg: z.number().min(0).max(90),
   azimuthDeg: z.number().min(0).max(360),
   thicknessMm: z.number().min(5).max(600),
@@ -322,6 +322,18 @@ export function newDoc(type: SurfaceType = "plain", name = "Untitled workbench")
     tilt: { ...DEFAULT_TILT },
     stock: [],
     offcuts: [],
+  };
+}
+
+/** A new project's build plate: larger than the engine default so a full array fits (12 × 8 m ≈ 39 × 26 ft). */
+export const START_SURFACE_SIZE_M = { widthM: 12, depthM: 8 } as const;
+
+/** The document a new project (and the first start) opens with. */
+export function startDoc(): WbDoc {
+  const d = newDoc();
+  return {
+    ...d,
+    surfaces: { [SURFACE_ID]: { ...d.surfaces[SURFACE_ID]!, ...START_SURFACE_SIZE_M } },
   };
 }
 
