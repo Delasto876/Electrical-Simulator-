@@ -2,6 +2,7 @@ import { evaluatePlacement, placeCommand, type PlaceCandidate } from "../model/p
 import { partInfo } from "../model/partInfo";
 import { evalLength } from "../lib/units";
 import { clampSpecOf } from "../model/railKit";
+import { isKitId, kitCommand, kitOf } from "../model/kits";
 import { startClamp, startModule, startRail, startSplice } from "./railToolActions";
 import { SURFACE_ID } from "./wbDoc";
 import { activeSurfaceId } from "./activeSurface";
@@ -19,6 +20,14 @@ const GRID_M = 0.05;
 const SNAP_TOL_M = 0.04;
 
 export function startPlacing(partId: string): boolean {
+  if (isKitId(partId)) {
+    const kit = kitOf(partId);
+    if (!kit || !startPlacing(kit.enclosureId)) return false;
+    const st = usePlace.getState();
+    if (st.placing) st.set({ placing: { ...st.placing, kitId: kit.id } });
+    useView.getState().set({ libraryPart: partId });
+    return true;
+  }
   const info = partInfo(partId);
   if (!info) return false;
   // rails, modules, clamps and splices have their own tools
@@ -99,18 +108,20 @@ export function commitCandidate(keep: boolean): boolean {
     return false;
   }
   const doc = currentDoc();
-  const cmd = placeCommand(doc, st.surfaceId, info, st.cand, st.free);
-  if (!cmd || !useWb.getState().dispatch(cmd)) return false;
+  const one = placeCommand(doc, st.surfaceId, info, st.cand, st.free);
+  const kit = st.placing.kitId ? kitOf(st.placing.kitId) : undefined;
+  const cmd = one && kit ? kitCommand(doc, kit, one) : one;
+  if (!cmd || !one || !useWb.getState().dispatch(cmd)) return false;
   if (keep) {
     // refresh so the ghost shows the next spot (the part just placed now blocks this one)
     if (st.raw) updateCandidate(st.surfaceId, st.raw[0], st.raw[1]);
     usePlace.getState().set({ placing: { ...st.placing, keep: true } });
   } else {
     usePlace.getState().set({ placing: null, cand: null, raw: null, typing: null });
-    if (cmd.type === "part.place")
-      useView.getState().set({ selection: cmd.nodeId, libraryPart: null });
+    if (one.type === "part.place")
+      useView.getState().set({ selection: one.nodeId, libraryPart: null });
   }
-  showToast(`Placed ${info.label}.`);
+  showToast(`Placed ${kit ? kit.name : info.label}.`);
   return true;
 }
 

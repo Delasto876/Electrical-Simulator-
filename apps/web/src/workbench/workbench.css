@@ -1880,3 +1880,53 @@ body,
 .wb-drawer-left {
   padding-top: 44px;
 }
+
+/* ---- Phase 5: brand filter, kits, enclosure covers */
+.wb-brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 8px 6px;
+}
+.wb .wb-brand {
+  border: 1px solid var(--wb-border);
+  background: var(--wb-panel-2);
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 11.5px;
+  min-height: 24px;
+  cursor: pointer;
+}
+.wb .wb-brand[aria-pressed="true"] {
+  background: var(--wb-accent);
+  border-color: var(--wb-accent);
+  color: var(--wb-accent-text);
+}
+.wb .wb-brand-more {
+  font-size: 11.5px;
+  min-height: 24px;
+  max-width: 120px;
+}
+.wb-kit-thumb {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.wb-kit-list {
+  margin: 6px 0 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 12px;
+  display: grid;
+  gap: 3px;
+}
+.wb-kit-slot {
+  display: inline-block;
+  min-width: 3.2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--wb-muted);
+}
+.wb-part-notes {
+  font-size: 11.5px;
+  line-height: 1.4;
+}

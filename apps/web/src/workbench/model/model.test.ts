@@ -38,8 +38,14 @@ describe("part info", () => {
     expect(partInfo("generic-enclosure-12m")!.enclosure).toEqual({
       modulesPerRow: 12,
       rows: expect.any(Number),
+      material: "plastic",
+      transparentDoor: true,
     });
-    expect(partInfo("generic-mcb-ac-2p-63a")).toMatchObject({ dinModules: 2 });
+    expect(partInfo("generic-mcb-ac-2p-63a")).toMatchObject({
+      dinModules: 2,
+      dinKind: "mcb-ac",
+      poles: 2,
+    });
     expect(partInfo("generic-base-plate-anchors")!.attachmentKind).toBe("base-plate");
     expect(partInfo("generic-pv-400w-108hc")!.placeable).toBe(true); // placed by the module tool
     expect(partInfo("generic-pv-wire-10awg")!.placeable).toMatch(/Phase 6/);

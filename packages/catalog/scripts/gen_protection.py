@@ -250,3 +250,8 @@ for id_, model, w, pf, surge, v, cont, price in [("generic-load-lighting-300w", 
     e["load"] = {"powerW": w, "powerFactor": pf, "surgeMultiplier": surge, "voltageV": v, "continuous": cont}
     loads.append(e)
 write("loads.json", loads)
+
+# Phase 5: datasheet values found online, new brand models, DIN boxes and devices (patches the JSON above)
+import p5_datasheets  # noqa: E402
+
+p5_datasheets.main()

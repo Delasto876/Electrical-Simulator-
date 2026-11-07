@@ -1,32 +1,21 @@
 import { Component, Suspense, useMemo, type ReactNode } from "react";
-import { useLoader } from "@react-three/fiber";
-import {
-  BoxGeometry,
-  EdgesGeometry,
-  SRGBColorSpace,
-  TextureLoader,
-  type Material,
-  type Mesh,
-  type Object3D,
-} from "three";
+import type { ThreeEvent } from "@react-three/fiber";
+import { BoxGeometry, EdgesGeometry, type Material, type Mesh, type Object3D } from "three";
 import { useModel } from "../../parts/modelLoader";
-import { DIN_MODULE_MM } from "@solar-sim/engine";
 import type { PartInfo } from "../model/partInfo";
+import { EnclosureLook, type MountedDevice } from "./EnclosureLook";
+import { Box, PhotoBox, noRaycast } from "./LookPrimitives";
+
+export type { MountedDevice } from "./EnclosureLook";
 
 /**
  * How a placed part looks: its Blender glb when the catalog has one (falls
  * back to a box if the model cannot be loaded), otherwise procedural boxes.
- * Enclosures show their DIN rails and the devices clicked onto them. The local
+ * Enclosures (scene/EnclosureLook.tsx) show their DIN rails, the devices clicked
+ * onto them and a cover that opens. The local
  * frame is the part's own: origin at the middle of its footprint on the
  * surface, y up the surface normal.
  */
-export interface MountedDevice {
-  id: string;
-  info: PartInfo;
-  row: number;
-  slot: number;
-}
-
 class ModelBoundary extends Component<
   { fallback: ReactNode; children: ReactNode },
   { bad: boolean }
@@ -39,8 +28,6 @@ class ModelBoundary extends Component<
     return this.state.bad ? this.props.fallback : this.props.children;
   }
 }
-
-const noRaycast = () => undefined;
 
 function GlbLook({ file }: { file: string }) {
   const { scene } = useModel(file);
@@ -56,131 +43,6 @@ function GlbLook({ file }: { file: string }) {
     return c;
   }, [scene]);
   return <primitive object={model} />;
-}
-
-function Box({
-  size,
-  pos,
-  color,
-  opacity = 1,
-  metal = 0.3,
-  rough = 0.6,
-}: {
-  size: [number, number, number];
-  pos: [number, number, number];
-  color: string;
-  opacity?: number;
-  metal?: number;
-  rough?: number;
-}) {
-  return (
-    <mesh position={pos} castShadow={opacity === 1} receiveShadow>
-      <boxGeometry args={size} />
-      <meshStandardMaterial
-        color={color}
-        metalness={metal}
-        roughness={rough}
-        transparent={opacity < 1}
-        opacity={opacity}
-        depthWrite={opacity === 1}
-      />
-    </mesh>
-  );
-}
-
-/** Vertical position of a DIN rail row inside an enclosure [m]. */
-export const railY = (row: number, rows: number, h: number): number =>
-  rows === 1 ? h * 0.5 : h * (0.78 - (0.56 * row) / (rows - 1));
-
-function EnclosureLook({ info, devices }: { info: PartInfo; devices: MountedDevice[] }) {
-  const { w, d } = info.footprint;
-  const h = info.heightM;
-  const cfg = info.enclosure ?? { modulesPerRow: 12, rows: 1 };
-  const railW = (cfg.modulesPerRow * DIN_MODULE_MM) / 1000;
-  return (
-    <group>
-      <Box size={[w, h, 0.012]} pos={[0, h / 2, -d / 2 + 0.006]} color="#d9dde2" />
-      <Box size={[w, 0.012, d]} pos={[0, h - 0.006, 0]} color="#d9dde2" />
-      <Box size={[w, 0.012, d]} pos={[0, 0.006, 0]} color="#d9dde2" />
-      <Box size={[0.012, h, d]} pos={[-w / 2 + 0.006, h / 2, 0]} color="#d9dde2" />
-      <Box size={[0.012, h, d]} pos={[w / 2 - 0.006, h / 2, 0]} color="#d9dde2" />
-      <Box size={[w, h, 0.004]} pos={[0, h / 2, d / 2 - 0.002]} color="#9fb4c8" opacity={0.22} />
-      {Array.from({ length: cfg.rows }, (_, r) => (
-        <Box
-          key={r}
-          size={[railW, 0.035, 0.008]}
-          pos={[0, railY(r, cfg.rows, h), -d / 2 + 0.016]}
-          color="#aeb4bb"
-          metal={0.85}
-          rough={0.35}
-        />
-      ))}
-      {devices.map((dv) => {
-        const mod = dv.info.dinModules ?? 1;
-        const x = -railW / 2 + ((dv.slot + mod / 2) * DIN_MODULE_MM) / 1000;
-        const dh = Math.min(0.09, dv.info.heightM);
-        const dd = Math.min(0.065, d - 0.04);
-        const dpos: [number, number, number] = [
-          x,
-          railY(dv.row, cfg.rows, h),
-          -d / 2 + 0.02 + dd / 2,
-        ];
-        const dsize: [number, number, number] = [(mod * DIN_MODULE_MM) / 1000 - 0.001, dh, dd];
-        if (dv.info.photo)
-          return (
-            <Suspense key={dv.id} fallback={<Box size={dsize} pos={dpos} color={dv.info.color} />}>
-              <PhotoBox size={dsize} pos={dpos} photo={dv.info.photo} color={dv.info.color} />
-            </Suspense>
-          );
-        return (
-          <Box
-            key={dv.id}
-            size={[(mod * DIN_MODULE_MM) / 1000 - 0.001, dh, Math.min(0.065, d - 0.04)]}
-            pos={[x, railY(dv.row, cfg.rows, h), -d / 2 + 0.02 + Math.min(0.065, d - 0.04) / 2]}
-            color={dv.info.color}
-            rough={0.45}
-          />
-        );
-      })}
-    </group>
-  );
-}
-
-/** A box with the part's front photo on its +z face (the face that looks down the slope). */
-function PhotoBox({
-  size,
-  pos,
-  photo,
-  color,
-}: {
-  size: [number, number, number];
-  pos: [number, number, number];
-  photo: string;
-  color: string;
-}) {
-  const loaded = useLoader(TextureLoader, photo);
-  const tex = useMemo(() => {
-    const t = loaded.clone();
-    t.colorSpace = SRGBColorSpace;
-    t.needsUpdate = true;
-    return t;
-  }, [loaded]);
-  return (
-    <mesh position={pos} castShadow receiveShadow>
-      <boxGeometry args={size} />
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <meshStandardMaterial
-          key={i}
-          attach={`material-${i}`}
-          color={i === 4 ? "#ffffff" : color}
-          map={i === 4 ? tex : null}
-          roughness={0.6}
-          metalness={0.15}
-          transparent={i === 4}
-        />
-      ))}
-    </mesh>
-  );
 }
 
 function PlainBox({ info, heightM }: { info: PartInfo; heightM: number }) {
@@ -248,17 +110,30 @@ export function PartLook({
   legLengthM,
   devices = [],
   onConcrete = false,
+  coverOpen = false,
+  onDevice,
 }: {
   info: PartInfo;
   /** Leg length from the tilt [m] (tilt legs only). */
   legLengthM?: number;
   devices?: MountedDevice[];
   onConcrete?: boolean;
+  /** Enclosures: door open and inner cover off. */
+  coverOpen?: boolean;
+  onDevice?: (dv: MountedDevice, e: ThreeEvent<MouseEvent>) => void;
 }) {
   const h = legLengthM ?? info.heightM;
   const plain = <PlainBox info={info} heightM={h} />;
   let body: ReactNode;
-  if (info.enclosure) body = <EnclosureLook info={info} devices={devices} />;
+  if (info.enclosure)
+    body = (
+      <EnclosureLook
+        info={info}
+        devices={devices}
+        open={coverOpen}
+        {...(onDevice ? { onDevice } : {})}
+      />
+    );
   else if (info.modelFile && !info.legRole)
     body = (
       <ModelBoundary fallback={plain}>

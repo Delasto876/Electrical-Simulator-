@@ -11,6 +11,7 @@ import {
 import { usePlace } from "../state/placeState";
 import { partInfo } from "../model/partInfo";
 import { OffcutPool } from "./RailKitPanels";
+import { LibraryKits } from "./KitPanels";
 import { getThumbnail } from "../scene/thumbnails";
 import { exportPartPack, importPartPack } from "../model/customPackage";
 import { saveFile } from "../../lib/saveFile";
@@ -120,6 +121,7 @@ function startCardDrag(e: React.PointerEvent, partId: string) {
 /** Parts Library: category accordion, search, cards. Drag a card onto the surface, or double-click to place at the middle of the view. */
 export function LibraryPanel() {
   const query = useView((s) => s.libraryQuery);
+  const brand = useView((s) => s.libraryBrand);
   const selected = useView((s) => s.libraryPart);
   const [open, setOpen] = useState<Set<string>>(new Set(["pv-module"]));
   const [more, setMore] = useState<Set<string>>(new Set());
@@ -135,6 +137,7 @@ export function LibraryPanel() {
     const q = query.trim().toLowerCase();
     const by = new Map<string, Part[]>();
     for (const p of catalog) {
+      if (brand && p.brand !== brand) continue;
       if (q && !`${p.brand} ${p.model} ${p.category} ${p.tags.join(" ")}`.toLowerCase().includes(q))
         continue;
       (by.get(p.category) ?? by.set(p.category, []).get(p.category)!).push(p);
@@ -144,7 +147,7 @@ export function LibraryPanel() {
       label: CATEGORY_LABELS[c] ?? c,
       parts: by.get(c)!,
     }));
-  }, [query]);
+  }, [query, brand]);
 
   return (
     <div className="wb-library" data-testid="library">
@@ -162,9 +165,13 @@ export function LibraryPanel() {
           onChange={(e) => useView.getState().set({ libraryQuery: e.target.value })}
         />
       </label>
+      <BrandFilter brand={brand} />
       <div className="wb-libscroll">
         <MyParts parts={mine} selected={selected} total={Object.keys(custom).length} />
         <OffcutPool />
+        {!brand && (
+          <LibraryKits query={query} selected={selected} onCardPointerDown={startCardDrag} />
+        )}
         {groups.length === 0 && <p className="wb-empty">No part matches “{query}”.</p>}
         {groups.map((g) => {
           const isOpen = open.has(g.id) || query.trim() !== "";
@@ -244,6 +251,55 @@ export function LibraryPanel() {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+/** Inverter brands first (the ones installers ask for), then the rest. */
+const BRANDS_FIRST = ["Deye", "Growatt", "Luxpower", "SRNE", "Sol-Ark"];
+const BRANDS = [
+  ...BRANDS_FIRST.filter((b) => catalog.some((p) => p.brand === b)),
+  ...[...new Set(catalog.map((p) => p.brand))].filter((b) => !BRANDS_FIRST.includes(b)).sort(),
+];
+
+/** Brand chips under the search box: one brand at a time, or all. */
+function BrandFilter({ brand }: { brand: string | null }) {
+  const set = (b: string | null) => useView.getState().set({ libraryBrand: b });
+  return (
+    <div className="wb-brands" role="group" aria-label="Filter by brand" data-testid="brand-filter">
+      <button
+        type="button"
+        className="wb-brand"
+        aria-pressed={brand === null}
+        onClick={() => set(null)}
+      >
+        All
+      </button>
+      {BRANDS.slice(0, BRANDS_FIRST.length).map((b) => (
+        <button
+          key={b}
+          type="button"
+          className="wb-brand"
+          aria-pressed={brand === b}
+          data-testid={`brand-${b}`}
+          onClick={() => set(brand === b ? null : b)}
+        >
+          {b}
+        </button>
+      ))}
+      <select
+        className="wb-brand-more"
+        aria-label="Other brands"
+        value={brand && !BRANDS_FIRST.includes(brand) ? brand : ""}
+        onChange={(e) => set(e.target.value || null)}
+      >
+        <option value="">More brands…</option>
+        {BRANDS.slice(BRANDS_FIRST.length).map((b) => (
+          <option key={b} value={b}>
+            {b}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

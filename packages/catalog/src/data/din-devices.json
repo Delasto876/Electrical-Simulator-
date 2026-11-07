@@ -1068,7 +1068,7 @@
     "id": "generic-fuse-holder-dc-15a",
     "category": "din-device",
     "brand": "Generic",
-    "model": "DC fuse holder 10\u00d738 with 15 A gPV fuse, 1000 V DC",
+    "model": "DC fuse holder 10×38 with 15 A gPV fuse, 1000 V DC",
     "dimensions": {
       "lengthMm": 18,
       "widthMm": 70,
@@ -1236,6 +1236,463 @@
       "voltageRatingAcV": 275,
       "voltageRatingDcV": null,
       "breakingCapacityKa": 20,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-dc-2p-20a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC MCB 2P 20 A 550 V DC 6 kA (polarity-sensitive)",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.22,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 9,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-dc", "20A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "mcb-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 20,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 550,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": true,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-dc-2p-125a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC MCB 2P 125 A 250 V DC 10 kA, battery disconnect",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.22,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing. Many 125 A DIN DC breakers are 27 mm per pole (3 modules for 2P): check yours.",
+    "price": {
+      "amount": 28,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-dc", "125A", "2P", "battery"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line +",
+        "polarity": "+",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load +",
+        "polarity": "+",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line -",
+        "polarity": "-",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load -",
+        "polarity": "-",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "mcb-dc",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 125,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 250,
+      "breakingCapacityKa": 10,
+      "curve": "C",
+      "polaritySensitive": true,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-mcb-ac-2p-32a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "AC MCB 2P 32 A C-curve 6 kA",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.22,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing.",
+    "price": {
+      "amount": 12,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["mcb-ac", "32A", "2P"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "mcb-ac",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 32,
+      "voltageRatingAcV": 400,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": "C",
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-voltage-protector-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "Over/under-voltage protector 63 A 1P+N 230 V, adjustable, LED display",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.22,
+    "verified": false,
+    "notes": "Representative of the adjustable DIN over/under-voltage relays sold online (typically 230–300 V over, 140–210 V under, 63 A, 35 mm rail; e.g. TOMZN TOVPD1-63). Width in modules not stated by the listings (2 assumed, VERIFY). Not manufacturer data.",
+    "price": {
+      "amount": 14,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["voltage-protector", "63A", "AVR", "over-voltage", "under-voltage"],
+    "ports": [
+      {
+        "id": "l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line L1",
+        "polarity": "L1",
+        "group": "line"
+      },
+      {
+        "id": "t1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "l2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "line N",
+        "polarity": "N",
+        "group": "line"
+      },
+      {
+        "id": "t2",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "voltage-protector",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 3,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    },
+    "datasheetUrl": "https://www.rcscomponents.kiev.ua/datasheets/TOVPD1-40-EC.pdf"
+  },
+  {
+    "id": "generic-changeover-2p-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "Manual changeover switch I-0-II 2P 63 A 230 V (manual transfer switch)",
+    "dimensions": {
+      "lengthMm": 54,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.33,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing. Width of 3 modules is typical but not checked (VERIFY).",
+    "price": {
+      "amount": 22,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["changeover", "manual transfer switch", "MTS", "63A", "2P"],
+    "ports": [
+      {
+        "id": "s1-l1",
+        "type": "ac-terminal",
+        "position": [-0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "I L1",
+        "polarity": "L1",
+        "group": "s1"
+      },
+      {
+        "id": "s1-n",
+        "type": "ac-terminal",
+        "position": [-0.006, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "I N",
+        "polarity": "N",
+        "group": "s1"
+      },
+      {
+        "id": "s2-l1",
+        "type": "ac-terminal",
+        "position": [0.006, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "II L1",
+        "polarity": "L1",
+        "group": "s2"
+      },
+      {
+        "id": "s2-n",
+        "type": "ac-terminal",
+        "position": [0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "II N",
+        "polarity": "N",
+        "group": "s2"
+      },
+      {
+        "id": "load-l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "load-n",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "changeover",
+      "poles": 2,
+      "modules": 3,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-ats-din-2p-63a",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DIN dual-power ATS 2P 63 A 230 V (automatic transfer switch)",
+    "dimensions": {
+      "lengthMm": 72,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.44,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing. Width of 4 modules is typical for the cheap DIN dual-power ATS but not checked (VERIFY).",
+    "price": {
+      "amount": 38,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["ATS", "dual power", "automatic transfer switch", "63A", "2P"],
+    "ports": [
+      {
+        "id": "s1-l1",
+        "type": "ac-terminal",
+        "position": [-0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "I L1",
+        "polarity": "L1",
+        "group": "s1"
+      },
+      {
+        "id": "s1-n",
+        "type": "ac-terminal",
+        "position": [-0.006, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "I N",
+        "polarity": "N",
+        "group": "s1"
+      },
+      {
+        "id": "s2-l1",
+        "type": "ac-terminal",
+        "position": [0.006, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "II L1",
+        "polarity": "L1",
+        "group": "s2"
+      },
+      {
+        "id": "s2-n",
+        "type": "ac-terminal",
+        "position": [0.018, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "II N",
+        "polarity": "N",
+        "group": "s2"
+      },
+      {
+        "id": "load-l1",
+        "type": "ac-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load L1",
+        "polarity": "L1",
+        "group": "load"
+      },
+      {
+        "id": "load-n",
+        "type": "ac-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "load N",
+        "polarity": "N",
+        "group": "load"
+      }
+    ],
+    "protection": {
+      "kind": "ats-din",
+      "poles": 2,
+      "modules": 4,
+      "ratedCurrentA": 63,
+      "voltageRatingAcV": 230,
+      "voltageRatingDcV": null,
+      "breakingCapacityKa": 6,
       "curve": null,
       "polaritySensitive": false,
       "residualMa": null

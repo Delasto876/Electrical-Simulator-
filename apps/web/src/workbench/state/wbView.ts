@@ -137,12 +137,17 @@ export interface ViewState {
   section: SectionState;
   /** A command whose options bar is open (e.g. "inspect.section"). */
   activeCommand: { id: string; backup?: SectionState } | null;
-  cameraRequest: { n: number; kind: ViewKind } | null;
+  /** A camera move asked for; `partIds` frames those parts instead of the whole scene. */
+  cameraRequest: { n: number; kind: ViewKind; partIds?: string[] } | null;
   searchOpen: boolean;
   shortcutsOpen: boolean;
   aboutOpen: boolean;
   marking: { x: number; y: number; targetId: string | null } | null;
   libraryQuery: string;
+  /** Enclosures whose door is open and inner cover off (view state, not saved). */
+  openCovers: string[];
+  /** Parts Library brand filter (null = all brands). */
+  libraryBrand: string | null;
   libraryPart: string | null;
   /** Field the Properties panel should focus next (set by ribbon buttons). */
   focusField: { n: number; id: string } | null;
@@ -152,7 +157,7 @@ export interface ViewState {
   /** A confirmation dialog. */
   confirm: { message: string; okLabel: string; onOk: () => void } | null;
   set: (p: Partial<ViewState>) => void;
-  requestView: (kind: ViewKind) => void;
+  requestView: (kind: ViewKind, partIds?: string[]) => void;
   requestFocus: (id: string) => void;
 }
 
@@ -234,12 +239,21 @@ export const useView = create<ViewState>((set, get) => ({
   marking: null,
   libraryQuery: "",
   libraryPart: null,
+  libraryBrand: null,
+  openCovers: [],
   focusField: null,
   renamingId: null,
   toast: null,
   confirm: null,
   set: (p) => set(p),
-  requestView: (kind) => set({ cameraRequest: { n: (get().cameraRequest?.n ?? 0) + 1, kind } }),
+  requestView: (kind, partIds) =>
+    set({
+      cameraRequest: {
+        n: (get().cameraRequest?.n ?? 0) + 1,
+        kind,
+        ...(partIds?.length ? { partIds } : {}),
+      },
+    }),
   requestFocus: (id) => set({ focusField: { n: (get().focusField?.n ?? 0) + 1, id } }),
 }));
 

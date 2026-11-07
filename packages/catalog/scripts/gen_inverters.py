@@ -148,3 +148,8 @@ def no_negative_zero(o):
 
 OUT.write_text(json.dumps(no_negative_zero(entries), indent=2) + "\n")
 print(f"wrote {len(entries)} inverters to {OUT}")
+
+# Phase 5: datasheet values found online, new brand models, DIN boxes and devices (patches the JSON above)
+import p5_datasheets  # noqa: E402
+
+p5_datasheets.main()

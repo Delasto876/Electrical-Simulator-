@@ -30,6 +30,8 @@ export function designatorPrefix(cat: Part): string | undefined {
     if (k === "mcb-ac" || k === "mcb-dc" || k === "rcbo") return "CB";
     if (k === "spd-ac" || k === "spd-dc") return "SPD";
     if (k === "terminal-block") return "X";
+    if (k === "voltage-protector") return "KV";
+    if (k === "ats-din") return "ATS";
     return "Q";
   }
   if (isCategory(cat, "grounding")) {

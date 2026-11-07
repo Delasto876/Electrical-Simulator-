@@ -97,3 +97,12 @@ Values the UI shows as "not available", and deferred work.
 - Surfaces on planes are placed by typed position; dragging a surface in 3D and snapping a wall to a roof edge are not built. Guides belong to the first surface only.
 - Device models hung on a wall: catalog glb models are rotated so their up runs up the wall; a model whose front is not its +Z face will face the wall (check each model when photos arrive).
 - Fusion's sketch tools (line, rectangle, circle, extrude) have no equivalent here; the shortcut letters they use are free.
+
+## Workbench (brief v2), after Phase 5
+
+- Inverter datasheets were read through web search only (the maker sites are not reachable from the build machine); a human should check each brand entry against the PDF and set `verified: true` (see VERIFY.md).
+- No Blender models yet for the new brand inverters (Luxpower SNA 6000 WPV, Deye SUN-6K-SG05LP1-EU, Growatt SPF 6000 ES Plus, SRNE ASF4880S180-H) or the HT boxes: they are drawn as procedural boxes. Model them when the user's photos arrive.
+- Changeover switches and the DIN ATS do not conduct in the circuit model yet; the ATS source priority and transfer behaviour are Phase 7.
+- N and PE bars, cable glands, wires inside the box and labels printed on the device fronts are not drawn yet (Phase 6 wiring).
+- Kits are fixed lists; a "save this box as a ready-made box" command (from a box built by hand) is not built.
+- Covers open in place; an exploded "take the cover off and lay it beside the box" view is not built.

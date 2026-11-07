@@ -116,6 +116,8 @@ import {
   startSplice,
 } from "./railToolActions";
 import { usePlace } from "./placeState";
+import { coverSelection, isCoverOpen, selectedEnclosures } from "./coverActions";
+import { kitCardId, kitList } from "../model/kits";
 import { SURFACE_ID, SURFACE_NODE_ID } from "./wbDoc";
 import { currentDoc, useWb } from "./wbStore";
 import {
@@ -993,10 +995,14 @@ add({
   id: "view.frame",
   label: "Look at selection",
   icon: Focus,
-  description: "Move the camera to the selected item.",
+  description: "Zoom the camera onto the selected parts (a device inside a box frames its box).",
   shortcut: "Shift+F",
   disabled: needSelection,
-  run: () => useView.getState().requestView("fit"),
+  run: () => {
+    const doc = currentDoc();
+    const ids = selectedPartIds().map((id) => doc.parts[id]?.mount?.enclosureId ?? id);
+    useView.getState().requestView("fit", ids.length ? [...new Set(ids)] : undefined);
+  },
 });
 
 add({
@@ -1227,14 +1233,55 @@ future(
   "Connect two terminals with a wire and see if the circuit is closed, open or shorted.",
 );
 future("wire.trace", "Trace net", Crosshair, 6, "Light up everything connected to a terminal.");
-future(
-  "dev.open",
-  "Open device",
-  Boxes,
-  6,
-  "Open an inverter, battery, combiner or enclosure to reach its terminals.",
-);
-future("dev.close", "Close device", Box, 6, "Close the device and return to the previous view.");
+const noEnclosure = () =>
+  selectedEnclosures().length ? null : "Select a DIN box or a device inside one.";
+add({
+  id: "dev.open",
+  label: "Open cover",
+  icon: Boxes,
+  description:
+    "Swing the door open and lift the inner cover off the selected DIN box, to reach the devices inside. Double-click a box does the same.",
+  keywords: "open cover door enclosure box remove lid din inside",
+  disabled: noEnclosure,
+  run: () => void coverSelection(true),
+});
+add({
+  id: "dev.close",
+  label: "Close cover",
+  icon: Box,
+  description: "Put the inner cover back and close the door of the selected DIN box.",
+  keywords: "close cover door enclosure box lid",
+  disabled: () =>
+    noEnclosure() ??
+    (selectedEnclosures().some(isCoverOpen) ? null : "The cover is already closed."),
+  run: () => void coverSelection(false),
+});
+add({
+  id: "insert.kit",
+  label: "Ready-made box",
+  icon: Package,
+  description:
+    "Insert a DIN box with its devices already fitted: PV combiner 2-in 2-out, battery disconnect, ATS, changeover, distribution boards.",
+  keywords: "kit combiner 2 in 2 out spd breaker ats changeover distribution board box",
+  run: () => {
+    openPanel("left");
+    useView.getState().set({ libraryQuery: "", libraryBrand: null });
+    requestAnimationFrame(() =>
+      document.querySelector('[data-testid="library-kits"]')?.scrollIntoView({ block: "start" }),
+    );
+    showToast("Drag a ready-made box onto a wall or surface, or double-click it.");
+  },
+});
+for (const k of kitList())
+  add({
+    id: `kit.${k.id}`,
+    label: k.name,
+    icon: Package,
+    description: k.description,
+    keywords: `kit box ${k.tags.join(" ")}`,
+    disabled: lockedReason,
+    run: () => void startPlacing(kitCardId(k)),
+  });
 future(
   "race.trunk",
   "Trunking",
@@ -1362,7 +1409,11 @@ const BUILD_TAB: RibbonTab = {
       ["inspect.measure", "inspect.section"],
       ["inspect.measure.clear", "inspect.issues", "surface.facts"],
     ),
-    G("INSERT", ["lib.addpart"], []),
+    G(
+      "INSERT",
+      ["insert.kit", "lib.addpart"],
+      ["dev.open", "dev.close", ...kitList().map((k) => `kit.${k.id}`)],
+    ),
     G("SELECT", ["edit.selectall"], ["edit.hide", "edit.lock", "edit.isolate"]),
   ],
 };

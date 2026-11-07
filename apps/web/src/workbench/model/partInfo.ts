@@ -27,7 +27,15 @@ export interface PartInfo {
   modelFile?: string;
   color: string;
   dinModules?: number;
-  enclosure?: { modulesPerRow: number; rows: number };
+  /** DIN device kind (catalog `protection.kind`, or the custom part's kind) and poles: drives its look. */
+  dinKind?: string;
+  poles?: number;
+  enclosure?: {
+    modulesPerRow: number;
+    rows: number;
+    material?: "plastic" | "metal";
+    transparentDoor?: boolean;
+  };
   /** Front photo (custom parts). */
   photo?: string;
   verified: boolean;
@@ -99,8 +107,17 @@ function fromCatalog(p: Part): PartInfo {
     base.heightM = mm(d.lengthMm); // nominal length (placed legs use the length the tilt gives)
   }
   if (isCategory(p, "enclosure"))
-    base.enclosure = { modulesPerRow: p.enclosure.modulesPerRow, rows: p.enclosure.rows };
-  if (isCategory(p, "din-device")) base.dinModules = p.protection.modules;
+    base.enclosure = {
+      modulesPerRow: p.enclosure.modulesPerRow,
+      rows: p.enclosure.rows,
+      material: p.enclosure.material,
+      transparentDoor: p.enclosure.transparentDoor,
+    };
+  if (isCategory(p, "din-device")) {
+    base.dinModules = p.protection.modules;
+    base.dinKind = p.protection.kind;
+    base.poles = p.protection.poles;
+  }
   return base;
 }
 
@@ -128,6 +145,8 @@ function fromCustom(c: CustomPart): PartInfo {
   if (c.template === "din-breaker") {
     const poles = Number(c.specs.poles ?? 1);
     info.dinModules = Math.max(1, Number(c.specs.modules ?? poles));
+    info.poles = poles;
+    if (c.specs.kind !== undefined) info.dinKind = String(c.specs.kind);
   }
   if (c.template === "din-enclosure")
     info.enclosure = {

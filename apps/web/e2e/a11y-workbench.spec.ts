@@ -178,3 +178,30 @@ test("Phase 4 screens pass axe: BUILD groups, Move/Pattern/Mirror bars, Surface 
   await audit(page, "Origin rows", found);
   expect(found).toEqual([]);
 });
+
+test("Phase 5 screens pass axe: brand filter, ready-made boxes, kit preview, DIN box panel, INSERT menu", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await audit(page, "library with brands and kits", found);
+  await page.getByTestId("brand-Deye").click();
+  await page.getByTestId("libgroup-inverter").click();
+  await page.getByTestId("card-deye-sun-6k-sg05lp1-eu").click();
+  await audit(page, "brand filter and inverter datasheet", found);
+  await page.getByTestId("brand-Deye").click();
+  await page.getByTestId("card-kit-ac-distribution").click();
+  await audit(page, "kit preview", found);
+  await page.getByTestId("place-kit").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("1500");
+  await page.getByTestId("type-top").fill("1500");
+  await page.getByTestId("type-top").press("Enter");
+  await expect(page.getByTestId("cover-toggle")).toBeVisible();
+  await audit(page, "DIN box panel", found);
+  await page.getByTestId("group-insert").click();
+  await audit(page, "INSERT menu", found);
+  await page.keyboard.press("Escape");
+  expect(found).toEqual([]);
+});

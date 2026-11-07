@@ -212,7 +212,7 @@
     },
     "weightKg": 20.5,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Weight 20.5 kg in one listing, 21 kg in another.",
     "price": {
       "amount": 1100,
       "currency": "USD",
@@ -399,7 +399,8 @@
         "frequencyHz": 50,
         "system": "single-phase"
       }
-    }
+    },
+    "datasheetUrl": "https://cdn.shopify.com/s/files/1/0791/4186/3703/files/5Kw_Deye_Datasheet.pdf"
   },
   {
     "id": "deye-sun-8k-sg01lp1-us",
@@ -413,7 +414,7 @@
     },
     "weightKg": 33,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. 10.4 kW PV, 26 + 26 A, 190 A charge confirmed by listings; the MPPT window (125–425 V vs 150–425 V) is not.",
     "price": {
       "amount": 2600,
       "currency": "USD",
@@ -663,7 +664,8 @@
         "system": "split-phase",
         "lineToNeutralV": 120
       }
-    }
+    },
+    "datasheetUrl": "https://deye.com/ja/product/sun-5-6-7-6-8k-sg01lp1-us/"
   },
   {
     "id": "deye-sun-12k-sg04lp3-eu",
@@ -677,7 +679,7 @@
     },
     "weightKg": 33.6,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 3200,
       "currency": "USD",
@@ -937,7 +939,7 @@
     },
     "weightKg": 11.5,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 700,
       "currency": "USD",
@@ -1111,7 +1113,7 @@
     },
     "weightKg": 16,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 1300,
       "currency": "USD",
@@ -1331,7 +1333,7 @@
     },
     "weightKg": 10.8,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 900,
       "currency": "USD",
@@ -1479,7 +1481,7 @@
     },
     "weightKg": 14,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 1300,
       "currency": "USD",
@@ -1640,13 +1642,13 @@
     "brand": "Luxpower",
     "model": "SNA 5000 WPV off-grid, single-phase 230 V",
     "dimensions": {
-      "lengthMm": 480,
+      "lengthMm": 504,
       "widthMm": 330,
-      "heightMm": 130
+      "heightMm": 135
     },
-    "weightKg": 13,
+    "weightKg": 14,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Listings disagree on the PV voltage ceiling (480 V vs 500 V); 480 V used. Size 330 × 504 × 135 mm, 14 kg.",
     "price": {
       "amount": 750,
       "currency": "USD",
@@ -1769,7 +1771,7 @@
       "surgePowerW": 10000,
       "surgeDurationS": 5,
       "maxPvInputPowerW": 6500,
-      "maxPvVoltageV": 500,
+      "maxPvVoltageV": 480,
       "mpptMinV": 120,
       "mpptMaxV": 385,
       "startupVoltageV": 140,
@@ -1833,7 +1835,8 @@
         "frequencyHz": 50,
         "system": "single-phase"
       }
-    }
+    },
+    "datasheetUrl": "https://cdn.shopify.com/s/files/1/0814/7546/9590/files/Luxpowertek-SNA-datasheet_2713f079-f0eb-4436-ac3b-54d6fcb42f9c.pdf"
   },
   {
     "id": "luxpower-lxp-lb-us-12k",
@@ -1847,7 +1850,7 @@
     },
     "weightKg": 37,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 3500,
       "currency": "USD",
@@ -2116,7 +2119,7 @@
     },
     "weightKg": 9,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number.",
     "price": {
       "amount": 550,
       "currency": "USD",
@@ -2276,7 +2279,8 @@
         "frequencyHz": 50,
         "system": "single-phase"
       }
-    }
+    },
+    "datasheetUrl": "https://cdn.shopify.com/s/files/1/0678/0731/4206/files/SRNE_HF4850S80-H.pdf"
   },
   {
     "id": "srne-ml4860",
@@ -2290,7 +2294,7 @@
     },
     "weightKg": 3.5,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number. Not re-checked in the 2026-11 datasheet pass.",
     "price": {
       "amount": 180,
       "currency": "USD",
@@ -2414,7 +2418,7 @@
     },
     "weightKg": 34,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Rated MPPT window 175–425 V on the current sheet (an older sheet says 150–425 V); start-up 125 V; 13 kW PV; 185 A battery.",
     "price": {
       "amount": 5500,
       "currency": "USD",
@@ -2600,7 +2604,7 @@
       "surgeDurationS": 5,
       "maxPvInputPowerW": 13000,
       "maxPvVoltageV": 500,
-      "mpptMinV": 150,
+      "mpptMinV": 175,
       "mpptMaxV": 425,
       "startupVoltageV": 125,
       "mppts": [
@@ -2664,7 +2668,8 @@
         "system": "split-phase",
         "lineToNeutralV": 120
       }
-    }
+    },
+    "datasheetUrl": "https://solartown.com/content/12K-2P_SpecSheet_2.pdf"
   },
   {
     "id": "sol-ark-15k-2p-n",
@@ -2678,7 +2683,7 @@
     },
     "weightKg": 39,
     "verified": false,
-    "notes": "Real model name. Specifications entered from memory of the manufacturer's public datasheet and NOT verified. Check the current datasheet before relying on any number.",
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Rev 5 sheet: usable PV 19.5 kW, rated MPPT window 175–425 V (MPPT range 150–500 V), 275 A battery.",
     "price": {
       "amount": 7500,
       "currency": "USD",
@@ -2864,7 +2869,7 @@
       "surgeDurationS": 5,
       "maxPvInputPowerW": 19500,
       "maxPvVoltageV": 500,
-      "mpptMinV": 125,
+      "mpptMinV": 175,
       "mpptMaxV": 425,
       "startupVoltageV": 125,
       "mppts": [
@@ -2933,6 +2938,811 @@
         "system": "split-phase",
         "lineToNeutralV": 120
       }
-    }
+    },
+    "datasheetUrl": "https://practicalpreppers.com/wp-content/uploads/2022/01/SK150-0001_Rev5_15K-Datasheet_EN-18June2025.pdf"
+  },
+  {
+    "id": "luxpower-sna-6000-wpv",
+    "category": "inverter",
+    "brand": "Luxpower",
+    "model": "SNA 6000 WPV off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 504,
+      "widthMm": 330,
+      "heightMm": 135
+    },
+    "weightKg": 14,
+    "verified": false,
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Max PV power is 8 kW, 9 kW or 9.6 kW depending on the listing; 8 kW used. 17 A per MPPT from retailer listings; short-circuit current not found (22 A assumed, VERIFY). Same chassis as the SNA 5000 WPV assumed.",
+    "price": {
+      "amount": 750,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["Luxpower", "off-grid", "single-phase", "6kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-in-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-in",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN L1"
+      },
+      {
+        "id": "ac-in-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-in",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN N"
+      },
+      {
+        "id": "ac-out-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-out",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT L1"
+      },
+      {
+        "id": "ac-out-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-out",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 6000,
+      "surgePowerW": 12000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 8000,
+      "maxPvVoltageV": 480,
+      "mpptMinV": 120,
+      "mpptMaxV": 385,
+      "startupVoltageV": 100,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 17,
+          "maxShortCircuitCurrentA": 22
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 17,
+          "maxShortCircuitCurrentA": 22
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.855
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.905
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.935
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.925
+        }
+      ],
+      "standbyW": 40,
+      "transferSwitch": true,
+      "integratedDcDisconnect": false,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 140,
+        "maxDischargeCurrentA": 140
+      },
+      "recommendedBatteryFuseA": 175,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    },
+    "datasheetUrl": "https://masterenergy.eu/wp-content/uploads/2025/01/Datasheet-Luxpower-6Kw-OffGrid-Inverter-SNA6000.pdf"
+  },
+  {
+    "id": "deye-sun-6k-sg05lp1-eu",
+    "category": "inverter",
+    "brand": "Deye",
+    "model": "SUN-6K-SG05LP1-EU hybrid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 580,
+      "widthMm": 330,
+      "heightMm": 232
+    },
+    "weightKg": 24,
+    "verified": false,
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. 12 kW max PV access power, 2 MPPT, IP65 and 24 kg from listings. MPPT window, per-MPPT current and battery current were not in the search results: values here are from memory (VERIFY).",
+    "price": {
+      "amount": 1100,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["Deye", "hybrid", "single-phase", "6kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.01, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.085, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-in-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-in",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN L1"
+      },
+      {
+        "id": "ac-in-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-in",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN N"
+      },
+      {
+        "id": "ac-out-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-out",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT L1"
+      },
+      {
+        "id": "ac-out-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-out",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "hybrid",
+      "ratedAcPowerW": 6000,
+      "surgePowerW": 12000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 12000,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 125,
+      "mpptMaxV": 425,
+      "startupVoltageV": 125,
+      "mppts": [
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 34
+        },
+        {
+          "maxStrings": 2,
+          "maxInputCurrentA": 26,
+          "maxShortCircuitCurrentA": 34
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.896
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.946
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.971
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.976
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.966
+        }
+      ],
+      "standbyW": 50,
+      "transferSwitch": true,
+      "integratedDcDisconnect": true,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 135,
+        "maxDischargeCurrentA": 135
+      },
+      "recommendedBatteryFuseA": 175,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    },
+    "datasheetUrl": "https://deye.com/vi/product/sun-3-6-5-6-7-7-6-8-10k-sg05lp1-eu-am2-p/"
+  },
+  {
+    "id": "growatt-spf-6000-es-plus",
+    "category": "inverter",
+    "brand": "Growatt",
+    "model": "SPF 6000 ES Plus off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 460,
+      "widthMm": 395,
+      "heightMm": 132
+    },
+    "weightKg": 13.5,
+    "verified": false,
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Listings: 2 MPPT, 16 A each, 450 V max (one says 500 V), MPPT 120–430 V (one says 120–450 V), 100 A solar charge, 80 A AC charge, 460 × 395 × 132 mm, 13.5 kg. PV power and short-circuit current not found (VERIFY).",
+    "price": {
+      "amount": 700,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["Growatt", "off-grid", "single-phase", "6kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.115, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.045, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [-0.009999999999999995, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [-0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.02, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-in-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-in",
+        "position": [0.06, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN L1"
+      },
+      {
+        "id": "ac-in-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-in",
+        "position": [0.078, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN N"
+      },
+      {
+        "id": "ac-out-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-out",
+        "position": [0.096, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT L1"
+      },
+      {
+        "id": "ac-out-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-out",
+        "position": [0.105, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.135, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 6000,
+      "surgePowerW": 12000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 8000,
+      "maxPvVoltageV": 450,
+      "mpptMinV": 120,
+      "mpptMaxV": 430,
+      "startupVoltageV": 150,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 16,
+          "maxShortCircuitCurrentA": 20
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 16,
+          "maxShortCircuitCurrentA": 20
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.85
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.925
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.92
+        }
+      ],
+      "standbyW": 50,
+      "transferSwitch": true,
+      "integratedDcDisconnect": false,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 100,
+        "maxDischargeCurrentA": 135
+      },
+      "recommendedBatteryFuseA": 175,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    },
+    "datasheetUrl": "https://cdn.autosolar.es/pdf/fichas-tecnicas/Growatt_SPF_6000_ES_Plus.pdf"
+  },
+  {
+    "id": "srne-asf4880s180-h",
+    "category": "inverter",
+    "brand": "SRNE",
+    "model": "ASF4880S180-H off-grid, single-phase 230 V",
+    "dimensions": {
+      "lengthMm": 620,
+      "widthMm": 445,
+      "heightMm": 130
+    },
+    "weightKg": 27,
+    "verified": false,
+    "notes": "Numbers taken from the manufacturer datasheet and distributor listings as summarised by a web search on 2026-11-07 (the PDF itself could not be downloaded from this build machine). NOT verified: check the current datasheet before relying on any number. Datasheet 1.5: 2 MPPT, 5.5 kW + 5.5 kW, 22 A + 22 A, 500 V Voc, MPPT 125–425 V, 180 A MPPT charge, IP20, 620 × 445 × 130 mm, 27 kg (rev 1.1 says 435 mm, 21 kg). Short-circuit current and discharge current not found (VERIFY).",
+    "price": {
+      "amount": 550,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["SRNE", "off-grid", "single-phase", "8kW"],
+    "ports": [
+      {
+        "id": "pv1+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt1",
+        "position": [-0.09, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 +"
+      },
+      {
+        "id": "pv1-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt1",
+        "position": [-0.055, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV1 -"
+      },
+      {
+        "id": "pv2+",
+        "type": "mc4",
+        "polarity": "+",
+        "gender": "female",
+        "connector": "generic-mc4-female",
+        "group": "mppt2",
+        "position": [-0.01999999999999999, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 +"
+      },
+      {
+        "id": "pv2-",
+        "type": "mc4",
+        "polarity": "-",
+        "gender": "male",
+        "connector": "generic-mc4-male",
+        "group": "mppt2",
+        "position": [0.015000000000000006, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PV2 -"
+      },
+      {
+        "id": "bat+",
+        "type": "battery-terminal",
+        "polarity": "+",
+        "group": "bat",
+        "position": [0, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT +"
+      },
+      {
+        "id": "bat-",
+        "type": "battery-terminal",
+        "polarity": "-",
+        "group": "bat",
+        "position": [0.04, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "BAT -"
+      },
+      {
+        "id": "ac-in-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-in",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN L1"
+      },
+      {
+        "id": "ac-in-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-in",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC IN N"
+      },
+      {
+        "id": "ac-out-l1",
+        "type": "ac-terminal",
+        "polarity": "L1",
+        "group": "ac-out",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT L1"
+      },
+      {
+        "id": "ac-out-n",
+        "type": "ac-terminal",
+        "polarity": "N",
+        "group": "ac-out",
+        "position": [0.08, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "AC OUT N"
+      },
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "polarity": "PE",
+        "group": "pe",
+        "position": [0.11, 0, 0],
+        "direction": [0, -1, 0],
+        "label": "PE"
+      }
+    ],
+    "electrical": {
+      "kind": "off-grid",
+      "ratedAcPowerW": 8000,
+      "surgePowerW": 16000,
+      "surgeDurationS": 5,
+      "maxPvInputPowerW": 11000,
+      "maxPvVoltageV": 500,
+      "mpptMinV": 125,
+      "mpptMaxV": 425,
+      "startupVoltageV": 150,
+      "mppts": [
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 22,
+          "maxShortCircuitCurrentA": 27
+        },
+        {
+          "maxStrings": 1,
+          "maxInputCurrentA": 22,
+          "maxShortCircuitCurrentA": 27
+        }
+      ],
+      "efficiencyCurve": [
+        {
+          "loadFraction": 0.05,
+          "efficiency": 0.85
+        },
+        {
+          "loadFraction": 0.1,
+          "efficiency": 0.9
+        },
+        {
+          "loadFraction": 0.3,
+          "efficiency": 0.925
+        },
+        {
+          "loadFraction": 0.5,
+          "efficiency": 0.93
+        },
+        {
+          "loadFraction": 1.0,
+          "efficiency": 0.92
+        }
+      ],
+      "standbyW": 45,
+      "transferSwitch": true,
+      "integratedDcDisconnect": false,
+      "overloadCurve": [
+        {
+          "loadFraction": 1.1,
+          "seconds": 60
+        },
+        {
+          "loadFraction": 1.5,
+          "seconds": 10
+        }
+      ],
+      "battery": {
+        "nominalV": 48,
+        "minV": 40,
+        "maxV": 60,
+        "maxChargeCurrentA": 180,
+        "maxDischargeCurrentA": 180
+      },
+      "recommendedBatteryFuseA": 250,
+      "acOutput": {
+        "voltageV": 230,
+        "frequencyHz": 50,
+        "system": "single-phase"
+      }
+    },
+    "datasheetUrl": "https://cdn.shopify.com/s/files/1/0682/1124/5378/files/SRNE_ASF-series_48V_8-10kW_S_hybrid-solar-charge-inverter_datasheet_1.5.pdf"
   }
 ]

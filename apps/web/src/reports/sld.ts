@@ -110,6 +110,7 @@ function kindOf(cat: Part): SldKind {
     if (k === "fuse-holder-dc") return "fuse";
     if (k === "mcb-ac" || k === "mcb-dc" || k === "rcbo") return "breaker";
     if (k === "spd-ac" || k === "spd-dc") return "spd";
+    if (k === "ats-din" || k === "changeover") return "ats";
     return "switch";
   }
   return "other";

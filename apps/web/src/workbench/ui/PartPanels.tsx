@@ -16,6 +16,8 @@ import { useWb, useDoc } from "../state/wbStore";
 import { useView } from "../state/wbView";
 import { AngleField, LengthField, Row, Section } from "./Fields";
 import { RailKitSection } from "./RailKitPanels";
+import { setCovers } from "../state/coverActions";
+import { selectNode } from "../state/wbView";
 
 function Spin({ info }: { info: PartInfo }) {
   const g = useRef<Group>(null);
@@ -201,6 +203,9 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
       </Section>
       {info.legRole && <TiltSection info={info} />}
       <RailKitSection partId={part.id} />
+      {(info.enclosure || part.mount) && (
+        <EnclosureSection enclosureId={part.mount ? part.mount.enclosureId : part.id} />
+      )}
     </>
   );
 }
@@ -408,5 +413,61 @@ export function CustomPartProperties({ part }: { part: CustomPart }) {
         </dl>
       </Section>
     </>
+  );
+}
+
+/** A DIN box: its cover, how full its rails are, and the devices on them (click one to select it). */
+function EnclosureSection({ enclosureId }: { enclosureId: string }) {
+  const doc = useDoc();
+  const open = useView((s) => s.openCovers.includes(enclosureId));
+  const enc = doc.parts[enclosureId];
+  const ei = enc ? partInfo(enc.catalogId) : undefined;
+  if (!enc || !ei?.enclosure) return null;
+  const devices = Object.values(doc.parts)
+    .filter((p) => p.mount?.enclosureId === enclosureId)
+    .sort((a, b) => a.mount!.row - b.mount!.row || a.mount!.slot - b.mount!.slot);
+  const nodeOf = (id: string) => Object.values(doc.nodes).find((n) => n.partId === id);
+  const used = devices.reduce((s, p) => s + (partInfo(p.catalogId)?.dinModules ?? 1), 0);
+  const total = ei.enclosure.modulesPerRow * ei.enclosure.rows;
+  return (
+    <Section title="DIN box">
+      <button
+        type="button"
+        className="wb-btn"
+        aria-pressed={open}
+        data-testid="cover-toggle"
+        onClick={() => setCovers([enclosureId], !open)}
+      >
+        {open ? "Close cover" : "Open cover"}
+      </button>
+      <Row label="Rail">
+        {used} of {total} modules used
+      </Row>
+      {devices.length === 0 ? (
+        <p className="wb-hint">Empty. Drag DIN devices from the library onto the box.</p>
+      ) : (
+        <ol className="wb-kit-list" data-testid="enclosure-devices">
+          {devices.map((p) => {
+            const di = partInfo(p.catalogId);
+            const n = nodeOf(p.id);
+            return (
+              <li key={p.id}>
+                <span className="wb-kit-slot">
+                  {ei.enclosure!.rows > 1 ? `R${p.mount!.row + 1} ` : ""}
+                  {p.mount!.slot + 1}–{p.mount!.slot + (di?.dinModules ?? 1)}
+                </span>{" "}
+                {n ? (
+                  <button type="button" className="wb-linkbtn" onClick={() => selectNode(n.id)}>
+                    {n.name}
+                  </button>
+                ) : (
+                  (di?.label ?? p.catalogId)
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </Section>
   );
 }

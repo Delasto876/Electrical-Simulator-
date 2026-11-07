@@ -120,7 +120,7 @@
     "id": "generic-enclosure-24m-metal",
     "category": "enclosure",
     "brand": "Generic",
-    "model": "Metal DIN enclosure, 2 \u00d7 12 modules, IP54",
+    "model": "Metal DIN enclosure, 2 × 12 modules, IP54",
     "dimensions": {
       "lengthMm": 450,
       "widthMm": 300,
@@ -159,7 +159,7 @@
     "id": "generic-enclosure-36m-metal",
     "category": "enclosure",
     "brand": "Generic",
-    "model": "Metal DIN enclosure, 2 \u00d7 18 modules, IP54",
+    "model": "Metal DIN enclosure, 2 × 18 modules, IP54",
     "dimensions": {
       "lengthMm": 500,
       "widthMm": 420,
@@ -193,5 +193,239 @@
       "ipRating": "IP54",
       "transparentDoor": false
     }
+  },
+  {
+    "id": "ht-enclosure-4way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-4 plastic DIN box, 4-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 159,
+      "widthMm": 119,
+      "heightMm": 90
+    },
+    "weightKg": 0.35,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. The 4-way box uses the 5-way shell (4 modules of rail). Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 9.6,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "4 way", "4 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.0395, 0.02, -0.03],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 4,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
+  },
+  {
+    "id": "ht-enclosure-5way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-5 plastic DIN box, 5-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 159,
+      "widthMm": 119,
+      "heightMm": 90
+    },
+    "weightKg": 0.35,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 10.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "5 way", "5 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.0395, 0.02, -0.03],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 5,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
+  },
+  {
+    "id": "ht-enclosure-8way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-8 plastic DIN box, 8-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 155,
+      "widthMm": 201,
+      "heightMm": 90
+    },
+    "weightKg": 0.5,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 13.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "8 way", "8 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.0805, 0.02, -0.03],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 8,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
+  },
+  {
+    "id": "ht-enclosure-12way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-12 plastic DIN box, 12-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 198,
+      "widthMm": 255,
+      "heightMm": 108
+    },
+    "weightKg": 0.8,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 16.8,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "12 way", "12 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.1075, 0.02, -0.039],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 12,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
+  },
+  {
+    "id": "ht-enclosure-15way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-15 plastic DIN box, 15-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 198,
+      "widthMm": 309,
+      "heightMm": 108
+    },
+    "weightKg": 0.95,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 19.5,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "15 way", "15 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.1345, 0.02, -0.039],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 15,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
+  },
+  {
+    "id": "ht-enclosure-18way",
+    "category": "enclosure",
+    "brand": "Generic (HT series)",
+    "model": "HT-18 plastic DIN box, 18-way, IP65, smoke-grey door",
+    "dimensions": {
+      "lengthMm": 198,
+      "widthMm": 363,
+      "heightMm": 108
+    },
+    "weightKg": 1.1,
+    "verified": false,
+    "notes": "Sizes from the VIOX HT series table (HT-5P 119 × 159 × 90, HT-8P 201 × 155 × 90, HT-12P 255 × 198 × 108, HT-15P 309 × 198 × 108, HT-18P 363 × 198 × 108 mm) found by web search on 2026-11-07. Many brands sell the same shell; check yours. Not verified.",
+    "price": {
+      "amount": 22.2,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["enclosure", "18 way", "18 modules", "plastic", "HT"],
+    "ports": [
+      {
+        "id": "pe",
+        "type": "ground-point",
+        "position": [-0.1615, 0.02, -0.039],
+        "direction": [0, 0, -1],
+        "label": "PE bar",
+        "polarity": "PE",
+        "group": "pe"
+      }
+    ],
+    "enclosure": {
+      "modulesPerRow": 18,
+      "rows": 1,
+      "material": "plastic",
+      "ipRating": "IP65",
+      "transparentDoor": true
+    },
+    "datasheetUrl": "https://viox.com/product/ht5"
   }
 ]

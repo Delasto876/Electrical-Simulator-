@@ -21,6 +21,8 @@ import { partInfo } from "../model/partInfo";
 import { startPlacing } from "../state/placeActions";
 import { useView } from "../state/wbView";
 import { getCustomPart } from "../state/customParts";
+import { isKitId } from "../model/kits";
+import { KitProperties } from "./KitPanels";
 import {
   CustomPartProperties,
   GuidesSection,
@@ -367,6 +369,18 @@ function PartProperties({ id }: { id: string }) {
             Place on surface
           </button>
         </Tip>
+        {part.datasheetUrl && (
+          <a
+            className="wb-linkbtn"
+            href={part.datasheetUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            data-testid="datasheet-link"
+          >
+            Datasheet (source)
+          </a>
+        )}
+        {part.notes && <p className="wb-hint wb-part-notes">{part.notes}</p>}
       </Section>
       <Section title="Data label">
         <dl className="wb-nameplate" aria-label="Part data label">
@@ -428,7 +442,9 @@ export function PropertiesPanel() {
       </div>
       <div className="wb-panel-scroll" tabIndex={0} role="region" aria-label="Properties content">
         {libraryPart ? (
-          getCustomPart(libraryPart) ? (
+          isKitId(libraryPart) ? (
+            <KitProperties id={libraryPart} />
+          ) : getCustomPart(libraryPart) ? (
             <CustomPartProperties part={getCustomPart(libraryPart)!} />
           ) : (
             <PartProperties id={libraryPart} />

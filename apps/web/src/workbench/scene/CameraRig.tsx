@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/immutability -- three.js objects (camera, renderer, lights) are mutable by design */
 import { useEffect, useRef } from "react";
 import { invalidate, useFrame, useThree } from "@react-three/fiber";
-import { Vector3, type PerspectiveCamera } from "three";
+import { Box3, Sphere, Vector3, type Object3D, type PerspectiveCamera } from "three";
 import type { Bounds } from "@solar-sim/engine";
 import { easeInOut, poseFor, type Pose, type V3 } from "../lib/camera";
 import { useView } from "../state/wbView";
@@ -26,6 +26,7 @@ export function CameraRig({ bounds, normal }: { bounds: Bounds; normal: V3 }) {
   const camera = useThree((s) => s.camera) as PerspectiveCamera;
   const size = useThree((s) => s.size);
   const controls = useThree((s) => s.controls) as unknown as ControlsLike | null;
+  const scene = useThree((s) => s.scene);
   const request = useView((s) => s.cameraRequest);
   const tween = useRef<{ t: number; from: Pose; to: Pose } | null>(null);
   const lastRadius = useRef<number | null>(null);
@@ -80,7 +81,8 @@ export function CameraRig({ bounds, normal }: { bounds: Bounds; normal: V3 }) {
   // view requests
   useEffect(() => {
     if (!request || !controls) return;
-    goTo(poseFor(request.kind, bounds, CAMERA_FOV, aspect, normal, currentDir()), true);
+    const framed = request.partIds ? boundsOfParts(scene, request.partIds) : null;
+    goTo(poseFor(request.kind, framed ?? bounds, CAMERA_FOV, aspect, normal, currentDir()), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [request?.n]);
 
@@ -116,4 +118,24 @@ export function CameraRig({ bounds, normal }: { bounds: Bounds; normal: V3 }) {
   });
 
   return null;
+}
+
+/** World bounds of the placed parts with these ids (their groups carry `userData.partId`). */
+function boundsOfParts(scene: Object3D, ids: readonly string[]): Bounds | null {
+  const want = new Set(ids);
+  const box = new Box3();
+  scene.traverse((o) => {
+    const id = o.userData.partId as string | undefined;
+    if (id && want.has(id)) box.expandByObject(o);
+  });
+  if (box.isEmpty()) return null;
+  const sphere = box.getBoundingSphere(new Sphere());
+  const c = sphere.center;
+  return {
+    min: box.min.toArray() as V3,
+    max: box.max.toArray() as V3,
+    center: [c.x, c.y, c.z],
+    // a little room around small parts (a DIN box is a few hundred mm)
+    radiusM: Math.max(0.12, sphere.radius * 1.15),
+  };
 }

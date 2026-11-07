@@ -136,9 +136,13 @@ Rails (three profiles, stock lengths) seated on feet, Cut with kerf and an offcu
 
 BUILD tab with Fusion-style groups, Fusion shortcuts and navigation, multi-select, Copy/Paste, Move/Copy with drag arrows, Rectangular Pattern by drag (spacing or extent, two directions), Mirror, Delete of a selection; Origin with X/Y/Z axes and XY/XZ/YZ planes; Surface on plane (roofs, slabs, ground, block and wood walls); devices hang on walls. Decisions D-123 to D-131.
 
+## Phase 5 status (done: catalog, DIN boxes, ready-made boxes, covers)
+
+Real brand inverters (Deye, Growatt, Luxpower, SRNE, Sol-Ark) with datasheet links and a brand filter; HT-series DIN boxes from 4 to 18 way; new DIN devices (2P DC breakers 20 A and 125 A, voltage protector, manual changeover, DIN ATS); **ready-made boxes** (PV combiner 2-in 2-out with breakers and SPDs, battery disconnect, changeover, ATS, AC distribution board, hybrid inverter board) placed as one step; boxes open (door swings, inner cover off) to reach and select the devices; detailed DIN device looks; Look at selection (Shift+F) zooms onto a part. The canvas can no longer be hidden by the panels (layout bar, drawers on small screens). Decisions D-132 to D-137; not done in `TODO.md` ("after Phase 5").
+
 ## Roadmap after Phase 4 (re-ordered with the user)
 
-5. **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.
+5. ✅ (see Phase 5 status; the user's product photos, N/PE bars and wiring inside follow) **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.
 6. **Wiring and raceways**: wires between terminals, 4-inch (and other) trunking and conduit run along walls and roofs, wires pulled through them; fill, bends, cut list.
 7. **Electrical simulation and TEST**: circuits solved in the Workbench (the v1 engine), protection, grounding, ATS behaviour, meter probes, energy simulation.
 8. **Realism pass** (was Phase 4): post-processing, HDRI, quality presets, renders.

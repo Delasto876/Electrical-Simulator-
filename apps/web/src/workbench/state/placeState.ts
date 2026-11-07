@@ -11,6 +11,8 @@ export interface PlacingTool {
   rotDeg: number;
   /** Shift was held on the last placement: stay in the tool. */
   keep: boolean;
+  /** Placing a kit: the enclosure is `partId`, the kit adds its devices on commit. */
+  kitId?: string;
 }
 
 export interface PlaceState {

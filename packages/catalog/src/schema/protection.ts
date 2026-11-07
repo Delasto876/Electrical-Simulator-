@@ -35,6 +35,12 @@ export const DIN_KINDS = [
   "spd-ac",
   "spd-dc",
   "terminal-block",
+  /** Adjustable over/under-voltage protector (cuts the load outside its window). */
+  "voltage-protector",
+  /** Manual changeover (I-0-II) switch: a manual transfer switch on the DIN rail. */
+  "changeover",
+  /** Automatic dual-power transfer switch on the DIN rail. */
+  "ats-din",
 ] as const;
 
 export const DinDevice = PartBase.extend({
