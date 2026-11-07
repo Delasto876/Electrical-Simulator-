@@ -1,6 +1,7 @@
 import { evaluatePlacement, placeCommand, type PlaceCandidate } from "../model/placeTool";
 import { partInfo } from "../model/partInfo";
-import { evalLength } from "../lib/units";
+import { evalLength, formatLength } from "../lib/units";
+import { rowPlaceCommand } from "../model/footRows";
 import { clampSpecOf } from "../model/railKit";
 import { isKitId, kitCommand, kitOf } from "../model/kits";
 import { startClamp, startModule, startRail, startSplice } from "./railToolActions";
@@ -116,6 +117,40 @@ export function commitCandidate(keep: boolean): boolean {
     return false;
   }
   const doc = currentDoc();
+  const row = st.placing.row;
+  if (row && row.n > 1 && (info.attachmentKind || info.legRole)) {
+    const spacing = evalLength(row.spacing, useView.getState().units);
+    if (!spacing || spacing <= 0) {
+      showToast("Type the distance between the feet (e.g. 1200, 48in or 4').", "warn");
+      return false;
+    }
+    const plan = rowPlaceCommand(
+      doc,
+      st.surfaceId,
+      info,
+      [st.cand.x, st.cand.z],
+      row.n,
+      spacing,
+      row.axis,
+      st.free,
+      st.placing.rotDeg,
+    );
+    if (!plan.cmd || !useWb.getState().dispatch(plan.cmd)) {
+      showToast("No foot of the row could go there.", "warn");
+      return false;
+    }
+    if (!keep) usePlace.getState().set({ placing: null, cand: null, raw: null, typing: null });
+    const unit = useView.getState().units;
+    const notes = [
+      plan.snapped.length ? `${plan.snapped.length} moved to the nearest spot the roof allows` : "",
+      plan.refused ? `${plan.refused} refused (edge or overlap)` : "",
+    ].filter(Boolean);
+    showToast(
+      `Placed ${plan.placed} feet ${formatLength(spacing, unit, unit === "mm" ? 0 : 2)} apart${notes.length ? `; ${notes.join(", ")}` : ""}.`,
+      notes.length ? "warn" : "info",
+    );
+    return true;
+  }
   const one = placeCommand(doc, st.surfaceId, info, st.cand, st.free);
   const kit = st.placing.kitId ? kitOf(st.placing.kitId) : undefined;
   const cmd = one && kit ? kitCommand(doc, kit, one) : one;

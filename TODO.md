@@ -123,3 +123,10 @@ Values the UI shows as "not available", and deferred work.
 - Conduit elbows, couplings and expansion fittings are not counted (the v1 conduit tool has the rules); bend radius is not drawn.
 - Wire ampacity, voltage drop and OCPD coordination use the v1 engine and arrive with the electrical simulation (Phase 8).
 - Editing a run's corners after it is drawn is not built (delete and redraw, or move the whole run).
+
+## Workbench (brief v2), after Phase 8
+
+- Rows of feet are placed straight across or down the slope; a row along a guide or at an angle, and staggered rows, are not built.
+- Rail alignment lines up starts; lining up ends, centring a rail between two feet and "align all rails in this array" are not built.
+- The dimension lines show the selected part's footprint; its height is shown in Properties only.
+- Wire colours are stored per wire; a project-wide default per circuit type (if the user wants one later) is not built.

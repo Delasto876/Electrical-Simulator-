@@ -2,7 +2,10 @@ import { useMemo } from "react";
 import { Html } from "@react-three/drei";
 import type { ThreeEvent } from "@react-three/fiber";
 import { CatmullRomCurve3, TubeGeometry, Vector3 } from "three";
-import { terminalColor, wireColor } from "../../config/wireColors";
+import { wireColor } from "../../config/wireColors";
+
+/** Terminal dots are one neutral colour (no colour code); the label names the polarity. */
+const TERM_FILL = "#5d7fa6";
 import {
   allTerminals,
   cableSpecOf,
@@ -70,7 +73,7 @@ function TerminalDot({
       <button
         type="button"
         className={`wb-term${used ? " is-used" : ""}${from ? " is-from" : ""}${hover ? " is-hover" : ""}`}
-        style={{ ["--term" as string]: terminalColor(t.polarity, t.type) }}
+        style={{ ["--term" as string]: TERM_FILL }}
         aria-label={`Terminal ${t.label}${t.polarity ? ` (${t.polarity})` : ""}`}
         title={`${t.label}${t.polarity ? ` (${t.polarity})` : ""}`}
         data-testid={`term-${t.partId}-${t.portId}`}
@@ -81,7 +84,12 @@ function TerminalDot({
           pickTerminal(t.key);
         }}
       />
-      {(hover || from) && <span className="wb-term-label">{t.label}</span>}
+      {(hover || from) && (
+        <span className="wb-term-label">
+          {t.label}
+          {t.polarity ? ` (${t.polarity})` : ""}
+        </span>
+      )}
     </Html>
   );
 }
@@ -119,7 +127,7 @@ export function WiringLayer({ doc }: { doc: WbDoc }) {
           <WireTube
             key={w.id}
             points={g.points}
-            color={wireColor(pol, cable?.kind)}
+            color={w.wire!.color ?? wireColor(pol, cable?.kind)}
             radius={Math.max(0.003, (cable?.outerDiameterMm ?? 6) / 2000)}
             selected={!!node && (selection === node.id || multi.includes(node.id))}
             onClick={(e) => {
@@ -134,7 +142,7 @@ export function WiringLayer({ doc }: { doc: WbDoc }) {
       {from && hov && from.key !== hov.key && (
         <WireTube
           points={[from.world, hov.world]}
-          color="#4d9bff"
+          color={wireTool?.color ?? "#4d9bff"}
           radius={0.004}
           selected={false}
           onClick={() => undefined}

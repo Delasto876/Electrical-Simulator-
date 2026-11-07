@@ -148,11 +148,19 @@ The user asked for a professional CAD look before wiring: Inter font, colour-gra
 
 Wire tool (W): click a terminal on any part (inverters, batteries, DIN devices inside boxes, modules, custom parts), then the terminal it goes to, or pick both by name; colours by polarity; AC-to-DC, reversed polarity and wrong cable kinds are caught. Trunking and conduit runs are drawn by clicking corners (kept square) on walls and roofs; wires are pulled through a run; fill against NEC wireway / conduit limits, a mitre cut list and stock lengths in the BOM; deleting a part takes its wires, deleting a run re-routes its wires directly. Document schema 5. Decisions D-146 to D-152. Electrical simulation in the Workbench is next (Phase 8).
 
+## Phase 8 status (done, re-scoped with the user: measuring and lining up)
+
+Wire colours are picked by the user (13 swatches and any colour; no colour code; schema 6), part sizes in Properties and as dimension lines on the selected part, a unit picker beside them (mm, cm, m, in, ft, ft-in), rows of L-feet placed at a typed distance (count, spacing, direction), the spacing to the previous foot and the whole row editable, and rail alignment (start from the edge, start/end against every parallel rail, Line up). Decisions D-153 to D-158.
+
 ## Roadmap after Phase 4 (re-ordered with the user)
 
 5. ✅ (see Phase 5 status; the user's product photos, N/PE bars and wiring inside follow) **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.
 6. ✅ became the CAD look phase (see Phase 6 status); **wiring and raceways are now Phase 7**: wires between terminals, 4-inch (and other) trunking and conduit run along walls and roofs, wires pulled through them; fill, bends, cut list.
-7. **Electrical simulation and TEST**: circuits solved in the Workbench (the v1 engine), protection, grounding, ATS behaviour, meter probes, energy simulation.
-8. **Realism pass** (was Phase 4): post-processing, HDRI, quality presets, renders.
-9. **Outputs**: layout drawing, SLD, calculation sheet, BOM, reports (porting v1).
-10. **Polish and the installable app**: a desktop build (Tauri or Electron) of the same app, offline, file associations for `.solarbench.json`.
+7. ✅ Wiring and raceways (see Phase 7 status).
+8. ✅ Measuring and lining up (see Phase 8 status).
+9. **Electrical simulation and TEST**: circuits solved in the Workbench (the v1 engine), protection, grounding, ATS behaviour, meter probes, energy simulation.
+10. **Realism pass**: post-processing, HDRI, quality presets, renders.
+11. **Outputs**: layout drawing, SLD, calculation sheet, BOM, reports (porting v1).
+12. **Polish and the installable app**: a desktop build (Tauri or Electron) of the same app, offline, file associations for `.solarbench.json`.
+
+Phases left after Phase 8: four (9–12). The user's photos of real parts can be modelled in any of them.

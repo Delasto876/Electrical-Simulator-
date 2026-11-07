@@ -23,6 +23,7 @@ import {
   addRacewayPoint,
   cancelWireTool,
   connectTerminals,
+  setWireColor,
   finishRaceway,
   patchWireTool,
   racewaySurface,
@@ -30,6 +31,7 @@ import {
 } from "../state/wireActions";
 import { useWire } from "../state/wireState";
 import { Row, Section } from "./Fields";
+import { colorName, WIRE_PALETTE } from "../../config/wireColors";
 
 /**
  * WIRING UI — the options bar of the Wire and Raceway tools, and the
@@ -89,6 +91,49 @@ function RouteSelect({
         ))}
       </select>
     </label>
+  );
+}
+
+/** Insulation colour: the swatches of common colours, or any colour from the picker. */
+export function WireColorPicker({
+  value,
+  onChange,
+  testid,
+}: {
+  value: string;
+  onChange: (hex: string) => void;
+  testid: string;
+}) {
+  return (
+    <div className="wb-colors" role="radiogroup" aria-label="Wire colour" data-testid={testid}>
+      {WIRE_PALETTE.map((c) => (
+        <button
+          key={c.hex}
+          type="button"
+          role="radio"
+          aria-checked={value.toLowerCase() === c.hex.toLowerCase()}
+          aria-label={c.name}
+          title={c.name}
+          className="wb-swatch"
+          style={{ background: c.hex }}
+          data-testid={`${testid}-${c.name.toLowerCase().replace(/[^a-z]+/g, "-")}`}
+          onClick={() => onChange(c.hex)}
+        />
+      ))}
+      <label className="wb-swatch-custom" title="Any colour">
+        <span className="wb-sr">Custom colour</span>
+        <input
+          type="color"
+          value={value}
+          aria-label="Custom wire colour"
+          data-testid={`${testid}-custom`}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </label>
+      <span className="wb-color-name" aria-live="polite">
+        {colorName(value)}
+      </span>
+    </div>
   );
 }
 
@@ -165,6 +210,7 @@ export function WireToolBar() {
           testid="wire-route"
           onChange={(racewayId) => patchWireTool({ racewayId })}
         />
+        <WireColorPicker value={tool.color} testid="wire-color" onChange={setWireColor} />
         <TerminalSelect
           label="From"
           value={tool.from ?? ""}
@@ -306,6 +352,15 @@ export function WireSection({ partId }: { partId: string }) {
           {cable.awg} AWG {cable.kind}, Ø {cable.outerDiameterMm} mm, {cable.maxVoltageV} V
         </Row>
       )}
+      <Row label="Colour">
+        <WireColorPicker
+          value={w.wire.color ?? "#8a6fd1"}
+          testid="wire-color-edit"
+          onChange={(color) =>
+            void useWb.getState().dispatch({ type: "wire.update", id: w.id, color })
+          }
+        />
+      </Row>
       <CableSelect
         value={w.catalogId}
         testid="wire-cable-edit"

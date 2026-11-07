@@ -127,6 +127,10 @@ const BaseCommandSchema = z.discriminatedUnion("type", [
     id: z.string(),
     cableId: z.string().optional(),
     racewayId: z.string().nullable().optional(),
+    color: z
+      .string()
+      .regex(/^#[0-9a-fA-F]{6}$/)
+      .optional(),
   }),
   z.object({
     type: z.literal("surface.add"),
@@ -262,6 +266,17 @@ MIGRATIONS[4] = (file) => {
     ...file,
     schemaVersion: 5,
     snapshot: { ...snap, initial: { ...initial, schemaVersion: 5, nodes } },
+  };
+};
+
+// 5 → 6 (Phase 8): wires carry the colour the user picked (optional; older wires keep their look).
+MIGRATIONS[5] = (file) => {
+  const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+  const initial = (snap.initial ?? {}) as Record<string, unknown>;
+  return {
+    ...file,
+    schemaVersion: 6,
+    snapshot: { ...snap, initial: { ...initial, schemaVersion: 6 } },
   };
 };
 

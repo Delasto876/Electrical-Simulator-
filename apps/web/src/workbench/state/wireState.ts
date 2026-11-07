@@ -11,6 +11,8 @@ export type WireTool =
       cableId: string;
       /** Pull the next wire through this run (null = direct). */
       racewayId: string | null;
+      /** Insulation colour the user picked for the next wire (#rrggbb). */
+      color: string;
       /** First terminal picked. */
       from: string | null;
     }

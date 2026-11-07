@@ -13,6 +13,8 @@ export interface PlacingTool {
   keep: boolean;
   /** Placing a kit: the enclosure is `partId`, the kit adds its devices on commit. */
   kitId?: string;
+  /** Feet in a row: how many per click, the typed distance between them, and which way. */
+  row?: { n: number; spacing: string; axis: "x" | "z" };
 }
 
 export interface PlaceState {

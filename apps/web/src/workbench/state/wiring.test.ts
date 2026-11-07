@@ -203,3 +203,27 @@ describe("trunking", () => {
     expect(codes).toContain("PORT_DOUBLE");
   });
 });
+
+describe("wire colours (the user's choice, no colour code)", () => {
+  it("the tool's colour goes on the wire and in its name; it can be changed later", async () => {
+    const { setWireColor } = await import("./wireActions");
+    const inv = place(INV, 0, 0);
+    const bat = place(BAT, 1.5, 0);
+    startWire("generic-battery-cable-2-0awg");
+    setWireColor("#2f62c8");
+    pickTerminal(k(inv.id, "bat+"));
+    pickTerminal(k(bat.id, "pos"));
+    const w = wiresOf(currentDoc())[0]!;
+    expect(w.wire!.color).toBe("#2f62c8");
+    expect(Object.values(currentDoc().nodes).find((n) => n.partId === w.id)?.name).toMatch(/Blue/);
+    // the next start of the tool remembers the colour
+    cancelWireTool();
+    startWire();
+    expect(useWire.getState().tool).toMatchObject({ color: "#2f62c8" });
+    useWb.getState().dispatch({ type: "wire.update", id: w.id, color: "#7a4a24" });
+    expect(currentDoc().parts[w.id]!.wire!.color).toBe("#7a4a24");
+    expect(CommandSchema.safeParse({ type: "wire.update", id: w.id, color: "brown" }).success).toBe(
+      false,
+    );
+  });
+});

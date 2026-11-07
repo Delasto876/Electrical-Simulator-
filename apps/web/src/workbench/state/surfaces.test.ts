@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { defaultSurface, isWall, placement, surfaceBounds, surfaceNormal } from "@solar-sim/engine";
 import { DEFAULT_SNAPS } from "@solar-sim/engine";
-import { newDoc, SURFACE_ID, type WbDoc } from "./wbDoc";
+import { newDoc, SURFACE_ID, WB_SCHEMA_VERSION, type WbDoc } from "./wbDoc";
 import { applyCommand } from "./wbCommands";
 import { parseFile, serializeFile } from "./wbFile";
 import { useWb } from "./wbStore";
@@ -92,7 +92,7 @@ describe("walls and surfaces on planes", () => {
     const v3 = JSON.parse(serializeFile({ initial: newDoc(), commands: [], cursor: 0 }));
     v3.schemaVersion = 3;
     v3.snapshot.initial.schemaVersion = 3;
-    expect(parseFile(v3).initial.schemaVersion).toBe(5);
+    expect(parseFile(v3).initial.schemaVersion).toBe(WB_SCHEMA_VERSION);
     // a version 4 file without the Trunking & conduit folder gets it
     const v4 = JSON.parse(serializeFile({ initial: newDoc(), commands: [], cursor: 0 }));
     v4.schemaVersion = 4;

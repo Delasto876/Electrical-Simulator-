@@ -4,11 +4,18 @@ import { ISSUE_CODES, projectOnRail, type Issue } from "@solar-sim/engine";
 import { formatLength } from "../lib/units";
 import { clampGrips, holdsOf, railPose, railSpecOf, stockOf, supportsOf } from "../model/railKit";
 import { joinCommand } from "../model/railTools";
+import {
+  alignStartCommand,
+  railAlignment,
+  railStartFromEdge,
+  railStartFromEdgeCommand,
+} from "../model/railAlign";
+import { UnitPicker } from "./DimsPanels";
 import { allIssues } from "../model/issues";
 import { startCut, startRail, startSplice } from "../state/railToolActions";
 import { useDoc, useWb } from "../state/wbStore";
 import { showToast, useView } from "../state/wbView";
-import { Row, Section } from "./Fields";
+import { LengthField, Row, Section } from "./Fields";
 
 /** Rail, module, clamp and splice details for a selected placed part. */
 export function RailKitSection({ partId }: { partId: string }) {
@@ -201,5 +208,81 @@ export function OffcutPool() {
         ))}
       </ul>
     </section>
+  );
+}
+
+/** Line rails up: this rail's start from the edge, and its ends against every rail running the same way. */
+export function RailAlignSection({ partId }: { partId: string }) {
+  const doc = useDoc();
+  const unit = useView((s) => s.units);
+  const a = railAlignment(doc, partId);
+  const fromEdge = railStartFromEdge(doc, partId);
+  if (!a || fromEdge === undefined) return null;
+  const f = (m: number) => {
+    const t = formatLength(Math.abs(m), unit, unit === "mm" ? 0 : 2);
+    return Math.abs(m) < 0.0005 ? "aligned" : `${m > 0 ? "+" : "−"}${t}`;
+  };
+  const name = (id: string) => Object.values(doc.nodes).find((n) => n.partId === id)?.name ?? id;
+  const p = doc.parts[partId]!;
+  const across = Math.abs(Math.cos((p.rotDeg * Math.PI) / 180)) >= 0.5;
+  return (
+    <Section title="Alignment">
+      <UnitPicker testid="unit-picker-rail" />
+      <LengthField
+        id="rail-start-edge"
+        label={across ? "Start from left edge" : "Start from top edge"}
+        valueM={fromEdge}
+        unit={unit}
+        minM={-60}
+        maxM={60}
+        onCommit={(m) => {
+          const cmd = railStartFromEdgeCommand(doc, partId, m);
+          if (cmd) useWb.getState().dispatch(cmd);
+        }}
+      />
+      {a.others.length === 0 ? (
+        <p className="wb-hint">No other rail runs the same way on this surface.</p>
+      ) : (
+        <table className="wb-aligntable" data-testid="rail-align">
+          <thead>
+            <tr>
+              <th scope="col">Rail</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">
+                <span className="wb-sr">Align</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {a.others.map((o) => (
+              <tr key={o.id}>
+                <th scope="row">{name(o.id)}</th>
+                <td className={Math.abs(o.dStart) < 0.0005 ? "is-ok" : "is-off"}>{f(o.dStart)}</td>
+                <td className={Math.abs(o.dEnd) < 0.0005 ? "is-ok" : "is-off"}>{f(o.dEnd)}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="wb-linkbtn"
+                    disabled={Math.abs(o.dStart) < 0.0005}
+                    data-testid={`align-to-${o.id}`}
+                    onClick={() => {
+                      const cmd = alignStartCommand(doc, partId, o.id);
+                      if (cmd) useWb.getState().dispatch(cmd);
+                    }}
+                  >
+                    Line up
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <p className="wb-hint">
+        + means the other rail's end is further along. “Line up” slides this rail so its start
+        matches; its clamps go with it.
+      </p>
+    </Section>
   );
 }

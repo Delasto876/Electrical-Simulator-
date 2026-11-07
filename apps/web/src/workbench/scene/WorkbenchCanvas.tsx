@@ -8,6 +8,7 @@ import { usePointer } from "../state/pointer";
 import { useView } from "../state/wbView";
 import { CAMERA_FOV, CameraRig } from "./CameraRig";
 import { RacewayLayer } from "./RacewayLayer";
+import { SelectionDims } from "./SelectionDims";
 import { WiringLayer } from "./WiringLayer";
 import { ENVIRONMENT_DEFS } from "./environments";
 import { Ground } from "./Ground";
@@ -108,6 +109,7 @@ export function WorkbenchCanvas() {
             <GuidesLayer doc={doc} spec={spec} />
             <PlaceGhost doc={doc} surfaceId={node.surfaceId!} spec={spec} />
             <RacewayLayer doc={doc} spec={spec} surfaceId={node.surfaceId!} />
+            <SelectionDims doc={doc} surfaceId={node.surfaceId!} />
           </SurfaceAssembly>
         );
       })}

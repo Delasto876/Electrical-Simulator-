@@ -4,7 +4,7 @@
  * parser (`600+25`, `2'6"`, `0.75m`, `1.5 ft`) is part of the precision system
  * (Phase 2); this covers a number with an optional unit, and feet-and-inches.
  */
-export const UNITS = ["mm", "cm", "m", "in", "ft-in"] as const;
+export const UNITS = ["mm", "cm", "m", "in", "ft", "ft-in"] as const;
 export type Unit = (typeof UNITS)[number];
 
 export const UNIT_LABEL: Record<Unit, string> = {
@@ -12,6 +12,7 @@ export const UNIT_LABEL: Record<Unit, string> = {
   cm: "cm",
   m: "m",
   in: "in",
+  ft: "ft",
   "ft-in": "ft-in",
 };
 
@@ -42,6 +43,8 @@ export function formatLength(m: number, unit: Unit, digits = 0): string {
       return `${m.toFixed(Math.max(digits, 2))} m`;
     case "in":
       return `${(m / M_PER.in).toFixed(Math.max(digits, 1))} in`;
+    case "ft":
+      return `${(m / M_PER.ft).toFixed(Math.max(digits, 2))} ft`;
     case "ft-in": {
       const total = m / M_PER.in;
       const sign = total < 0 ? "-" : "";
@@ -65,6 +68,8 @@ export function lengthFieldValue(m: number, unit: Unit): string {
       return String(Math.round(m * 1000) / 1000);
     case "in":
       return String(Math.round((m / M_PER.in) * 100) / 100);
+    case "ft":
+      return String(Math.round((m / M_PER.ft) * 1000) / 1000);
     case "ft-in":
       return formatLength(m, "ft-in").replace("′ ", "'").replace("″", '"');
   }
@@ -108,6 +113,7 @@ export function parseLength(text: string, defaultUnit: Unit): number | undefined
       return v;
     case "in":
       return v * M_PER.in;
+    case "ft":
     case "ft-in":
       return v * M_PER.ft;
   }

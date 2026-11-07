@@ -1,3 +1,4 @@
+import { colorName } from "../../config/wireColors";
 import { produce, type Draft } from "immer";
 import {
   clampSurface,
@@ -39,7 +40,14 @@ export type WbCommand =
   | { type: "wire.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
   | { type: "raceway.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
   /** Change a wire's cable or the raceway it runs through (null = direct). */
-  | { type: "wire.update"; id: string; cableId?: string; racewayId?: string | null }
+  | {
+      type: "wire.update";
+      id: string;
+      cableId?: string;
+      racewayId?: string | null;
+      /** Insulation colour (#rrggbb). */
+      color?: string;
+    }
   | { type: "tilt.update"; patch: Partial<TiltSettings> }
   | { type: "guide.add"; guide: Guide }
   | { type: "guide.move"; id: string; at: number }
@@ -375,12 +383,21 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
       if (!p?.wire || partLocked(doc, c.id)) return doc;
       const cable = c.cableId ?? p.catalogId;
       const via = c.racewayId === undefined ? p.wire.racewayId : c.racewayId;
+      const color = c.color ?? p.wire.color;
       if (via && !doc.parts[via]?.raceway) return doc;
-      if (cable === p.catalogId && via === p.wire.racewayId) return doc;
+      if (cable === p.catalogId && via === p.wire.racewayId && color === p.wire.color) return doc;
       return produce(doc, (d) => {
         const q = d.parts[c.id]!;
         q.catalogId = cable;
         q.wire!.racewayId = via;
+        if (color) q.wire!.color = color;
+        // the wire's name carries its colour ("W1 Blue 10 AWG"): keep it true
+        const old = p.wire!.color;
+        if (color && old && color !== old) {
+          const node = Object.values(d.nodes).find((n) => n.partId === c.id);
+          if (node && node.name.includes(colorName(old)))
+            node.name = node.name.replace(colorName(old), colorName(color));
+        }
       });
     }
     case "parts.add": {

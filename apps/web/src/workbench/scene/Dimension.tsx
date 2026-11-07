@@ -66,7 +66,7 @@ export function Dimension({
     const d = new Vector3(b[0] - a[0], b[1] - a[1], b[2] - a[2]);
     return { len: d.length(), dir: d.normalize() };
   }, [a, b]);
-  const size = Math.min(0.06, Math.max(0.025, len * 0.12));
+  const size = Math.min(0.05, Math.max(0.006, len * 0.15));
   return (
     <group>
       <Line

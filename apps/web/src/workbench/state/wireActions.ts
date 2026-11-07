@@ -9,6 +9,7 @@ import { currentDoc, useWb } from "./wbStore";
 import { showToast, useView } from "./wbView";
 import { useWire } from "./wireState";
 import { activeSurfaceId } from "./activeSurface";
+import { colorName, DEFAULT_WIRE_COLOR } from "../../config/wireColors";
 
 /**
  * WIRE ACTIONS — the Wire tool (click a terminal, then a second one; the wire
@@ -39,6 +40,7 @@ export function startWire(cableId = DEFAULT_CABLE): boolean {
       kind: "wire",
       cableId,
       racewayId: prev?.kind === "wire" ? prev.racewayId : null,
+      color: prev?.kind === "wire" ? prev.color : lastColor,
       from: null,
     },
     hoverTerm: null,
@@ -58,6 +60,13 @@ export function startRaceway(catalogId = DEFAULT_TRUNKING): boolean {
     "Trunking: click the corners on a wall or roof. Enter or Finish ends the run, Backspace removes the last corner.",
   );
   return true;
+}
+
+/** The colour last picked (kept when the tool is started again). */
+let lastColor = DEFAULT_WIRE_COLOR;
+export function setWireColor(hex: string): void {
+  lastColor = hex;
+  patchWireTool({ color: hex });
 }
 
 export function cancelWireTool(): boolean {
@@ -115,9 +124,10 @@ export function pickTerminal(key: string): boolean {
         a: { partId: a.partId, portId: a.portId },
         b: { partId: b.partId, portId: b.portId },
         racewayId: t.racewayId,
+        color: t.color,
       },
     },
-    name: `W${n} ${a.polarity ?? ""} ${cable && isCategory(cable, "cable") ? `${cable.wire.awg} AWG` : ""}`
+    name: `W${n} ${colorName(t.color)} ${cable && isCategory(cable, "cable") ? `${cable.wire.awg} AWG` : ""}`
       .replace(/\s+/g, " ")
       .trim(),
     nodeId: `node-${id}`,

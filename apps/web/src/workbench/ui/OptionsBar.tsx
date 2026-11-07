@@ -4,7 +4,7 @@ import { formatLength } from "../lib/units";
 import { SURFACE_ID } from "../state/wbDoc";
 import { acceptActiveCommand, cancelActiveCommand } from "../state/shortcuts";
 import { partInfo } from "../model/partInfo";
-import { cancelPlacing, commitTyped, rotatePlacing } from "../state/placeActions";
+import { cancelPlacing, commitTyped, rotatePlacing, toggleTyping } from "../state/placeActions";
 import { usePlace } from "../state/placeState";
 import { useRailTool } from "../state/railToolState";
 import { RailToolBar } from "./RailToolBar";
@@ -76,6 +76,77 @@ function PlacingBar() {
       >
         Rotate {placing.rotDeg}° (R)
       </button>
+      {(info?.attachmentKind || info?.legRole) && (
+        <fieldset className="wb-rowfields" aria-label="Row of feet">
+          <label>
+            Feet in a row
+            <input
+              className="wb-input wb-input-short"
+              type="number"
+              min={1}
+              max={40}
+              value={placing.row?.n ?? 1}
+              data-testid="row-count"
+              onChange={(e) =>
+                usePlace.setState({
+                  placing: {
+                    ...placing,
+                    row: {
+                      n: Math.max(1, Math.min(40, Number(e.target.value) || 1)),
+                      spacing: placing.row?.spacing ?? "",
+                      axis: placing.row?.axis ?? "x",
+                    },
+                  },
+                })
+              }
+            />
+          </label>
+          <label>
+            Distance between feet
+            <input
+              className="wb-input"
+              value={placing.row?.spacing ?? ""}
+              placeholder={unit === "ft-in" || unit === "ft" ? `4'` : "1200"}
+              inputMode="decimal"
+              data-testid="row-spacing"
+              onChange={(e) =>
+                usePlace.setState({
+                  placing: {
+                    ...placing,
+                    row: {
+                      n: placing.row?.n ?? 2,
+                      spacing: e.target.value,
+                      axis: placing.row?.axis ?? "x",
+                    },
+                  },
+                })
+              }
+            />
+          </label>
+          <label>
+            Direction
+            <select
+              value={placing.row?.axis ?? "x"}
+              data-testid="row-axis"
+              onChange={(e) =>
+                usePlace.setState({
+                  placing: {
+                    ...placing,
+                    row: {
+                      n: placing.row?.n ?? 2,
+                      spacing: placing.row?.spacing ?? "",
+                      axis: e.target.value as "x" | "z",
+                    },
+                  },
+                })
+              }
+            >
+              <option value="x">Across</option>
+              <option value="z">Down the slope</option>
+            </select>
+          </label>
+        </fieldset>
+      )}
       {info?.legRole && (
         <label>
           Tilt
@@ -96,6 +167,17 @@ function PlacingBar() {
           />
           °
         </label>
+      )}
+      {!typing && (
+        <button
+          type="button"
+          className="wb-btn"
+          data-testid="type-position"
+          title="Type the position (Tab)"
+          onClick={() => toggleTyping()}
+        >
+          Type position (Tab)
+        </button>
       )}
       {typing && (
         <>

@@ -14,7 +14,7 @@ import {
  * the empty starting document. Change the shape → bump WB_SCHEMA_VERSION and
  * add a migration in wbFile.ts (never edit a released one).
  */
-export const WB_SCHEMA_VERSION = 5;
+export const WB_SCHEMA_VERSION = 6;
 
 export const TAG_COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "grey"] as const;
 export type TagColor = (typeof TAG_COLORS)[number];
@@ -76,6 +76,8 @@ export interface WireInfo {
   b: WireEnd;
   /** The trunking or conduit run it is pulled through; null = run directly. */
   racewayId: string | null;
+  /** Insulation colour the user picked (#rrggbb). Wires drawn before schema 6 have none. */
+  color?: string;
 }
 
 export interface RacewayInfo {
@@ -241,6 +243,10 @@ export const PlacedPartSchema = z.object({
       a: z.object({ partId: z.string(), portId: z.string() }),
       b: z.object({ partId: z.string(), portId: z.string() }),
       racewayId: z.string().nullable(),
+      color: z
+        .string()
+        .regex(/^#[0-9a-fA-F]{6}$/)
+        .optional(),
     })
     .optional(),
   raceway: z.object({ points: z.array(z.tuple([z.number(), z.number()])).min(2) }).optional(),

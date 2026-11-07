@@ -15,8 +15,9 @@ import { evalLength, formatLength } from "../lib/units";
 import { useWb, useDoc } from "../state/wbStore";
 import { useView } from "../state/wbView";
 import { AngleField, LengthField, Row, Section } from "./Fields";
-import { RailKitSection } from "./RailKitPanels";
+import { RailAlignSection, RailKitSection } from "./RailKitPanels";
 import { RacewaySection, WireSection } from "./WirePanels";
+import { DimensionsSection, FootSpacingSection } from "./DimsPanels";
 import { setCovers } from "../state/coverActions";
 import { selectNode } from "../state/wbView";
 
@@ -203,7 +204,10 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
         </button>
       </Section>
       {info.legRole && <TiltSection info={info} />}
+      <DimensionsSection partId={part.id} />
+      <FootSpacingSection partId={part.id} />
       <RailKitSection partId={part.id} />
+      <RailAlignSection partId={part.id} />
       <WireSection partId={part.id} />
       <RacewaySection partId={part.id} />
       {(info.enclosure || part.mount) && (

@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 7: wires between terminals, trunking and conduit runs, fill, cut list.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 8: your own wire colours, part sizes in any unit, L-foot spacing, rail alignment. Four phases left (simulation, realism, outputs, desktop app).** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -37,6 +37,10 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
   placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
   Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **Measure and line up (Phase 8)**: pick any wire colour (swatches or your own); select a part to see its size in
+  Properties and as dimension lines, with a unit picker (mm, cm, m, in, ft, ft-in) right there; place a row of L-feet
+  at a typed distance ("4 feet, 48in apart"), edit one gap or re-space the whole row; line rails up from a rail's
+  Alignment panel (start from the edge, start/end against the other rails, Line up).
 - **Wiring (Phase 7)**: **W** starts the Wire tool: terminals show as coloured dots on every part (inverters,
   batteries, breakers inside boxes, modules); click one and then the one it goes to, or pick both by name.
   Reversed polarity and AC-to-DC are refused with the reason. **Trunking** (4 × 4 in by default) and **conduit** are
