@@ -320,7 +320,7 @@ test("save writes a versioned file with the history; the last session is restore
   const [dl] = await Promise.all([page.waitForEvent("download"), page.getByTestId("save").click()]);
   const file = JSON.parse(readFileSync((await dl.path())!, "utf8"));
   expect(dl.suggestedFilename()).toMatch(/\.solarbench\.json$/);
-  expect(file).toMatchObject({ schemaVersion: 4, app: "solar-workbench" });
+  expect(file).toMatchObject({ schemaVersion: 5, app: "solar-workbench" });
   expect(file.snapshot.commands.map((c: { type: string }) => c.type)).toEqual([
     "surface.setType",
     "surface.update",
