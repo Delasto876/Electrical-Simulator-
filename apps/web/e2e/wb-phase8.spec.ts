@@ -14,6 +14,7 @@ async function feetRow(page: Page, n: string, spacing: string, left: string, top
   if (!(await card.isVisible())) await page.getByTestId("libgroup-roof-attachment").click();
   await card.click();
   await page.getByTestId("place-part").click();
+  await page.getByTestId("row-open").click();
   await page.getByTestId("row-count").fill(n);
   await page.getByTestId("row-spacing").fill(spacing);
   await page.getByTestId("type-position").click();

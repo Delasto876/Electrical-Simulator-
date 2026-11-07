@@ -76,7 +76,20 @@ function PlacingBar() {
       >
         Rotate {placing.rotDeg}° (R)
       </button>
-      {(info?.attachmentKind || info?.legRole) && (
+      {(info?.attachmentKind || info?.legRole) && !placing.row && (
+        <button
+          type="button"
+          className="wb-btn"
+          data-testid="row-open"
+          title="Place several feet at a typed distance from each other"
+          onClick={() =>
+            usePlace.setState({ placing: { ...placing, row: { n: 2, spacing: "", axis: "x" } } })
+          }
+        >
+          Row of feet…
+        </button>
+      )}
+      {(info?.attachmentKind || info?.legRole) && placing.row && (
         <fieldset className="wb-rowfields" aria-label="Row of feet">
           <label>
             Feet in a row
