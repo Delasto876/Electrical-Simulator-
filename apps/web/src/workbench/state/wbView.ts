@@ -123,6 +123,8 @@ export interface ViewState {
   wizardOpen: boolean;
   /** Origin display (Fusion's Origin folder): axes and the three planes. */
   origin: { axes: boolean; xy: boolean; xz: boolean; yz: boolean };
+  /** Narrow screens: which drawer is open (one at a time) and whether the bottom panel shows. Not saved. */
+  narrow: { panel: "left" | "right" | null; bottom: boolean };
   /** The surface you last picked (or built a part on): the face new parts go on. */
   workSurface: string | null;
   /** The Surface on plane dialog, with the plane it was opened for. */
@@ -217,6 +219,7 @@ export const useView = create<ViewState>((set, get) => ({
   origin: { axes: true, xy: false, xz: false, yz: false },
   construct: null,
   workSurface: null,
+  narrow: { panel: null, bottom: false },
   theme: saved.theme ?? "dark",
   units: saved.units ?? "mm",
   layout: { ...DEFAULT_LAYOUT, ...saved.layout },

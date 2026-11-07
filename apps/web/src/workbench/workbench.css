@@ -1818,3 +1818,65 @@ body,
 .wb-navbar {
   z-index: 30;
 }
+
+/* ---- layout bar and drawers (the canvas always stays visible) */
+.wb-layoutbar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 31;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--wb-border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--wb-panel) 92%, transparent);
+  box-shadow: var(--wb-shadow);
+}
+.wb-drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 40;
+  box-shadow: var(--wb-shadow);
+  max-width: 92vw;
+}
+.wb-drawer-left {
+  left: 0;
+}
+.wb-drawer-right {
+  right: 0;
+}
+.wb-body {
+  position: relative;
+}
+.wb-resizer {
+  touch-action: none;
+}
+@media (pointer: coarse) {
+  .wb-resizer-x {
+    width: 12px;
+  }
+  .wb-resizer-y {
+    height: 12px;
+  }
+}
+
+/* never wider than the screen: bars scroll instead of stretching the page */
+.wb {
+  grid-template-columns: minmax(0, 1fr);
+}
+.wb > * {
+  min-width: 0;
+}
+.wb-appbar {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.wb-layoutbar {
+  z-index: 50;
+}
+.wb-drawer-left {
+  padding-top: 44px;
+}
