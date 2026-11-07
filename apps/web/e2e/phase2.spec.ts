@@ -27,7 +27,7 @@ test("array tool: 3 × 4 array on the corrugated roof with rails, clamps and L-f
   await placeArray(page);
   await setGrid(page, 3, 4);
   await expect(page.getByTestId("array-power")).toHaveText(/12 × 400 W = 4\.80 kWp/);
-  await expect(page.getByTestId("cut-list")).toContainText("3600 + 2100→1136");
+  await expect(page.getByTestId("cut-list")).toContainText("4877→4736");
   await page.screenshot({ path: shot("array-pitched", info.project.name) });
 
   await page.getByRole("tab", { name: "BOM" }).click();
@@ -36,8 +36,8 @@ test("array tool: 3 × 4 array on the corrugated roof with rails, clamps and L-f
   await expect(qty("generic-end-clamp-30")).toHaveText(/^12/);
   await expect(qty("generic-mid-clamp-30")).toHaveText(/^18/);
   await expect(qty("generic-l-foot-80")).toHaveText(/^30/);
-  await expect(qty("generic-rail-standard-3600")).toHaveText(/^6/);
-  await expect(qty("generic-splice-internal")).toHaveText(/^6/);
+  await expect(qty("generic-rail-standard-4877")).toHaveText(/^6/);
+  await expect(qty("generic-splice-internal")).toHaveCount(0); // one 16 ft stick per row: no splices
   await expect(qty("generic-fastener-set")).toHaveText(/^30/);
   await page.screenshot({ path: shot("bom", info.project.name) });
 

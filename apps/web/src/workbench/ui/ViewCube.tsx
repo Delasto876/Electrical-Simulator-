@@ -78,12 +78,10 @@ export function ViewCube() {
   // drag anywhere on the cube or its ring to spin the model
   const onPointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
-    const el = e.currentTarget as HTMLElement;
     let lx = e.clientX;
     let ly = e.clientY;
     let moved = 0;
     dragged.current = false;
-    el.setPointerCapture?.(e.pointerId);
     const move = (m: PointerEvent) => {
       const dx = m.clientX - lx;
       const dy = m.clientY - ly;

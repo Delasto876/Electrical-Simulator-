@@ -21,21 +21,21 @@ async function typed(page: Page, left: string, top: string) {
   await page.getByTestId("tool-place").click();
 }
 
-/** A 2.1 m rail after the 4.2 m one on a row, cut to 1000 mm (the rest goes to the offcut pool). */
-async function railAndCut(page: Page, top: string) {
-  await ribbon(page, "mount", "mount.rail", "mount.rail.std");
-  await page.getByTestId("rail-length").selectOption({ label: "2100 mm" });
-  await typed(page, "4902", top);
-  await page.keyboard.press("Escape");
+/** Cut the selected rail to 1000 mm (the rest goes to the offcut pool). */
+async function cutTo1000(page: Page) {
   await page.getByTestId("rail-cut").click();
   await page.getByTestId("cut-dist").fill("1000");
   await page.getByTestId("cut-dist").press("Enter");
   await expect(page.getByTestId("rail-length-value")).toHaveText("1000 mm");
 }
 
-async function offcutRail(page: Page, top: string) {
-  await page.locator('[data-testid^="use-offcut-"]').first().click();
-  await typed(page, "4902", top);
+/** A second 14 ft stick after the first one on a row, cut to 1000 mm. */
+async function railAndCut(page: Page, top: string) {
+  await ribbon(page, "mount", "mount.rail", "mount.rail.std");
+  await page.getByTestId("rail-length").selectOption({ label: "14 ft · 4267 mm" });
+  await typed(page, "4969", top);
+  await page.keyboard.press("Escape");
+  await cutTo1000(page);
 }
 
 async function splice(page: Page, a: string, b: string) {
@@ -66,24 +66,28 @@ test("build a 2 × 4 array end to end: feet, pattern, rails, cut, offcut, splice
   await page.getByTestId("pattern-ok").click();
   await expect(page.getByTestId("node-node-lfeet")).toContainText("(20)");
 
-  // four 4.2 m rails seated on the four rows of feet (rail start 700 mm from the left edge)
+  // four 14 ft (4267 mm) rails seated on the four rows of feet (rail start 700 mm from the left edge)
   await ribbon(page, "mount", "mount.rail", "mount.rail.std");
   for (const top of ["1500", "2700", "3900", "5100"]) await typed(page, "700", top);
   await page.keyboard.press("Escape");
 
-  // extend each row: a 2.1 m rail cut to 1000 mm, or the 1097 mm offcut from the pool
+  // extend each row by 1000 mm: a 14 ft stick cut down; the 3264 mm rest goes to the offcut pool
   await railAndCut(page, "1500");
-  await expect(page.getByTestId("offcuts")).toContainText("1097");
-  await offcutRail(page, "2700");
+  await expect(page.getByTestId("offcuts")).toContainText("3264");
+  await railAndCut(page, "2700");
   await railAndCut(page, "3900");
-  await offcutRail(page, "5100");
+  await railAndCut(page, "5100");
+  await page.keyboard.press("Escape");
+  // an offcut can be picked up from the pool as a rail (the tool starts with its length)
+  await page.locator('[data-testid^="use-offcut-"]').first().click();
+  await expect(page.getByTestId("toast")).toContainText("Rail");
   await page.keyboard.press("Escape");
 
   // splice each row into one rail run
-  await splice(page, "Rail 4200 mm 1", "Rail 1000 mm 5");
-  await splice(page, "Rail 4200 mm 2", "Rail 1097 mm (offcut) 6");
-  await splice(page, "Rail 4200 mm 3", "Rail 1000 mm 7");
-  await splice(page, "Rail 4200 mm 4", "Rail 1097 mm (offcut) 8");
+  await splice(page, "Rail 4267 mm 1", "Rail 1000 mm 5");
+  await splice(page, "Rail 4267 mm 2", "Rail 1000 mm 6");
+  await splice(page, "Rail 4267 mm 3", "Rail 1000 mm 7");
+  await splice(page, "Rail 4267 mm 4", "Rail 1000 mm 8");
 
   // a 2 × 4 array of 550 W modules, portrait, placed at an exact corner
   await ribbon(page, "modules", "mod.array");
@@ -105,8 +109,7 @@ test("build a 2 × 4 array end to end: feet, pattern, rails, cut, offcut, splice
   // BOM: stock rails and waste, splices, clamps, modules
   await page.getByTestId("btab-bom").click();
   const bom = page.getByTestId("bom");
-  await expect(bom).toContainText("stock length 4200 mm");
-  await expect(bom).toContainText("stock length 2100 mm");
+  await expect(bom).toContainText("stock length 4267 mm");
   await expect(bom).toContainText("waste");
   await page.keyboard.press("f");
   await page.waitForTimeout(1500);

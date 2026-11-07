@@ -88,7 +88,7 @@ test("structure toggle, second plane, edge style and pitch presets edit the surf
   await page.waitForTimeout(2000);
   await page.getByRole("tab", { name: "Calculations" }).click();
   await expect(page.getByText("Area (all planes)")).toBeVisible();
-  await expect(page.getByRole("cell", { name: "96.00 m²" })).toBeVisible();
+  await expect(page.getByRole("cell", { name: "192.00 m²" })).toBeVisible();
 });
 
 test("timeline: click a card to roll back; a new edit after a rollback discards the rest and logs it", async ({
@@ -232,10 +232,10 @@ test("marking menu on right-click and the M key; its commands run", async ({ pag
 test("units: lengths follow mm, in and ft-in, and accept typed units", async ({ page }) => {
   await open(page);
   await page.getByTestId("node-node-surface-1").click();
-  await expect(page.locator("#prop-width")).toHaveValue("8000");
+  await expect(page.locator("#prop-width")).toHaveValue("12000");
   await page.getByTestId("cmd-view.units").last().click();
   await page.getByTestId("cmd-view.units.in").click();
-  await expect(page.locator("#prop-width")).toHaveValue("314.96");
+  await expect(page.locator("#prop-width")).toHaveValue("472.44");
   await page.locator("#prop-width").fill("10ft");
   await page.locator("#prop-width").press("Enter");
   await page.getByTestId("cmd-view.units").last().click();
