@@ -1,9 +1,9 @@
 import { skinHeightM, type SurfaceSpec } from "@solar-sim/engine";
 import { legLengthMm } from "../model/bom";
-import { partInfo } from "../model/partInfo";
+import { orientInfo, partInfo } from "../model/partInfo";
 import type { PlacedPart, WbDoc } from "../state/wbDoc";
 import { usePlace } from "../state/placeState";
-import { useView } from "../state/wbView";
+import { selectNode, useView } from "../state/wbView";
 import { BoundsOutline, PartLook, type MountedDevice } from "./PartLook";
 
 const rad = (d: number) => (d * Math.PI) / 180;
@@ -19,6 +19,7 @@ export function PlacedParts({
   spec: SurfaceSpec;
 }) {
   const selection = useView((s) => s.selection);
+  const multi = useView((s) => s.multi);
   const hover = useView((s) => s.hoverId);
   const placing = usePlace((s) => s.placing !== null);
   const nodeOf = new Map(
@@ -42,7 +43,7 @@ export function PlacedParts({
             nodeId={node.id}
             doc={doc}
             spec={spec}
-            selected={selection === node.id}
+            selected={selection === node.id || multi.includes(node.id)}
             hovered={hover === node.id}
             placing={placing}
           />
@@ -83,7 +84,8 @@ function PlacedPartObject({
         })
     : [];
   const legM = info.legRole ? legLengthMm(doc, info.legRole) / 1000 : undefined;
-  const h = legM ?? info.heightM;
+  const o = orientInfo(info, spec);
+  const h = legM ?? o.heightM;
   return (
     <group
       position={[part.x, y, part.z]}
@@ -91,7 +93,7 @@ function PlacedPartObject({
       onClick={(e) => {
         if (placing || e.delta > 4) return;
         e.stopPropagation();
-        useView.getState().set({ selection: nodeId });
+        selectNode(nodeId, e.shiftKey || e.ctrlKey || e.metaKey);
       }}
       onPointerOver={(e) => {
         if (placing) return;
@@ -101,17 +103,26 @@ function PlacedPartObject({
       onPointerOut={() => !placing && useView.getState().set({ hoverId: null })}
       userData={{ partId: part.id }}
     >
-      <PartLook
-        info={info}
-        devices={devices}
-        onConcrete={spec.type === "concrete"}
-        {...(legM !== undefined ? { legLengthM: legM } : {})}
-      />
+      {o.onWall ? (
+        // hung on a wall: the part's up runs up the wall, its front faces out
+        <group rotation={[-Math.PI / 2, 0, 0]}>
+          <group position={[0, -info.heightM / 2, info.footprint.d / 2]}>
+            <PartLook info={info} devices={devices} />
+          </group>
+        </group>
+      ) : (
+        <PartLook
+          info={info}
+          devices={devices}
+          onConcrete={spec.type === "concrete"}
+          {...(legM !== undefined ? { legLengthM: legM } : {})}
+        />
+      )}
       {(selected || hovered) && (
         <BoundsOutline
-          w={info.footprint.w}
+          w={o.footprint.w}
           h={h}
-          d={info.footprint.d}
+          d={o.footprint.d}
           color={selected ? "#ffb020" : "#7fb2ff"}
         />
       )}

@@ -88,3 +88,12 @@ Values the UI shows as "not available", and deferred work.
 - Clamp Add mode snaps to the nearest frame edge; there is no "drag a clamp along the rail".
 - WEEB lugs, bonding jumpers and the bonding path through clamps and splices are Phase 8.
 - Cut indicator snaps (midpoint, attachments, clamps, 10 mm steps) are fixed; a step selector (10/50/100 mm) is not in the options bar.
+
+## Workbench (brief v2), after Phase 4
+
+- Desktop app (installable like Fusion 360): wrap the PWA build with Tauri or Electron, file associations, auto-update (Phase 10). The app already works offline as a PWA.
+- Move/Pattern drag arrows work in the surface plane; rotating by dragging a ring, and a circular pattern, are not built. Align, Group/Ungroup, Set origin, Dimension are still listed as Phase 10.
+- Mirror lines are the surface centre lines, guides and typed positions; mirroring across another part's face is not available. Splices are not copied.
+- Surfaces on planes are placed by typed position; dragging a surface in 3D and snapping a wall to a roof edge are not built. Guides belong to the first surface only.
+- Device models hung on a wall: catalog glb models are rotated so their up runs up the wall; a model whose front is not its +Z face will face the wall (check each model when photos arrive).
+- Fusion's sketch tools (line, rectangle, circle, extrude) have no equivalent here; the shortcut letters they use are free.

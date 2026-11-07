@@ -140,9 +140,17 @@ function SearchBody() {
 }
 
 const STATIC_SHORTCUTS: [string, string][] = [
-  ["M", "Marking menu at the centre (or right-click the canvas)"],
+  ["Shift+M", "Marking menu at the centre (or right-click the canvas)"],
   ["Esc", "Close a dialog, cancel the active command, clear the selection"],
   ["Enter", "Accept the active command (options bar)"],
+  ["F6", "Fit the view (as in Fusion 360)"],
+  ["Home", "Home view (isometric)"],
+  ["Shift+click / Ctrl+click", "Add to or remove from the selection"],
+  ["Middle-drag", "Pan (Fusion 360 navigation)"],
+  ["Shift+middle-drag", "Orbit (Fusion 360 navigation)"],
+  ["Wheel", "Zoom"],
+  ["Right-click", "Marking menu"],
+  ["Tab", "Type exact distances in a placing tool"],
 ];
 
 /** Shortcut cheat sheet (?). Built from the command registry, so it is always current. */

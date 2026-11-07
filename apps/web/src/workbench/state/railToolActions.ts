@@ -17,7 +17,6 @@ import {
   evaluateRail,
   joinCommand,
   moduleArrayCommand,
-  patternCommand,
   planSplice,
   railPlaceCommand,
   spliceCommand,
@@ -115,20 +114,6 @@ export function startModule(catalogId: string, rows = 1, cols = 1): boolean {
   begin(
     { kind: "module", catalogId, orientation: "portrait", rows, cols },
     "Module: move over two rails; it snaps where both rails cross its clamping zones. Click to place.",
-  );
-  return true;
-}
-
-export function startPattern(): boolean {
-  const sel = useView.getState().selection;
-  const partId = sel ? currentDoc().nodes[sel]?.partId : undefined;
-  if (!partId) {
-    showToast("Select an L-foot or leg first, then Pattern.", "warn");
-    return false;
-  }
-  begin(
-    { kind: "pattern", partId, rows: 1, cols: 4, dx: "1200", dz: "1200" },
-    "Pattern: set rows, columns and spacing, then OK.",
   );
   return true;
 }
@@ -240,6 +225,8 @@ export function toolMove(surfaceId: string, x: number, z: number, alt: boolean):
         moduleCand: evaluateModule(doc, surfaceId, t.catalogId, [x, z], t.orientation, free || alt),
       });
     case "pattern":
+    case "move":
+    case "mirror":
       return st().set(base);
   }
 }
@@ -366,6 +353,8 @@ export function toolClick(surfaceId: string, x: number, z: number, shift: boolea
       return ok;
     }
     case "pattern":
+    case "move":
+    case "mirror":
       return false;
   }
 }
@@ -449,34 +438,6 @@ export function joinPicked(): boolean {
   if (t?.kind !== "clamp" || t.picked.length === 0) return false;
   const ok = dispatch(joinCommand(currentDoc(), st().surfaceId ?? SURFACE_ID, t.picked));
   st().set({ tool: { ...t, picked: [] } });
-  return ok;
-}
-
-export function commitPattern(): boolean {
-  const t = st().tool;
-  if (t?.kind !== "pattern") return false;
-  const unit = useView.getState().units;
-  const dx = evalLength(t.dx, unit);
-  const dz = evalLength(t.dz, unit);
-  if (dx === undefined || dz === undefined) {
-    showToast("Type the spacing, e.g. 1200 or 4'.", "warn");
-    return false;
-  }
-  const res = patternCommand(currentDoc(), t.partId, t.rows, t.cols, dx, dz);
-  if (!res.cmd) {
-    showToast(res.reason ?? "Nothing to add.", "warn");
-    return false;
-  }
-  const ok = dispatch(res.cmd);
-  if (ok) {
-    showToast(
-      res.skipped
-        ? `Pattern placed; ${res.skipped} position(s) skipped (not allowed by the surface rules).`
-        : "Pattern placed.",
-      res.skipped ? "warn" : "info",
-    );
-    cancelRailTool();
-  }
   return ok;
 }
 

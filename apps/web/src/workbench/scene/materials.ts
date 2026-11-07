@@ -40,6 +40,10 @@ export function textureKindFor(spec: Pick<SurfaceSpec, "type" | "tileColor">): T
         : (`stone-${spec.tileColor}` as TextureKind);
     case "decromastic":
       return `stone-${spec.tileColor}` as TextureKind;
+    case "block-wall":
+      return "block";
+    case "wood-wall":
+      return "wood";
   }
 }
 
@@ -95,6 +99,8 @@ const SHADED_COLOR: Record<TextureKind, string> = {
   "clay-tile": "#a85a3e",
   membrane: "#cfd2d2",
   ground: "#6f6050",
+  block: "#c9c6c0",
+  wood: "#a27a4e",
 };
 
 const cache = new Map<string, Material>();

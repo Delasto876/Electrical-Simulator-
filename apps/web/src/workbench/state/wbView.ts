@@ -57,7 +57,8 @@ export const VIEW_KINDS = [
 export type ViewKind = (typeof VIEW_KINDS)[number];
 
 export type BottomTab = "timeline" | "issues" | "calculations" | "bom" | "log";
-export type NavMode = "orbit" | "pan" | "zoom";
+/** "select" = Fusion 360 navigation: left selects, middle pans, Shift+middle orbits, wheel zooms. */
+export type NavMode = "select" | "orbit" | "pan" | "zoom";
 export type SectionAxis = "x" | "y" | "z";
 
 export interface SectionState {
@@ -105,6 +106,8 @@ export interface ViewState {
   workspace: Workspace;
   ribbonTab: Record<Workspace, string>;
   selection: string | null;
+  /** More selected nodes (Shift/Ctrl+click) besides `selection`. */
+  multi: string[];
   hoverId: string | null;
   isolated: string | null;
   displayMode: DisplayMode;
@@ -118,6 +121,12 @@ export interface ViewState {
   measuring: boolean;
   /** The Add custom part wizard is open. */
   wizardOpen: boolean;
+  /** Origin display (Fusion's Origin folder): axes and the three planes. */
+  origin: { axes: boolean; xy: boolean; xz: boolean; yz: boolean };
+  /** The surface you last picked (or built a part on): the face new parts go on. */
+  workSurface: string | null;
+  /** The Surface on plane dialog, with the plane it was opened for. */
+  construct: { plane: "xz" | "xy" | "yz" } | null;
   theme: "dark" | "light";
   units: Unit;
   layout: PanelLayout;
@@ -188,13 +197,14 @@ const saved = loadPrefs();
 export const useView = create<ViewState>((set, get) => ({
   workspace: "design",
   ribbonTab: {
-    design: "surface",
+    design: "build",
     wiring: "wire",
     test: "instruments",
     simulate: "sun",
     output: "documents",
   },
   selection: null,
+  multi: [],
   hoverId: null,
   isolated: null,
   displayMode: saved.displayMode ?? "realistic",
@@ -204,11 +214,14 @@ export const useView = create<ViewState>((set, get) => ({
   rulers: true,
   measuring: false,
   wizardOpen: false,
+  origin: { axes: true, xy: false, xz: false, yz: false },
+  construct: null,
+  workSurface: null,
   theme: saved.theme ?? "dark",
   units: saved.units ?? "mm",
   layout: { ...DEFAULT_LAYOUT, ...saved.layout },
   bottomTab: "timeline",
-  navMode: "orbit",
+  navMode: "select",
   section: { enabled: false, axis: "x", offsetM: 0, flip: false },
   activeCommand: null,
   cameraRequest: null,
@@ -248,4 +261,28 @@ export function showToast(text: string, level: "info" | "warn" = "info"): void {
   setTimeout(() => {
     if (useView.getState().toast?.id === id) useView.setState({ toast: null });
   }, 4000);
+}
+
+// a selection change that does not mention the extra nodes starts a new selection
+useView.subscribe((s, prev) => {
+  if (s.selection !== prev.selection && s.multi === prev.multi && s.multi.length)
+    useView.setState({ multi: [] });
+});
+
+/** Select a node; with `additive` (Shift/Ctrl+click) add it to, or remove it from, the selection. */
+export function selectNode(id: string | null, additive = false): void {
+  const v = useView.getState();
+  if (!id) return v.set({ selection: null, multi: [] });
+  if (!additive || !v.selection) return v.set({ selection: id, multi: [], libraryPart: null });
+  const all = [v.selection, ...v.multi];
+  if (all.includes(id)) {
+    const rest = all.filter((x) => x !== id);
+    v.set({ selection: rest[0] ?? null, multi: rest.slice(1) });
+  } else v.set({ multi: [...v.multi, id], libraryPart: null });
+}
+
+/** Every selected node id (primary first). */
+export function selectedNodeIds(): string[] {
+  const v = useView.getState();
+  return v.selection ? [v.selection, ...v.multi.filter((x) => x !== v.selection)] : [];
 }

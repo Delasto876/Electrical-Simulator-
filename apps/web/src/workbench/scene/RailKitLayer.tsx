@@ -22,7 +22,7 @@ import {
 import type { PlacedPart, WbDoc } from "../state/wbDoc";
 import { usePlace } from "../state/placeState";
 import { useRailTool } from "../state/railToolState";
-import { useView } from "../state/wbView";
+import { selectNode, useView } from "../state/wbView";
 
 /**
  * RAILS, SPLICES, CLAMPS AND MODULES in the surface frame. Rails are real
@@ -158,12 +158,18 @@ const UNIT_BOX = new BoxGeometry(1, 1, 1);
 
 function useSelect(nodeId: string | undefined) {
   return {
-    onClick: (e: { delta: number; stopPropagation: () => void }) => {
+    onClick: (e: {
+      delta: number;
+      stopPropagation: () => void;
+      shiftKey: boolean;
+      ctrlKey: boolean;
+      metaKey: boolean;
+    }) => {
       if (!nodeId || usePlace.getState().placing || useRailTool.getState().tool || e.delta > 4)
         return;
       if (useView.getState().measuring) return;
       e.stopPropagation();
-      useView.getState().set({ selection: nodeId, libraryPart: null });
+      selectNode(nodeId, e.shiftKey || e.ctrlKey || e.metaKey);
     },
   };
 }
@@ -370,6 +376,7 @@ function ModuleObject({
 /** Every rail, splice, clamp and module on one surface. */
 export function RailKitLayer({ doc, surfaceId }: { doc: WbDoc; surfaceId: string }) {
   const selection = useView((s) => s.selection);
+  const multi = useView((s) => s.multi);
   const nodeOf = new Map(
     Object.values(doc.nodes)
       .filter((n) => n.partId)
@@ -383,7 +390,12 @@ export function RailKitLayer({ doc, surfaceId }: { doc: WbDoc; surfaceId: string
       {parts.map((p) => {
         const n = nodeOf.get(p.id);
         if (n && !n.visible) return null;
-        const props = { doc, part: p, nodeId: n?.id, selected: !!n && selection === n.id };
+        const props = {
+          doc,
+          part: p,
+          nodeId: n?.id,
+          selected: !!n && (selection === n.id || multi.includes(n.id)),
+        };
         if (p.rail) return <RailObject key={p.id} {...props} />;
         if (p.splice) return <SpliceObject key={p.id} {...props} />;
         if (p.clamp) return <ClampObject key={p.id} {...props} />;

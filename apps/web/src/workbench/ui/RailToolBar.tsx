@@ -10,18 +10,20 @@ import {
   toggleToolTyping,
   trySplice,
   clampAll,
-  commitPattern,
   commitTypedCut,
   joinPicked,
   patchTool,
   rotateTool,
 } from "../state/railToolActions";
 import { useRailTool } from "../state/railToolState";
+import { commitEdit, previewEdit } from "../state/editActions";
 import { usePlace } from "../state/placeState";
 import { useDoc } from "../state/wbStore";
 import { useView } from "../state/wbView";
 
 const TITLE = {
+  move: "Move / Copy",
+  mirror: "Mirror",
   rail: "Rail",
   cut: "Cut rail",
   splice: "Splice rails",
@@ -125,6 +127,148 @@ function TypedPosition({ what }: { what: string }) {
       >
         <Check size={14} /> Place
       </button>
+    </>
+  );
+}
+
+/** Fields of Move/Copy, Pattern and Mirror. */
+function EditBody() {
+  const tool = useRailTool((s) => s.tool)!;
+  const doc = useDoc();
+  const text = (label: string, value: string, key: string, testid: string, placeholder = "0") => (
+    <label>
+      {label}
+      <input
+        className="wb-input"
+        value={value}
+        aria-label={label}
+        data-testid={testid}
+        placeholder={placeholder}
+        onChange={(e) => patchTool({ [key]: e.target.value })}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commitEdit();
+          }
+        }}
+      />
+    </label>
+  );
+  const ok = (
+    <button
+      type="button"
+      className="wb-btn wb-btn-ok"
+      onClick={() => commitEdit()}
+      data-testid={tool.kind === "pattern" ? "pattern-ok" : "edit-ok"}
+    >
+      <Check size={14} /> OK
+    </button>
+  );
+  if (tool.kind === "move")
+    return (
+      <>
+        <span className="wb-hint">{tool.ids.length} selected</span>
+        {text("X (across)", tool.dx, "dx", "move-dx")}
+        {text("Z (down the slope)", tool.dz, "dz", "move-dz")}
+        <label className="wb-inline">
+          <input
+            type="checkbox"
+            checked={tool.copy}
+            data-testid="move-copy"
+            onChange={(e) => patchTool({ copy: e.target.checked })}
+          />{" "}
+          Create copy
+        </label>
+        {ok}
+      </>
+    );
+  if (tool.kind === "pattern")
+    return (
+      <>
+        <span className="wb-hint">{tool.ids.length} selected</span>
+        <label>
+          Type
+          <select
+            value={tool.mode}
+            data-testid="pattern-mode"
+            onChange={(e) => patchTool({ mode: e.target.value as "spacing" | "extent" })}
+          >
+            <option value="spacing">Spacing</option>
+            <option value="extent">Extent</option>
+          </select>
+        </label>
+        <Num
+          label="Quantity across"
+          value={tool.n1}
+          min={1}
+          max={50}
+          onChange={(v) => patchTool({ n1: v })}
+          testid="pattern-cols"
+        />
+        {text(
+          tool.mode === "spacing" ? "Spacing across" : "Extent across",
+          tool.s1,
+          "s1",
+          "pattern-dx",
+          "1200",
+        )}
+        <Num
+          label="Quantity down"
+          value={tool.n2}
+          min={1}
+          max={50}
+          onChange={(v) => patchTool({ n2: v })}
+          testid="pattern-rows"
+        />
+        {text(
+          tool.mode === "spacing" ? "Spacing down" : "Extent down",
+          tool.s2,
+          "s2",
+          "pattern-dz",
+          "1200",
+        )}
+        {ok}
+      </>
+    );
+  if (tool.kind !== "mirror") return null;
+  return (
+    <>
+      <span className="wb-hint">{tool.ids.length} selected</span>
+      <label>
+        Mirror line
+        <select
+          value={tool.at.startsWith("guide:") ? tool.at : tool.axis === "x" ? "x" : "z"}
+          data-testid="mirror-line"
+          onChange={(e) => {
+            const v = e.target.value;
+            if (v.startsWith("guide:"))
+              patchTool({
+                at: v,
+                axis: doc.guides.find((g) => `guide:${g.id}` === v)?.axis ?? "x",
+              });
+            else patchTool({ axis: v as "x" | "z", at: "" });
+          }}
+        >
+          <option value="x">Vertical line (left ↔ right)</option>
+          <option value="z">Horizontal line (up ↔ down the slope)</option>
+          {doc.guides.map((g) => (
+            <option key={g.id} value={`guide:${g.id}`}>
+              Guide {g.axis === "x" ? "vertical" : "horizontal"} at {Math.round(g.at * 1000)} mm
+            </option>
+          ))}
+        </select>
+      </label>
+      {!tool.at.startsWith("guide:") &&
+        text("at (from the edge, empty = centre)", tool.at, "at", "mirror-at", "centre")}
+      <label className="wb-inline">
+        <input
+          type="checkbox"
+          checked={tool.keep}
+          onChange={(e) => patchTool({ keep: e.target.checked })}
+        />{" "}
+        Keep originals
+      </label>
+      {ok}
     </>
   );
 }
@@ -465,56 +609,22 @@ export function RailToolBar() {
       warn = !!mod && !mod.valid;
       break;
     case "pattern":
-      body = (
-        <>
-          <Num
-            label="Rows"
-            value={tool.rows}
-            min={1}
-            max={20}
-            onChange={(v) => patchTool({ rows: v })}
-            testid="pattern-rows"
-          />
-          <Num
-            label="Columns"
-            value={tool.cols}
-            min={1}
-            max={30}
-            onChange={(v) => patchTool({ cols: v })}
-            testid="pattern-cols"
-          />
-          <label>
-            Across
-            <input
-              className="wb-input"
-              value={tool.dx}
-              aria-label="Spacing across"
-              data-testid="pattern-dx"
-              onChange={(e) => patchTool({ dx: e.target.value })}
-            />
-          </label>
-          <label>
-            Down the slope
-            <input
-              className="wb-input"
-              value={tool.dz}
-              aria-label="Spacing down the slope"
-              data-testid="pattern-dz"
-              onChange={(e) => patchTool({ dz: e.target.value })}
-            />
-          </label>
-          <button
-            type="button"
-            className="wb-btn wb-btn-ok"
-            onClick={() => commitPattern()}
-            data-testid="pattern-ok"
-          >
-            <Check size={14} /> OK
-          </button>
-        </>
-      );
-      status = "Copies are snapped to the structure; refused spots are skipped";
+    case "move":
+    case "mirror": {
+      const prev = previewEdit();
+      body = <EditBody />;
+      if ("error" in prev) {
+        status = prev.error;
+        warn = !!prev.error;
+      } else {
+        status =
+          tool.kind === "move" && !tool.copy
+            ? `Moves ${tool.ids.length} part(s)`
+            : `${prev.created} part(s) will be added${prev.skipped ? `, ${prev.skipped} refused` : ""}`;
+        warn = prev.skipped > 0;
+      }
       break;
+    }
   }
   return (
     <div

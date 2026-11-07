@@ -20,6 +20,8 @@ export const TEXTURE_KINDS = [
   "clay-tile",
   "membrane",
   "ground",
+  "block",
+  "wood",
 ] as const;
 export type TextureKind = (typeof TEXTURE_KINDS)[number];
 
@@ -53,6 +55,8 @@ export const TEXTURE_SPEC: Record<TextureKind, TextureSpec> = {
   "clay-tile": { size: 512, tileM: 0.66, metalness: 0 },
   membrane: { size: 512, tileM: 1.5, metalness: 0 },
   ground: { size: 512, tileM: 2, metalness: 0 },
+  block: { size: 512, tileM: 0.8, metalness: 0 },
+  wood: { size: 512, tileM: 1.2, metalness: 0 },
 };
 
 /** Granule palettes for stone-coated tiles (sRGB). Typical colours, not a manufacturer chart. */
@@ -290,6 +294,45 @@ function plain(): PixelMaps {
   });
 }
 
+/** Painted concrete block wall: 400 × 200 mm blocks in running bond with recessed mortar joints. */
+function block(): PixelMaps {
+  const { size, tileM } = TEXTURE_SPEC.block;
+  const px = size / tileM;
+  const bw = 0.4 * px;
+  const bh = 0.2 * px;
+  const joint = 0.01 * px;
+  return build("block", 1.4, (x, y, o) => {
+    const row = Math.floor(y / bh);
+    const xo = (x + (row % 2 ? bw / 2 : 0)) % bw;
+    const yo = y % bh;
+    const inJoint = xo < joint || yo < joint;
+    const n = fbm(x / 10, y / 10, size / 10, 31, 3);
+    const t = inJoint ? 168 : 206 + (n - 0.5) * 18;
+    o[0] = t;
+    o[1] = t - 2;
+    o[2] = t - 6;
+    o[3] = inJoint ? 0.95 : 0.85;
+    o[4] = inJoint ? 0 : 0.6 + n * 0.2;
+  });
+}
+
+/** Timber wall: vertical plywood/board grain with 1.2 m sheet joints. */
+function wood(): PixelMaps {
+  const { size, tileM } = TEXTURE_SPEC.wood;
+  const px = size / tileM;
+  return build("wood", 0.8, (x, y, o) => {
+    const grain = valueNoise(x / 3, y / 60, size / 3, 53);
+    const ring = Math.sin((x / px) * 90 + grain * 6) * 0.5 + 0.5;
+    const joint = x % (1.2 * px) < 1.5;
+    const t = joint ? 0.25 : 0.62 + ring * 0.18 + (grain - 0.5) * 0.1;
+    o[0] = 196 * t + 40;
+    o[1] = 150 * t + 28;
+    o[2] = 96 * t + 18;
+    o[3] = 0.75;
+    o[4] = joint ? 0 : ring * 0.3;
+  });
+}
+
 /** Generate the maps of one texture kind. Deterministic. */
 export function generateMaps(kind: TextureKind): PixelMaps {
   switch (kind) {
@@ -307,6 +350,10 @@ export function generateMaps(kind: TextureKind): PixelMaps {
       return membrane();
     case "ground":
       return ground();
+    case "block":
+      return block();
+    case "wood":
+      return wood();
     default:
       return stone(kind);
   }

@@ -14,7 +14,7 @@ import {
  * the empty starting document. Change the shape → bump WB_SCHEMA_VERSION and
  * add a migration in wbFile.ts (never edit a released one).
  */
-export const WB_SCHEMA_VERSION = 3;
+export const WB_SCHEMA_VERSION = 4;
 
 export const TAG_COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "grey"] as const;
 export type TagColor = (typeof TAG_COLORS)[number];
@@ -160,7 +160,7 @@ export const SurfaceSpecSchema = z.object({
   type: z.enum(SURFACE_TYPES),
   widthM: z.number().min(1).max(30),
   depthM: z.number().min(1).max(30),
-  pitchDeg: z.number().min(0).max(45),
+  pitchDeg: z.number().min(0).max(90),
   azimuthDeg: z.number().min(0).max(360),
   thicknessMm: z.number().min(5).max(600),
   edge: z.enum(EDGE_STYLES),
@@ -171,6 +171,7 @@ export const SurfaceSpecSchema = z.object({
     depthMm: z.number().min(8).max(35),
   }),
   tileColor: z.enum(TILE_COLORS),
+  originM: z.tuple([z.number(), z.number(), z.number()]).optional(),
 });
 
 export const TreeNodeSchema = z.object({

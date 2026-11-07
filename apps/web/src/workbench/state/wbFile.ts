@@ -21,7 +21,7 @@ import { reduceAll } from "./wbCommands";
  * released one. The file holds the whole event history (initial document,
  * commands, cursor) so the timeline survives a save.
  */
-export const CommandSchema = z.discriminatedUnion("type", [
+const BaseCommandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("doc.rename"), name: z.string() }),
   z.object({
     type: z.literal("surface.update"),
@@ -108,6 +108,25 @@ export const CommandSchema = z.discriminatedUnion("type", [
     label: z.string(),
   }),
   z.object({ type: z.literal("offcut.discard"), id: z.string() }),
+  z.object({
+    type: z.literal("surface.add"),
+    id: z.string(),
+    spec: SurfaceSpecSchema,
+    nodeId: z.string(),
+    name: z.string(),
+  }),
+  z.object({ type: z.literal("surface.delete"), id: z.string() }),
+]);
+
+/** Any command, including a batch of commands (one timeline card). */
+export const CommandSchema: z.ZodType<unknown> = z.union([
+  BaseCommandSchema,
+  z.object({
+    type: z.literal("batch"),
+    label: z.string(),
+    icon: z.string(),
+    commands: z.array(z.lazy(() => CommandSchema)),
+  }),
 ]);
 
 export const WbFileSchema = z.object({
@@ -183,6 +202,17 @@ MIGRATIONS[2] = (file) => {
     ...file,
     schemaVersion: 3,
     snapshot: { ...snap, initial: { ...initial, schemaVersion: 3, nodes, stock: [], offcuts: [] } },
+  };
+};
+
+// 3 → 4 (Phase 4): wall surface types and surface positions (`originM`); nothing to convert.
+MIGRATIONS[3] = (file) => {
+  const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+  const initial = (snap.initial ?? {}) as Record<string, unknown>;
+  return {
+    ...file,
+    schemaVersion: 4,
+    snapshot: { ...snap, initial: { ...initial, schemaVersion: 4 } },
   };
 };
 

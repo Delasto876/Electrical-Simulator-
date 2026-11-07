@@ -18,8 +18,14 @@ export const SURFACE_TYPES = [
   "tile",
   "membrane-ballast",
   "ground",
+  "block-wall",
+  "wood-wall",
 ] as const;
 export type SurfaceType = (typeof SURFACE_TYPES)[number];
+
+/** Wall types: vertical surfaces that carry wall-mounted devices (inverters, batteries, boxes, trunking). */
+export const WALL_TYPES: readonly SurfaceType[] = ["block-wall", "wood-wall"];
+export const isWall = (t: SurfaceType): boolean => WALL_TYPES.includes(t);
 
 export const EDGE_STYLES = ["square", "chamfered", "parapet"] as const;
 export type EdgeStyle = (typeof EDGE_STYLES)[number];
@@ -48,6 +54,11 @@ export interface SurfaceSpec {
   corrugation: { pitchMm: number; depthMm: number };
   /** Tile / stone-coating colour (Decromastic and tile). */
   tileColor: TileColor;
+  /**
+   * Where the surface stands in the world [m]: x east, y up (added to the lift that
+   * puts its lowest point on the ground), z south. Omitted = at the origin.
+   */
+  originM?: [number, number, number];
 }
 
 export interface SurfaceInfo {
@@ -116,6 +127,21 @@ export const SURFACE_INFO: Record<SurfaceType, SurfaceInfo> = {
     defaultThicknessMm: 300,
     defaultTileColor: "slate",
   },
+  "block-wall": {
+    label: "Block wall",
+    description:
+      "Concrete block (masonry) wall: inverters, batteries, boxes and trunking fixed with masonry anchors.",
+    defaultPitchDeg: 90,
+    defaultThicknessMm: 150,
+    defaultTileColor: "slate",
+  },
+  "wood-wall": {
+    label: "Wood wall",
+    description: "Timber or plywood wall: devices screwed into studs or a backboard.",
+    defaultPitchDeg: 90,
+    defaultThicknessMm: 20,
+    defaultTileColor: "sand",
+  },
 };
 
 export const SURFACE_LIMITS = {
@@ -166,7 +192,8 @@ export function clampSurface(s: SurfaceSpec): SurfaceSpec {
     ...s,
     widthM: round(clamp(s.widthM, L.minSizeM, L.maxSizeM), 2),
     depthM: round(clamp(s.depthM, L.minSizeM, L.maxSizeM), 2),
-    pitchDeg: round(clamp(s.pitchDeg, 0, L.maxPitchDeg), 1),
+    // walls stand vertical; roofs and slabs tilt up to the limit
+    pitchDeg: isWall(s.type) ? 90 : round(clamp(s.pitchDeg, 0, L.maxPitchDeg), 1),
     azimuthDeg: round(((s.azimuthDeg % 360) + 360) % 360, 1),
     thicknessMm: Math.round(clamp(s.thicknessMm, L.minThicknessMm, L.maxThicknessMm)),
     secondPlane: {

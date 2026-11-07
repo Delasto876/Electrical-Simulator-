@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { MOUSE, TOUCH } from "three";
-import { surfaceBounds, surfaceNormal, type SurfaceSpec } from "@solar-sim/engine";
+import { boundsOf, surfaceNormal, type SurfaceSpec } from "@solar-sim/engine";
 import { useDoc } from "../state/wbStore";
 import { usePointer } from "../state/pointer";
 import { useView } from "../state/wbView";
@@ -11,7 +11,9 @@ import { ENVIRONMENT_DEFS } from "./environments";
 import { Ground } from "./Ground";
 import { Invalidator } from "./Invalidator";
 import { SceneEnvironment } from "./SceneEnvironment";
+import { EditGizmo } from "./EditGizmo";
 import { GuidesLayer } from "./GuidesLayer";
+import { OriginLayer } from "./OriginLayer";
 import { PlaceGhost } from "./PlaceGhost";
 import { RailKitLayer } from "./RailKitLayer";
 import { RailToolGhost } from "./RailToolGhost";
@@ -32,7 +34,11 @@ export function WorkbenchCanvas() {
     [doc],
   );
   const primary = surfaces[0]?.spec;
-  const bounds = useMemo(() => (primary ? surfaceBounds(primary) : undefined), [primary]);
+  // frame every surface (roof, walls, ground) together
+  const bounds = useMemo(
+    () => (surfaces.length ? boundsOf(surfaces.map((x) => x.spec)) : undefined),
+    [surfaces],
+  );
   const normal = useMemo(
     () =>
       primary
@@ -41,12 +47,17 @@ export function WorkbenchCanvas() {
     [primary],
   );
   const env = ENVIRONMENT_DEFS[v.env];
+  // Fusion 360 navigation by default: left selects, middle pans (Shift+middle orbits), wheel zooms,
+  // right-click opens the marking menu. The nav bar can give the left button to orbit/pan/zoom.
+  const NONE = -1 as unknown as MOUSE;
   const mouse =
     v.navMode === "pan"
-      ? { LEFT: MOUSE.PAN, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.ROTATE }
+      ? { LEFT: MOUSE.PAN, MIDDLE: MOUSE.PAN, RIGHT: NONE }
       : v.navMode === "zoom"
-        ? { LEFT: MOUSE.DOLLY, MIDDLE: MOUSE.PAN, RIGHT: MOUSE.ROTATE }
-        : { LEFT: MOUSE.ROTATE, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN };
+        ? { LEFT: MOUSE.DOLLY, MIDDLE: MOUSE.PAN, RIGHT: NONE }
+        : v.navMode === "orbit"
+          ? { LEFT: MOUSE.ROTATE, MIDDLE: MOUSE.PAN, RIGHT: NONE }
+          : { LEFT: NONE, MIDDLE: MOUSE.PAN, RIGHT: NONE };
 
   if (!bounds) return null;
   const structureOn = (s: SurfaceSpec) =>
@@ -91,11 +102,13 @@ export function WorkbenchCanvas() {
             <PlacedParts doc={doc} surfaceId={node.surfaceId!} spec={spec} />
             <RailKitLayer doc={doc} surfaceId={node.surfaceId!} />
             <RailToolGhost doc={doc} surfaceId={node.surfaceId!} />
+            <EditGizmo doc={doc} spec={spec} surfaceId={node.surfaceId!} />
             <GuidesLayer doc={doc} spec={spec} />
             <PlaceGhost doc={doc} surfaceId={node.surfaceId!} spec={spec} />
           </SurfaceAssembly>
         );
       })}
+      <OriginLayer size={bounds.radiusM} />
       <SectionClip bounds={bounds} />
       <OrbitControls
         makeDefault

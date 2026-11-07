@@ -7,6 +7,8 @@ async function open(page: Page) {
   await page.goto("/");
   await expect(page.getByTestId("workbench")).toBeVisible();
   await expect(page.getByTestId("canvas3d")).toBeVisible();
+  // the surface commands live on the SURFACE tab (BUILD is the default, as SOLID in Fusion 360)
+  await page.getByTestId("ribbon-tab-surface").click();
 }
 
 async function chooseType(page: Page, id: string) {
@@ -221,7 +223,7 @@ test("marking menu on right-click and the M key; its commands run", async ({ pag
   await expect(page.getByTestId("marking-menu")).toBeVisible();
   await expect(page.getByTestId("marking-menu").getByRole("menuitem")).toHaveCount(8);
   await page.keyboard.press("Escape");
-  await page.keyboard.press("m");
+  await page.keyboard.press("Shift+M");
   await expect(page.getByTestId("marking-menu")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByTestId("marking-menu")).toBeHidden();
@@ -318,7 +320,7 @@ test("save writes a versioned file with the history; the last session is restore
   const [dl] = await Promise.all([page.waitForEvent("download"), page.getByTestId("save").click()]);
   const file = JSON.parse(readFileSync((await dl.path())!, "utf8"));
   expect(dl.suggestedFilename()).toMatch(/\.solarbench\.json$/);
-  expect(file).toMatchObject({ schemaVersion: 3, app: "solar-workbench" });
+  expect(file).toMatchObject({ schemaVersion: 4, app: "solar-workbench" });
   expect(file.snapshot.commands.map((c: { type: string }) => c.type)).toEqual([
     "surface.setType",
     "surface.update",
@@ -326,6 +328,7 @@ test("save writes a versioned file with the history; the last session is restore
   await page.waitForTimeout(1500); // autosave pause
   await page.reload();
   await expect(page.getByTestId("tcard-2")).toBeVisible();
+  await page.getByTestId("ribbon-tab-surface").click();
   await expect(page.getByTestId("cmd-surface.type")).toContainText("Concrete or clay tile");
 });
 

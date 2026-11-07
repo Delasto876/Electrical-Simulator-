@@ -41,6 +41,11 @@ export function attachmentRuleFor(
       ? { ruleId }
       : { reason: `A ${kind.replace(/-/g, " ")} does not attach to this surface.` };
   if (surface === "plain") return { ruleId: "free" };
+  if (surface === "block-wall" || surface === "wood-wall")
+    return {
+      reason:
+        "Roof and ground hardware does not go on a wall. Walls carry devices: inverters, batteries, boxes and trunking.",
+    };
   switch (kind) {
     case "l-foot":
     case "slotted-l-foot":

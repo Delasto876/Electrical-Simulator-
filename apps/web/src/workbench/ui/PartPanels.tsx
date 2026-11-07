@@ -138,6 +138,7 @@ export function PlacedPartProperties({ partId }: { partId: string }) {
           {info.label}
           {part.mount ? ` · on DIN rail ${part.mount.row + 1}, slot ${part.mount.slot + 1}` : ""}
           {part.free ? " · free placement (no attachment rules)" : ""}
+          {` · on ${Object.values(doc.nodes).find((n) => n.surfaceId === part.surfaceId)?.name ?? "the surface"}`}
         </p>
         {!info.verified && (
           <p className="wb-warn" role="status">

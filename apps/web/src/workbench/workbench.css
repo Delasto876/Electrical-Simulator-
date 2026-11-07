@@ -1768,3 +1768,53 @@ body,
   display: inline-flex;
   gap: 2px;
 }
+
+/* ---- Phase 4: Fusion-style group titles */
+.wb-group-title {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  font-weight: 700;
+  color: var(--wb-muted);
+  border-radius: 3px;
+}
+.wb-group-title:hover,
+.wb-group-title[aria-expanded="true"] {
+  background: var(--wb-panel-3);
+  color: var(--wb-text);
+}
+.wb-group-wrap {
+  display: block;
+}
+.wb-origin {
+  padding: 4px 0 0;
+  border-bottom: 1px dashed var(--wb-border);
+}
+.wb-linkish {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.wb-linkish:hover {
+  color: var(--wb-accent);
+  text-decoration: underline;
+}
+.wb-axis-label {
+  font: 700 12px/1 var(--wb-mono, monospace);
+  text-shadow: 0 0 3px #000;
+  pointer-events: none;
+}
+
+/* the options bar and nav bar stay above on-canvas labels */
+.wb-options,
+.wb-navbar {
+  z-index: 30;
+}

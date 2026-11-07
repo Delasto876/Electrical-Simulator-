@@ -3,6 +3,7 @@ import { cancelPlacing, rotatePlacing, toggleTyping } from "./placeActions";
 import { usePlace } from "./placeState";
 import { cancelRailTool, rotateTool, toggleToolTyping } from "./railToolActions";
 import { useRailTool } from "./railToolState";
+import { commitEdit } from "./editActions";
 import { useWb } from "./wbStore";
 import { useView } from "./wbView";
 
@@ -41,6 +42,8 @@ export function closeTopOverlay(): boolean {
   if (v.searchOpen) return (void v.set({ searchOpen: false }), true);
   if (v.shortcutsOpen) return (void v.set({ shortcutsOpen: false }), true);
   if (v.aboutOpen) return (void v.set({ aboutOpen: false }), true);
+  if (v.construct) return (void v.set({ construct: null }), true);
+  if (v.wizardOpen) return (void v.set({ wizardOpen: false }), true);
   return false;
 }
 
@@ -97,9 +100,16 @@ export function handleKeyDown(e: KeyboardEvent): void {
   if (combo === "Ctrl+Z") return (e.preventDefault(), useWb.getState().undo());
   if (combo === "Ctrl+Shift+Z" || combo === "Ctrl+Y")
     return (e.preventDefault(), useWb.getState().redo());
-  if (e.ctrlKey || e.metaKey) return;
   if (v.searchOpen || v.shortcutsOpen || v.aboutOpen || v.confirm) return;
-  if (combo === "M") {
+  // Enter = OK of Move/Copy, Pattern and Mirror
+  const tk = useRailTool.getState().tool?.kind;
+  if (combo === "Enter" && (tk === "move" || tk === "pattern" || tk === "mirror"))
+    return (e.preventDefault(), void commitEdit());
+  // Fusion 360: F6 fits the view, Home goes to the home (isometric) view
+  if (combo === "F6") return (e.preventDefault(), v.requestView("fit"));
+  if (combo === "Home") return (e.preventDefault(), v.requestView("iso"));
+  if ((e.ctrlKey || e.metaKey) && !["Ctrl+C", "Ctrl+V", "Ctrl+A"].includes(combo)) return;
+  if (combo === "Shift+M") {
     // keyboard way to the marking menu (right-click needs a mouse)
     v.set({
       marking: { x: window.innerWidth / 2, y: window.innerHeight / 2, targetId: v.selection },

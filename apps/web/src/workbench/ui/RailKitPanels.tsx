@@ -5,7 +5,7 @@ import { formatLength } from "../lib/units";
 import {
   clampGrips,
   holdsOf,
-  mechanicalIssues,
+  allIssues,
   railPose,
   railSpecOf,
   stockOf,
@@ -13,7 +13,6 @@ import {
 } from "../model/railKit";
 import { joinCommand } from "../model/railTools";
 import { startCut, startRail, startSplice } from "../state/railToolActions";
-import { SURFACE_ID } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
 import { showToast, useView } from "../state/wbView";
 import { Row, Section } from "./Fields";
@@ -128,7 +127,7 @@ const SEV_ICON = { error: OctagonAlert, warning: AlertTriangle, info: Info } as 
 /** Issues tab: every mechanical rule broken on the surface; click one to select the part. */
 export function IssuesList() {
   const doc = useDoc();
-  const issues: Issue[] = useMemo(() => mechanicalIssues(doc, SURFACE_ID), [doc]);
+  const issues: Issue[] = useMemo(() => allIssues(doc), [doc]);
   if (issues.length === 0)
     return (
       <div className="wb-tabbody" data-testid="issues-empty">

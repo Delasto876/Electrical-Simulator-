@@ -13,6 +13,7 @@ import { AboutDialog, CommandSearch, ConfirmDialog, ShortcutsSheet } from "./ui/
 import { Resizer } from "./ui/Dock";
 import { LibraryPanel } from "./ui/LibraryPanel";
 import { PartWizard } from "./ui/PartWizard";
+import { ConstructDialog } from "./ui/ConstructDialog";
 import { MarkingMenu } from "./ui/MarkingMenu";
 import { NavBar } from "./ui/NavBar";
 import { OptionsBar } from "./ui/OptionsBar";
@@ -172,6 +173,7 @@ export function Workbench() {
       <MarkingMenu />
       <CommandSearch />
       <PartWizard />
+      <ConstructDialog />
       <ShortcutsSheet />
       <AboutDialog />
       <ConfirmDialog />

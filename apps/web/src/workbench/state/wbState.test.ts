@@ -7,6 +7,7 @@ import {
   SURFACE_NODE_ID,
   surfaceOfNode,
   WbDocSchema,
+  WB_SCHEMA_VERSION,
 } from "./wbDoc";
 import { applyCommand, commandLabel, mergeCommands, reduceAll } from "./wbCommands";
 import { MERGE_MS, useWb, currentDoc } from "./wbStore";
@@ -328,7 +329,7 @@ describe("file migration 1 → 2", () => {
     };
     const snap = parseFile(JSON.parse(JSON.stringify(v1)));
     // migrated through every version to the current one
-    expect(snap.initial.schemaVersion).toBe(3);
+    expect(snap.initial.schemaVersion).toBe(WB_SCHEMA_VERSION);
     expect(snap.initial.parts).toEqual({});
     expect(snap.initial.stock).toEqual([]);
     expect(snap.initial.offcuts).toEqual([]);

@@ -12,7 +12,7 @@ import {
 } from "@solar-sim/engine";
 import { folderForCategory, type PlacedPart, type WbDoc } from "../state/wbDoc";
 import type { WbCommand } from "../state/wbCommands";
-import { partInfo, type PartInfo } from "./partInfo";
+import { orientInfo, partInfo, type PartInfo } from "./partInfo";
 
 /**
  * PLACE TOOL — pure logic for putting a part on the Work Surface. Given the
@@ -56,7 +56,10 @@ const footprintOf = (p: PlacedPart, w: number, d: number): Footprint => ({
 
 /** Placed parts that stand on the surface (not devices mounted on a rail). */
 export function surfaceParts(doc: WbDoc, surfaceId: string): PlacedPart[] {
-  return Object.values(doc.parts).filter((p) => p.surfaceId === surfaceId && !p.mount);
+  // rails, modules, clamps and splices sit on top of the attachments: they do not block them
+  return Object.values(doc.parts).filter(
+    (p) => p.surfaceId === surfaceId && !p.mount && !p.rail && !p.module && !p.clamp && !p.splice,
+  );
 }
 
 /** Enclosure-local x of a surface point (along the enclosure's width, 0 at its centre). */
@@ -142,11 +145,13 @@ function evaluateDin(
 export function evaluatePlacement(
   doc: WbDoc,
   surfaceId: string,
-  info: PartInfo,
+  rawInfo: PartInfo,
   raw: [number, number],
   opts: PlaceOptions,
 ): PlaceCandidate {
   const surface = doc.surfaces[surfaceId];
+  // on a wall a device hangs: its footprint there is width × height
+  const info = orientInfo(rawInfo, surface);
   if (!surface)
     return { valid: false, reason: "No surface.", x: raw[0], z: raw[1], rotDeg: 0, hits: [] };
   if (info.placeable !== true)
@@ -222,7 +227,8 @@ export function evaluatePlacement(
   // 3. collision with parts already on the surface
   const me: Footprint = { x, z, w: info.footprint.w, d: info.footprint.d, rotDeg };
   for (const other of surfaceParts(doc, surfaceId)) {
-    const oi = partInfo(other.catalogId);
+    const pi = partInfo(other.catalogId);
+    const oi = pi ? orientInfo(pi, surface) : undefined;
     if (oi && footprintsOverlap(me, footprintOf(other, oi.footprint.w, oi.footprint.d), 0.001))
       return bad(
         `Overlaps ${Object.values(doc.nodes).find((n) => n.partId === other.id)?.name ?? oi.label}.`,

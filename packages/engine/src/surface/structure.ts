@@ -216,6 +216,34 @@ export const SURFACE_RULES: Record<SurfaceType, SurfaceRules> = {
       }),
     ],
   },
+  "block-wall": {
+    structure: [],
+    attachments: [
+      rule({
+        id: "wall-anchor",
+        label: "Masonry anchors",
+        method: "Drill, plug and bolt the device's wall bracket into the block",
+        penetrating: true,
+        minEdgeDistanceM: 0.1,
+        fasteners: 4,
+        note: "Anchor type and edge distance per the anchor maker; hollow blocks need suitable anchors.",
+      }),
+    ],
+  },
+  "wood-wall": {
+    structure: [{ kind: "rafter", layout: "down", spacingM: 0.4, offsetM: 0.2, sizeMm: [50, 100] }],
+    attachments: [
+      rule({
+        id: "wall-screw",
+        label: "Screws into studs or a backboard",
+        method: "Coach screws into studs, or a plywood backboard across the studs",
+        penetrating: true,
+        minEdgeDistanceM: 0.05,
+        fasteners: 4,
+        note: "Heavy devices need studs or a backboard; check the device's mounting instructions.",
+      }),
+    ],
+  },
 };
 
 export interface StructureMember {

@@ -22,6 +22,10 @@ test("Workbench screens pass axe in the dark theme", async ({ page }) => {
   await expect(page.getByTestId("workbench")).toBeVisible();
   await page.getByTestId("node-node-surface-1").click();
   await audit(page, "main", found);
+  await page.getByTestId("group-create").click();
+  await audit(page, "Fusion-style CREATE menu", found);
+  await page.keyboard.press("Escape");
+  await page.getByTestId("ribbon-tab-surface").click();
   for (const ws of ["wiring", "test", "simulate", "output", "design"]) {
     await page.getByTestId(`ws-${ws}`).click();
     await audit(page, `workspace ${ws}`, found);
@@ -39,7 +43,7 @@ test("Workbench screens pass axe in the dark theme", async ({ page }) => {
   await page.keyboard.press("?");
   await audit(page, "shortcuts", found);
   await page.keyboard.press("Escape");
-  await page.keyboard.press("m");
+  await page.keyboard.press("Shift+M");
   await audit(page, "marking menu", found);
   await page.keyboard.press("Escape");
   await page.getByTestId("card-generic-pv-300w-60c").click();
@@ -142,5 +146,35 @@ test("Phase 3 screens pass axe: rail, cut, splice, clamp, module and pattern bar
   await page.keyboard.press("Escape");
   await page.getByTestId("btab-issues").click();
   await audit(page, "issues list", found);
+  expect(found).toEqual([]);
+});
+
+test("Phase 4 screens pass axe: BUILD groups, Move/Pattern/Mirror bars, Surface on plane, Origin", async ({
+  page,
+}) => {
+  const found: string[] = [];
+  await page.goto("/");
+  await expect(page.getByTestId("workbench")).toBeVisible();
+  await audit(page, "BUILD tab", found);
+  await page.getByTestId("group-modify").click();
+  await audit(page, "MODIFY menu", found);
+  await page.keyboard.press("Escape");
+  await page.getByTestId("libgroup-roof-attachment").click();
+  await page.getByTestId("card-generic-l-foot-80").click();
+  await page.getByTestId("place-part").click();
+  await page.keyboard.press("Tab");
+  await page.getByTestId("type-left").fill("1000");
+  await page.getByTestId("type-top").fill("1500");
+  await page.getByTestId("type-top").press("Enter");
+  for (const cmd of ["mod.move", "mount.pattern", "mod.mirror"]) {
+    await page.getByTestId(`cmd-${cmd}`).click();
+    await audit(page, `${cmd} bar`, found);
+    await page.keyboard.press("Escape");
+  }
+  await page.getByTestId("cmd-construct.surface").click();
+  await audit(page, "Surface on plane dialog", found);
+  await page.keyboard.press("Escape");
+  await page.getByTestId("origin-toggle").click();
+  await audit(page, "Origin rows", found);
   expect(found).toEqual([]);
 });

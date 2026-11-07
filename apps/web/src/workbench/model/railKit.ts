@@ -408,3 +408,8 @@ export function clampGrips(doc: WbDoc, p: PlacedPart) {
   const modules = modulesOf(doc, p.surfaceId).flatMap((m) => moduleRef(m) ?? []);
   return clampGrip({ ...c, railId: run.id, t: toRunT(run, c.railId, c.t) }, run, modules);
 }
+
+/** Mechanical issues of every surface in the document. */
+export function allIssues(doc: WbDoc): Issue[] {
+  return sortIssues(Object.keys(doc.surfaces).flatMap((id) => mechanicalIssues(doc, id)));
+}

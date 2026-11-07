@@ -9,7 +9,7 @@ code-style checks, a single-line diagram and a bill of materials.
 > datasheets. Bundled catalog data is generic placeholder data marked
 > _unverified_.
 
-**Status: Solar Workbench (brief v2), Phase 3: rails, cut, splice, clamps and modules.** See `PLAN.md` for the phases.
+**Status: Solar Workbench (brief v2), Phase 4: Fusion 360-style tools, shortcuts, walls and the origin.** See `PLAN.md` for the phases.
 **Try it:** [open the Workbench](https://claude.ai/artifact/Mq3cHUnemWbCNTJPjsaDfA) (private claude.ai link, updated after each phase; rebuild with `pnpm build:artifact`). The first-generation roof-based designer runs locally at `#/classic` (it is no longer in the preview link).
 **Want to change something? Start with [`docs/CHANGE_GUIDE.md`](docs/CHANGE_GUIDE.md).**
 
@@ -37,6 +37,13 @@ An empty **Work Surface** you build on, with a CAD-style interface:
   _Free placement_ turns the rules off. **Tab** types exact distances (`600+25`, `0.75m`, `2'6"`), **Shift** keeps
   placing, **R** rotates, **Alt** turns snapping off. Tilt legs follow one tilt angle (leg cut lengths live in
   Properties and the BOM). DIN devices snap into the slots of an enclosure's rail.
+- **Fusion 360-style (Phase 4)**: the BUILD tab has CREATE ▾, MODIFY ▾, ASSEMBLE ▾, CONSTRUCT ▾, INSPECT ▾, INSERT ▾,
+  SELECT ▾ groups; Fusion shortcuts (M Move/Copy, I Measure, V show/hide, J Clamp all, S command box, Ctrl+C/V,
+  Ctrl+A, Delete, F6 fit, Home) and navigation (middle-drag pan, Shift+middle orbit, wheel zoom, right-click
+  marking menu). Shift/Ctrl+click selects several parts; **Move/Copy** with drag arrows or typed distances,
+  **Rectangular pattern** by dragging an arrow (a copy appears at every spacing), **Mirror** across the centre or a
+  guide, copy/paste; each is one timeline card. **Origin** (X/Y/Z axes, XY/XZ/YZ planes) and **Surface on plane**
+  build roofs, slabs, ground or block/wood **walls**; inverters, batteries and boxes hang on walls.
 - **Rails, cut, splice, clamps, modules (Phase 3)**: rails seat in the slot of a row of feet (stock 2.1 / 3.6 / 4.2 m,
   three profiles) with live overhangs; **Cut** at a typed length from either end (3 mm kerf), the cut-off goes to the
   **offcut pool** and can be reused ("Use offcut"); **Splice** checks the rails are in line and offers Auto-align, and

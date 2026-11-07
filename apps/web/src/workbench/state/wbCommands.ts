@@ -81,7 +81,11 @@ export type WbCommand =
       items: { part: PlacedPart; name: string; nodeId: string; folderId: string }[];
       label: string;
     }
-  | { type: "offcut.discard"; id: string };
+  | { type: "offcut.discard"; id: string }
+  | { type: "surface.add"; id: string; spec: SurfaceSpec; nodeId: string; name: string }
+  | { type: "surface.delete"; id: string }
+  /** Several commands as one timeline card (copy, mirror, pattern, move of a selection). */
+  | { type: "batch"; label: string; icon: string; commands: WbCommand[] };
 
 export type WbCommandType = WbCommand["type"];
 
@@ -113,6 +117,9 @@ export const COMMAND_ICON: Record<WbCommandType, string> = {
   "part.pose": "move",
   "parts.add": "box",
   "offcut.discard": "trash",
+  batch: "box",
+  "surface.add": "layers",
+  "surface.delete": "trash",
 };
 
 const SURFACE_FIELD_LABEL: Record<string, string> = {
@@ -186,6 +193,12 @@ export function commandLabel(c: WbCommand, doc: WbDoc): string {
       return c.label;
     case "offcut.discard":
       return "Discard offcut";
+    case "batch":
+      return c.label;
+    case "surface.add":
+      return `New surface: ${c.name}`;
+    case "surface.delete":
+      return `Delete ${Object.values(doc.nodes).find((n) => n.surfaceId === c.id)?.name ?? "surface"}`;
   }
 }
 
@@ -498,6 +511,49 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
       const rotDeg = ((c.rotDeg % 360) + 360) % 360;
       if (p.x === c.x && p.z === c.z && p.rotDeg === rotDeg) return doc;
       return { ...doc, parts: { ...doc.parts, [c.id]: { ...p, x: c.x, z: c.z, rotDeg } } };
+    }
+    case "batch":
+      return c.commands.reduce(applyCommand, doc);
+    case "surface.add": {
+      if (doc.surfaces[c.id] || doc.nodes[c.nodeId]) return doc;
+      return produce(doc, (d) => {
+        d.surfaces[c.id] = clampSurface(c.spec);
+        d.nodes[c.nodeId] = {
+          id: c.nodeId,
+          name: c.name.slice(0, 80) || "Surface",
+          kind: "surface",
+          parentId: "node-work-surface",
+          children: [],
+          surfaceId: c.id,
+          partId: null,
+          visible: true,
+          locked: false,
+          color: null,
+        };
+        d.nodes["node-work-surface"]?.children.push(c.nodeId);
+      });
+    }
+    case "surface.delete": {
+      // the first surface stays (every document has one); its parts go with a deleted surface
+      const node = Object.values(doc.nodes).find((n) => n.surfaceId === c.id);
+      if (!doc.surfaces[c.id] || c.id === "surface-1" || !node || node.locked) return doc;
+      return produce(doc, (d) => {
+        removeParts(
+          d,
+          new Set(
+            Object.values(d.parts)
+              .filter((p) => p.surfaceId === c.id)
+              .map((p) => p.id),
+          ),
+        );
+        delete d.surfaces[c.id];
+        if (node.parentId) {
+          const sib = d.nodes[node.parentId]!.children;
+          sib.splice(sib.indexOf(node.id), 1);
+        }
+        delete d.nodes[node.id];
+        d.measurements = d.measurements.filter((m) => m.surfaceId !== c.id);
+      });
     }
     case "offcut.discard":
       return doc.offcuts.some((o) => o.id === c.id)

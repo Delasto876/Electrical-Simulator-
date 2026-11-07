@@ -131,3 +131,16 @@ Parts Library thumbnails, drag-and-drop placement with ghost and snapping, attac
 ## Phase 3 status (done)
 
 Rails (three profiles, stock lengths) seated on feet, Cut with kerf and an offcut pool, Splice with alignment check and Auto-align into rail runs, modules and arrays snapped onto two rails inside the clamping zones, Clamp Add / Join / Clamp all, Pattern for feet, live mechanical Issues and a stock/waste BOM. Done criterion met by `apps/web/e2e/wb-phase3.spec.ts` (2 × 4 array end to end, cut, splice, one-click clamps, rollback). Decisions D-115 to D-122; not done in `TODO.md` ("after Phase 3").
+
+## Phase 4 status (done, re-scoped: Fusion 360-style workspace)
+
+BUILD tab with Fusion-style groups, Fusion shortcuts and navigation, multi-select, Copy/Paste, Move/Copy with drag arrows, Rectangular Pattern by drag (spacing or extent, two directions), Mirror, Delete of a selection; Origin with X/Y/Z axes and XY/XZ/YZ planes; Surface on plane (roofs, slabs, ground, block and wood walls); devices hang on walls. Decisions D-123 to D-131.
+
+## Roadmap after Phase 4 (re-ordered with the user)
+
+5. **Openable boxes and what goes inside**: DIN enclosures, combiner boxes, ATS and manual transfer switches, battery disconnect boxes, distribution panels with removable covers; place breakers, SPDs, AC and DC isolators, voltage regulators, fuses, N/PE bars inside; the user's own product photos as 3D parts.
+6. **Wiring and raceways**: wires between terminals, 4-inch (and other) trunking and conduit run along walls and roofs, wires pulled through them; fill, bends, cut list.
+7. **Electrical simulation and TEST**: circuits solved in the Workbench (the v1 engine), protection, grounding, ATS behaviour, meter probes, energy simulation.
+8. **Realism pass** (was Phase 4): post-processing, HDRI, quality presets, renders.
+9. **Outputs**: layout drawing, SLD, calculation sheet, BOM, reports (porting v1).
+10. **Polish and the installable app**: a desktop build (Tauri or Electron) of the same app, offline, file associations for `.solarbench.json`.

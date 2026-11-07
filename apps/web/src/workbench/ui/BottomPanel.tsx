@@ -23,7 +23,7 @@ import { useDoc, useWb } from "../state/wbStore";
 import { useView, type BottomTab } from "../state/wbView";
 import { formatLength } from "../lib/units";
 import { bomOf } from "../model/bom";
-import { mechanicalIssues } from "../model/railKit";
+import { allIssues } from "../model/railKit";
 import { IssuesList } from "./RailKitPanels";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -186,7 +186,7 @@ export function BottomPanel() {
   const tab = useView((s) => s.bottomTab);
   const log = useWb((s) => s.log);
   const doc = useDoc();
-  const issueCount = useMemo(() => mechanicalIssues(doc, SURFACE_ID).length, [doc]);
+  const issueCount = useMemo(() => allIssues(doc).length, [doc]);
   return (
     <div className="wb-bottom" data-testid="bottom-panel">
       <div role="tablist" aria-label="Results" className="wb-tabs">

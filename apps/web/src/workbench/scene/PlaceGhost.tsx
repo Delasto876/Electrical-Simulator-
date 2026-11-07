@@ -11,7 +11,7 @@ import {
   type SurfaceSpec,
 } from "@solar-sim/engine";
 import { formatLength } from "../lib/units";
-import { partInfo } from "../model/partInfo";
+import { orientInfo, partInfo } from "../model/partInfo";
 import { surfaceParts } from "../model/placeTool";
 import { usePlace } from "../state/placeState";
 import type { WbDoc } from "../state/wbDoc";
@@ -56,7 +56,8 @@ export function PlaceGhost({
   const cand = usePlace((s) => s.cand);
   const raw = usePlace((s) => s.raw);
   const unit = useView((s) => s.units);
-  const info = placing ? partInfo(placing.partId) : undefined;
+  const raw0 = placing ? partInfo(placing.partId) : undefined;
+  const info = raw0 ? orientInfo(raw0, spec) : undefined;
   const rule = info?.attachmentKind ? attachmentRuleFor(spec.type, info.attachmentKind) : undefined;
   const ruleId = rule && "ruleId" in rule ? rule.ruleId : undefined;
   const cx = raw ? Math.round(raw[0] * 4) / 4 : 0;

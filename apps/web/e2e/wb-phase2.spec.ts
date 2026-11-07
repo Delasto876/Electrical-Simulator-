@@ -6,6 +6,8 @@ async function open(page: Page) {
   await page.goto("/");
   await expect(page.getByTestId("workbench")).toBeVisible();
   await expect(page.getByTestId("canvas3d")).toBeVisible();
+  // the surface commands live on the SURFACE tab (BUILD is the default, as SOLID in Fusion 360)
+  await page.getByTestId("ribbon-tab-surface").click();
 }
 
 async function chooseType(page: Page, id: string) {
@@ -155,7 +157,7 @@ test("a guide pulled from the ruler is saved; the Measure tool measures two poin
   await expect(page.getByTestId("guide-list")).toContainText("1500 mm");
   const c = (await page.getByTestId("canvas3d").boundingBox())!;
   // measure two points
-  await page.keyboard.press("d");
+  await page.keyboard.press("i");
   await expect(page.getByTestId("toast")).toContainText("Measure");
   await page.mouse.click(c.x + c.width * 0.4, c.y + c.height * 0.5);
   await page.mouse.move(c.x + c.width * 0.6, c.y + c.height * 0.5, { steps: 6 });

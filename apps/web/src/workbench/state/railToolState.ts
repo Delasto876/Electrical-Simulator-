@@ -42,7 +42,21 @@ export type RailTool =
       rows: number;
       cols: number;
     }
-  | { kind: "pattern"; partId: string; rows: number; cols: number; dx: string; dz: string };
+  /** Rectangular pattern of the selection: n1 copies across (+x) every s1, n2 down the slope (+z) every s2. */
+  | {
+      kind: "pattern";
+      ids: string[];
+      n1: number;
+      s1: string;
+      n2: number;
+      s2: string;
+      /** "spacing": s is the distance between copies; "extent": s is the total length. */
+      mode: "spacing" | "extent";
+    }
+  /** Move or copy the selection by typed or dragged distances. */
+  | { kind: "move"; ids: string[]; dx: string; dz: string; copy: boolean }
+  /** Mirror the selection across a line of the surface (symmetry). */
+  | { kind: "mirror"; ids: string[]; axis: "x" | "z"; at: string; keep: boolean };
 
 export interface RailToolState {
   tool: RailTool | null;
@@ -57,6 +71,8 @@ export interface RailToolState {
   moduleCand: ModuleCandidate | null;
   /** Tab-to-type: rail start / module top-left corner, from the left and up-slope edges. */
   typed: { fromLeft: string; fromTop: string } | null;
+  /** A drag on a Move or Pattern arrow: which axis, where it started, the value then. */
+  gizmoDrag: { axis: "x" | "z"; start: number; value: number } | null;
   set: (p: Partial<RailToolState>) => void;
 }
 
@@ -70,5 +86,6 @@ export const useRailTool = create<RailToolState>((set) => ({
   clampCand: null,
   moduleCand: null,
   typed: null,
+  gizmoDrag: null,
   set: (p) => set(p),
 }));

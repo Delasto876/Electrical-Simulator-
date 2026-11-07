@@ -1,4 +1,5 @@
 import { isCategory, type Part } from "@solar-sim/catalog";
+import { isWall, type SurfaceSpec } from "@solar-sim/engine";
 import type { AttachmentKind } from "@solar-sim/engine";
 import { catalogById, partLabel } from "../../app/catalog";
 import { freePartBox } from "../../parts/registry";
@@ -147,4 +148,29 @@ export function partInfo(id: string): PartInfo | undefined {
   const info = fromCatalog(p);
   cache.set(id, info);
   return info;
+}
+
+/**
+ * A part as it sits on a given surface. On a wall, a device hangs with its
+ * height running up the wall and its depth standing out of it, so its
+ * footprint on the wall is width × height. Roof hardware is unchanged.
+ */
+export function orientInfo(
+  info: PartInfo,
+  spec: SurfaceSpec | undefined,
+): PartInfo & { onWall: boolean } {
+  if (
+    !spec ||
+    !isWall(spec.type) ||
+    info.attachmentKind ||
+    info.legRole ||
+    info.dinModules !== undefined
+  )
+    return { ...info, onWall: false };
+  return {
+    ...info,
+    footprint: { w: info.footprint.w, d: info.heightM },
+    heightM: info.footprint.d,
+    onWall: true,
+  };
 }

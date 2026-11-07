@@ -8,6 +8,7 @@ import {
   Camera,
   CloudSun,
   Combine,
+  ClipboardPaste,
   Copy,
   Cpu,
   Crosshair,
@@ -52,6 +53,7 @@ import {
   Slice,
   SlidersHorizontal,
   Square,
+  SquareDashedMousePointer,
   Sun,
   Sunset,
   Table,
@@ -96,11 +98,20 @@ import { catalog } from "../../app/catalog";
 import { UNITS, UNIT_LABEL, type Unit } from "../lib/units";
 import { rotatePlacing, startPlacing } from "./placeActions";
 import {
+  copySelection,
+  deleteSelection,
+  hasClipboard,
+  paste,
+  selectedPartIds,
+  startMirror,
+  startMove,
+  startPattern,
+} from "./editActions";
+import {
   clampAll,
   startClamp,
   startCut,
   startModule,
-  startPattern,
   startRail,
   startSplice,
 } from "./railToolActions";
@@ -177,15 +188,20 @@ function future(
 }
 
 // ---------------------------------------------------------------- document helpers
-const surface = () => currentDoc().surfaces[SURFACE_ID]!;
-const surfaceLocked = () => !!currentDoc().nodes[SURFACE_NODE_ID]?.locked;
+export { activeSurfaceId } from "./activeSurface";
+import { activeSurfaceId } from "./activeSurface";
+const activeNodeId = () =>
+  Object.values(currentDoc().nodes).find((n) => n.surfaceId === activeSurfaceId())?.id ??
+  SURFACE_NODE_ID;
+const surface = () => currentDoc().surfaces[activeSurfaceId()]!;
+const surfaceLocked = () => !!currentDoc().nodes[activeNodeId()]?.locked;
 const lockedReason = () =>
   surfaceLocked() ? "The surface is locked. Unlock it in the Browser tree." : null;
 
 export function setSurface(patch: Partial<SurfaceSpec>, merge = false): boolean {
   const ok = useWb
     .getState()
-    .dispatch({ type: "surface.update", id: SURFACE_ID, patch }, { merge });
+    .dispatch({ type: "surface.update", id: activeSurfaceId(), patch }, { merge });
   if (!ok && surfaceLocked())
     showToast("The surface is locked. Unlock it in the Browser tree.", "warn");
   return ok;
@@ -222,6 +238,8 @@ const TYPE_ICON: Record<SurfaceType, LucideIcon> = {
   tile: LayoutGrid,
   "membrane-ballast": PanelTop,
   ground: Mountain,
+  "block-wall": BrickWall,
+  "wood-wall": PanelTop,
 };
 
 add({
@@ -243,7 +261,7 @@ for (const t of SURFACE_TYPES)
     pressed: () => surface().type === t,
     disabled: lockedReason,
     run: () => {
-      useWb.getState().dispatch({ type: "surface.setType", id: SURFACE_ID, surfaceType: t });
+      useWb.getState().dispatch({ type: "surface.setType", id: activeSurfaceId(), surfaceType: t });
     },
   });
 
@@ -466,19 +484,18 @@ for (const [role, label] of [
       if (id) startPlacing(id);
     },
   });
+const needParts = () =>
+  selectedPartIds().length
+    ? lockedReason()
+    : "Select parts first (Shift or Ctrl+click to add more).";
 add({
   id: "mount.pattern",
-  label: "Pattern",
+  label: "Rectangular pattern",
   icon: Grid3x3,
-  description: "Repeat the selected foot or leg in rows and columns with a set spacing.",
-  keywords: "array rows columns copy",
-  disabled: () => {
-    const p = partOfSelection();
-    if (!p) return "Select an L-foot or leg first.";
-    return p.rail || p.module || p.clamp || p.splice
-      ? "Pattern repeats feet and legs."
-      : lockedReason();
-  },
+  description:
+    "Copies of the selection in rows and columns at a set spacing: drag the arrow and copies appear every spacing (feet, legs, modules, devices).",
+  keywords: "pattern array rows columns copy repeat spacing",
+  disabled: needParts,
   run: () => void startPattern(),
 });
 add({
@@ -579,7 +596,7 @@ add({
   icon: Wrench,
   description:
     "One click: end clamps at every outer edge and mid clamps between modules, on every rail.",
-  shortcut: "Shift+J",
+  shortcut: "J",
   keywords: "join clamps all",
   disabled: noModules,
   run: () => void clampAll(),
@@ -621,12 +638,13 @@ future("mod.jumper", "Jumper", Spline, 8, "Bonding jumper between rails.", "bond
 // ---------------------------------------------------------------- modify / organise
 add({
   id: "mod.move",
-  label: "Move",
+  label: "Move/Copy",
   icon: Move,
-  description: "Select a part, then type its distances from the surface edges in Properties.",
-  keywords: "position distance",
-  disabled: () => (partOfSelection() ? null : "Select a placed part first."),
-  run: focusProp("part-from-left"),
+  description: "Move or copy the selection: drag the arrows or type the distances (Fusion: M).",
+  shortcut: "M",
+  keywords: "move copy translate drag",
+  disabled: needParts,
+  run: () => void startMove(),
 });
 add({
   id: "mod.rotate",
@@ -655,26 +673,66 @@ future(
   10,
   "Align parts to an edge, centre or guide.",
 );
-future("mod.mirror", "Mirror", FlipHorizontal, 10, "Mirror parts across a plane.");
-future("edit.copy", "Copy / paste", Copy, 10, "Duplicate the selection.");
+add({
+  id: "mod.mirror",
+  label: "Mirror",
+  icon: FlipHorizontal,
+  description:
+    "Symmetry: mirror the selection across the surface centre line, a guide or a typed line.",
+  keywords: "mirror symmetry flip",
+  disabled: needParts,
+  run: () => void startMirror(),
+});
+add({
+  id: "edit.copy",
+  label: "Copy",
+  icon: Copy,
+  description: "Copy the selection (Ctrl+V pastes it beside the originals).",
+  shortcut: "Ctrl+C",
+  keywords: "copy duplicate clipboard",
+  disabled: () => (selectedPartIds().length ? null : "Select parts first."),
+  run: () => void copySelection(),
+});
+add({
+  id: "edit.paste",
+  label: "Paste",
+  icon: ClipboardPaste,
+  description: "Paste the copied parts next to the originals, ready to move (M).",
+  shortcut: "Ctrl+V",
+  keywords: "paste duplicate clipboard",
+  disabled: () => lockedReason() ?? (hasClipboard() ? null : "Copy parts first (Ctrl+C)."),
+  run: () => void paste(),
+});
 future("edit.group", "Group", Group, 10, "Group parts so they move together.");
 future("edit.ungroup", "Ungroup", Ungroup, 10, "Break a group apart.");
+add({
+  id: "edit.selectall",
+  label: "Select all",
+  icon: SquareDashedMousePointer,
+  description: "Select every placed part.",
+  shortcut: "Ctrl+A",
+  keywords: "select all",
+  run: () => {
+    const nodes = Object.values(currentDoc().nodes)
+      .filter((n) => n.partId)
+      .map((n) => n.id);
+    useView
+      .getState()
+      .set({ selection: nodes[0] ?? null, multi: nodes.slice(1), libraryPart: null });
+  },
+});
 add({
   id: "edit.delete",
   label: "Delete",
   icon: Trash2,
-  description: "Delete the selected part. (The Work Surface itself cannot be deleted.)",
+  description: "Delete the selected parts. (The Work Surface itself cannot be deleted.)",
   shortcut: "Delete",
   keywords: "remove",
   disabled: () => {
-    if (!partOfSelection()) return "Select a placed part first.";
+    if (!selectedPartIds().length) return "Select a placed part first.";
     return currentDoc().nodes[selection()!]?.locked ? "The part is locked." : null;
   },
-  run: () => {
-    const p = partOfSelection();
-    if (p && useWb.getState().dispatch({ type: "part.delete", id: p.id }))
-      useView.getState().set({ selection: null });
-  },
+  run: () => void deleteSelection(),
 });
 add({
   id: "edit.hide",
@@ -682,7 +740,7 @@ add({
   icon: EyeOff,
   iconFn: () => (currentDoc().nodes[selection() ?? ""]?.visible === false ? Eye : EyeOff),
   description: "Hide or show the selected item.",
-  shortcut: "H",
+  shortcut: "V",
   keywords: "visibility eye",
   disabled: needSelection,
   run: () => {
@@ -711,7 +769,7 @@ add({
   label: () => (useView.getState().isolated ? "End isolate" : "Isolate"),
   icon: Crosshair,
   description: "Show only the selected item (press again to show everything).",
-  shortcut: "I",
+  shortcut: "Shift+I",
   keywords: "focus alone",
   disabled: () => (useView.getState().isolated ? null : needSelection()),
   run: () => {
@@ -755,7 +813,7 @@ add({
   label: "Measure",
   icon: Ruler,
   description: "Click two points on the surface to measure the distance. Esc ends the tool.",
-  shortcut: "D",
+  shortcut: "I",
   keywords: "distance tape",
   pressed: () => useView.getState().measuring,
   disabled: () => (usePlace.getState().placing ? "Finish or cancel placing first." : null),
@@ -784,6 +842,52 @@ add({
   run: () => {
     openPanel("left");
     useView.getState().set({ wizardOpen: true });
+  },
+});
+add({
+  id: "construct.surface",
+  label: "Surface on plane",
+  icon: Layers,
+  description:
+    "Build a new face on a plane: roof, slab or ground on XZ; a block or wood wall on XY or YZ.",
+  keywords: "construct plane wall roof face offset",
+  run: () => useView.getState().set({ construct: { plane: "xz" } }),
+});
+add({
+  id: "construct.wall",
+  label: "Wall",
+  icon: BrickWall,
+  description: "A wall to mount inverters, batteries, boxes and trunking on (block or wood).",
+  keywords: "construct wall block wood",
+  run: () => useView.getState().set({ construct: { plane: "xy" } }),
+});
+add({
+  id: "construct.origin",
+  label: () => (useView.getState().origin.axes ? "Hide origin" : "Show origin"),
+  icon: Crosshair,
+  description: "Show the origin axes (X red, Y green, Z blue) like Fusion 360's Origin folder.",
+  keywords: "origin axes planes",
+  pressed: () => useView.getState().origin.axes,
+  run: () => {
+    const o = useView.getState().origin;
+    useView.getState().set({ origin: { ...o, axes: !o.axes } });
+  },
+});
+add({
+  id: "construct.surface.delete",
+  label: "Delete surface",
+  icon: Trash2,
+  description: "Delete the selected surface (not the first one) and everything on it.",
+  keywords: "remove wall roof",
+  disabled: () => {
+    const n = currentDoc().nodes[selection() ?? ""];
+    if (!n?.surfaceId) return "Select a surface in the Browser first.";
+    return n.surfaceId === SURFACE_ID ? "The first surface cannot be deleted." : null;
+  },
+  run: () => {
+    const n = currentDoc().nodes[selection() ?? ""];
+    if (n?.surfaceId && useWb.getState().dispatch({ type: "surface.delete", id: n.surfaceId }))
+      useView.getState().set({ selection: null });
   },
 });
 add({
@@ -972,7 +1076,7 @@ add({
   label: "Timeline",
   icon: PanelBottom,
   description: "Show or hide the Timeline and result tabs.",
-  shortcut: "J",
+  shortcut: "Shift+B",
   pressed: () => useView.getState().layout.bottomOpen,
   run: togglePanel("bottom"),
 });
@@ -1021,25 +1125,33 @@ add({
   id: "view.orbit",
   label: "Orbit",
   icon: Orbit,
-  description: "Left mouse button orbits the view.",
+  description:
+    "Left mouse button orbits the view (press again for Fusion 360 navigation: middle pans, Shift+middle orbits).",
   pressed: () => useView.getState().navMode === "orbit",
-  run: () => useView.getState().set({ navMode: "orbit" }),
+  run: () =>
+    useView
+      .getState()
+      .set({ navMode: useView.getState().navMode === "orbit" ? "select" : "orbit" }),
 });
 add({
   id: "view.pan",
   label: "Pan",
   icon: Hand,
-  description: "Left mouse button pans the view.",
+  description:
+    "Left mouse button pans the view (press again for Fusion 360 navigation: middle pans, Shift+middle orbits).",
   pressed: () => useView.getState().navMode === "pan",
-  run: () => useView.getState().set({ navMode: "pan" }),
+  run: () =>
+    useView.getState().set({ navMode: useView.getState().navMode === "pan" ? "select" : "pan" }),
 });
 add({
   id: "view.zoom",
   label: "Zoom",
   icon: ZoomIn,
-  description: "Left mouse button zooms the view.",
+  description:
+    "Left mouse button zooms the view (press again for Fusion 360 navigation: middle pans, Shift+middle orbits).",
   pressed: () => useView.getState().navMode === "zoom",
-  run: () => useView.getState().set({ navMode: "zoom" }),
+  run: () =>
+    useView.getState().set({ navMode: useView.getState().navMode === "zoom" ? "select" : "zoom" }),
 });
 
 // ---------------------------------------------------------------- app
@@ -1204,6 +1316,8 @@ export interface RibbonItem {
 export interface RibbonPanel {
   label: string;
   items: RibbonItem[];
+  /** Fusion-style group: the title is a ▾ menu listing the buttons and these extra commands. */
+  more?: string[];
 }
 export interface RibbonTab {
   id: string;
@@ -1214,6 +1328,44 @@ const P = (label: string, ...ids: string[]): RibbonPanel => ({
   label,
   items: ids.map((id) => ({ id })),
 });
+
+/** A Fusion 360-style group: a few big buttons, the title opens the whole list. */
+const G = (label: string, buttons: string[], more: string[] = []): RibbonPanel => ({
+  label,
+  items: buttons.map((id) => ({ id })),
+  more,
+});
+
+/** The main tab, laid out like Fusion 360's SOLID tab. */
+const BUILD_TAB: RibbonTab = {
+  id: "build",
+  label: "BUILD",
+  panels: [
+    G(
+      "CREATE",
+      ["mount.lfoot", "mount.rail", "mod.array", "mount.pattern", "mod.mirror"],
+      ["mount.legfront", "mount.legback", "mod.place", "lib.addpart"],
+    ),
+    G(
+      "MODIFY",
+      ["mod.move", "mount.cut", "mount.splice", "edit.delete"],
+      ["mod.rotate", "edit.copy", "edit.paste", "mod.align"],
+    ),
+    G("ASSEMBLE", ["mount.clamp.all", "mount.clamp"], ["edit.group", "edit.ungroup"]),
+    G(
+      "CONSTRUCT",
+      ["construct.surface", "construct.wall", "construct.origin"],
+      ["view.rulers", "construct.surface.delete"],
+    ),
+    G(
+      "INSPECT",
+      ["inspect.measure", "inspect.section"],
+      ["inspect.measure.clear", "inspect.issues", "surface.facts"],
+    ),
+    G("INSERT", ["lib.addpart"], []),
+    G("SELECT", ["edit.selectall"], ["edit.hide", "edit.lock", "edit.isolate"]),
+  ],
+};
 
 const VIEW_TAB: RibbonTab = {
   id: "view",
@@ -1237,6 +1389,7 @@ const VIEW_TAB: RibbonTab = {
 
 export const RIBBON: Record<Workspace, RibbonTab[]> = {
   design: [
+    BUILD_TAB,
     {
       id: "surface",
       label: "SURFACE",

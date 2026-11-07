@@ -12,6 +12,7 @@ import { snapPoint } from "@solar-sim/engine";
 import { usePlace } from "../state/placeState";
 import { cancelRailTool, toolClick, toolMove } from "../state/railToolActions";
 import { useRailTool } from "../state/railToolState";
+import { gizmoDragTo } from "../state/editActions";
 import { useView } from "../state/wbView";
 import { currentDoc, useWb } from "../state/wbStore";
 import { SurfaceBody, type SurfaceBodyProps } from "./SurfaceBody";
@@ -101,7 +102,8 @@ export function SurfaceAssembly({
   return (
     <group
       ref={ref}
-      position={[0, p.liftM, 0]}
+      userData={{ surfaceGroup: true, surfaceId }}
+      position={p.offset}
       rotation={[rad(p.pitchDeg), rad(p.rotationYDeg), 0, "YXZ"]}
       onClick={(e) => {
         stop(e);
@@ -143,6 +145,12 @@ export function SurfaceAssembly({
       }}
       onPointerMove={(e) => {
         onPointer([e.point.x, e.point.y, e.point.z]);
+        const gd = useRailTool.getState().gizmoDrag;
+        if (gd) {
+          const l = toLocal(e);
+          if (l) gizmoDragTo(gd.axis === "x" ? l[0] : l[1], e.altKey);
+          return;
+        }
         const pl = usePlace.getState();
         if (pl.placing) {
           const l = toLocal(e);

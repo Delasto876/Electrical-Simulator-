@@ -53,6 +53,8 @@ export interface Placement {
   pitchDeg: number;
   /** World height of the group origin so the lowest point is at y = 0 [m]. */
   liftM: number;
+  /** World position of the group origin: the surface's origin plus the lift [m]. */
+  offset: V3;
 }
 
 /** World-space corners of the whole surface (both planes) before the lift. */
@@ -65,7 +67,13 @@ function worldCorners(s: SurfaceSpec): V3[] {
 
 export function placement(s: SurfaceSpec): Placement {
   const minY = Math.min(...worldCorners(s).map((p) => p[1]));
-  return { rotationYDeg: 180 - s.azimuthDeg, pitchDeg: s.pitchDeg, liftM: -minY };
+  const o = s.originM ?? [0, 0, 0];
+  return {
+    rotationYDeg: 180 - s.azimuthDeg,
+    pitchDeg: s.pitchDeg,
+    liftM: -minY,
+    offset: [o[0], o[1] - minY, o[2]],
+  };
 }
 
 export interface Bounds {
@@ -78,8 +86,8 @@ export interface Bounds {
 
 /** World bounds of the surface (lifted onto the ground). */
 export function surfaceBounds(s: SurfaceSpec): Bounds {
-  const lift = placement(s).liftM;
-  const pts = worldCorners(s).map((p): V3 => [p[0], p[1] + lift, p[2]]);
+  const off = placement(s).offset;
+  const pts = worldCorners(s).map((p): V3 => [p[0] + off[0], p[1] + off[1], p[2] + off[2]]);
   const min: V3 = [Infinity, Infinity, Infinity];
   const max: V3 = [-Infinity, -Infinity, -Infinity];
   for (const p of pts)
@@ -107,7 +115,26 @@ export function secondPlaneHinge(s: SurfaceSpec): { origin: V3; rotationXDeg: nu
  * cursor coordinates in the status bar.
  */
 export function worldToLocal(s: SurfaceSpec, world: V3): V3 {
-  const { liftM } = placement(s);
-  const p: V3 = [world[0], world[1] - liftM, world[2]];
+  const { offset } = placement(s);
+  const p: V3 = [world[0] - offset[0], world[1] - offset[1], world[2] - offset[2]];
   return rotX(rotY(p, -(180 - s.azimuthDeg)), -s.pitchDeg);
+}
+
+/** Bounds around several surfaces (camera framing, environment). */
+export function boundsOf(list: readonly SurfaceSpec[]): Bounds {
+  const bs = list.map(surfaceBounds);
+  const min: V3 = [Infinity, Infinity, Infinity];
+  const max: V3 = [-Infinity, -Infinity, -Infinity];
+  for (const b of bs)
+    for (let i = 0; i < 3; i++) {
+      min[i] = Math.min(min[i]!, b.min[i]!);
+      max[i] = Math.max(max[i]!, b.max[i]!);
+    }
+  const center: V3 = [(min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2];
+  return {
+    min,
+    max,
+    center,
+    radiusM: Math.hypot(max[0] - min[0], max[1] - min[1], max[2] - min[2]) / 2,
+  };
 }

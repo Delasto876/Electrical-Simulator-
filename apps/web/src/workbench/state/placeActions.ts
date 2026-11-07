@@ -4,6 +4,7 @@ import { evalLength } from "../lib/units";
 import { clampSpecOf } from "../model/railKit";
 import { startClamp, startModule, startRail, startSplice } from "./railToolActions";
 import { SURFACE_ID } from "./wbDoc";
+import { activeSurfaceId } from "./activeSurface";
 import { usePlace } from "./placeState";
 import { currentDoc, useWb } from "./wbStore";
 import { showToast, useView } from "./wbView";
@@ -37,14 +38,19 @@ export function startPlacing(partId: string): boolean {
     showToast(info.placeable, "warn");
     return false;
   }
-  const locked = currentDoc().nodes["node-surface-1"]?.locked;
+  const locked = Object.values(currentDoc().nodes).find(
+    (n) => n.surfaceId === activeSurfaceId(),
+  )?.locked;
   if (locked) {
     showToast("The surface is locked. Unlock it in the Browser tree.", "warn");
     return false;
   }
-  usePlace
-    .getState()
-    .set({ placing: { partId, rotDeg: 0, keep: false }, cand: null, typing: null });
+  usePlace.getState().set({
+    placing: { partId, rotDeg: 0, keep: false },
+    cand: null,
+    typing: null,
+    surfaceId: activeSurfaceId(),
+  });
   useView.getState().set({ libraryPart: partId, selection: null });
   showToast(
     `Click the surface to place. Shift keeps placing · R rotates · Tab types a distance · Esc cancels.`,

@@ -15,7 +15,7 @@ import {
 import { dropTarget } from "../state/treeDrop";
 import { flattenTree, TAG_COLORS, type TagColor, type TreeNode } from "../state/wbDoc";
 import { useDoc, useWb } from "../state/wbStore";
-import { useView } from "../state/wbView";
+import { selectNode, useView } from "../state/wbView";
 import { Tip } from "./Tip";
 
 const TAG_HEX: Record<TagColor, string> = {
@@ -38,10 +38,75 @@ function NodeIcon({ n }: { n: TreeNode }) {
   );
 }
 
+/** Fusion-style Origin folder: show the axes and planes; click a plane to build a surface on it. */
+function OriginRows() {
+  const origin = useView((s) => s.origin);
+  const [open, setOpen] = useState(false);
+  const toggle = (k: keyof typeof origin) =>
+    useView.getState().set({ origin: { ...origin, [k]: !origin[k] } });
+  const rows: [keyof typeof origin, string][] = [
+    ["axes", "Axes X Y Z"],
+    ["xz", "XZ plane (ground / roof)"],
+    ["xy", "XY plane (wall)"],
+    ["yz", "YZ plane (wall)"],
+  ];
+  return (
+    <div className="wb-origin" role="group" aria-label="Origin">
+      <div className="wb-row">
+        <button
+          type="button"
+          className="wb-twisty"
+          aria-expanded={open}
+          aria-label="Origin"
+          onClick={() => setOpen(!open)}
+          data-testid="origin-toggle"
+        >
+          {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+        </button>
+        <span className="wb-row-name">Origin</span>
+      </div>
+      {open &&
+        rows.map(([k, label]) => (
+          <div key={k} className="wb-row" style={{ paddingLeft: 20 }}>
+            <button
+              type="button"
+              className="wb-mini"
+              aria-pressed={origin[k]}
+              aria-label={`Show ${label}`}
+              onClick={() => toggle(k)}
+              data-testid={`origin-${k}`}
+            >
+              {origin[k] ? <Eye size={13} /> : <EyeOff size={13} />}
+            </button>
+            {k === "axes" ? (
+              <span className="wb-row-name">{label}</span>
+            ) : (
+              <button
+                type="button"
+                className="wb-row-name wb-linkish"
+                title="Build a surface on this plane"
+                onClick={() => {
+                  useView.getState().set({
+                    origin: { ...origin, [k]: true },
+                    construct: { plane: k as "xz" | "xy" | "yz" },
+                  });
+                }}
+                data-testid={`origin-build-${k}`}
+              >
+                {label}
+              </button>
+            )}
+          </div>
+        ))}
+    </div>
+  );
+}
+
 /** The assembly hierarchy: eye, lock, isolate, rename, colour tag and drag to reorder. Click selects in 3D and vice versa. */
 export function BrowserTree() {
   const doc = useDoc();
   const selection = useView((s) => s.selection);
+  const multi = useView((s) => s.multi);
   const isolated = useView((s) => s.isolated);
   const renamingId = useView((s) => s.renamingId);
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
@@ -74,194 +139,201 @@ export function BrowserTree() {
   };
 
   return (
-    <div
-      className="wb-tree"
-      role="tree"
-      aria-label="Browser"
-      tabIndex={0}
-      onKeyDown={onKey}
-      data-testid="browser-tree"
-    >
-      {rows.map(({ node: n, depth }) => {
-        const selected = selection === n.id;
-        const hasKids = n.children.length > 0;
-        return (
-          <div
-            key={n.id}
-            role="treeitem"
-            aria-level={depth + 1}
-            aria-selected={selected}
-            aria-expanded={hasKids ? !collapsed.has(n.id) : undefined}
-            className={`wb-row${selected ? " is-selected" : ""}${n.visible ? "" : " is-hidden"}${drag?.over === n.id ? ` drop-${drag.zone}` : ""}`}
-            style={{ paddingLeft: 6 + depth * 14 }}
-            data-testid={`node-${n.id}`}
-            draggable={renamingId !== n.id}
-            onDragStart={(e) => {
-              e.dataTransfer.setData("text/plain", n.id);
-              e.dataTransfer.effectAllowed = "move";
-              setDrag({ id: n.id, over: n.id, zone: "before" });
-            }}
-            onDragOver={(e) => {
-              if (!drag) return;
-              const r = e.currentTarget.getBoundingClientRect();
-              const f = (e.clientY - r.top) / r.height;
-              const canInto = n.kind !== "surface";
-              const zone =
-                f < 0.3
-                  ? "before"
-                  : f > 0.7
-                    ? "after"
-                    : canInto
-                      ? "into"
-                      : f < 0.5
-                        ? "before"
-                        : "after";
-              if (dropTarget(doc, drag.id, n.id, zone)) {
+    <>
+      <OriginRows />
+      <div
+        className="wb-tree"
+        role="tree"
+        aria-label="Browser"
+        tabIndex={0}
+        onKeyDown={onKey}
+        data-testid="browser-tree"
+      >
+        {rows.map(({ node: n, depth }) => {
+          const selected = selection === n.id || multi.includes(n.id);
+          const hasKids = n.children.length > 0;
+          return (
+            <div
+              key={n.id}
+              role="treeitem"
+              aria-level={depth + 1}
+              aria-selected={selected}
+              aria-expanded={hasKids ? !collapsed.has(n.id) : undefined}
+              className={`wb-row${selected ? " is-selected" : ""}${n.visible ? "" : " is-hidden"}${drag?.over === n.id ? ` drop-${drag.zone}` : ""}`}
+              style={{ paddingLeft: 6 + depth * 14 }}
+              data-testid={`node-${n.id}`}
+              draggable={renamingId !== n.id}
+              onDragStart={(e) => {
+                e.dataTransfer.setData("text/plain", n.id);
+                e.dataTransfer.effectAllowed = "move";
+                setDrag({ id: n.id, over: n.id, zone: "before" });
+              }}
+              onDragOver={(e) => {
+                if (!drag) return;
+                const r = e.currentTarget.getBoundingClientRect();
+                const f = (e.clientY - r.top) / r.height;
+                const canInto = n.kind !== "surface";
+                const zone =
+                  f < 0.3
+                    ? "before"
+                    : f > 0.7
+                      ? "after"
+                      : canInto
+                        ? "into"
+                        : f < 0.5
+                          ? "before"
+                          : "after";
+                if (dropTarget(doc, drag.id, n.id, zone)) {
+                  e.preventDefault();
+                  setDrag({ ...drag, over: n.id, zone });
+                }
+              }}
+              onDrop={(e) => {
                 e.preventDefault();
-                setDrag({ ...drag, over: n.id, zone });
-              }
-            }}
-            onDrop={(e) => {
-              e.preventDefault();
-              if (!drag) return;
-              const t = dropTarget(doc, drag.id, n.id, drag.zone);
-              if (t) dispatch({ type: "node.move", id: drag.id, ...t });
-              setDrag(null);
-            }}
-            onDragEnd={() => setDrag(null)}
-            onClick={() => select(n.id)}
-            onDoubleClick={() => useView.getState().set({ renamingId: n.id })}
-          >
-            {hasKids ? (
-              <button
-                type="button"
-                className="wb-twisty"
-                aria-label={collapsed.has(n.id) ? `Expand ${n.name}` : `Collapse ${n.name}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCollapsed((c) => {
-                    const x = new Set(c);
-                    if (x.has(n.id)) x.delete(n.id);
-                    else x.add(n.id);
-                    return x;
-                  });
-                }}
-              >
-                {collapsed.has(n.id) ? <ChevronRight size={13} /> : <ChevronDown size={13} />}
-              </button>
-            ) : (
-              <span className="wb-twisty-gap" />
-            )}
-            <NodeIcon n={n} />
-            {n.color && (
-              <span
-                className="wb-tagdot"
-                style={{ background: TAG_HEX[n.color] }}
-                title={`Tag: ${n.color}`}
-              />
-            )}
-            {renamingId === n.id ? (
-              <RenameInput id={n.id} initial={n.name} />
-            ) : (
-              <span className="wb-row-name">
-                {n.name}
-                {n.kind === "category" && <span className="wb-count"> ({n.children.length})</span>}
-              </span>
-            )}
-            <span className="wb-row-tools" onClick={(e) => e.stopPropagation()}>
-              <Tip title={n.visible ? "Hide" : "Show"} side="right">
+                if (!drag) return;
+                const t = dropTarget(doc, drag.id, n.id, drag.zone);
+                if (t) dispatch({ type: "node.move", id: drag.id, ...t });
+                setDrag(null);
+              }}
+              onDragEnd={() => setDrag(null)}
+              onClick={(e) => selectNode(n.id, e.shiftKey || e.ctrlKey || e.metaKey)}
+              onDoubleClick={() => useView.getState().set({ renamingId: n.id })}
+            >
+              {hasKids ? (
                 <button
                   type="button"
-                  className="wb-mini"
-                  aria-label={`${n.visible ? "Hide" : "Show"} ${n.name}`}
-                  aria-pressed={!n.visible}
-                  onClick={() => dispatch({ type: "node.visible", id: n.id, visible: !n.visible })}
-                  data-testid={`eye-${n.id}`}
+                  className="wb-twisty"
+                  aria-label={collapsed.has(n.id) ? `Expand ${n.name}` : `Collapse ${n.name}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCollapsed((c) => {
+                      const x = new Set(c);
+                      if (x.has(n.id)) x.delete(n.id);
+                      else x.add(n.id);
+                      return x;
+                    });
+                  }}
                 >
-                  {n.visible ? <Eye size={13} /> : <EyeOff size={13} />}
+                  {collapsed.has(n.id) ? <ChevronRight size={13} /> : <ChevronDown size={13} />}
                 </button>
-              </Tip>
-              <Tip title={n.locked ? "Unlock" : "Lock"} side="right">
-                <button
-                  type="button"
-                  className="wb-mini"
-                  aria-label={`${n.locked ? "Unlock" : "Lock"} ${n.name}`}
-                  aria-pressed={n.locked}
-                  onClick={() => dispatch({ type: "node.locked", id: n.id, locked: !n.locked })}
-                  data-testid={`lock-${n.id}`}
-                >
-                  {n.locked ? <Lock size={13} /> : <Unlock size={13} />}
-                </button>
-              </Tip>
-              <Tip title={isolated === n.id ? "End isolate" : "Isolate"} side="right">
-                <button
-                  type="button"
-                  className="wb-mini"
-                  aria-label={`Isolate ${n.name}`}
-                  aria-pressed={isolated === n.id}
-                  onClick={() =>
-                    useView.getState().set({ isolated: isolated === n.id ? null : n.id })
-                  }
-                  data-testid={`isolate-${n.id}`}
-                >
-                  <Crosshair size={13} />
-                </button>
-              </Tip>
-              <span className="wb-tagwrap">
-                <button
-                  type="button"
-                  className="wb-mini"
-                  aria-label={`Colour tag for ${n.name}`}
-                  aria-haspopup="menu"
-                  aria-expanded={menuFor === n.id}
-                  onClick={() => setMenuFor(menuFor === n.id ? null : n.id)}
-                  data-testid={`tag-${n.id}`}
-                >
-                  <span
-                    className="wb-tagdot"
-                    style={{
-                      background: n.color ? TAG_HEX[n.color] : "transparent",
-                      borderColor: n.color ? "transparent" : "currentColor",
-                    }}
-                  />
-                </button>
-                {menuFor === n.id && (
-                  <span role="menu" className="wb-tagmenu" aria-label="Colour tags">
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className="wb-tagopt"
-                      aria-label="No tag"
-                      onClick={() => {
-                        dispatch({ type: "node.color", id: n.id, color: null });
-                        setMenuFor(null);
+              ) : (
+                <span className="wb-twisty-gap" />
+              )}
+              <NodeIcon n={n} />
+              {n.color && (
+                <span
+                  className="wb-tagdot"
+                  style={{ background: TAG_HEX[n.color] }}
+                  title={`Tag: ${n.color}`}
+                />
+              )}
+              {renamingId === n.id ? (
+                <RenameInput id={n.id} initial={n.name} />
+              ) : (
+                <span className="wb-row-name">
+                  {n.name}
+                  {n.kind === "category" && (
+                    <span className="wb-count"> ({n.children.length})</span>
+                  )}
+                </span>
+              )}
+              <span className="wb-row-tools" onClick={(e) => e.stopPropagation()}>
+                <Tip title={n.visible ? "Hide" : "Show"} side="right">
+                  <button
+                    type="button"
+                    className="wb-mini"
+                    aria-label={`${n.visible ? "Hide" : "Show"} ${n.name}`}
+                    aria-pressed={!n.visible}
+                    onClick={() =>
+                      dispatch({ type: "node.visible", id: n.id, visible: !n.visible })
+                    }
+                    data-testid={`eye-${n.id}`}
+                  >
+                    {n.visible ? <Eye size={13} /> : <EyeOff size={13} />}
+                  </button>
+                </Tip>
+                <Tip title={n.locked ? "Unlock" : "Lock"} side="right">
+                  <button
+                    type="button"
+                    className="wb-mini"
+                    aria-label={`${n.locked ? "Unlock" : "Lock"} ${n.name}`}
+                    aria-pressed={n.locked}
+                    onClick={() => dispatch({ type: "node.locked", id: n.id, locked: !n.locked })}
+                    data-testid={`lock-${n.id}`}
+                  >
+                    {n.locked ? <Lock size={13} /> : <Unlock size={13} />}
+                  </button>
+                </Tip>
+                <Tip title={isolated === n.id ? "End isolate" : "Isolate"} side="right">
+                  <button
+                    type="button"
+                    className="wb-mini"
+                    aria-label={`Isolate ${n.name}`}
+                    aria-pressed={isolated === n.id}
+                    onClick={() =>
+                      useView.getState().set({ isolated: isolated === n.id ? null : n.id })
+                    }
+                    data-testid={`isolate-${n.id}`}
+                  >
+                    <Crosshair size={13} />
+                  </button>
+                </Tip>
+                <span className="wb-tagwrap">
+                  <button
+                    type="button"
+                    className="wb-mini"
+                    aria-label={`Colour tag for ${n.name}`}
+                    aria-haspopup="menu"
+                    aria-expanded={menuFor === n.id}
+                    onClick={() => setMenuFor(menuFor === n.id ? null : n.id)}
+                    data-testid={`tag-${n.id}`}
+                  >
+                    <span
+                      className="wb-tagdot"
+                      style={{
+                        background: n.color ? TAG_HEX[n.color] : "transparent",
+                        borderColor: n.color ? "transparent" : "currentColor",
                       }}
-                    >
-                      <span className="wb-tagdot" style={{ borderColor: "currentColor" }} />
-                    </button>
-                    {TAG_COLORS.map((c) => (
+                    />
+                  </button>
+                  {menuFor === n.id && (
+                    <span role="menu" className="wb-tagmenu" aria-label="Colour tags">
                       <button
-                        key={c}
                         type="button"
                         role="menuitem"
                         className="wb-tagopt"
-                        aria-label={c}
+                        aria-label="No tag"
                         onClick={() => {
-                          dispatch({ type: "node.color", id: n.id, color: c });
+                          dispatch({ type: "node.color", id: n.id, color: null });
                           setMenuFor(null);
                         }}
                       >
-                        <span className="wb-tagdot" style={{ background: TAG_HEX[c] }} />
+                        <span className="wb-tagdot" style={{ borderColor: "currentColor" }} />
                       </button>
-                    ))}
-                  </span>
-                )}
+                      {TAG_COLORS.map((c) => (
+                        <button
+                          key={c}
+                          type="button"
+                          role="menuitem"
+                          className="wb-tagopt"
+                          aria-label={c}
+                          onClick={() => {
+                            dispatch({ type: "node.color", id: n.id, color: c });
+                            setMenuFor(null);
+                          }}
+                        >
+                          <span className="wb-tagdot" style={{ background: TAG_HEX[c] }} />
+                        </button>
+                      ))}
+                    </span>
+                  )}
+                </span>
               </span>
-            </span>
-          </div>
-        );
-      })}
-    </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

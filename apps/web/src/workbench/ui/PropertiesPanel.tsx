@@ -78,7 +78,11 @@ function SurfaceProperties({ nodeId }: { nodeId: string }) {
           disabled={locked}
           options={SURFACE_TYPES.map((t) => ({ value: t, label: SURFACE_INFO[t].label }))}
           onChange={(t) =>
-            useWb.getState().dispatch({ type: "surface.setType", id: SURFACE_ID, surfaceType: t })
+            useWb.getState().dispatch({
+              type: "surface.setType",
+              id: node.surfaceId ?? SURFACE_ID,
+              surfaceType: t,
+            })
           }
         />
         <p className="wb-hint">{SURFACE_INFO[spec.type].description}</p>

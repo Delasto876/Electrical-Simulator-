@@ -6,6 +6,7 @@ import {
   labelOf,
   runCommand,
   type Cmd,
+  type RibbonPanel,
 } from "../state/commandRegistry";
 import { useWb } from "../state/wbStore";
 import { useView } from "../state/wbView";
@@ -63,6 +64,37 @@ function RibbonButton({ cmd }: { cmd: Cmd }) {
   );
 }
 
+/** Fusion-style group title: CREATE ▾ opens every command of the group. */
+function GroupMenu({ panel }: { panel: RibbonPanel }) {
+  const ids = [...panel.items.map((i) => i.id), ...(panel.more ?? [])];
+  const pseudo: Cmd = {
+    id: `group.${panel.label}`,
+    label: panel.label,
+    icon: COMMANDS[ids[0]!]!.icon,
+    description: `${panel.label} commands`,
+    variants: ids.filter((id) => COMMANDS[id]),
+  };
+  return (
+    <Dropdown
+      label={`${panel.label} menu`}
+      className="wb-group-wrap"
+      button={({ toggle, props }) => (
+        <button
+          type="button"
+          className="wb-ribbon-panel-label wb-group-title"
+          onClick={toggle}
+          data-testid={`group-${panel.label.toLowerCase()}`}
+          {...props}
+        >
+          {panel.label} <ChevronDown size={10} aria-hidden />
+        </button>
+      )}
+    >
+      {(close) => <VariantItems cmd={pseudo} close={close} />}
+    </Dropdown>
+  );
+}
+
 /** Ribbon: tabs of the active workspace, then labelled panels of large icon+label buttons. */
 export function Ribbon() {
   // re-render on any document or view change (labels, pressed and disabled states read the stores)
@@ -100,7 +132,11 @@ export function Ribbon() {
                 return c ? <RibbonButton key={it.id} cmd={c} /> : null;
               })}
             </div>
-            <div className="wb-ribbon-panel-label">{p.label}</div>
+            {p.more ? (
+              <GroupMenu panel={p} />
+            ) : (
+              <div className="wb-ribbon-panel-label">{p.label}</div>
+            )}
           </div>
         ))}
       </div>
