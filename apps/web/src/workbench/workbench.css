@@ -1309,6 +1309,34 @@ body,
 .wb-status-disclaimer {
   color: var(--wb-muted);
 }
+.wb-status-circuit {
+  background: none;
+  border: 0;
+  padding: 0 4px;
+  font: inherit;
+  color: var(--wb-muted);
+  cursor: pointer;
+}
+.wb-status-circuit.is-warn,
+.wb-circuit .is-warn {
+  color: var(--wb-warn);
+  font-weight: 600;
+}
+.wb-status-circuit.is-ok,
+.wb-circuit .is-ok {
+  color: var(--wb-ok);
+  font-weight: 600;
+}
+.wb-circuit-site {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+.wb-circuit-site input {
+  width: 64px;
+}
 @media (max-width: 1180px) {
   .wb-status-disclaimer {
     display: none;
@@ -2258,4 +2286,21 @@ body,
 }
 .wb-aligntable td.is-off {
   color: var(--wb-warn);
+}
+
+.wb-combiner {
+  margin: 6px 8px 10px;
+  font-size: 12px;
+}
+.wb-combiner summary {
+  cursor: pointer;
+  color: var(--wb-accent, var(--wb-text));
+}
+.wb-combiner-form {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+.wb-combiner-form input[type="number"] {
+  width: 56px;
 }

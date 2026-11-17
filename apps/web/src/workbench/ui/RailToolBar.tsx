@@ -1,7 +1,8 @@
 import { Check, X } from "lucide-react";
 import { isCategory } from "@solar-sim/catalog";
 import { catalog } from "../../app/catalog";
-import { formatLength, formatStock } from "../lib/units";
+import { evalLength, formatLength, formatStock } from "../lib/units";
+import { RAIL_TYPED_RANGE_M, stockChoices } from "../../config/railStock";
 import { railSpecOf } from "../model/railKit";
 import {
   autoAlign,
@@ -324,20 +325,46 @@ export function RailToolBar() {
           {off ? (
             <span>Offcut {fmt(off.lengthM)}</span>
           ) : (
-            <label>
-              Stock length
-              <select
-                value={String(tool.lengthM)}
-                data-testid="rail-length"
-                onChange={(e) => patchTool({ lengthM: Number(e.target.value) })}
-              >
-                {(spec?.stockLengthsM ?? [4.2]).map((l) => (
-                  <option key={l} value={l}>
-                    {formatStock(l)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <>
+              <label>
+                Stock length
+                <select
+                  value={String(tool.lengthM)}
+                  data-testid="rail-length"
+                  onChange={(e) => patchTool({ lengthM: Number(e.target.value) })}
+                >
+                  {(() => {
+                    const list = stockChoices(spec?.stockLengthsM ?? [4.2]);
+                    if (!list.some((l) => Math.abs(l - tool.lengthM) < 1e-6))
+                      list.push(tool.lengthM);
+                    return list.map((l) => (
+                      <option key={l} value={l}>
+                        {formatStock(l)}
+                      </option>
+                    ));
+                  })()}
+                </select>
+              </label>
+              <label>
+                or type
+                <input
+                  className="wb-input wb-input-short"
+                  key={tool.lengthM}
+                  defaultValue=""
+                  placeholder={unit === "ft-in" ? `11'10"` : "3600"}
+                  aria-label="Type a rail length"
+                  data-testid="rail-length-typed"
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter") return;
+                    e.preventDefault();
+                    const v = evalLength((e.target as HTMLInputElement).value, unit);
+                    const { min, max } = RAIL_TYPED_RANGE_M;
+                    if (v !== undefined && v >= min && v <= max)
+                      patchTool({ lengthM: Math.round(v * 1000) / 1000 });
+                  }}
+                />
+              </label>
+            </>
           )}
           <button
             type="button"

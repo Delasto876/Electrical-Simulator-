@@ -10,6 +10,10 @@ Values the UI shows as "not available", and deferred work.
 
 ## Deferred
 
+- Workbench: switch state (ON/OFF) for breakers and isolators; the circuit tracer assumes every device is closed.
+- Workbench: standalone wire with a free end, typed cut length, strip length and mm² (K1); a module's own leads as separate parts.
+- Workbench: wires between module leads lie on the plate under the modules and are hard to see in 3D.
+
 - Typed schemas for the remaining generic categories (cable, connector, conduit, din-device, …): currently `GenericPart` with free-form `attributes`.
 - Catalog editor (form, JSON import/export UI, CSV import).
 - Branded placeholder entries (see D-012, waiting for user answer).

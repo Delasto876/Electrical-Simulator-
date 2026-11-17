@@ -1,6 +1,7 @@
 import { Magnet } from "lucide-react";
 import { worldToLocal } from "@solar-sim/engine";
 import { formatLength } from "../lib/units";
+import { circuitReport, STATUS_TEXT } from "../model/circuitKit";
 import { SURFACE_ID } from "../state/wbDoc";
 import { usePointer } from "../state/pointer";
 import { usePlace } from "../state/placeState";
@@ -29,6 +30,9 @@ export function StatusBar() {
   const spec = doc.surfaces[SURFACE_ID]!;
   const local = p ? worldToLocal(spec, [p.x, p.y, p.z]) : null;
   const selName = sel ? doc.nodes[sel]?.name : null;
+  const circuit = circuitReport(doc);
+  const cs = circuit.status;
+  const bad = circuit.strings.filter((s) => s.status !== "closed");
   return (
     <footer className="wb-status" aria-label="Status bar">
       <CommandDropdown id="view.units" up />
@@ -69,12 +73,24 @@ export function StatusBar() {
           "X — · Y — · Z —"
         )}
       </span>
-      <span
-        className="wb-status-circuit"
-        title="Circuit status appears once parts are wired (Phase 6)."
+      <button
+        type="button"
+        className={`wb-status-circuit${cs && cs !== "closed" ? " is-warn" : ""}${cs === "closed" ? " is-ok" : ""}`}
+        data-testid="circuit-status"
+        title={
+          cs
+            ? circuit.strings
+                .map((s) => `String ${s.id}: ${STATUS_TEXT[s.status]}. ${s.reason}`)
+                .join("\n")
+            : "No PV string is wired yet. Wire a module's + to the next module's −."
+        }
+        onClick={() => useView.setState({ bottomTab: "calculations" })}
       >
-        Circuit: none
-      </span>
+        Circuit:{" "}
+        {cs
+          ? `${STATUS_TEXT[cs]}${bad.length ? ` (${bad.map((s) => s.id).join(", ")})` : ` · ${circuit.strings.length} string${circuit.strings.length === 1 ? "" : "s"}`}`
+          : "none"}
+      </button>
       <span className="wb-status-msg" role="status" aria-live="polite" data-testid="toast">
         {!toast && place && !place.valid ? <span className="is-warn">{place.reason}</span> : null}
         {toast ? (

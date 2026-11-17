@@ -16,7 +16,8 @@ import { specRows } from "../../panels/specRows";
 import { formatLength } from "../lib/units";
 import { setSurface } from "../state/commandRegistry";
 import { SURFACE_ID, surfaceOfNode } from "../state/wbDoc";
-import { useDoc, useWb } from "../state/wbStore";
+import { currentDoc, useDoc, useWb } from "../state/wbStore";
+import { roofTypeCommand } from "../model/roofSwap";
 import { partInfo } from "../model/partInfo";
 import { startPlacing } from "../state/placeActions";
 import { useView } from "../state/wbView";
@@ -80,11 +81,9 @@ function SurfaceProperties({ nodeId }: { nodeId: string }) {
           disabled={locked}
           options={SURFACE_TYPES.map((t) => ({ value: t, label: SURFACE_INFO[t].label }))}
           onChange={(t) =>
-            useWb.getState().dispatch({
-              type: "surface.setType",
-              id: node.surfaceId ?? SURFACE_ID,
-              surfaceType: t,
-            })
+            useWb
+              .getState()
+              .dispatch(roofTypeCommand(currentDoc(), node.surfaceId ?? SURFACE_ID, t))
           }
         />
         <p className="wb-hint">{SURFACE_INFO[spec.type].description}</p>

@@ -26,6 +26,7 @@ import { useView, type BottomTab } from "../state/wbView";
 import { formatLength } from "../lib/units";
 import { bomOf } from "../model/bom";
 import { allIssues } from "../model/issues";
+import { circuitReport, STATUS_TEXT } from "../model/circuitKit";
 import { IssuesList } from "./RailKitPanels";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -113,6 +114,7 @@ function Calculations() {
   const f = surfaceFacts(s);
   return (
     <div className="wb-tabbody">
+      <CircuitTable />
       <table className="wb-table">
         <caption>Work Surface (computed from its parameters)</caption>
         <tbody>
@@ -134,11 +136,98 @@ function Calculations() {
           </tr>
         </tbody>
       </table>
-      <p className="wb-hint">
-        Voltage, current, wire sizing and protection results appear here from Phase 5, once parts
-        are wired.
-      </p>
     </div>
+  );
+}
+
+/** Site temperatures in °C, committed on change (merged into one timeline card). */
+function SiteTemp({ field, label }: { field: "minAmbientC" | "maxAmbientC"; label: string }) {
+  const v = useDoc().site[field];
+  return (
+    <label>
+      {label}{" "}
+      <input
+        key={v}
+        type="number"
+        className="wb-input"
+        data-testid={`site-${field}`}
+        defaultValue={v}
+        step={1}
+        onBlur={(e) => {
+          const n = Number(e.target.value);
+          if (Number.isFinite(n) && n !== v)
+            void useWb.getState().dispatch({ type: "site.update", patch: { [field]: n } });
+          else e.target.value = String(v);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+        }}
+      />{" "}
+      °C
+    </label>
+  );
+}
+
+/** PV strings traced from the wires: status, input and the string voltages at the site temperatures. */
+function CircuitTable() {
+  const doc = useDoc();
+  const r = circuitReport(doc);
+  const name = (id: string) => Object.values(doc.nodes).find((n) => n.partId === id)?.name ?? id;
+  return (
+    <section className="wb-circuit" aria-label="PV strings" data-testid="circuit">
+      <h3 className="wb-subhead">PV strings</h3>
+      <div className="wb-circuit-site">
+        <SiteTemp field="minAmbientC" label="Record low" />
+        <SiteTemp field="maxAmbientC" label="Design high" />
+        <span className="wb-hint">
+          Voc is taken at the low, Vmp at the high (cells in full sun).
+        </span>
+      </div>
+      {r.strings.length === 0 ? (
+        <p className="wb-hint">
+          No string yet. With the Wire tool, join one module&apos;s + to the next module&apos;s −,
+          then run the first − and the last + to an MPPT input.
+        </p>
+      ) : (
+        <table className="wb-table" aria-label="Strings">
+          <thead>
+            <tr>
+              <th scope="col">String</th>
+              <th scope="col">Modules</th>
+              <th scope="col">Status</th>
+              <th scope="col">Input</th>
+              <th scope="col">Voc cold</th>
+              <th scope="col">Vmp hot</th>
+              <th scope="col">Isc × 1.25</th>
+            </tr>
+          </thead>
+          <tbody>
+            {r.strings.map((s) => (
+              <tr key={s.id} data-testid="string-row">
+                <th scope="row">{s.id}</th>
+                <td title={s.moduleIds.map(name).join(" → ")}>{s.moduleIds.length}</td>
+                <td>
+                  <span
+                    className={s.status === "closed" ? "is-ok" : "is-warn"}
+                    data-testid="string-status"
+                  >
+                    {STATUS_TEXT[s.status]}
+                  </span>{" "}
+                  <span className="wb-hint">{s.reason}</span>
+                </td>
+                <td>{s.inputLabel ?? "—"}</td>
+                <td>{s.values ? `${s.values.vocColdV.toFixed(1)} V` : "not available"}</td>
+                <td>{s.values ? `${s.values.vmpHotV.toFixed(1)} V` : "not available"}</td>
+                <td>{s.values ? `${s.values.iscDesignA.toFixed(2)} A` : "not available"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {r.unstrung.length > 0 && r.strings.length > 0 && (
+        <p className="wb-hint">Not in a string: {r.unstrung.map(name).join(", ")}.</p>
+      )}
+    </section>
   );
 }
 

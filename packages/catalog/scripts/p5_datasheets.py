@@ -216,6 +216,19 @@ def din_devices():
         prot("ats-din", 2, 4, 63, 230, None, 6), changeover_ports(), 38,
         ["ATS", "dual power", "automatic transfer switch", "63A", "2P"],
         GEN + " Width of 4 modules is typical for the cheap DIN dual-power ATS but not checked (VERIFY).")
+    # slice 10: DC busbar terminal blocks for the combiner builder (strings joined per output)
+    def busbar_ports(n):
+        out = []
+        for k in range(n):
+            x = round(-0.009 * n + 0.018 * (k + 0.5), 4)
+            out.append(port(f"p{k + 1}", "dc-terminal", x, 0.085, 1, f"+ {k + 1}", "+", "bus+"))
+            out.append(port(f"n{k + 1}", "dc-terminal", x, 0.005, -1, f"− {k + 1}", "-", "bus-"))
+        return out
+    for n in (2, 4):
+        dev(f"generic-din-busbar-dc-{n}way", f"DC busbar terminal block 2P, {n} way per pole, 125 A 1000 V DC", n,
+            prot("terminal-block", 2, n, 125, None, 1000, 10), busbar_ports(n), 6 + 2 * n,
+            ["terminal-block", "busbar", "combiner", f"{n} way"],
+            GEN + " Joins up to " + str(n) + " conductors per pole; width and rating typical, not checked (VERIFY).")
     save("din-devices.json", din)
 
 

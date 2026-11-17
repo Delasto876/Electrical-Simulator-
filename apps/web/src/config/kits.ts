@@ -12,6 +12,8 @@ export interface KitDevice {
   catalogId: string;
   row: number;
   slot: number;
+  /** Prefix for the device's Browser name and terminal labels ("IN1", "OUT2 SPD"). */
+  label?: string;
 }
 
 export interface Kit {

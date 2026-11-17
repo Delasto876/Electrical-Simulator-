@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SURFACE_TYPES } from "@solar-sim/engine";
+import { SURFACE_TYPES, WIRE_END_KINDS } from "@solar-sim/engine";
 import { type WbSnapshot } from "./wbStore";
 import {
   DEFAULT_TILT,
@@ -54,6 +54,17 @@ const BaseCommandSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("part.rotate"), id: z.string(), rotDeg: z.number() }),
   z.object({ type: z.literal("part.delete"), id: z.string() }),
   z.object({ type: z.literal("tilt.update"), patch: TiltSettingsSchema.partial() }),
+  z.object({
+    type: z.literal("part.swap"),
+    id: z.string(),
+    catalogId: z.string(),
+    x: z.number().optional(),
+    z: z.number().optional(),
+  }),
+  z.object({
+    type: z.literal("site.update"),
+    patch: z.object({ minAmbientC: z.number(), maxAmbientC: z.number() }).partial(),
+  }),
   z.object({ type: z.literal("guide.add"), guide: GuideSchema }),
   z.object({ type: z.literal("guide.move"), id: z.string(), at: z.number() }),
   z.object({ type: z.literal("guide.lock"), id: z.string(), locked: z.boolean() }),
@@ -131,6 +142,8 @@ const BaseCommandSchema = z.discriminatedUnion("type", [
       .string()
       .regex(/^#[0-9a-fA-F]{6}$/)
       .optional(),
+    endA: z.enum(WIRE_END_KINDS).nullable().optional(),
+    endB: z.enum(WIRE_END_KINDS).nullable().optional(),
   }),
   z.object({
     type: z.literal("surface.add"),
@@ -277,6 +290,21 @@ MIGRATIONS[5] = (file) => {
     ...file,
     schemaVersion: 6,
     snapshot: { ...snap, initial: { ...initial, schemaVersion: 6 } },
+  };
+};
+
+// 6 → 7 (slice 9): wire ends may name their fitting (optional; absent = the mating half) and the
+// document carries site design temperatures for string voltages.
+MIGRATIONS[6] = (file) => {
+  const snap = (file.snapshot ?? {}) as Record<string, unknown>;
+  const initial = (snap.initial ?? {}) as Record<string, unknown>;
+  return {
+    ...file,
+    schemaVersion: 7,
+    snapshot: {
+      ...snap,
+      initial: { ...initial, schemaVersion: 7, site: { minAmbientC: -10, maxAmbientC: 40 } },
+    },
   };
 };
 

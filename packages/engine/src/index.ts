@@ -30,6 +30,7 @@ export * from "./mounting/placement";
 export * from "./mounting/bom";
 export * from "./ports/compat";
 export * from "./strings/stringSizing";
+export * from "./strings/netlist";
 export * from "./circuit/pvInput";
 export * from "./drc/electrical";
 export * from "./protection/ocpd";

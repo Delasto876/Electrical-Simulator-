@@ -85,6 +85,21 @@ export const ISSUE_CODES = {
     explain:
       "Both string ends must be cabled to an MPPT input. An open MC4 end is a shock and arcing hazard.",
   },
+  STRING_CROSSED: {
+    title: "String ends on two different inputs",
+    explain:
+      "A string's + and − must land on the same MPPT input (or the same combiner). Split across two inputs, no current can flow.",
+  },
+  CIRCUIT_SHORT: {
+    title: "Short circuit",
+    explain:
+      "A conductor joins + and − of the same source. PV modules survive a short, but the fault current flows in every connector and an arc forms when it is opened.",
+  },
+  WIRE_END_OPEN: {
+    title: "Wire end not connected",
+    explain:
+      "The wire reaches the terminal but its end cannot connect there (no mating connector, or a connector the terminal does not take). The circuit is open at this point.",
+  },
   MODULES_UNSTRUNG: {
     title: "Modules not in any string",
     explain: "These modules produce nothing until they are wired into a string.",

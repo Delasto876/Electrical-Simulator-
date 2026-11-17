@@ -3,7 +3,7 @@ import type { WbDoc } from "../state/wbDoc";
 import { partInfo } from "./partInfo";
 import { cutFromStock, mitreCutList, stockSummary } from "@solar-sim/engine";
 import { WIRE_END_ALLOWANCE_M, WIRE_SLACK_FRACTION } from "../../config/wireColors";
-import { racewayLocal, racewaySpecOf, wireGeom, allTerminals } from "./wireKit";
+import { racewayLocal, racewaySpecOf, wireGeom, allTerminals, endFitting } from "./wireKit";
 
 /**
  * BILL OF MATERIALS from the placed parts: one row per kind of part with its
@@ -120,6 +120,35 @@ export function bomOf(doc: WbDoc): BomRow[] {
     const buy = g.lengthM * (1 + WIRE_SLACK_FRACTION) + 2 * WIRE_END_ALLOWANCE_M;
     const w = wireLen.get(p.catalogId) ?? { m: 0, n: 0 };
     wireLen.set(p.catalogId, { m: w.m + buy, n: w.n + 1 });
+  }
+  // wire-end fittings: MC4 halves (catalog connectors), lugs and ferrules
+  const ends = new Map<string, number>();
+  for (const p of Object.values(doc.parts)) {
+    if (!p.wire) continue;
+    const g = wireGeom(doc, p, terms);
+    for (const [end, t] of [
+      [p.wire.a, g.a],
+      [p.wire.b, g.b],
+    ] as const) {
+      const k = endFitting(end, t);
+      if (k !== "bare") ends.set(k, (ends.get(k) ?? 0) + 1);
+    }
+  }
+  const END_PART: Record<string, string> = {
+    "mc4-male": "generic-mc4-male",
+    "mc4-female": "generic-mc4-female",
+  };
+  for (const [k, n] of ends) {
+    const id = END_PART[k];
+    const info = id ? partInfo(id) : undefined;
+    add(
+      `end|${k}`,
+      info?.label ?? (k === "lug" ? "Ring lug (size to the stud)" : "Wire ferrule"),
+      n,
+      "ea",
+      "one per wire end that carries it",
+      info?.verified ?? false,
+    );
   }
   for (const [catalogId, w] of wireLen) {
     const info = partInfo(catalogId);

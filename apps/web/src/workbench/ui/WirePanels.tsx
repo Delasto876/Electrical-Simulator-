@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { X } from "lucide-react";
 import { isCategory } from "@solar-sim/catalog";
-import { mitreCutList } from "@solar-sim/engine";
+import { matingEnd, mitreCutList, WIRE_END_KINDS, type WireEndKind } from "@solar-sim/engine";
+import { circuitReport } from "../model/circuitKit";
 import { catalog } from "../../app/catalog";
 import { evalLength, formatLength } from "../lib/units";
 import {
@@ -16,6 +17,7 @@ import {
   wireIssuesFor,
   wiresOf,
   type Terminal,
+  wireEndsCheck,
 } from "../model/wireKit";
 import { useDoc, useWb } from "../state/wbStore";
 import { selectNode, useView } from "../state/wbView";
@@ -330,6 +332,14 @@ export function WireToolBar() {
   );
 }
 
+const END_LABEL: Record<WireEndKind, string> = {
+  "mc4-male": "MC4 male (pin)",
+  "mc4-female": "MC4 female (socket)",
+  lug: "Ring lug",
+  ferrule: "Ferrule",
+  bare: "Bare, stripped",
+};
+
 /** Properties of a selected wire. */
 export function WireSection({ partId }: { partId: string }) {
   const doc = useDoc();
@@ -337,13 +347,50 @@ export function WireSection({ partId }: { partId: string }) {
   const w = doc.parts[partId];
   if (!w?.wire) return null;
   const g = wireGeom(doc, w);
-  const issues = g.a && g.b ? wireIssuesFor(w.id, g.a, g.b, w.catalogId) : [];
+  const issues =
+    g.a && g.b
+      ? [...wireIssuesFor(w.id, g.a, g.b, w.catalogId), ...wireEndsCheck(w, g.a, g.b).issues]
+      : [];
   const cable = cableSpecOf(w.catalogId);
+  const conducts = circuitReport(doc).conducting.has(w.id);
   return (
     <Section title="Wire">
       <Row label="From">{g.a?.label ?? "—"}</Row>
       <Row label="To">{g.b?.label ?? "—"}</Row>
       <Row label="Polarity">{g.a?.polarity ?? g.b?.polarity ?? "—"}</Row>
+      <Row label="Connected">
+        <span data-testid="wire-conducts" className={conducts ? "" : "is-warn"}>
+          {conducts ? "Yes, both ends" : "No: the circuit is open at this wire"}
+        </span>
+      </Row>
+      {(["a", "b"] as const).map((side) => {
+        const t = side === "a" ? g.a : g.b;
+        const end = w.wire![side];
+        return (
+          <Row key={side} label={side === "a" ? "End at From" : "End at To"}>
+            <select
+              className="wb-input"
+              data-testid={`wire-end-${side}`}
+              aria-label={`Fitting on the wire end at ${t?.label ?? side}`}
+              value={end.end ?? ""}
+              onChange={(e) =>
+                void useWb.getState().dispatch({
+                  type: "wire.update",
+                  id: w.id,
+                  [side === "a" ? "endA" : "endB"]: (e.target.value || null) as WireEndKind | null,
+                })
+              }
+            >
+              <option value="">Mating ({END_LABEL[t ? matingEnd(t) : "bare"]})</option>
+              {WIRE_END_KINDS.map((k) => (
+                <option key={k} value={k}>
+                  {END_LABEL[k]}
+                </option>
+              ))}
+            </select>
+          </Row>
+        );
+      })}
       <Row label="Length">
         <span data-testid="wire-length">{formatLength(g.lengthM, unit, 0)}</span>
       </Row>

@@ -4,22 +4,25 @@ import {
   directRoute,
   fillIssue,
   localToWorld,
+  matingEnd,
   NEC_GENERIC,
   polylineLength,
   routeThrough,
   skinHeightM,
   terminalLoadProblems,
   trunkingFill,
+  wireEndProblems,
   wireProblems,
   type FillResult,
   type Issue,
   type SurfaceSpec,
   type TerminalRef,
+  type WireEndKind,
 } from "@solar-sim/engine";
 import { isCategory } from "@solar-sim/catalog";
 import { catalogById } from "../../app/catalog";
 import { getCustomPart } from "../state/customParts";
-import type { PlacedPart, WbDoc } from "../state/wbDoc";
+import type { PlacedPart, WbDoc, WireEnd } from "../state/wbDoc";
 import { devicePose } from "./enclosureGeom";
 import { orientInfo, partInfo } from "./partInfo";
 import { moduleSeat } from "./railKit";
@@ -40,6 +43,9 @@ export interface Terminal extends TerminalRef {
   partId: string;
   portId: string;
   gender?: string | undefined;
+  role: "source" | "input" | "other";
+  /** Catalog port group (MPPT "mppt1", DIN "line"/"load", combiner "in1" …). */
+  group?: string | undefined;
   surfaceId: string;
   /** Position on its surface (surface frame) and in the world [m]. */
   local: V3;
@@ -121,6 +127,7 @@ interface RawPort {
   type: string;
   polarity?: string | undefined;
   gender?: string | undefined;
+  group?: string | undefined;
   position: V3;
   direction: V3;
 }
@@ -172,6 +179,7 @@ function rawPorts(catalogId: string): RawPort[] {
       type: q.type,
       polarity: q.polarity,
       gender: q.gender,
+      group: q.group,
       position: q.position as V3,
       direction: q.direction as V3,
     }));
@@ -180,6 +188,25 @@ function rawPorts(catalogId: string): RawPort[] {
 /** Short name of a part for terminal labels: its Browser name. */
 function partName(doc: WbDoc, partId: string): string {
   return Object.values(doc.nodes).find((n) => n.partId === partId)?.name ?? partId;
+}
+
+/**
+ * What a terminal does in a circuit: a PV module's + and − leads are sources;
+ * an inverter's (or MPPT controller's) PV inputs are inputs.
+ */
+export function terminalRole(
+  catalogId: string,
+  q: { type: string; polarity?: string | undefined; group?: string | undefined },
+): Terminal["role"] {
+  const cat = catalogById.get(catalogId)?.category;
+  if (cat === "pv-module" && (q.polarity === "+" || q.polarity === "-")) return "source";
+  if (
+    cat === "inverter" &&
+    (q.type === "mc4" || q.type === "dc-terminal") &&
+    /^(mppt|pv)/i.test(q.group ?? "")
+  )
+    return "input";
+  return "other";
 }
 
 export function terminalsOf(doc: WbDoc, part: PlacedPart): Terminal[] {
@@ -197,6 +224,8 @@ export function terminalsOf(doc: WbDoc, part: PlacedPart): Terminal[] {
       type: q.type,
       polarity: q.polarity,
       gender: q.gender,
+      role: terminalRole(part.catalogId, q),
+      group: q.group,
       surfaceId: part.surfaceId,
       local,
       world: toWorld(spec, local),
@@ -348,6 +377,26 @@ export function wireIssuesFor(wireId: string, a: Terminal, b: Terminal, cableId:
   return wireProblems(wireId, a, b, cableSpecOf(cableId));
 }
 
+/** The fitting on a wire end: what the user chose, else the half that mates with the terminal. */
+export function endFitting(end: WireEnd, t: Terminal | undefined): WireEndKind {
+  return end.end ?? (t ? matingEnd(t) : "bare");
+}
+
+/** Whether each end of a wire connects, and the problems where it does not. */
+export function wireEndsCheck(
+  w: PlacedPart,
+  a: Terminal | undefined,
+  b: Terminal | undefined,
+): { a: boolean; b: boolean; issues: Issue[] } {
+  const ra = a ? wireEndProblems(w.id, a, endFitting(w.wire!.a, a)) : undefined;
+  const rb = b ? wireEndProblems(w.id, b, endFitting(w.wire!.b, b)) : undefined;
+  return {
+    a: !!ra?.conducts,
+    b: !!rb?.conducts,
+    issues: [...(ra?.issues ?? []), ...(rb?.issues ?? [])],
+  };
+}
+
 /** Every wiring issue: each wire, crowded terminals, over-full raceways. */
 export function wiringIssues(doc: WbDoc): Issue[] {
   const terms = allTerminals(doc);
@@ -357,6 +406,7 @@ export function wiringIssues(doc: WbDoc): Issue[] {
     const { a, b } = wireGeom(doc, w, terms);
     if (!a || !b) continue;
     out.push(...wireIssuesFor(w.id, a, b, w.catalogId));
+    out.push(...wireEndsCheck(w, a, b).issues);
     for (const t of [a, b]) {
       const u = uses.get(t.key) ?? { terminal: t, wireIds: [] };
       u.wireIds.push(w.id);

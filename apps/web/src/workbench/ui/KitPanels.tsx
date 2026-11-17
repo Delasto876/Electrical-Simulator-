@@ -2,6 +2,12 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight, ShieldAlert } from "lucide-react";
 import type { Kit } from "../../config/kits";
 import { kitCardId, kitFill, kitList, kitOf } from "../model/kits";
+import {
+  COMBINER_LIMITS,
+  combinerId,
+  combinerProblem,
+  type CombinerOptions,
+} from "../model/combinerBuilder";
 import { partInfo } from "../model/partInfo";
 import { placeAtViewCentre, startPlacing } from "../state/placeActions";
 import { useView } from "../state/wbView";
@@ -86,7 +92,104 @@ export function LibraryKits({
           })}
         </ul>
       )}
+      {isOpen && <CombinerBuilder />}
     </section>
+  );
+}
+
+/** Build a PV combiner from inputs, outputs, protection, SPD and isolator; preview it in Properties. */
+function CombinerBuilder() {
+  const [o, setO] = useState<CombinerOptions>({
+    inputs: 4,
+    outputs: 2,
+    protection: "mcb",
+    spd: true,
+    isolator: true,
+  });
+  const why = combinerProblem(o);
+  const set = (p: Partial<CombinerOptions>) => setO((x) => ({ ...x, ...p }));
+  const num = (v: string) => Math.round(Number(v) || 0);
+  return (
+    <details className="wb-combiner" data-testid="combiner-builder">
+      <summary>Build a PV combiner…</summary>
+      <div className="wb-combiner-form">
+        <label>
+          Strings in{" "}
+          <input
+            type="number"
+            className="wb-input"
+            min={1}
+            max={COMBINER_LIMITS.maxInputs}
+            value={o.inputs}
+            data-testid="combiner-inputs"
+            onChange={(e) => set({ inputs: num(e.target.value) })}
+          />
+        </label>
+        <label>
+          Outputs{" "}
+          <input
+            type="number"
+            className="wb-input"
+            min={1}
+            max={COMBINER_LIMITS.maxOutputs}
+            value={o.outputs}
+            data-testid="combiner-outputs"
+            onChange={(e) => set({ outputs: num(e.target.value) })}
+          />
+        </label>
+        <label>
+          Protection{" "}
+          <select
+            className="wb-input"
+            value={o.protection}
+            data-testid="combiner-protection"
+            onChange={(e) => set({ protection: e.target.value as CombinerOptions["protection"] })}
+          >
+            <option value="mcb">2P DC breaker per string</option>
+            <option value="fuse">gPV fuse in + and −</option>
+          </select>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={o.spd}
+            data-testid="combiner-spd"
+            onChange={(e) => set({ spd: e.target.checked })}
+          />{" "}
+          DC SPD per output
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={o.isolator}
+            data-testid="combiner-isolator"
+            onChange={(e) => set({ isolator: e.target.checked })}
+          />{" "}
+          DC isolator per output
+        </label>
+        {why && (
+          <p className="wb-warn" role="status" data-testid="combiner-problem">
+            {why}
+          </p>
+        )}
+        <button
+          type="button"
+          className="wb-btn wb-btn-ok"
+          data-testid="combiner-preview"
+          disabled={!!why}
+          title={why ?? "Show the layout in Properties, then place it"}
+          onClick={() =>
+            useView.getState().set({
+              libraryPart: `kit:${combinerId(o)}`,
+              selection: null,
+              layout: { ...useView.getState().layout, rightOpen: true },
+            })
+          }
+        >
+          Preview layout
+        </button>
+      </div>
+    </details>
   );
 }
 
@@ -130,8 +233,10 @@ export function KitProperties({ id }: { id: string }) {
             return (
               <li key={i}>
                 <span className="wb-kit-slot">
+                  {kit.devices.some((x) => x.row > 0) ? `R${d.row + 1} ` : ""}
                   {d.slot + 1}–{d.slot + (di?.dinModules ?? 1)}
                 </span>{" "}
+                {d.label && <strong>{d.label} · </strong>}
                 {di?.label ?? d.catalogId}
               </li>
             );

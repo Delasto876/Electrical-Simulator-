@@ -9,6 +9,8 @@ import {
   terminalSide,
   trunkingFill,
   wireProblems,
+  matingEnd,
+  wireEndProblems,
   type TerminalRef,
 } from "./rules";
 
@@ -93,6 +95,39 @@ describe("wire rules", () => {
     expect(
       wireProblems("w", t("a", "ground-point", "PE"), t("b", "ac-terminal", "N"))[0]!.fixHint,
     ).toMatch(/ground point/);
+  });
+  it("module leads join + to − (series); + to − on one part is a short", () => {
+    const lead = (id: string, part: string, pol: string): TerminalRef => ({
+      ...t(id, "mc4", pol),
+      partId: part,
+      role: "source",
+    });
+    expect(wireProblems("w", lead("a", "m1", "+"), lead("b", "m2", "-"))).toEqual([]);
+    expect(wireProblems("w", lead("a", "m1", "+"), lead("b", "m1", "-"))[0]!.code).toBe(
+      "CIRCUIT_SHORT",
+    );
+    const input = { ...t("i", "mc4", "-"), partId: "inv", role: "input" as const };
+    expect(wireProblems("w", lead("a", "m1", "+"), input)[0]!.code).toBe("POLARITY");
+  });
+  it("wire ends: the mating MC4 half connects, the wrong half or a lug does not", () => {
+    const male = { ...t("p", "mc4", "+"), gender: "male" };
+    const screw = t("s", "dc-terminal", "+");
+    const bolt = t("b", "battery-terminal", "+");
+    expect(matingEnd(male)).toBe("mc4-female");
+    expect(matingEnd({ type: "mc4", gender: "female" })).toBe("mc4-male");
+    expect(matingEnd(bolt)).toBe("lug");
+    expect(matingEnd(screw)).toBe("ferrule");
+    expect(wireEndProblems("w", male, "mc4-female")).toEqual({ conducts: true, issues: [] });
+    const same = wireEndProblems("w", male, "mc4-male");
+    expect(same.conducts).toBe(false);
+    expect(same.issues[0]!.code).toBe("CONNECTOR_MATING");
+    expect(wireEndProblems("w", male, "bare").issues[0]!.code).toBe("WIRE_END_OPEN");
+    expect(wireEndProblems("w", screw, "mc4-male").conducts).toBe(false);
+    expect(wireEndProblems("w", screw, "ferrule").conducts).toBe(true);
+    const loose = wireEndProblems("w", bolt, "bare");
+    expect(loose.conducts).toBe(true);
+    expect(loose.issues[0]!.severity).toBe("warning");
+    expect(wireEndProblems("w", bolt, "lug").issues).toEqual([]);
   });
   it("cable: voltage rating, PV wire on MC4, ground conductor kind", () => {
     const thhn = { kind: "thhn-thwn-2", maxVoltageV: 600, outerDiameterMm: 4 };

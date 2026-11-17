@@ -14,6 +14,105 @@ export interface TerminalRef {
   polarity?: string | undefined;
   /** Highest voltage at this terminal, if known [V]. */
   voltageV?: number | undefined;
+  /** The part it belongs to (series joins and shorts are judged per part). */
+  partId?: string | undefined;
+  /** "source" = a PV module lead; "input" = an inverter or charge-controller PV input. */
+  role?: "source" | "input" | "other" | undefined;
+  gender?: string | undefined;
+}
+
+/** What is fitted on the end of a wire. */
+export type WireEndKind = "mc4-male" | "mc4-female" | "lug" | "ferrule" | "bare";
+export const WIRE_END_KINDS: readonly WireEndKind[] = [
+  "mc4-male",
+  "mc4-female",
+  "lug",
+  "ferrule",
+  "bare",
+];
+
+/**
+ * The end a wire gets by default at a terminal: the mating MC4 half on an MC4
+ * port (female on a male pin, male on a female socket), a lug on battery
+ * terminals and lugs, a ferrule on screw terminals.
+ */
+export function matingEnd(t: Pick<TerminalRef, "type" | "gender">): WireEndKind {
+  if (t.type === "mc4") return t.gender === "female" ? "mc4-male" : "mc4-female";
+  if (t.type === "battery-terminal" || t.type === "dc-lug" || t.type === "ground-point")
+    return "lug";
+  return "ferrule";
+}
+
+/**
+ * Does a wire end with this fitting connect to this terminal? `conducts`
+ * false means the circuit is open there; `issue` says why.
+ */
+export function wireEndProblems(
+  wireId: string,
+  t: TerminalRef,
+  end: WireEndKind,
+): { conducts: boolean; issues: Issue[] } {
+  const ids = [wireId];
+  const isMc4End = end === "mc4-male" || end === "mc4-female";
+  if (t.type === "mc4") {
+    if (!isMc4End)
+      return {
+        conducts: false,
+        issues: [
+          issue(
+            "error",
+            "WIRE_END_OPEN",
+            `The wire end at ${t.label} has a ${end}, which cannot plug into an MC4 port.`,
+            ids,
+            `Crimp an MC4 ${t.gender === "female" ? "male (pin)" : "female (socket)"} on this end.`,
+          ),
+        ],
+      };
+    const g = end === "mc4-male" ? "male" : "female";
+    if (t.gender && g === t.gender)
+      return {
+        conducts: false,
+        issues: [
+          issue(
+            "error",
+            "CONNECTOR_MATING",
+            `${g === "male" ? "Male" : "Female"} MC4 on the wire meets the ${t.gender} MC4 at ${t.label}: they do not mate.`,
+            ids,
+            `Use an MC4 ${g === "male" ? "female (socket)" : "male (pin)"} on this end.`,
+          ),
+        ],
+      };
+    return { conducts: true, issues: [] };
+  }
+  if (isMc4End)
+    return {
+      conducts: false,
+      issues: [
+        issue(
+          "error",
+          "WIRE_END_OPEN",
+          `An MC4 connector cannot land on ${t.label} (a screw or bolt terminal).`,
+          ids,
+          t.type === "battery-terminal" || t.type === "dc-lug"
+            ? "Crimp a lug on this end."
+            : "Fit a ferrule (fine-strand wire) or strip the end bare.",
+        ),
+      ],
+    };
+  if ((t.type === "battery-terminal" || t.type === "dc-lug") && end !== "lug")
+    return {
+      conducts: true,
+      issues: [
+        issue(
+          "warning",
+          "WIRE_END_OPEN",
+          `A ${end} end on the bolt terminal ${t.label} will work loose.`,
+          ids,
+          "Crimp a ring lug sized for the stud.",
+        ),
+      ],
+    };
+  return { conducts: true, issues: [] };
 }
 
 export interface CableRef {
@@ -66,14 +165,38 @@ export function wireProblems(
           : "AC and DC circuits are never joined by a wire: go through the inverter or charger.",
       ),
     );
-  else if (a.polarity && b.polarity && a.polarity !== b.polarity && sa !== "ground")
+  else if (
+    a.polarity &&
+    b.polarity &&
+    a.polarity !== b.polarity &&
+    sa !== "ground" &&
+    a.partId !== undefined &&
+    a.partId === b.partId &&
+    (a.role === "source" || terminalSide(a.type) === "dc")
+  )
+    out.push(
+      issue(
+        "error",
+        "CIRCUIT_SHORT",
+        `${a.label} (${a.polarity}) is wired to ${b.label} (${b.polarity}) on the same part: a short circuit.`,
+        ids,
+        "Wire the + of one module to the − of the next; never + to − on one part.",
+      ),
+    );
+  else if (
+    a.polarity &&
+    b.polarity &&
+    a.polarity !== b.polarity &&
+    sa !== "ground" &&
+    !(a.role === "source" && b.role === "source")
+  )
     out.push(
       issue(
         "error",
         "POLARITY",
         `${a.label} (${a.polarity}) is wired to ${b.label} (${b.polarity}).`,
         ids,
-        "Join like to like: + to +, − to −, L to L, N to N.",
+        "Join like to like: + to +, − to −, L to L, N to N. Only module leads join + to − (series).",
       ),
     );
   if (cable) {

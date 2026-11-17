@@ -6,11 +6,12 @@ import {
   type SurfaceSpec,
   type SurfaceType,
 } from "@solar-sim/engine";
-import { cutRail } from "@solar-sim/engine";
+import { cutRail, type WireEndKind } from "@solar-sim/engine";
 import type {
   Guide,
   Measurement,
   PlacedPart,
+  SiteSettings,
   StockPiece,
   TagColor,
   TiltSettings,
@@ -36,6 +37,8 @@ export type WbCommand =
   | { type: "part.move"; id: string; x: number; z: number }
   | { type: "part.rotate"; id: string; rotDeg: number }
   | { type: "part.delete"; id: string }
+  /** Replace a part's catalog item (keeping its id, node and wiring), optionally moving it. */
+  | { type: "part.swap"; id: string; catalogId: string; x?: number; z?: number }
   /** A wire between two terminals (or a trunking/conduit run): a placed part with its own node. */
   | { type: "wire.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
   | { type: "raceway.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
@@ -47,8 +50,12 @@ export type WbCommand =
       racewayId?: string | null;
       /** Insulation colour (#rrggbb). */
       color?: string;
+      /** Fitting on end a / b; null = back to the mating half. */
+      endA?: WireEndKind | null;
+      endB?: WireEndKind | null;
     }
   | { type: "tilt.update"; patch: Partial<TiltSettings> }
+  | { type: "site.update"; patch: Partial<SiteSettings> }
   | { type: "guide.add"; guide: Guide }
   | { type: "guide.move"; id: string; at: number }
   | { type: "guide.lock"; id: string; locked: boolean }
@@ -107,6 +114,7 @@ export const COMMAND_ICON: Record<WbCommandType, string> = {
   "doc.rename": "pencil",
   "surface.update": "sliders",
   "surface.setType": "layers",
+  "part.swap": "rotate",
   "node.rename": "pencil",
   "node.visible": "eye",
   "node.locked": "lock",
@@ -117,6 +125,7 @@ export const COMMAND_ICON: Record<WbCommandType, string> = {
   "part.rotate": "rotate",
   "part.delete": "trash",
   "tilt.update": "sliders",
+  "site.update": "sliders",
   "guide.add": "ruler",
   "guide.move": "ruler",
   "guide.lock": "lock",
@@ -181,8 +190,12 @@ export function commandLabel(c: WbCommand, doc: WbDoc): string {
       return `Rotate ${nodeOfPart(doc, c.id)}`;
     case "part.delete":
       return `Delete ${nodeOfPart(doc, c.id)}`;
+    case "part.swap":
+      return `Swap ${nodeOfPart(doc, c.id)}`;
     case "tilt.update":
       return `Tilt ${Object.keys(c.patch).join(", ")}`;
+    case "site.update":
+      return `Site temperatures ${c.patch.minAmbientC ?? "·"} / ${c.patch.maxAmbientC ?? "·"} °C`;
     case "guide.add":
       return `Guide ${c.guide.axis} = ${(c.guide.at * 1000).toFixed(0)} mm`;
     case "guide.move":
@@ -322,6 +335,16 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
       if (!s || surfaceLocked(doc, c.id) || s.type === c.surfaceType) return doc;
       return { ...doc, surfaces: { ...doc.surfaces, [c.id]: setSurfaceType(s, c.surfaceType) } };
     }
+    case "part.swap": {
+      const p = doc.parts[c.id];
+      if (!p || partLocked(doc, c.id) || p.catalogId === c.catalogId) return doc;
+      return produce(doc, (d) => {
+        const q = d.parts[c.id]!;
+        q.catalogId = c.catalogId;
+        if (c.x !== undefined) q.x = c.x;
+        if (c.z !== undefined) q.z = c.z;
+      });
+    }
     case "node.rename": {
       const n = doc.nodes[c.id];
       const name = c.name.trim().slice(0, 80);
@@ -384,13 +407,26 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
       const cable = c.cableId ?? p.catalogId;
       const via = c.racewayId === undefined ? p.wire.racewayId : c.racewayId;
       const color = c.color ?? p.wire.color;
+      const endA = c.endA === undefined ? p.wire.a.end : (c.endA ?? undefined);
+      const endB = c.endB === undefined ? p.wire.b.end : (c.endB ?? undefined);
       if (via && !doc.parts[via]?.raceway) return doc;
-      if (cable === p.catalogId && via === p.wire.racewayId && color === p.wire.color) return doc;
+      if (
+        cable === p.catalogId &&
+        via === p.wire.racewayId &&
+        color === p.wire.color &&
+        endA === p.wire.a.end &&
+        endB === p.wire.b.end
+      )
+        return doc;
       return produce(doc, (d) => {
         const q = d.parts[c.id]!;
         q.catalogId = cable;
         q.wire!.racewayId = via;
         if (color) q.wire!.color = color;
+        if (endA) q.wire!.a.end = endA;
+        else delete q.wire!.a.end;
+        if (endB) q.wire!.b.end = endB;
+        else delete q.wire!.b.end;
         // the wire's name carries its colour ("W1 Blue 10 AWG"): keep it true
         const old = p.wire!.color;
         if (color && old && color !== old) {
@@ -655,6 +691,11 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
         }
       });
     }
+    case "site.update": {
+      const s = { ...doc.site, ...c.patch };
+      if (!(s.minAmbientC < s.maxAmbientC)) return doc;
+      return JSON.stringify(s) === JSON.stringify(doc.site) ? doc : { ...doc, site: s };
+    }
     case "tilt.update": {
       const t = { ...doc.tilt, ...c.patch };
       t.tiltDeg = Math.min(60, Math.max(0, t.tiltDeg));
@@ -714,6 +755,8 @@ export function mergeCommands(prev: WbCommand, next: WbCommand): WbCommand | und
   if (prev.type === "part.rotate" && next.type === "part.rotate" && prev.id === next.id)
     return next;
   if (prev.type === "tilt.update" && next.type === "tilt.update")
+    return { ...next, patch: { ...prev.patch, ...next.patch } };
+  if (prev.type === "site.update" && next.type === "site.update")
     return { ...next, patch: { ...prev.patch, ...next.patch } };
   if (prev.type === "guide.move" && next.type === "guide.move" && prev.id === next.id) return next;
   if (prev.type === "part.pose" && next.type === "part.pose" && prev.id === next.id) return next;

@@ -1,9 +1,9 @@
 # HANDOFF — Solar Workbench
 
-Commit `0d85a60`, branch `claude/trusting-hamilton-05vq5g`, verified 2026-11-16. Update after every slice.
+Branch `claude/trusting-hamilton-05vq5g`, verified 2026-11-17 after slices 9–11 (strings, combiner builder, roof swap, metric rails). Update after every slice.
 **`END-GOAL.md` and `docs/SPEC-v2.md` are not in this repository.**
 
-Two apps, one build. **Workbench** (default route, `apps/web/src/workbench/`) is the product. **Classic** (`#/classic`, rest of `apps/web/src/`) is the first-generation designer and the only UI wired to the electrical engine. Statuses are for the Workbench unless a row says Classic.
+Two apps, one build. **Workbench** (default route, `apps/web/src/workbench/`) is the product. **Classic** (`#/classic`, rest of `apps/web/src/`) is the first-generation designer with the full electrical model (sizing, OCPD, simulation, reports). Statuses are for the Workbench unless a row says Classic.
 
 ## 1. How to run
 
@@ -12,11 +12,11 @@ Node 22.23.4 (`engines >=22`), pnpm 10.28.0. Run from the repo root.
 - `pnpm install --frozen-lockfile`: ok.
 - `pnpm dev` → http://localhost:5173 (Classic `/#/classic`): ok, `docs/screenshots/handoff-current.png`.
 - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm build`: pass.
-- `pnpm test`: 614/614. `pnpm coverage` (engine, threshold 90 %): 98.4 %.
+- `pnpm test`: 628/628. `pnpm coverage` (engine, threshold 90 %): 98.5 %.
 - `pnpm e2e -- --trace off` (preview :4173, rewrites `docs/screenshots/`): 93/93 pass (laptop + tablet, 16.6 min)
 - `pnpm build:artifact` → `apps/web/dist-artifact/`: not re-run.
 
-Run `pkill -f "vite.js preview"` before E2E (a stale server is reused). Env: `VITE_NO_CLASSIC=1`, `CI`.
+Run `pkill -f "vite.js preview"` before E2E (a stale server is reused).
 
 ## 2. Stack and layout
 
@@ -41,7 +41,7 @@ TypeScript 6 strict, React 19, three.js + @react-three/fiber/drei, Zustand + Imm
 5. Parts: catalog (Zod, `Port[]`) or custom parts (`state/customParts.ts`); `model/partInfo.ts` reduces both to footprint, height, model, DIN data.
 6. One registry (`state/commandRegistry.ts`) feeds ribbon, search, marking menu, shortcuts.
 7. Tools: small stores (`placeState`, `railToolState`, `wireState`); `model/*` decides, `state/*Actions.ts` dispatches.
-8. Engine: synchronous pure calls from `model/` (`railKit.ts`, `wireKit.ts`). **The Workbench never calls the electrical engine.**
+8. Engine: synchronous pure calls from `model/` (`railKit.ts`, `wireKit.ts`, `circuitKit.ts`). Electrical in the Workbench: string tracing and MPPT checks only.
 9. 3D: `scene/WorkbenchCanvas.tsx`; one group per surface (`SurfaceAssembly.tsx`) with surface-frame layers; wires in world frame; `frameloop="demand"`.
 
 ## 4. Key files
@@ -72,102 +72,99 @@ Under `apps/web/src/workbench/` unless prefixed `packages/`.
 22. `ui/OptionsBar.tsx`, `RailToolBar.tsx`, `WirePanels.tsx`: tool bars.
 23. `packages/engine/src/assembly/{rails,modules,mechRules,attach}.ts`: mounting rules.
 24. `packages/engine/src/surface/{surface,structure,placement}.ts`: surfaces, structure, frames.
-25. `packages/engine/src/strings/stringSizing.ts`, `conductors/`, `protection/ocpd.ts`, `circuit/mna.ts`: electrical (Classic only).
+25. `model/circuitKit.ts`, `packages/engine/src/strings/{netlist,stringSizing}.ts`: strings, circuit status, MPPT checks. `conductors/`, `protection/ocpd.ts`, `circuit/mna.ts`: Classic only.
 
 ## 5. Data model
 
 - `WbDoc` (`state/wbDoc.ts`): `surfaces`, `nodes`, `rootIds`, `parts`, `guides`, `measurements`, `tilt`, `stock`, `offcuts`.
 - `PlacedPart` (same): `id`, `catalogId`, `surfaceId`, `x`, `z` [m], `rotDeg`, `mount{enclosureId,row,slot}`, `free`, `rail{lengthM,stockId,cutStart,cutEnd,runId}`, `clamp{railId,t,kind}`, `splice{railA,railB,bonded}`, `module{orientation}`, `wire{a,b,racewayId,color}`, `raceway{points}`.
-- `WireEnd` (same): `partId`, `portId`. No connector, joint or connection-state type exists.
+- `WireEnd` (same): `partId`, `portId`, `end?` (`mc4-male|mc4-female|lug|ferrule|bare`; absent = mating half). `site`: `minAmbientC`, `maxAmbientC`. Both schema 7.
+- `CircuitReport` (`model/circuitKit.ts`): strings (`moduleIds`, `status`, `input`, `values`), `unstrung`, `status`, `conducting`.
 - `TreeNode` (same): `kind`, `parentId`, `children`, `surfaceId`, `partId`, `visible`, `locked`.
 - `SurfaceSpec` (`packages/engine/src/surface/surface.ts`): `type`, `widthM`, `depthM`, `pitchDeg`, `azimuthDeg`, `thicknessMm`, `secondPlane`, `corrugation`, `originM`.
 - `Part` / `Port` (`packages/catalog/src/schema/part.ts`, `common.ts`): `id`, `category`, `dimensions` [mm], `ports[]{id,type,polarity,gender,position,direction,group,connector}`, `verified`.
-- `Terminal` (`model/wireKit.ts`): `key`, `partId`, `portId`, `type`, `polarity`, `gender`, `local`, `world`, `dir`.
+- `Terminal` (`model/wireKit.ts`): `key`, `partId`, `portId`, `type`, `polarity`, `gender`, `role`, `group`, `local`, `world`, `dir`.
 - Also: `WbCommand`, `Issue` (`engine/drc/issue.ts`), `Kit`, `PartInfo`.
 
 ## 6. Gap table
 
-Statuses: Done (verified) 8 · Done (not verified) 0 · Partial 21 · Missing 5 · Broken 0.
+Statuses: Done (verified) 10 · Done (not verified) 0 · Partial 23 · Missing 1 · Broken 0.
 
-| ID  | Status          | Evidence                                                                    | Missing                                                                                            | Effort |
-| --- | --------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------ |
-| M1  | Done (verified) | `engine/surface/*`, `surface.test.ts`                                       |                                                                                                    |        |
-| M2  | Partial         | `catalog/data/roof-attachments.json`, `tilt-legs.json`; `wb-phase2.spec.ts` | flashing L-foot; adjustable tile hook; attachment rule for tilt legs                               | S      |
-| M3  | Partial         | `engine/mounting/tilt.ts` `legLengths`; `ui/PartPanels.tsx` `TiltSection`   | heights → tilt; `d` from clamping zones (typed today)                                              | S      |
-| M4  | Partial         | `model/footRows.ts`, `editTools.ts`, `mechRules.ts`; `wb-phase8.spec.ts`    | Align, Distribute (`mod.align` placeholder); symmetric offsets; both-side dims while dragging      | M      |
-| M5  | Partial         | `engine/assembly/rails.ts`; `wb-phase3.spec.ts`                             | stock 14–24 ft only (user request, D-143); no metric or user-defined stock                         | S      |
-| M6  | Done (verified) | `engine/assembly/modules.ts`; `wb-phase3.spec.ts`                           |                                                                                                    |        |
-| M7  | Partial         | `rowPitchNoShadingMm`, `engine/mounting/tilt.ts`                            | UI; α from latitude                                                                                | S      |
-| M8  | Partial         | `model/railKit.ts`, `model/bom.ts`                                          | weight; wind uplift; rails by cut length                                                           | M      |
-| W1  | Partial         | `block-wall`, `wood-wall`; `wb-phase4.spec.ts`                              | strut rack; Wall view; guides on first surface only                                                | S      |
-| W2  | Partial         | `partInfo.ts` `orientInfo`; `wb-phase4.spec.ts`                             | align/distribute; mounting holes; clearance warnings                                               | M      |
-| W3  | Partial         | `scene/RacewayLayer.tsx`; `wb-phase7.spec.ts`                               | lid; fill gauge graphic                                                                            | S      |
-| W4  | Partial         | `scene/EnclosureLook.tsx`; `wb-phase5.spec.ts`                              | DIN boxes only; no animation; labels only in Wire tool                                             | M      |
-| C1  | Missing         | fixed `config/kits.ts`                                                      | builder                                                                                            | L      |
-| C2  | Partial         | `kit-pv-2in2out`; `kits.test.ts`                                            | six other presets                                                                                  | M      |
-| C3  | Partial         | `kit-battery-disconnect`                                                    | disconnect switch part; kA, voltage check                                                          | S      |
-| C4  | Partial         | `EnclosureLook.tsx`                                                         | IN1+/OUT1+ labels; busbars                                                                         | M      |
-| C5  | Missing         | Classic `src/model/deviceLinks.ts`; `engine/protection/ocpd.ts`             | all of it                                                                                          | L      |
-| K1  | Partial         | `state/wireActions.ts`; `wiring.test.ts`                                    | typed length, cut, strip, mm²; wires exist only between two terminals                              | M      |
-| K2  | Missing         | `connectors.json` unused                                                    | wire ends                                                                                          | M      |
-| K3  | Partial         | `engine/ports/compat.ts` (tested)                                           | Wire tool ignores gender, **refuses + to −**; catalog + male / − female (D-013), END-GOAL opposite | M      |
-| K4  | Missing         | `engine/strings/stringSizing.ts`; Classic `src/model/strings.ts`            | builder                                                                                            | M      |
-| K5  | Missing         | `engine/graph/unionFind.ts`, `circuit/mna.ts`                               | connection state; circuit status                                                                   | L      |
-| S1  | Partial         | engine (tested); Classic `phase3.spec.ts`                                   | Workbench adapter, UI                                                                              | L      |
-| S2  | Partial         | `model/issues.ts`; `wb-phase3.spec.ts`                                      | leg range, uplift                                                                                  | S      |
-| S3  | Partial         | Classic `engine/sim/simulate.ts`, `phase6.spec.ts`                          | Workbench; peak-sun-hours; waterfall                                                               | M      |
-| S4  | Partial         | Classic `phase6.spec.ts`                                                    | Workbench                                                                                          | M      |
-| S5  | Done (verified) | `ui/RailKitPanels.tsx` `IssuesList`; `wb-phase3.spec.ts`                    |                                                                                                    |        |
-| U1  | Done (verified) | `workbench.spec.ts`                                                         |                                                                                                    |        |
-| U2  | Done (verified) | `wb-phase2.spec.ts`                                                         |                                                                                                    |        |
-| U3  | Done (verified) | `wb-phase2.spec.ts`, `wb-phase6.spec.ts`                                    |                                                                                                    |        |
-| U4  | Done (verified) | `wbState.test.ts`                                                           |                                                                                                    |        |
-| U5  | Partial         | `scene/SceneEnvironment.tsx`                                                | ambient occlusion                                                                                  | M      |
-| U6  | Done (verified) | `ui/PartWizard.tsx`; `wb-phase2.spec.ts`                                    |                                                                                                    |        |
-| U7  | Partial         | BOM tab; Classic `src/reports/*`, `phase7.spec.ts`                          | all `out.*` placeholders                                                                           | L      |
+| ID  | Status          | Evidence                                                                                                         | Missing                                                                                       | Effort |
+| --- | --------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------ |
+| M1  | Done (verified) | `engine/surface/*`, `surface.test.ts`                                                                            |                                                                                               |        |
+| M2  | Partial         | `catalog/data/roof-attachments.json`, `tilt-legs.json`; `wb-phase2.spec.ts`                                      | flashing L-foot; adjustable tile hook; attachment rule for tilt legs                          | S      |
+| M3  | Partial         | `engine/mounting/tilt.ts` `legLengths`; `ui/PartPanels.tsx` `TiltSection`                                        | heights → tilt; `d` from clamping zones (typed today)                                         | S      |
+| M4  | Partial         | `model/footRows.ts`, `editTools.ts`, `mechRules.ts`; `wb-phase8.spec.ts`                                         | Align, Distribute (`mod.align` placeholder); symmetric offsets; both-side dims while dragging | M      |
+| M5  | Done (verified) | feet sticks, metric 2.1–6.0 m, typed length (`config/railStock.ts`); `wb-phase10.spec.ts`                        |                                                                                               |        |
+| M6  | Done (verified) | `engine/assembly/modules.ts`; `wb-phase3.spec.ts`                                                                |                                                                                               |        |
+| M7  | Partial         | `rowPitchNoShadingMm`, `engine/mounting/tilt.ts`                                                                 | UI; α from latitude                                                                           | S      |
+| M8  | Partial         | `model/railKit.ts`, `model/bom.ts`                                                                               | weight; wind uplift; rails by cut length                                                      | M      |
+| W1  | Partial         | `block-wall`, `wood-wall`; `wb-phase4.spec.ts`                                                                   | strut rack; Wall view; guides on first surface only                                           | S      |
+| W2  | Partial         | `partInfo.ts` `orientInfo`; `wb-phase4.spec.ts`                                                                  | align/distribute; mounting holes; clearance warnings                                          | M      |
+| W3  | Partial         | `scene/RacewayLayer.tsx`; `wb-phase7.spec.ts`                                                                    | lid; fill gauge graphic                                                                       | S      |
+| W4  | Partial         | `scene/EnclosureLook.tsx`; `wb-phase5.spec.ts`                                                                   | DIN boxes only; no animation; labels only in Wire tool                                        | M      |
+| C1  | Partial         | `model/combinerBuilder.ts` (in/out, MCB or fuse, SPD, isolator); `combinerBuilder.test.ts`, `wb-phase10.spec.ts` | ratings not sized from the strings' Isc                                                       | M      |
+| C2  | Done (verified) | 7 presets (`COMBINER_PRESETS`); `combinerBuilder.test.ts`, `wb-phase10.spec.ts`                                  |                                                                                               |        |
+| C3  | Partial         | `kit-battery-disconnect`                                                                                         | disconnect switch part; kA, voltage check                                                     | S      |
+| C4  | Partial         | device names IN1/OUT1/OUT1 bus; DC busbar parts; busbars conduct (`circuitKit.ts`)                               | labels drawn on the 3D box                                                                    | S      |
+| C5  | Missing         | Classic `src/model/deviceLinks.ts`; `engine/protection/ocpd.ts`                                                  | all of it                                                                                     | L      |
+| K1  | Partial         | `state/wireActions.ts`; `wiring.test.ts`                                                                         | typed length, cut, strip, mm²; wires exist only between two terminals                         | M      |
+| K2  | Partial         | fitting per wire end (`wireEndProblems`); `circuit.test.ts`, `wb-phase9.spec.ts`                                 | Y-branch, inline connectors as parts                                                          | S      |
+| K3  | Partial         | series + to − between module leads; MC4 mating per end; `wiring.test.ts`                                         | gender convention: catalog + male / − female (D-013), END-GOAL opposite; human to confirm     | S      |
+| K4  | Partial         | strings traced from wires (`strings/netlist.ts`); Calculations → PV strings                                      | string builder / auto-string                                                                  | M      |
+| K5  | Partial         | status closed/open/short/reversed/crossed (`traceStrings`); status bar; `wb-phase9.spec.ts`                      | switch ON/OFF state; battery and AC nets                                                      | M      |
+| S1  | Partial         | Workbench: Voc cold, Vmp hot, Isc × 1.25 vs MPPT (`checkMppt`); `circuit.test.ts`                                | wire size, voltage drop, OCPD in the Workbench                                                | L      |
+| S2  | Partial         | `model/issues.ts`; `wb-phase3.spec.ts`                                                                           | leg range, uplift                                                                             | S      |
+| S3  | Partial         | Classic `engine/sim/simulate.ts`, `phase6.spec.ts`                                                               | Workbench; peak-sun-hours; waterfall                                                          | M      |
+| S4  | Partial         | Classic `phase6.spec.ts`                                                                                         | Workbench                                                                                     | M      |
+| S5  | Done (verified) | `ui/RailKitPanels.tsx` `IssuesList`; `wb-phase3.spec.ts`                                                         |                                                                                               |        |
+| U1  | Done (verified) | `workbench.spec.ts`                                                                                              |                                                                                               |        |
+| U2  | Done (verified) | `wb-phase2.spec.ts`                                                                                              |                                                                                               |        |
+| U3  | Done (verified) | `wb-phase2.spec.ts`, `wb-phase6.spec.ts`                                                                         |                                                                                               |        |
+| U4  | Done (verified) | `wbState.test.ts`                                                                                                |                                                                                               |        |
+| U5  | Partial         | `scene/SceneEnvironment.tsx`                                                                                     | ambient occlusion                                                                             | M      |
+| U6  | Done (verified) | `ui/PartWizard.tsx`; `wb-phase2.spec.ts`                                                                         |                                                                                               |        |
+| U7  | Partial         | BOM tab; Classic `src/reports/*`, `phase7.spec.ts`                                                               | all `out.*` placeholders                                                                      | L      |
 
 ## 7. Walk-through status
 
-- **A**: each step works separately (zinc, tilt 15°, typed rows, rails, cut, splice, 2 × 4, clamps, BOM). First failure: 3.6 m and 2.1 m rails (stock is in feet). Rail spacing is not derived from clamping zones. The sequence on zinc with tilt legs has no test.
-- **B**: look and structure change. First failure: hardware does not swap, no issue, BOM unchanged (`surface.setType` in `wbCommands.ts`). Classic has `src/model/swap.ts`.
-- **C**: wall, inverter, battery, trunking, 2-in-2-out kit, battery disconnect kit mount. First failure: no 4-in-2-out box. Only DIN boxes open.
-- **D**: fails at step one: no standalone wire, cut or MC4 ends. Series connection refused. No circuit status.
-- **E**: nothing in the Workbench; Classic computes these for its own project model.
+- **A**: steps work separately, 3.6 m and 2.1 m rails included. First failure: rail spacing not derived from clamping zones; no end-to-end test.
+- **B**: zinc → tile swaps L-feet for tile hooks in one card, BOM follows: pass (`wb-phase10.spec.ts`). First failure: rails and tilt legs are not re-checked for the new roof.
+- **C**: wall, inverter, battery, trunking, kits and a built 4-in-2-out box mount. First failure: only DIN boxes open; no end-to-end test.
+- **D**: series, MC4 mating, OPEN → CLOSED, wrong fitting re-opens: pass (`wb-phase9.spec.ts`, fixture `e2e/fixtures/walkthrough-d.json`). First failure: no free-ended wire or typed cut length.
+- **E**: string Voc/Vmp/Isc only; no simulation in the Workbench (Classic has it).
 
 ## 8. Test status
 
-- Unit: 614 pass, 0 fail (engine 307, catalog 17, web 290). Engine coverage 98.4 % statements, 93.0 % branches; web not measured.
+- Unit: 628 pass, 0 fail (engine 315, catalog 17, web 296). Engine coverage 98.5 % statements, 93.2 % branches.
 - E2E: 93 pass, 0 fail (laptop + tablet projects)
-- Covered: surfaces, attachment, rails, modules, clamps, edit tools, kits, covers, drag, wiring rules, rows, alignment, migrations, units, axe.
-- Not covered: frame rate; walk-throughs A–E; 3D components except through E2E.
+- Covered: surfaces, mounting, edit tools, kits, covers, drag, wiring, strings and circuit status, migrations, units, axe.
+- Not covered: frame rate; walk-throughs A, B, C, E.
 
 ## 9. Known bugs and fragile areas
 
-- `packages/engine/src/wiring/rules.ts:69` rejects unlike polarities: modules cannot be strung in series.
+- The circuit tracer assumes every breaker and isolator is ON (no switch state).
+- Wires between module leads lie under the modules; hard to see in 3D.
 - `state/railToolActions.ts:57` checks the lock of `node-surface-1` only.
-- Roof-type change leaves hardware unvalidated.
-- E2E tests clicking by screen position (`e2e/phase2.spec.ts:105`) fail intermittently under full-suite load, pass alone.
-- Schema bump: migration in `wbFile.ts` plus the `schemaVersion` literal in `e2e/workbench.spec.ts`.
-- Terminal dots (HTML) overlap when zoomed out; use the Wire bar's From/To lists.
+- Screen-position clicks (`e2e/phase2.spec.ts:105`) and toast checks (`wb-phase3.spec.ts:46`) are flaky under load.
 - Constants, not maths: wire slack 10 % + 150 mm per end (`config/wireColors.ts`); 60 mm stub (`engine/wiring/route.ts`); DIN geometry (`model/enclosureGeom.ts`); typed `tilt.moduleSlopeMm`; snap tolerances (`engine/assembly/attach.ts`).
-- All catalog data `verified: false`; terminal positions are placeholders.
-- `pnpm dev` first load logs 25× React "Attempted to synchronously unmount a root while React was already rendering"; source not located, E2E unaffected.
-- Large: `commandRegistry.ts` (1,595 lines), `workbench.css` (2,261).
+- Catalog data `verified: false`; terminal positions are placeholders.
+- `pnpm dev` first load logs 25× React "synchronously unmount a root while React was already rendering"; source not located.
 
 ## 10. Conventions
 
 - Surface frame: **x across** (rail direction), **z down the slope**, **y** normal. World: x east, **y up**, z south. Walls: surfaces at pitch 90° with `originM`.
 - Doc: metres, degrees (`rotDeg` about the normal; a rail runs along (cos, sin)). Catalog: unit suffixes (`lengthMm`, `vocV`).
-- Ids: parts `p1…`, nodes `node-<partId>`, surfaces `surface-N`.
+- Ids: `p1…`, `node-<partId>`, `surface-N`.
 - Physics only in `packages/engine`. Never fake a value: show "not available", add to `TODO.md`.
 - New part: generator in `packages/catalog/scripts/` → `src/data/*.json`, `verified: false`, row in `VERIFY.md`; optional glb (`tools/blender/parts/`). New category: `schema/common.ts`, `model/partInfo.ts`, `folderForCategory` (`wbDoc.ts`).
-- New surface type: `engine/surface/{surface,profiles,structure}.ts`, `assembly/attach.ts`; web `scene/textureGen.ts`, `materials.ts`, `SurfaceBody.tsx`, `TYPE_ICON` (`commandRegistry.ts`).
+- New surface type: `engine/surface/*`, `assembly/attach.ts`, `scene/textureGen.ts`, `SurfaceBody.tsx`, `TYPE_ICON`.
 - New command: once in `commandRegistry.ts`, with `disabledReason` when disabled.
-- Logs: `DECISIONS.md` (D-001…D-158), `VERIFY.md`, `TODO.md`, `PLAN.md`.
-- Prettier, ESLint; screenshots via `wbShot()` (`e2e/shots.ts`, `WB_PHASE`).
+- Logs: `DECISIONS.md` (D-001…D-162), `VERIFY.md`, `TODO.md`, `PLAN.md`.
 
 ## 11. Suggested next three slices
 
-1. **Strings (K3, K4, start of K5 and S1).** Allow + to − between MC4 leads with the gender rule; nets from wires; string Voc, Vmp, Isc against limits. Touch: `engine/wiring/rules.ts`, `engine/ports/compat.ts`, new `workbench/model/circuitKit.ts` (`engine/graph/unionFind.ts`, `engine/strings/stringSizing.ts`), `model/issues.ts`, `ui/WirePanels.tsx`.
-2. **Combiner Builder and presets (C1, C2, C4).** `buildCombiner({inputs, outputs, protection, spd})`; seven presets; IN1+/OUT1+ labels; port-count tests. Touch: `config/kits.ts`, `model/kits.ts`, `ui/KitPanels.tsx`, `kits.test.ts`.
-3. **Close walk-throughs A and B (M3, M4, M5).** Metric and user-defined stock; hardware swap on roof change; Align, Distribute; inverse tilt; Playwright A and B. Touch: `packages/catalog/scripts/p6_modules_rails.py`, `ui/RailToolBar.tsx`, `state/wbCommands.ts`, `model/footRows.ts`, `commandRegistry.ts`, `engine/mounting/tilt.ts`, `ui/PartPanels.tsx`.
+1. **Free wire and simulate (K1, S3, S4; D, E).** Wire with a free end and typed cut length; Workbench adapter to `engine/sim/simulate.ts` for a day and a year. Touch: `state/wireActions.ts`, `state/wbDoc.ts` (schema 8), new `model/simKit.ts`, `ui/BottomPanel.tsx`.
+2. **Sizing in the Workbench (S1, C5).** Wire size, voltage drop, OCPD from the traced strings; combiner ratings from string Isc. Touch: `model/circuitKit.ts`, `model/combinerBuilder.ts`, `engine/conductors/`, `engine/protection/ocpd.ts`.
+3. **Mounting maths (M3, M4, M8).** Rail spacing from clamping zones, inverse tilt, Align/Distribute, weight and uplift. Touch: `engine/mounting/tilt.ts`, `model/footRows.ts`, `ui/PartPanels.tsx`, `commandRegistry.ts`.

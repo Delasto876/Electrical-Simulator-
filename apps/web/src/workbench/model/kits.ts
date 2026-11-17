@@ -1,5 +1,11 @@
 import { dinProblem } from "@solar-sim/engine";
 import { KITS, type Kit } from "../../config/kits";
+import {
+  buildCombiner,
+  COMBINER_PREFIX,
+  COMBINER_PRESETS,
+  parseCombinerId,
+} from "./combinerBuilder";
 import { folderForCategory, type WbDoc } from "../state/wbDoc";
 import type { WbCommand } from "../state/wbCommands";
 import { partInfo } from "./partInfo";
@@ -14,11 +20,19 @@ export const KIT_PREFIX = "kit:";
 export const isKitId = (id: string): boolean => id.startsWith(KIT_PREFIX);
 export const kitCardId = (k: Kit): string => `${KIT_PREFIX}${k.id}`;
 
-const byId = new Map(KITS.map((k) => [k.id, k]));
+const PRESETS: Kit[] = COMBINER_PRESETS.map((o) => buildCombiner(o)).filter((k): k is Kit => !!k);
+const ALL: readonly Kit[] = [...KITS, ...PRESETS];
+const byId = new Map(ALL.map((k) => [k.id, k]));
+/** A kit by id; a combiner id (`pvc-…`) not in the list is built from its options. */
 export function kitOf(id: string): Kit | undefined {
-  return byId.get(isKitId(id) ? id.slice(KIT_PREFIX.length) : id);
+  const key = isKitId(id) ? id.slice(KIT_PREFIX.length) : id;
+  const hit = byId.get(key);
+  if (hit) return hit;
+  if (!key.startsWith(COMBINER_PREFIX)) return undefined;
+  const o = parseCombinerId(key);
+  return o ? buildCombiner(o) : undefined;
 }
-export const kitList = (): readonly Kit[] => KITS;
+export const kitList = (): readonly Kit[] => ALL;
 
 /** Every reason a kit cannot be built: unknown parts, a device that is not a DIN device, no room. */
 export function kitProblems(k: Kit): string[] {
@@ -69,7 +83,8 @@ export function kitCommand(doc: WbDoc, k: Kit, place: WbCommand): WbCommand | un
         Object.values(doc.parts).filter((p) => p.catalogId === d.catalogId).length) + 1;
     count.set(d.catalogId, n);
     const id = next();
-    const label = info.label.length > 34 ? `${info.label.slice(0, 33)}…` : info.label;
+    const short = info.label.length > 34 ? `${info.label.slice(0, 33)}…` : info.label;
+    const label = d.label ? `${d.label} · ${short.split(",")[0]}` : short;
     return {
       part: {
         id,
@@ -81,7 +96,7 @@ export function kitCommand(doc: WbDoc, k: Kit, place: WbCommand): WbCommand | un
         mount: { enclosureId: enc.id, row: d.row, slot: d.slot },
         free: enc.free,
       },
-      name: `${label} ${n}`,
+      name: d.label ? label : `${label} ${n}`,
       nodeId: `node-${id}`,
       folderId: folderForCategory("din-device"),
     };

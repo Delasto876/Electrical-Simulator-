@@ -123,6 +123,7 @@ import { coverSelection, isCoverOpen, selectedEnclosures } from "./coverActions"
 import { kitCardId, kitList } from "../model/kits";
 import { SURFACE_ID, SURFACE_NODE_ID } from "./wbDoc";
 import { currentDoc, useWb } from "./wbStore";
+import { roofTypeCommand } from "../model/roofSwap";
 import {
   DISPLAY_MODE_LABEL,
   DISPLAY_MODES,
@@ -266,7 +267,7 @@ for (const t of SURFACE_TYPES)
     pressed: () => surface().type === t,
     disabled: lockedReason,
     run: () => {
-      useWb.getState().dispatch({ type: "surface.setType", id: activeSurfaceId(), surfaceType: t });
+      useWb.getState().dispatch(roofTypeCommand(currentDoc(), activeSurfaceId(), t));
     },
   });
 

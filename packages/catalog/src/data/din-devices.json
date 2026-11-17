@@ -1697,5 +1697,181 @@
       "polaritySensitive": false,
       "residualMa": null
     }
+  },
+  {
+    "id": "generic-din-busbar-dc-2way",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC busbar terminal block 2P, 2 way per pole, 125 A 1000 V DC",
+    "dimensions": {
+      "lengthMm": 36,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.22,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing. Joins up to 2 conductors per pole; width and rating typical, not checked (VERIFY).",
+    "price": {
+      "amount": 10,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["terminal-block", "busbar", "combiner", "2 way"],
+    "ports": [
+      {
+        "id": "p1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 1",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n1",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 1",
+        "polarity": "-",
+        "group": "bus-"
+      },
+      {
+        "id": "p2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 2",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n2",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 2",
+        "polarity": "-",
+        "group": "bus-"
+      }
+    ],
+    "protection": {
+      "kind": "terminal-block",
+      "poles": 2,
+      "modules": 2,
+      "ratedCurrentA": 125,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 10,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
+  },
+  {
+    "id": "generic-din-busbar-dc-4way",
+    "category": "din-device",
+    "brand": "Generic",
+    "model": "DC busbar terminal block 2P, 4 way per pole, 125 A 1000 V DC",
+    "dimensions": {
+      "lengthMm": 72,
+      "widthMm": 70,
+      "heightMm": 90
+    },
+    "weightKg": 0.44,
+    "verified": false,
+    "notes": "Generic representative placeholder, not manufacturer data. Check the product's datasheet and listing. Joins up to 4 conductors per pole; width and rating typical, not checked (VERIFY).",
+    "price": {
+      "amount": 14,
+      "currency": "USD",
+      "unit": "each"
+    },
+    "tags": ["terminal-block", "busbar", "combiner", "4 way"],
+    "ports": [
+      {
+        "id": "p1",
+        "type": "dc-terminal",
+        "position": [-0.027, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 1",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n1",
+        "type": "dc-terminal",
+        "position": [-0.027, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 1",
+        "polarity": "-",
+        "group": "bus-"
+      },
+      {
+        "id": "p2",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 2",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n2",
+        "type": "dc-terminal",
+        "position": [-0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 2",
+        "polarity": "-",
+        "group": "bus-"
+      },
+      {
+        "id": "p3",
+        "type": "dc-terminal",
+        "position": [0.009, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 3",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n3",
+        "type": "dc-terminal",
+        "position": [0.009, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 3",
+        "polarity": "-",
+        "group": "bus-"
+      },
+      {
+        "id": "p4",
+        "type": "dc-terminal",
+        "position": [0.027, 0.085, -0.02],
+        "direction": [0, 1, 0],
+        "label": "+ 4",
+        "polarity": "+",
+        "group": "bus+"
+      },
+      {
+        "id": "n4",
+        "type": "dc-terminal",
+        "position": [0.027, 0.005, -0.02],
+        "direction": [0, -1, 0],
+        "label": "− 4",
+        "polarity": "-",
+        "group": "bus-"
+      }
+    ],
+    "protection": {
+      "kind": "terminal-block",
+      "poles": 2,
+      "modules": 4,
+      "ratedCurrentA": 125,
+      "voltageRatingAcV": null,
+      "voltageRatingDcV": 1000,
+      "breakingCapacityKa": 10,
+      "curve": null,
+      "polaritySensitive": false,
+      "residualMa": null
+    }
   }
 ]

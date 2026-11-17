@@ -4,6 +4,8 @@ import {
   EDGE_STYLES,
   SURFACE_TYPES,
   TILE_COLORS,
+  WIRE_END_KINDS,
+  type WireEndKind,
   type SurfaceSpec,
   type SurfaceType,
 } from "@solar-sim/engine";
@@ -14,7 +16,7 @@ import {
  * the empty starting document. Change the shape → bump WB_SCHEMA_VERSION and
  * add a migration in wbFile.ts (never edit a released one).
  */
-export const WB_SCHEMA_VERSION = 6;
+export const WB_SCHEMA_VERSION = 7;
 
 export const TAG_COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "grey"] as const;
 export type TagColor = (typeof TAG_COLORS)[number];
@@ -69,6 +71,8 @@ export interface PlacedPart {
 export interface WireEnd {
   partId: string;
   portId: string;
+  /** What is fitted on this end (schema 7). Absent = the half that mates with the terminal. */
+  end?: WireEndKind;
 }
 
 export interface WireInfo {
@@ -155,6 +159,15 @@ export interface TiltSettings {
   railHeightMm: number;
 }
 
+/** Design temperatures for string voltages (user inputs, not physics constants). */
+export interface SiteSettings {
+  /** Record low ambient [°C]: sets cold-morning Voc. */
+  minAmbientC: number;
+  /** Design high ambient [°C]: sets hot-day Vmp. */
+  maxAmbientC: number;
+}
+export const DEFAULT_SITE: SiteSettings = { minAmbientC: -10, maxAmbientC: 40 };
+
 export const DEFAULT_TILT: TiltSettings = {
   tiltDeg: 15,
   moduleSlopeMm: 1722,
@@ -174,6 +187,8 @@ export interface WbDoc {
   guides: Guide[];
   measurements: Measurement[];
   tilt: TiltSettings;
+  /** Design temperatures (schema 7). */
+  site: SiteSettings;
   /** Stock rails bought (one per rail placed new). */
   stock: StockPiece[];
   /** Offcut pool. */
@@ -240,8 +255,16 @@ export const PlacedPartSchema = z.object({
   module: z.object({ orientation: z.enum(["portrait", "landscape"]) }).optional(),
   wire: z
     .object({
-      a: z.object({ partId: z.string(), portId: z.string() }),
-      b: z.object({ partId: z.string(), portId: z.string() }),
+      a: z.object({
+        partId: z.string(),
+        portId: z.string(),
+        end: z.enum(WIRE_END_KINDS).optional(),
+      }),
+      b: z.object({
+        partId: z.string(),
+        portId: z.string(),
+        end: z.enum(WIRE_END_KINDS).optional(),
+      }),
       racewayId: z.string().nullable(),
       color: z
         .string()
@@ -278,6 +301,13 @@ export const TiltSettingsSchema = z.object({
   railHeightMm: z.number().positive(),
 });
 
+export const SiteSettingsSchema = z
+  .object({
+    minAmbientC: z.number().min(-60).max(40),
+    maxAmbientC: z.number().min(0).max(60),
+  })
+  .refine((s) => s.minAmbientC < s.maxAmbientC, "The low must be below the high.");
+
 export const WbDocSchema = z.object({
   schemaVersion: z.literal(WB_SCHEMA_VERSION),
   name: z.string().min(1).max(120),
@@ -288,6 +318,7 @@ export const WbDocSchema = z.object({
   guides: z.array(GuideSchema),
   measurements: z.array(MeasurementSchema),
   tilt: TiltSettingsSchema,
+  site: SiteSettingsSchema,
   stock: z.array(StockPieceSchema),
   offcuts: z.array(OffcutSchema),
 });
@@ -357,6 +388,7 @@ export function newDoc(type: SurfaceType = "plain", name = "Untitled workbench")
     guides: [],
     measurements: [],
     tilt: { ...DEFAULT_TILT },
+    site: { ...DEFAULT_SITE },
     stock: [],
     offcuts: [],
   };

@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 7,
+  "app": "solar-workbench",
+  "snapshot": {
+    "initial": {
+      "schemaVersion": 7,
+      "name": "Walk-through D",
+      "surfaces": {
+        "surface-1": {
+          "type": "plain",
+          "widthM": 12,
+          "depthM": 8,
+          "pitchDeg": 0,
+          "azimuthDeg": 180,
+          "thicknessMm": 20,
+          "edge": "square",
+          "showStructure": false,
+          "secondPlane": {
+            "enabled": false,
+            "foldDeg": -30
+          },
+          "corrugation": {
+            "pitchMm": 76,
+            "depthMm": 19
+          },
+          "tileColor": "slate"
+        }
+      },
+      "nodes": {
+        "node-work-surface": {
+          "parentId": null,
+          "children": ["node-surface-1"],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-work-surface",
+          "name": "Work Surface",
+          "kind": "folder"
+        },
+        "node-surface-1": {
+          "parentId": "node-work-surface",
+          "children": [],
+          "surfaceId": "surface-1",
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-surface-1",
+          "name": "Surface 1",
+          "kind": "surface"
+        },
+        "node-components": {
+          "parentId": null,
+          "children": [
+            "node-rails",
+            "node-lfeet",
+            "node-modules",
+            "node-clamps",
+            "node-devices",
+            "node-wires",
+            "node-raceways"
+          ],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-components",
+          "name": "Components",
+          "kind": "folder"
+        },
+        "node-rails": {
+          "parentId": "node-components",
+          "children": [],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-rails",
+          "name": "Rails",
+          "kind": "category"
+        },
+        "node-lfeet": {
+          "parentId": "node-components",
+          "children": [],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-lfeet",
+          "name": "L-Feet",
+          "kind": "category"
+        },
+        "node-modules": {
+          "parentId": "node-components",
+          "children": ["node-m1", "node-m2", "node-m3", "node-m4", "node-m5"],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-modules",
+          "name": "Modules",
+          "kind": "category"
+        },
+        "node-clamps": {
+          "parentId": "node-components",
+          "children": [],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-clamps",
+          "name": "Clamps",
+          "kind": "category"
+        },
+        "node-devices": {
+          "parentId": "node-components",
+          "children": ["node-inv1"],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-devices",
+          "name": "Devices",
+          "kind": "category"
+        },
+        "node-wires": {
+          "parentId": "node-components",
+          "children": [],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-wires",
+          "name": "Wires",
+          "kind": "category"
+        },
+        "node-raceways": {
+          "parentId": "node-components",
+          "children": [],
+          "surfaceId": null,
+          "partId": null,
+          "visible": true,
+          "locked": false,
+          "color": null,
+          "id": "node-raceways",
+          "name": "Trunking & conduit",
+          "kind": "category"
+        },
+        "node-m1": {
+          "id": "node-m1",
+          "name": "Module 1",
+          "kind": "part",
+          "parentId": "node-modules",
+          "children": [],
+          "surfaceId": null,
+          "partId": "m1",
+          "visible": true,
+          "locked": false,
+          "color": null
+        },
+        "node-m2": {
+          "id": "node-m2",
+          "name": "Module 2",
+          "kind": "part",
+          "parentId": "node-modules",
+          "children": [],
+          "surfaceId": null,
+          "partId": "m2",
+          "visible": true,
+          "locked": false,
+          "color": null
+        },
+        "node-m3": {
+          "id": "node-m3",
+          "name": "Module 3",
+          "kind": "part",
+          "parentId": "node-modules",
+          "children": [],
+          "surfaceId": null,
+          "partId": "m3",
+          "visible": true,
+          "locked": false,
+          "color": null
+        },
+        "node-m4": {
+          "id": "node-m4",
+          "name": "Module 4",
+          "kind": "part",
+          "parentId": "node-modules",
+          "children": [],
+          "surfaceId": null,
+          "partId": "m4",
+          "visible": true,
+          "locked": false,
+          "color": null
+        },
+        "node-m5": {
+          "id": "node-m5",
+          "name": "Module 5",
+          "kind": "part",
+          "parentId": "node-modules",
+          "children": [],
+          "surfaceId": null,
+          "partId": "m5",
+          "visible": true,
+          "locked": false,
+          "color": null
+        },
+        "node-inv1": {
+          "id": "node-inv1",
+          "name": "Inverter",
+          "kind": "part",
+          "parentId": "node-devices",
+          "children": [],
+          "surfaceId": null,
+          "partId": "inv1",
+          "visible": true,
+          "locked": false,
+          "color": null
+        }
+      },
+      "rootIds": ["node-work-surface", "node-components"],
+      "parts": {
+        "m1": {
+          "id": "m1",
+          "catalogId": "generic-pv-550w-144hc",
+          "surfaceId": "surface-1",
+          "x": 2,
+          "z": 2.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true,
+          "module": {
+            "orientation": "portrait"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "catalogId": "generic-pv-550w-144hc",
+          "surfaceId": "surface-1",
+          "x": 3.2,
+          "z": 2.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true,
+          "module": {
+            "orientation": "portrait"
+          }
+        },
+        "m3": {
+          "id": "m3",
+          "catalogId": "generic-pv-550w-144hc",
+          "surfaceId": "surface-1",
+          "x": 4.4,
+          "z": 2.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true,
+          "module": {
+            "orientation": "portrait"
+          }
+        },
+        "m4": {
+          "id": "m4",
+          "catalogId": "generic-pv-550w-144hc",
+          "surfaceId": "surface-1",
+          "x": 5.6,
+          "z": 2.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true,
+          "module": {
+            "orientation": "portrait"
+          }
+        },
+        "m5": {
+          "id": "m5",
+          "catalogId": "generic-pv-550w-144hc",
+          "surfaceId": "surface-1",
+          "x": 6.8,
+          "z": 2.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true,
+          "module": {
+            "orientation": "portrait"
+          }
+        },
+        "inv1": {
+          "id": "inv1",
+          "catalogId": "generic-hybrid-6k-48v-230v",
+          "surfaceId": "surface-1",
+          "x": 3,
+          "z": 6.5,
+          "rotDeg": 0,
+          "mount": null,
+          "free": true
+        }
+      },
+      "guides": [],
+      "measurements": [],
+      "tilt": {
+        "tiltDeg": 15,
+        "moduleSlopeMm": 1722,
+        "clearanceMm": 300,
+        "railInsetMm": 400,
+        "railHeightMm": 45
+      },
+      "site": {
+        "minAmbientC": -10,
+        "maxAmbientC": 40
+      },
+      "stock": [],
+      "offcuts": []
+    },
+    "commands": [],
+    "cursor": 0
+  },
+  "customParts": []
+}
