@@ -62,11 +62,20 @@ export function roofTypeCommand(doc: WbDoc, surfaceId: string, type: SurfaceType
     const hw = hardwareFor(type);
     if (!hw) continue;
     const snap = checkAttachment(next, hw.ruleId, p.x, p.z);
+    // the Browser name follows the hardware: "L-foot 80 mm … 3" → "Tile hook, adjustable 3"
+    const node = Object.values(doc.nodes).find((n) => n.partId === p.id);
+    const oldLabel = partInfo(p.catalogId)?.label ?? "";
+    const newLabel = partInfo(hw.catalogId)?.label ?? hw.catalogId;
+    const name =
+      node && oldLabel && node.name.startsWith(oldLabel)
+        ? `${newLabel}${node.name.slice(oldLabel.length)}`
+        : undefined;
     swaps.push({
       type: "part.swap",
       id: p.id,
       catalogId: hw.catalogId,
       ...(snap.valid ? { x: snap.x, z: snap.z } : {}),
+      ...(name ? { name } : {}),
     });
   }
   if (!swaps.length) return set;

@@ -12,8 +12,8 @@ Node 22.23.4 (`engines >=22`), pnpm 10.28.0. Run from the repo root.
 - `pnpm install --frozen-lockfile`: ok.
 - `pnpm dev` → http://localhost:5173 (Classic `/#/classic`): ok, `docs/screenshots/handoff-current.png`.
 - `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm build`: pass.
-- `pnpm test`: 628/628. `pnpm coverage` (engine, threshold 90 %): 98.5 %.
-- `pnpm e2e -- --trace off` (preview :4173, rewrites `docs/screenshots/`): 93/93 pass (laptop + tablet, 16.6 min)
+- `pnpm test`: 637/637. `pnpm coverage` (engine, threshold 90 %): 98.5 %.
+- `pnpm e2e -- --trace off` (preview :4173, rewrites `docs/screenshots/`): 93 pass, 1 flaky (19.9 min)
 - `pnpm build:artifact` → `apps/web/dist-artifact/`: not re-run.
 
 Run `pkill -f "vite.js preview"` before E2E (a stale server is reused).
@@ -137,8 +137,8 @@ Statuses: Done (verified) 10 · Done (not verified) 0 · Partial 23 · Missing 1
 
 ## 8. Test status
 
-- Unit: 628 pass, 0 fail (engine 315, catalog 17, web 296). Engine coverage 98.5 % statements, 93.2 % branches.
-- E2E: 93 pass, 0 fail (laptop + tablet projects)
+- Unit: 637 pass, 0 fail. Engine coverage 98.5 % statements, 93.2 % branches.
+- E2E: 93 pass, 1 flaky (`wb-phase3`, passes alone), 1 skipped; new `wb-phase9`, `wb-phase10` pass.
 - Covered: surfaces, mounting, edit tools, kits, covers, drag, wiring, strings and circuit status, migrations, units, axe.
 - Not covered: frame rate; walk-throughs A, B, C, E.
 

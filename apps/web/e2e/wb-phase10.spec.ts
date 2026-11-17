@@ -14,7 +14,8 @@ test("build a 4-in 2-out combiner, preview its layout, place it; presets are in 
 }, info) => {
   test.skip(info.project.name !== "laptop", "laptop only");
   await open(page);
-  await page.getByTestId("libgroup-kits").click();
+  const head = page.getByTestId("libgroup-kits");
+  if ((await head.getAttribute("aria-expanded")) !== "true") await head.click();
   const lib = page.getByTestId("library-kits");
   // seven presets next to the hand-made boxes
   await expect(lib.locator('[data-testid^="card-pvc-"]')).toHaveCount(7);
@@ -70,14 +71,18 @@ test("walk-through B: zinc → tile swaps the L-foot for a tile hook in one card
 
   await page.getByTestId("node-node-surface-1").click();
   await page.locator("#prop-type").selectOption("tile");
+  await page.getByTestId("btab-timeline").click();
   await expect(
     page.getByTestId("timeline").locator('[data-testid^="tcard-"]').last(),
   ).toContainText("swap 1 attachment");
   await page.getByTestId("btab-bom").click();
   await expect(page.getByTestId("bom")).toContainText("Tile hook");
   await expect(page.getByTestId("bom")).not.toContainText("L-foot 80 mm");
+  await expect(page.getByRole("treeitem", { name: /^Tile hook/ })).toBeVisible();
   await page.getByTestId("btab-issues").click();
-  await expect(page.getByRole("tabpanel")).not.toContainText("does not attach");
+  await expect(page.locator('[aria-labelledby="btab-issues"]')).not.toContainText(
+    "does not attach",
+  );
 
   // the Rail tool offers 3.6 m and 2.1 m sticks and takes a typed length
   await page.getByTestId("ribbon-tab-mount").click();

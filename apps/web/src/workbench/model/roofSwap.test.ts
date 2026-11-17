@@ -40,6 +40,10 @@ describe("roof type swap (walk-through B)", () => {
     const feet = Object.values(doc.parts);
     expect(feet.map((p) => p.catalogId)).toEqual(["generic-tile-hook", "generic-tile-hook"]);
     expect(attachmentIssues(doc)).toEqual([]);
+    const names = Object.values(doc.nodes)
+      .filter((n) => n.partId)
+      .map((n) => n.name);
+    expect(names.every((n) => n.startsWith("Tile hook"))).toBe(true);
     const bom = bomOf(doc);
     expect(bom.some((r) => r.label.toLowerCase().includes("tile hook"))).toBe(true);
     expect(bom.some((r) => r.label.includes("L-foot"))).toBe(false);

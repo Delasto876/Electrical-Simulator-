@@ -60,6 +60,7 @@ const BaseCommandSchema = z.discriminatedUnion("type", [
     catalogId: z.string(),
     x: z.number().optional(),
     z: z.number().optional(),
+    name: z.string().optional(),
   }),
   z.object({
     type: z.literal("site.update"),

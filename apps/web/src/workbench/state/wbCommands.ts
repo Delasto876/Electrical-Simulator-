@@ -38,7 +38,7 @@ export type WbCommand =
   | { type: "part.rotate"; id: string; rotDeg: number }
   | { type: "part.delete"; id: string }
   /** Replace a part's catalog item (keeping its id, node and wiring), optionally moving it. */
-  | { type: "part.swap"; id: string; catalogId: string; x?: number; z?: number }
+  | { type: "part.swap"; id: string; catalogId: string; x?: number; z?: number; name?: string }
   /** A wire between two terminals (or a trunking/conduit run): a placed part with its own node. */
   | { type: "wire.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
   | { type: "raceway.add"; part: PlacedPart; name: string; nodeId: string; folderId: string }
@@ -343,6 +343,8 @@ export function applyCommand(doc: WbDoc, c: WbCommand): WbDoc {
         q.catalogId = c.catalogId;
         if (c.x !== undefined) q.x = c.x;
         if (c.z !== undefined) q.z = c.z;
+        const node = c.name ? Object.values(d.nodes).find((n) => n.partId === c.id) : undefined;
+        if (node && c.name) node.name = c.name.slice(0, 80);
       });
     }
     case "node.rename": {
